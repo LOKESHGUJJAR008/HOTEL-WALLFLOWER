@@ -76,11 +76,11 @@
 
     <div class="mobile-nav-contact">
       <div class="mobile-contact-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
         <span>+91 98290 12345</span>
       </div>
       <div class="mobile-contact-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
         <span>Jhalawar Road, Near City Mall, Kota</span>
       </div>
     </div>
@@ -91,14 +91,19 @@
        ========================================================================== -->
   <main>
     <section class="hero-section" id="hero">
-      <div class="hero-bg-media">
-        <img src="assets/images/hotel-hero.jpg" alt="Hotel Wallflower Exterior Twilight Entrance Kota">
+      <div class="hero-bg-media" id="hero-bg-media">
+        <img src="assets/images/hotel-hero-pool.png" alt="Hotel Wallflower Exterior Twilight Infinity Pool Kota" id="hero-img">
       </div>
       <div class="hero-overlay"></div>
 
-      <div class="container hero-content">
+      <!-- Watermark Background: Bold Italic Transparent Word "WALLFLOWER HOTEL" -->
+      <div class="hero-watermark" id="hero-watermark" aria-hidden="true">
+        <span class="hero-watermark-text" id="hero-watermark-text">WALLFLOWER HOTEL</span>
+      </div>
+
+      <div class="container hero-content" id="hero-content">
         <div class="hero-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#D4AF37"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           Kota's Premier Boutique Sanctuary
         </div>
 
@@ -240,14 +245,302 @@
     <section class="section bg-secondary" id="featured-rooms">
       <div class="container">
         <div class="section-header">
-          <span class="section-label">Boutique Accommodations</span>
-          <h2 class="section-title">Featured Rooms & Suites</h2>
+          <span class="section-label">⚡ Kinetic Suite Accelerator</span>
+          <h2 class="section-title">Kinetic Rooms & Suites Showcase</h2>
           <p class="section-subtitle">
-            Tailored for relaxation, academic focus, and luxury travel in Kota. Each room combines plush bedding, dedicated work desks, high-speed fiber internet, and bespoke amenities.
+            Engage the high-velocity accelerator to explore our boutique rooms. Featuring live speedometer telemetry, scanning laser graphics, and instantaneous booking.
           </p>
         </div>
 
-        <div class="rooms-grid">
+        <!-- Room Hyper-Accelerator Console & Motion Graphics HUD -->
+        <div class="room-accelerator-wrapper" id="room-accelerator-module">
+          <!-- Cockpit HUD Bar -->
+          <div class="accelerator-hud-panel" role="region" aria-label="Room Accelerator Telemetry Console">
+            <!-- Left: Speedometer & LED Tachometer -->
+            <div class="hud-speedometer">
+              <div class="hud-speed-gauge">
+                <div class="hud-speed-label">Velocity Meter</div>
+                <div class="hud-speed-number">
+                  <span id="accel-speed-val">80</span>
+                  <span>KM/H</span>
+                </div>
+                <div class="hud-led-bar" id="accel-led-bar">
+                  <div class="hud-led-segment active"></div>
+                  <div class="hud-led-segment active"></div>
+                  <div class="hud-led-segment active"></div>
+                  <div class="hud-led-segment active"></div>
+                  <div class="hud-led-segment active"></div>
+                  <div class="hud-led-segment active"></div>
+                  <div class="hud-led-segment active"></div>
+                  <div class="hud-led-segment active"></div>
+                  <div class="hud-led-segment"></div>
+                  <div class="hud-led-segment"></div>
+                  <div class="hud-led-segment"></div>
+                  <div class="hud-led-segment"></div>
+                  <div class="hud-led-segment"></div>
+                  <div class="hud-led-segment"></div>
+                  <div class="hud-led-segment"></div>
+                  <div class="hud-led-segment"></div>
+                  <div class="hud-led-segment"></div>
+                  <div class="hud-led-segment"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Center: Interactive Accelerator Controls -->
+            <div class="hud-controls">
+              <button type="button" class="accel-gear-btn" data-gear="1" data-speed="40" aria-label="Cruise Mode 40 KM/H">01 Cruise (40)</button>
+              <button type="button" class="accel-gear-btn active" data-gear="2" data-speed="80" aria-label="Sport Mode 80 KM/H">02 Sport (80)</button>
+              <button type="button" class="accel-gear-btn" data-gear="3" data-speed="160" aria-label="Hyper Mode 160 KM/H">03 Hyper (160)</button>
+              
+              <!-- Push Accelerator Button (Hold or Click) -->
+              <button type="button" class="accel-pedal-btn" id="accel-pedal" title="Hold or Click to Accelerate!">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                <span>PUSH ACCELERATOR</span>
+              </button>
+
+              <button type="button" class="accel-brake-btn" id="accel-brake" title="Brake / Pause Accelerator">⏸ BRAKE</button>
+            </div>
+
+            <!-- Right: Telemetry Readouts -->
+            <div class="hud-telemetry">
+              <span>STATUS: <strong id="accel-status-text" style="color: #FFFFFF;">SPORT CRUISE</strong></span>
+              <span>BUFFER: <strong>6 SUITES SYNCED</strong></span>
+              <span>MOTION HUD: <strong>ACTIVE 60FPS</strong></span>
+            </div>
+          </div>
+
+          <!-- Kinetic Viewport & Track -->
+          <div class="room-accelerator-viewport" id="room-accelerator-viewport">
+            <div class="room-accelerator-track" id="room-accelerator-track">
+              <!-- Room 1: Deluxe Executive -->
+              <article class="accel-card" data-room-id="deluxe-executive">
+                <div class="accel-card-media">
+                  <img src="assets/images/room-executive-suite.jpg" alt="Deluxe Executive Room Hotel Wallflower Kota" loading="lazy">
+                  <div class="accel-scanline"></div>
+                  <div class="accel-reticle-tl"></div>
+                  <div class="accel-reticle-tr"></div>
+                  <div class="accel-reticle-bl"></div>
+                  <div class="accel-reticle-br"></div>
+                  <span class="accel-hud-tag">CHAMBER_01 // 300 SQ.FT</span>
+                  <div class="accel-hud-price">₹2,499<small>/nt</small></div>
+                </div>
+                <div class="accel-card-body">
+                  <div class="accel-specs-row">
+                    <span>👥 2 Guests</span>
+                    <span>🛏 1 King Bed</span>
+                    <span>🌆 City View</span>
+                  </div>
+                  <h3 class="accel-card-title">Deluxe Executive Room</h3>
+                  <p class="accel-card-desc">Plush orthopedic bedding, ergonomic workstation, 100 Mbps fiber WiFi, and Italian rain shower.</p>
+                  <div class="accel-features-row">
+                    <span class="accel-feature-pill">Workstation</span>
+                    <span class="accel-feature-pill">Rain Shower</span>
+                    <span class="accel-feature-pill">Free Breakfast</span>
+                  </div>
+                  <div class="accel-card-footer">
+                    <button class="btn-room-details" onclick="openRoomDetailsModal('deluxe-executive')">
+                      Details <span>→</span>
+                    </button>
+                    <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'deluxe-executive' })">
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Room 2: Superior Twin -->
+              <article class="accel-card" data-room-id="superior-twin">
+                <div class="accel-card-media">
+                  <img src="assets/images/room-twin.jpg" alt="Superior Twin Room Hotel Wallflower Kota" loading="lazy">
+                  <div class="accel-scanline"></div>
+                  <div class="accel-reticle-tl"></div>
+                  <div class="accel-reticle-tr"></div>
+                  <div class="accel-reticle-bl"></div>
+                  <div class="accel-reticle-br"></div>
+                  <span class="accel-hud-tag">CHAMBER_02 // 320 SQ.FT</span>
+                  <div class="accel-hud-price">₹2,299<small>/nt</small></div>
+                </div>
+                <div class="accel-card-body">
+                  <div class="accel-specs-row">
+                    <span>👥 2 Guests</span>
+                    <span>🛏 2 Twin Beds</span>
+                    <span>🔇 Soundproof</span>
+                  </div>
+                  <h3 class="accel-card-title">Superior Twin Room</h3>
+                  <p class="accel-card-desc">Engineered for student-parent duos with dual study desks and acoustic noise-canceling double glazing.</p>
+                  <div class="accel-features-row">
+                    <span class="accel-feature-pill">Dual Desks</span>
+                    <span class="accel-feature-pill">Quiet Hours</span>
+                    <span class="accel-feature-pill">Free WiFi</span>
+                  </div>
+                  <div class="accel-card-footer">
+                    <button class="btn-room-details" onclick="openRoomDetailsModal('superior-twin')">
+                      Details <span>→</span>
+                    </button>
+                    <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'superior-twin' })">
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Room 3: Super Deluxe Balcony -->
+              <article class="accel-card" data-room-id="super-deluxe-balcony">
+                <div class="accel-card-media">
+                  <img src="assets/images/room-executive-suite.jpg" alt="Super Deluxe Balcony Room Hotel Wallflower Kota" loading="lazy">
+                  <div class="accel-scanline"></div>
+                  <div class="accel-reticle-tl"></div>
+                  <div class="accel-reticle-tr"></div>
+                  <div class="accel-reticle-bl"></div>
+                  <div class="accel-reticle-br"></div>
+                  <span class="accel-hud-tag">CHAMBER_03 // 380 SQ.FT</span>
+                  <div class="accel-hud-price">₹3,299<small>/nt</small></div>
+                </div>
+                <div class="accel-card-body">
+                  <div class="accel-specs-row">
+                    <span>👥 2-3 Guests</span>
+                    <span>🛏 King + Daybed</span>
+                    <span>🌅 Balcony</span>
+                  </div>
+                  <h3 class="accel-card-title">Super Deluxe Balcony</h3>
+                  <p class="accel-card-desc">Private sit-out balcony overlooking Kota's bustling skyline, plus a plush king bed and mini-chiller.</p>
+                  <div class="accel-features-row">
+                    <span class="accel-feature-pill">Private Balcony</span>
+                    <span class="accel-feature-pill">Mini Chiller</span>
+                    <span class="accel-feature-pill">Free Breakfast</span>
+                  </div>
+                  <div class="accel-card-footer">
+                    <button class="btn-room-details" onclick="openRoomDetailsModal('super-deluxe-balcony')">
+                      Details <span>→</span>
+                    </button>
+                    <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'super-deluxe-balcony' })">
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Room 4: Premium Royal Suite -->
+              <article class="accel-card" data-room-id="premium-royal-suite">
+                <div class="accel-card-media">
+                  <img src="assets/images/room-royal-suite.jpg" alt="Premium Royal Suite Hotel Wallflower Kota" loading="lazy">
+                  <div class="accel-scanline"></div>
+                  <div class="accel-reticle-tl"></div>
+                  <div class="accel-reticle-tr"></div>
+                  <div class="accel-reticle-bl"></div>
+                  <div class="accel-reticle-br"></div>
+                  <span class="accel-hud-tag">CHAMBER_04 // 490 SQ.FT</span>
+                  <div class="accel-hud-price">₹4,499<small>/nt</small></div>
+                </div>
+                <div class="accel-card-body">
+                  <div class="accel-specs-row">
+                    <span>👥 3 Guests</span>
+                    <span>🛏 King + Lounge</span>
+                    <span>👑 VIP Suite</span>
+                  </div>
+                  <h3 class="accel-card-title">Premium Royal Suite</h3>
+                  <p class="accel-card-desc">Lavish living parlor with velvet Chesterfield seating, marble bath, two 55-inch smart TVs and concierge.</p>
+                  <div class="accel-features-row">
+                    <span class="accel-feature-pill">Living Parlor</span>
+                    <span class="accel-feature-pill">Marble Bath</span>
+                    <span class="accel-feature-pill">VIP Welcome</span>
+                  </div>
+                  <div class="accel-card-footer">
+                    <button class="btn-room-details" onclick="openRoomDetailsModal('premium-royal-suite')">
+                      Details <span>→</span>
+                    </button>
+                    <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'premium-royal-suite' })">
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Room 5: Family Luxury Suite -->
+              <article class="accel-card" data-room-id="family-luxury-suite">
+                <div class="accel-card-media">
+                  <img src="assets/images/hotel-lobby.jpg" alt="Family Luxury Suite Hotel Wallflower Kota" loading="lazy">
+                  <div class="accel-scanline"></div>
+                  <div class="accel-reticle-tl"></div>
+                  <div class="accel-reticle-tr"></div>
+                  <div class="accel-reticle-bl"></div>
+                  <div class="accel-reticle-br"></div>
+                  <span class="accel-hud-tag">CHAMBER_05 // 580 SQ.FT</span>
+                  <div class="accel-hud-price">₹5,499<small>/nt</small></div>
+                </div>
+                <div class="accel-card-body">
+                  <div class="accel-specs-row">
+                    <span>👥 4-5 Guests</span>
+                    <span>🛏 2 Bedrooms</span>
+                    <span>👨‍👩‍👧 Family Tier</span>
+                  </div>
+                  <h3 class="accel-card-title">Family Luxury Suite</h3>
+                  <p class="accel-card-desc">Dual interconnected bedrooms, expansive family lounge, dining setup, and personalized service.</p>
+                  <div class="accel-features-row">
+                    <span class="accel-feature-pill">2 Bedrooms</span>
+                    <span class="accel-feature-pill">Dining Table</span>
+                    <span class="accel-feature-pill">Butler Call</span>
+                  </div>
+                  <div class="accel-card-footer">
+                    <button class="btn-room-details" onclick="openRoomDetailsModal('family-luxury-suite')">
+                      Details <span>→</span>
+                    </button>
+                    <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'family-luxury-suite' })">
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Room 6: Presidential Wallflower Suite -->
+              <article class="accel-card" data-room-id="presidential-wallflower-suite">
+                <div class="accel-card-media">
+                  <img src="assets/images/hotel-hero-pool.png" alt="Presidential Wallflower Suite Hotel Wallflower Kota" loading="lazy">
+                  <div class="accel-scanline"></div>
+                  <div class="accel-reticle-tl"></div>
+                  <div class="accel-reticle-tr"></div>
+                  <div class="accel-reticle-bl"></div>
+                  <div class="accel-reticle-br"></div>
+                  <span class="accel-hud-tag">CHAMBER_06 // 750 SQ.FT</span>
+                  <div class="accel-hud-price">₹6,999<small>/nt</small></div>
+                </div>
+                <div class="accel-card-body">
+                  <div class="accel-specs-row">
+                    <span>👥 4 Guests</span>
+                    <span>🛏 Penthouse King</span>
+                    <span>💎 Penthouse</span>
+                  </div>
+                  <h3 class="accel-card-title">Presidential Suite</h3>
+                  <p class="accel-card-desc">Top-floor flagship penthouse with wrap-around terrace, whirlpool jacuzzi, and panoramic Kota sunset view.</p>
+                  <div class="accel-features-row">
+                    <span class="accel-feature-pill">Jacuzzi Tub</span>
+                    <span class="accel-feature-pill">Panoramic Terrace</span>
+                    <span class="accel-feature-pill">Champagne Host</span>
+                  </div>
+                  <div class="accel-card-footer">
+                    <button class="btn-room-details" onclick="openRoomDetailsModal('presidential-wallflower-suite')">
+                      Details <span>→</span>
+                    </button>
+                    <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'presidential-wallflower-suite' })">
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Toggle View Option -->
+          <div class="accelerator-view-toggle">
+            <button type="button" class="btn btn-outline-white btn-sm" id="toggle-rooms-view-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span id="toggle-view-text">Switch to Static Grid View</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="rooms-grid" id="static-rooms-grid" style="display: none;">
           <!-- Room 1: Deluxe Executive -->
           <article class="room-card">
             <div class="room-media">
@@ -468,7 +761,7 @@
 
           <!-- Right Content -->
           <div class="showcase-content">
-            <span class="section-label" style="background: rgba(212, 175, 55, 0.15); color: var(--gold-light);">
+            <span class="section-label" style="background: rgba(255, 255, 255, 0.15); color: var(--gold-light);">
               Destination Kota, Rajasthan
             </span>
             <h2 class="section-title">

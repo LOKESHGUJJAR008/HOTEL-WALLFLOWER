@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals();
   initGalleryLightbox();
   initToast();
+  initHeroScrollChoreography();
+  initRoomAccelerator();
 });
 
 /* ==========================================================================
@@ -678,7 +680,7 @@ window.showToast = function(msg) {
     document.body.appendChild(toast);
   }
   toast.innerHTML = `
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
     <span>${msg}</span>
   `;
   toast.classList.add('show');
@@ -686,3 +688,326 @@ window.showToast = function(msg) {
     toast.classList.remove('show');
   }, 4000);
 };
+
+/* ==========================================================================
+   HERO SCROLL CHOREOGRAPHY (Zoom Out + Watermark Slide + Section Slide)
+   ========================================================================== */
+function initHeroScrollChoreography() {
+  const hero = document.getElementById('hero');
+  const heroImg = document.getElementById('hero-img');
+  const watermarkText = document.getElementById('hero-watermark-text');
+  const heroContent = document.getElementById('hero-content');
+
+  if (!hero || !heroImg) return;
+
+  let ticking = false;
+
+  const onScroll = () => {
+    const scrollY = window.scrollY;
+    const heroHeight = hero.offsetHeight || window.innerHeight;
+
+    // Progress through hero viewport [0.0 -> 1.0]
+    const progress = Math.min(1.2, Math.max(0, scrollY / (heroHeight * 0.95)));
+
+    // 1. Image zooms out as user scrolls down: from 1.25 down to 1.00 smoothly
+    const zoomScale = Math.max(0.98, 1.25 - progress * 0.25);
+    const parallaxY = scrollY * 0.2;
+    const brightness = Math.max(0.48, 0.68 - progress * 0.2);
+    heroImg.style.transform = `scale(${zoomScale.toFixed(4)}) translateY(${parallaxY.toFixed(1)}px)`;
+    heroImg.style.filter = `brightness(${brightness.toFixed(3)}) contrast(1.1) grayscale(0.12)`;
+
+    // 2. Bold italic transparent watermark text slides horizontally across the screen
+    if (watermarkText) {
+      const slideX = progress * 260; // slides right-to-left
+      const slideY = progress * 70;
+      const textScale = 1 + progress * 0.05;
+      watermarkText.style.transform = `translate3d(${-slideX.toFixed(1)}px, ${slideY.toFixed(1)}px, 0) scale(${textScale.toFixed(3)})`;
+      watermarkText.style.opacity = Math.max(0.08, 1 - progress * 0.75);
+    }
+
+    // 3. Foreground title & booking bar slide up with parallax & fade
+    if (heroContent) {
+      const contentSlideY = -scrollY * 0.35;
+      const contentOpacity = Math.max(0, 1 - progress * 1.35);
+      heroContent.style.transform = `translate3d(0, ${contentSlideY.toFixed(1)}px, 0)`;
+      heroContent.style.opacity = contentOpacity.toFixed(3);
+    }
+
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Initial calculation
+  onScroll();
+}
+
+/* ==========================================================================
+   KINETIC ROOM ACCELERATOR (Motion Graphics Carousel & Speedometer Telemetry)
+   ========================================================================== */
+function initRoomAccelerator() {
+  const viewport = document.getElementById('room-accelerator-viewport');
+  const track = document.getElementById('room-accelerator-track');
+  const speedValEl = document.getElementById('accel-speed-val');
+  const statusTextEl = document.getElementById('accel-status-text');
+  const ledBar = document.getElementById('accel-led-bar');
+  const pedalBtn = document.getElementById('accel-pedal');
+  const brakeBtn = document.getElementById('accel-brake');
+  const gearBtns = document.querySelectorAll('.accel-gear-btn');
+  const toggleViewBtn = document.getElementById('toggle-rooms-view-btn');
+  const staticGrid = document.getElementById('static-rooms-grid');
+
+  if (!viewport || !track) return;
+
+  // Duplicate cards inside track to achieve infinite seamless loop
+  const initialCards = Array.from(track.children);
+  initialCards.forEach(card => {
+    const clone = card.cloneNode(true);
+    track.appendChild(clone);
+  });
+
+  let currentSpeed = 80; // Starting speed (KM/H)
+  let targetSpeed = 80;
+  let baseGearSpeed = 80;
+  let offset = 0;
+  let isBraking = false;
+  let isPedalHeld = false;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartOffset = 0;
+  let lastDragTime = 0;
+  let lastDragX = 0;
+  let dragVelocity = 0;
+  let isHovered = false;
+
+  const ledSegments = ledBar ? Array.from(ledBar.querySelectorAll('.hud-led-segment')) : [];
+
+  // Update LED segments based on current speed (0 - 260)
+  const updateLEDs = (speed) => {
+    if (!ledSegments.length) return;
+    const activeCount = Math.min(ledSegments.length, Math.round((speed / 240) * ledSegments.length));
+    ledSegments.forEach((seg, i) => {
+      if (i < activeCount) {
+        seg.classList.add('active');
+      } else {
+        seg.classList.remove('active');
+      }
+    });
+  };
+
+  // Gear Button Clicks
+  gearBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      gearBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const speed = parseInt(btn.dataset.speed, 10) || 80;
+      baseGearSpeed = speed;
+      targetSpeed = speed;
+      isBraking = false;
+      if (brakeBtn) brakeBtn.textContent = '⏸ BRAKE';
+      if (statusTextEl) {
+        statusTextEl.textContent = btn.textContent.toUpperCase();
+      }
+    });
+  });
+
+  // Accelerator Pedal (Push / Rev to Nitro Speed)
+  const pressPedal = (e) => {
+    if (e && e.type === 'touchstart') e.preventDefault();
+    isPedalHeld = true;
+    targetSpeed = 240;
+    isBraking = false;
+    if (pedalBtn) pedalBtn.classList.add('accelerating');
+    if (brakeBtn) brakeBtn.textContent = '⏸ BRAKE';
+    if (statusTextEl) statusTextEl.textContent = '⚡ NITRO BOOST (240 KM/H)';
+  };
+
+  const releasePedal = () => {
+    if (!isPedalHeld) return;
+    isPedalHeld = false;
+    targetSpeed = baseGearSpeed;
+    if (pedalBtn) pedalBtn.classList.remove('accelerating');
+    if (statusTextEl) statusTextEl.textContent = 'CRUISING SYNCED';
+  };
+
+  if (pedalBtn) {
+    pedalBtn.addEventListener('mousedown', pressPedal);
+    window.addEventListener('mouseup', releasePedal);
+    pedalBtn.addEventListener('touchstart', pressPedal, { passive: false });
+    window.addEventListener('touchend', releasePedal);
+
+    // Click toggle fallback for desktop click or tap
+    pedalBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      pressPedal();
+      setTimeout(releasePedal, 2200);
+    });
+  }
+
+  // Brake / Pause Button
+  if (brakeBtn) {
+    brakeBtn.addEventListener('click', () => {
+      if (!isBraking) {
+        isBraking = true;
+        targetSpeed = 0;
+        brakeBtn.textContent = '▶ RESUME';
+        if (statusTextEl) statusTextEl.textContent = 'BRAKE ENGAGED (0 KM/H)';
+      } else {
+        isBraking = false;
+        targetSpeed = baseGearSpeed;
+        brakeBtn.textContent = '⏸ BRAKE';
+        if (statusTextEl) statusTextEl.textContent = 'CRUISING SYNCED';
+      }
+    });
+  }
+
+  // Hover over cards slows down for inspection
+  track.addEventListener('mouseenter', () => {
+    isHovered = true;
+    if (!isPedalHeld && !isBraking) {
+      targetSpeed = 25; // Gentle crawl for viewing
+      if (statusTextEl) statusTextEl.textContent = 'INSPECTION CRAWL (25 KM/H)';
+    }
+  });
+
+  track.addEventListener('mouseleave', () => {
+    isHovered = false;
+    if (!isPedalHeld && !isBraking) {
+      targetSpeed = baseGearSpeed;
+      if (statusTextEl) statusTextEl.textContent = 'CRUISING SYNCED';
+    }
+  });
+
+  // Mouse / Touch Drag Support
+  const onPointerDown = (e) => {
+    isDragging = true;
+    dragStartX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+    dragStartOffset = offset;
+    lastDragX = dragStartX;
+    lastDragTime = performance.now();
+    dragVelocity = 0;
+  };
+
+  const onPointerMove = (e) => {
+    if (!isDragging) return;
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+    const deltaX = clientX - dragStartX;
+    offset = dragStartOffset - deltaX;
+
+    const now = performance.now();
+    const dt = now - lastDragTime;
+    if (dt > 0) {
+      dragVelocity = (lastDragX - clientX) / dt;
+    }
+    lastDragX = clientX;
+    lastDragTime = now;
+  };
+
+  const onPointerUp = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    // Impart flick velocity to current speed temporarily
+    if (Math.abs(dragVelocity) > 0.5) {
+      targetSpeed = Math.min(240, Math.max(30, Math.abs(dragVelocity) * 100));
+      setTimeout(() => {
+        if (!isPedalHeld && !isBraking) targetSpeed = baseGearSpeed;
+      }, 1200);
+    }
+  };
+
+  viewport.addEventListener('mousedown', onPointerDown);
+  window.addEventListener('mousemove', onPointerMove);
+  window.addEventListener('mouseup', onPointerUp);
+
+  viewport.addEventListener('touchstart', onPointerDown, { passive: true });
+  window.addEventListener('touchmove', onPointerMove, { passive: true });
+  window.addEventListener('touchend', onPointerUp);
+
+  // Mouse Wheel Accelerator Scrub
+  viewport.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
+    offset += delta * 0.8;
+    // Temporarily increase speed response
+    targetSpeed = Math.min(240, targetSpeed + Math.abs(delta) * 0.2);
+    clearTimeout(viewport._wheelTimer);
+    viewport._wheelTimer = setTimeout(() => {
+      if (!isPedalHeld && !isBraking) targetSpeed = baseGearSpeed;
+    }, 400);
+  }, { passive: false });
+
+  // Main Accelerator Animation Loop
+  let lastTimestamp = performance.now();
+
+  const animateAccelerator = (timestamp) => {
+    const deltaTime = Math.min(60, timestamp - lastTimestamp);
+    lastTimestamp = timestamp;
+
+    // Smooth lerp speed
+    currentSpeed += (targetSpeed - currentSpeed) * 0.08;
+
+    // Update speedometer readout
+    if (speedValEl) {
+      speedValEl.textContent = Math.round(currentSpeed);
+    }
+    updateLEDs(currentSpeed);
+
+    // Advance offset
+    if (!isDragging) {
+      offset += (currentSpeed * 0.025) * (deltaTime / 16.6);
+    }
+
+    // Measure total loop width
+    const totalWidth = track.scrollWidth;
+    const halfWidth = totalWidth / 2;
+
+    if (halfWidth > 0) {
+      if (offset >= halfWidth) {
+        offset = offset % halfWidth;
+      } else if (offset < 0) {
+        offset = halfWidth + (offset % halfWidth);
+      }
+    }
+
+    track.style.transform = `translate3d(${-offset.toFixed(2)}px, 0, 0)`;
+
+    // Apply kinetic scanline & motion blur if revving high
+    if (currentSpeed > 150) {
+      const blurAmount = ((currentSpeed - 150) * 0.012).toFixed(1);
+      track.style.filter = `blur(${blurAmount}px)`;
+    } else {
+      track.style.filter = 'none';
+    }
+
+    requestAnimationFrame(animateAccelerator);
+  };
+
+  requestAnimationFrame(animateAccelerator);
+
+  // Toggle View Button (Accelerator Track vs Static Grid)
+  if (toggleViewBtn && staticGrid) {
+    toggleViewBtn.addEventListener('click', () => {
+      const isGridVisible = staticGrid.style.display !== 'none';
+      if (isGridVisible) {
+        staticGrid.style.display = 'none';
+        viewport.style.display = 'block';
+        toggleViewBtn.innerHTML = `
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Switch to Static Grid View</span>
+        `;
+      } else {
+        staticGrid.style.display = 'grid';
+        viewport.style.display = 'none';
+        toggleViewBtn.innerHTML = `
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>Return to Kinetic Accelerator Track</span>
+        `;
+      }
+    });
+  }
+}
