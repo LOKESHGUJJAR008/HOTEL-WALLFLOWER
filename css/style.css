@@ -1,61 +1,75 @@
 /* ==========================================================================
    HOTEL WALLFLOWER - KOTA, RAJASTHAN
-   Modern Luxury Boutique Hotel Design System & Stylesheet
+   Ultra-Luxury Transparent Glassmorphism Web App Design System
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-/* --- Root Design Tokens --- */
+/* --- Root Glassmorphism Design Tokens --- */
 :root {
-  /* Color Palette */
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F8FAFC;
-  --bg-tertiary: #F0F6FB;
-  --bg-ice: #EBF3F8;
-  --surface-card: #FFFFFF;
-  --surface-card-hover: #FCFDFE;
+  /* Continuous Ambient Background */
+  --bg-dark-base: #060D17;
+  --bg-deep: #081320;
+  
+  /* Glass Panels & Surfaces */
+  --glass-base: rgba(255, 255, 255, 0.04);
+  --glass-surface: rgba(14, 27, 46, 0.52);
+  --glass-surface-hover: rgba(20, 38, 64, 0.72);
+  --glass-elevated: rgba(11, 22, 38, 0.82);
+  --glass-card: rgba(15, 28, 48, 0.48);
+  --glass-card-hover: rgba(22, 42, 70, 0.68);
+  --glass-input: rgba(255, 255, 255, 0.07);
+  --glass-input-focus: rgba(255, 255, 255, 0.12);
 
-  /* Navy Blues */
-  --navy-dark: #0B192C;
-  --navy-deep: #0E2138;
-  --navy-rich: #16325B;
-  --navy-surface: #1E3E62;
-  --navy-light: #2E5888;
-  --navy-glass: rgba(11, 25, 44, 0.88);
-  --navy-glass-light: rgba(14, 33, 56, 0.7);
+  /* Glass Borders & Specular Rims */
+  --glass-border-subtle: rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-border-light: rgba(255, 255, 255, 0.25);
+  --glass-border-gold: rgba(212, 175, 55, 0.35);
+  --glass-border-gold-hover: rgba(212, 175, 55, 0.65);
 
-  /* Warm Luxury Gold & Champagne */
+  /* Blurs */
+  --glass-blur-sm: blur(12px);
+  --glass-blur-md: blur(20px);
+  --glass-blur-lg: blur(32px);
+  --glass-blur-xl: blur(40px);
+
+  /* Warm Luxury Gold & Champagne Accents */
   --gold-primary: #C5A880;
   --gold-rich: #D4AF37;
   --gold-dark: #A98532;
-  --gold-light: #F4EAD8;
-  --gold-glow: rgba(212, 175, 55, 0.28);
-  --gold-gradient: linear-gradient(135deg, #DFBE57 0%, #C5A880 50%, #A67C2E 100%);
-  --gold-gradient-hover: linear-gradient(135deg, #E8CD72 0%, #D4B68D 50%, #B88B38 100%);
-  
-  /* Accent Warm Blush / Terracotta */
-  --blush-accent: #C27B66;
-  --blush-soft: #FBF6F3;
-  --badge-bg: rgba(197, 168, 128, 0.15);
+  --gold-light: #F6E6CC;
+  --gold-glow: rgba(212, 175, 55, 0.35);
+  --gold-gradient: linear-gradient(135deg, #E2C264 0%, #C5A880 50%, #9F7528 100%);
+  --gold-gradient-hover: linear-gradient(135deg, #ECD278 0%, #D4B68D 50%, #B88B38 100%);
+  --gold-glass: rgba(212, 175, 55, 0.16);
 
   /* Text Colors */
-  --text-main: #1E293B;
-  --text-muted: #64748B;
-  --text-light: #94A3B8;
+  --text-main: #F1F5F9;
   --text-white: #FFFFFF;
-  --text-gold: #C5A880;
+  --text-muted: #94A3B8;
+  --text-light: #64748B;
+  --text-gold: #E5C578;
 
-  /* Borders & Shadows */
-  --border-subtle: rgba(148, 163, 184, 0.2);
-  --border-light: rgba(226, 232, 240, 0.8);
+  /* Compatibility Aliases for Full Glass Theme */
+  --navy-dark: #FFFFFF;
+  --navy-deep: #081320;
+  --navy-rich: #10243E;
+  --surface-card: rgba(14, 27, 46, 0.52);
+  --bg-primary: #060D17;
+  --bg-secondary: transparent;
+  --bg-tertiary: rgba(255, 255, 255, 0.05);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-light: rgba(255, 255, 255, 0.18);
   --border-gold: rgba(212, 175, 55, 0.35);
-  
-  --shadow-xs: 0 1px 3px rgba(11, 25, 44, 0.05);
-  --shadow-sm: 0 4px 12px rgba(11, 25, 44, 0.06);
-  --shadow-md: 0 12px 32px -4px rgba(11, 25, 44, 0.08), 0 4px 12px -2px rgba(11, 25, 44, 0.03);
-  --shadow-lg: 0 24px 48px -12px rgba(11, 25, 44, 0.14), 0 8px 24px -4px rgba(11, 25, 44, 0.06);
-  --shadow-card-hover: 0 20px 40px -10px rgba(22, 50, 91, 0.16);
-  --shadow-gold: 0 8px 24px rgba(212, 175, 55, 0.28);
+
+  /* Shadows & Glass Highlights */
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 50px rgba(0, 0, 0, 0.6);
+  --shadow-glass: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  --shadow-glass-hover: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 30px rgba(212, 175, 55, 0.22), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  --shadow-gold: 0 8px 24px rgba(212, 175, 55, 0.35);
 
   /* Typography */
   --font-serif: 'Playfair Display', Georgia, serif;
@@ -68,16 +82,16 @@
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Layout */
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
   --radius-full: 9999px;
   --container-max: 1240px;
   --nav-height: 84px;
 }
 
-/* --- Base & Reset --- */
+/* --- Base & Reset with Immersive Background Mesh --- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -93,10 +107,20 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-primary);
+  background-color: var(--bg-dark-base);
+  background-image: 
+    radial-gradient(circle at 12% 18%, rgba(28, 62, 105, 0.45) 0%, transparent 45%),
+    radial-gradient(circle at 88% 12%, rgba(212, 175, 55, 0.18) 0%, transparent 38%),
+    radial-gradient(circle at 50% 45%, rgba(18, 42, 74, 0.5) 0%, transparent 55%),
+    radial-gradient(circle at 15% 75%, rgba(212, 175, 55, 0.14) 0%, transparent 42%),
+    radial-gradient(circle at 85% 82%, rgba(30, 75, 125, 0.4) 0%, transparent 48%),
+    linear-gradient(180deg, #050B14 0%, #091524 50%, #050B14 100%);
+  background-attachment: fixed;
+  background-size: cover;
   color: var(--text-main);
   line-height: 1.65;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 img {
@@ -108,12 +132,13 @@ img {
 a {
   text-decoration: none;
   color: inherit;
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 button, input, select, textarea {
   font-family: inherit;
   font-size: inherit;
+  color: inherit;
 }
 
 button {
@@ -129,7 +154,7 @@ ul, ol {
 /* --- Typography Utilities --- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
-  color: var(--navy-dark);
+  color: var(--text-white);
   font-weight: 600;
   line-height: 1.25;
 }
@@ -151,19 +176,23 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold-dark);
-  background: var(--badge-bg);
-  padding: 6px 14px;
+  color: var(--gold-light);
+  background: rgba(212, 175, 55, 0.12);
+  backdrop-filter: var(--glass-blur-sm);
+  -webkit-backdrop-filter: var(--glass-blur-sm);
+  padding: 6px 16px;
   border-radius: var(--radius-full);
-  margin-bottom: 14px;
-  border: 1px solid var(--border-gold);
+  margin-bottom: 16px;
+  border: 1px solid var(--glass-border-gold);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
 .section-title {
-  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-size: clamp(2rem, 3.8vw, 3.1rem);
   letter-spacing: -0.02em;
   margin-bottom: 16px;
-  color: var(--navy-dark);
+  color: var(--text-white);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
 }
 
 .section-title.light {
@@ -179,7 +208,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-subtitle.light {
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .section-header {
@@ -196,7 +225,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section {
-  padding: 90px 0;
+  padding: 95px 0;
   position: relative;
 }
 
@@ -204,20 +233,17 @@ h1, h2, h3, h4, h5, h6 {
   padding: 60px 0;
 }
 
-.bg-secondary {
-  background-color: var(--bg-secondary);
-}
-
+.bg-secondary,
 .bg-tertiary {
-  background-color: var(--bg-tertiary);
+  background: transparent !important;
 }
 
 .bg-navy {
-  background-color: var(--navy-dark);
+  background: transparent !important;
   color: var(--text-white);
 }
 
-/* --- Buttons --- */
+/* --- Buttons with Specular Glass & Gold Sheen --- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -231,59 +257,67 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-full);
   transition: all var(--transition-normal);
   white-space: nowrap;
+  backdrop-filter: var(--glass-blur-sm);
+  -webkit-backdrop-filter: var(--glass-blur-sm);
 }
 
 .btn-gold {
   background: var(--gold-gradient);
-  color: #0E1A2B;
-  box-shadow: var(--shadow-gold);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #0A1422;
+  box-shadow: var(--shadow-gold), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .btn-gold:hover {
   background: var(--gold-gradient-hover);
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(212, 175, 55, 0.38);
+  box-shadow: 0 14px 30px rgba(212, 175, 55, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.6);
   color: #000;
 }
 
 .btn-navy {
-  background: var(--navy-dark);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--text-white);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
 }
 
 .btn-navy:hover {
-  background: var(--navy-rich);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--glass-border-gold);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-glass-hover);
   color: var(--text-white);
 }
 
 .btn-outline-gold {
-  background: transparent;
-  color: var(--gold-rich);
-  border: 1.5px solid var(--gold-rich);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--gold-light);
+  border: 1.5px solid var(--glass-border-gold);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-outline-gold:hover {
   background: var(--gold-rich);
-  color: #0E1A2B;
+  color: #0A1422;
+  border-color: var(--gold-rich);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
 }
 
 .btn-outline-white {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text-white);
-  border: 1.5px solid rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
 }
 
 .btn-outline-white:hover {
-  background: var(--text-white);
-  color: var(--navy-dark);
-  border-color: var(--text-white);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-white);
+  border-color: rgba(255, 255, 255, 0.6);
   transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
 }
 
 .btn-sm {
@@ -297,7 +331,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   NAVBAR (Horizontal, Sticky, Transparent-to-Solid on Scroll)
+   TRANSPARENT GLASS NAVBAR (Sticky, Crystal Specular Blur)
    ========================================================================== */
 .site-header {
   position: fixed;
@@ -307,20 +341,22 @@ h1, h2, h3, h4, h5, h6 {
   height: var(--nav-height);
   z-index: 1000;
   transition: all var(--transition-normal);
-  background: transparent;
+  background: rgba(6, 13, 23, 0.4);
+  backdrop-filter: var(--glass-blur-md);
+  -webkit-backdrop-filter: var(--glass-blur-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
 }
 
-/* Solid state on scroll or on secondary pages */
 .site-header.scrolled,
 .site-header.solid-nav {
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(6, 13, 23, 0.82) !important;
+  backdrop-filter: var(--glass-blur-lg) !important;
+  -webkit-backdrop-filter: var(--glass-blur-lg) !important;
   height: 74px;
-  box-shadow: 0 4px 25px rgba(11, 25, 44, 0.08);
-  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid var(--glass-border-gold);
 }
 
 .navbar-container {
@@ -330,7 +366,6 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-/* Brand Logo */
 .brand-logo {
   display: flex;
   align-items: center;
@@ -342,12 +377,13 @@ h1, h2, h3, h4, h5, h6 {
   width: 44px;
   height: 44px;
   background: var(--gold-gradient);
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0E1A2B;
-  box-shadow: var(--shadow-gold);
+  color: #0A1422;
+  box-shadow: var(--shadow-gold), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transition: transform var(--transition-fast);
 }
 
@@ -371,8 +407,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 1.1;
-  color: var(--text-white);
-  transition: color var(--transition-fast);
+  color: var(--text-white) !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .brand-tagline {
@@ -380,22 +416,10 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.22em;
-  color: var(--gold-light);
+  color: var(--gold-light) !important;
   text-transform: uppercase;
-  transition: color var(--transition-fast);
 }
 
-.site-header.scrolled .brand-name,
-.site-header.solid-nav .brand-name {
-  color: var(--navy-dark);
-}
-
-.site-header.scrolled .brand-tagline,
-.site-header.solid-nav .brand-tagline {
-  color: var(--gold-dark);
-}
-
-/* Desktop Navigation Links */
 .nav-links {
   display: flex;
   align-items: center;
@@ -406,7 +430,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-accent);
   font-size: 0.94rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.88) !important;
   position: relative;
   padding: 8px 0;
   letter-spacing: 0.02em;
@@ -421,13 +445,14 @@ h1, h2, h3, h4, h5, h6 {
   width: 0%;
   height: 2px;
   background: var(--gold-rich);
+  box-shadow: 0 0 10px var(--gold-rich);
   transition: width var(--transition-normal);
   border-radius: var(--radius-full);
 }
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--text-white);
+  color: var(--gold-light) !important;
 }
 
 .nav-link:hover::after,
@@ -435,19 +460,6 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-.site-header.scrolled .nav-link,
-.site-header.solid-nav .nav-link {
-  color: var(--navy-dark);
-}
-
-.site-header.scrolled .nav-link:hover,
-.site-header.scrolled .nav-link.active,
-.site-header.solid-nav .nav-link:hover,
-.site-header.solid-nav .nav-link.active {
-  color: var(--gold-dark);
-}
-
-/* Nav Actions (Book Now) */
 .nav-actions {
   display: flex;
   align-items: center;
@@ -459,44 +471,33 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.88rem;
 }
 
-/* Mobile Hamburger Menu */
+/* Mobile Hamburger */
 .hamburger-btn {
   display: none;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   z-index: 1010;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: var(--glass-blur-sm);
   border-radius: var(--radius-sm);
-  padding: 9px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px;
+  border: 1px solid var(--glass-border);
   transition: all var(--transition-fast);
-}
-
-.site-header.scrolled .hamburger-btn,
-.site-header.solid-nav .hamburger-btn {
-  background: var(--bg-tertiary);
-  border-color: var(--border-subtle);
 }
 
 .hamburger-line {
   width: 100%;
   height: 2px;
-  background-color: var(--text-white);
+  background-color: var(--text-white) !important;
   border-radius: 2px;
   transition: all var(--transition-normal);
 }
 
-.site-header.scrolled .hamburger-line,
-.site-header.solid-nav .hamburger-line {
-  background-color: var(--navy-dark);
-}
-
 .hamburger-btn.active .hamburger-line:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
-  background-color: var(--navy-dark);
 }
 
 .hamburger-btn.active .hamburger-line:nth-child(2) {
@@ -505,10 +506,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .hamburger-btn.active .hamburger-line:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
-  background-color: var(--navy-dark);
 }
 
-/* Mobile Navigation Drawer */
+/* Mobile Glass Drawer */
 .mobile-nav-drawer {
   position: fixed;
   top: 0;
@@ -516,11 +516,12 @@ h1, h2, h3, h4, h5, h6 {
   width: 85%;
   max-width: 380px;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
+  background: rgba(8, 18, 32, 0.92);
+  backdrop-filter: var(--glass-blur-xl);
+  -webkit-backdrop-filter: var(--glass-blur-xl);
+  border-left: 1px solid var(--glass-border-gold);
   z-index: 1005;
-  box-shadow: -10px 0 40px rgba(11, 25, 44, 0.18);
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   padding: 100px 32px 40px;
@@ -538,8 +539,8 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(11, 25, 44, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(3, 7, 13, 0.75);
+  backdrop-filter: blur(8px);
   z-index: 1002;
   opacity: 0;
   visibility: hidden;
@@ -554,31 +555,31 @@ h1, h2, h3, h4, h5, h6 {
 .mobile-links {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
   margin-bottom: 36px;
 }
 
 .mobile-nav-link {
   font-family: var(--font-serif);
   font-size: 1.35rem;
-  color: var(--navy-dark);
+  color: var(--text-white);
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border-light);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--glass-border-subtle);
 }
 
 .mobile-nav-link.active,
 .mobile-nav-link:hover {
-  color: var(--gold-dark);
+  color: var(--gold-light);
 }
 
 .mobile-nav-contact {
   margin-top: auto;
   padding-top: 24px;
-  border-top: 1px solid var(--border-subtle);
+  border-top: 1px solid var(--glass-border-subtle);
 }
 
 .mobile-contact-item {
@@ -601,7 +602,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   color: var(--text-white);
   padding: 140px 0 100px;
-  background: #0B192C;
+  background: transparent;
   overflow: hidden;
 }
 
@@ -619,14 +620,14 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(0.72);
+  filter: brightness(0.65) contrast(1.05);
   transform: scale(1.02);
   animation: heroZoom 24s ease-in-out infinite alternate;
 }
 
 @keyframes heroZoom {
   0% { transform: scale(1); }
-  100% { transform: scale(1.07); }
+  100% { transform: scale(1.08); }
 }
 
 .hero-overlay {
@@ -637,9 +638,9 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   background: linear-gradient(
     180deg, 
-    rgba(11, 25, 44, 0.72) 0%, 
-    rgba(11, 25, 44, 0.45) 50%, 
-    rgba(11, 25, 44, 0.88) 100%
+    rgba(6, 13, 23, 0.75) 0%, 
+    rgba(8, 19, 32, 0.45) 50%, 
+    rgba(5, 11, 20, 0.92) 100%
   );
   z-index: 2;
 }
@@ -648,7 +649,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   z-index: 3;
   text-align: center;
-  max-width: 960px;
+  max-width: 980px;
   margin: 0 auto;
 }
 
@@ -656,9 +657,10 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.45);
-  backdrop-filter: blur(12px);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid var(--glass-border-gold);
+  backdrop-filter: var(--glass-blur-md);
+  -webkit-backdrop-filter: var(--glass-blur-md);
   padding: 8px 22px;
   border-radius: var(--radius-full);
   font-family: var(--font-accent);
@@ -668,6 +670,7 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   color: var(--gold-light);
   margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 
 .hero-title {
@@ -677,26 +680,27 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-white);
   line-height: 1.15;
   margin-bottom: 20px;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
 }
 
 .hero-title span {
   font-style: italic;
   font-weight: 400;
   color: var(--gold-rich);
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
 .hero-description {
   font-size: clamp(1.05rem, 1.4vw, 1.25rem);
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 720px;
+  color: rgba(241, 245, 249, 0.92);
+  max-width: 740px;
   margin: 0 auto 40px;
   line-height: 1.7;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* ==========================================================================
-   BOOKING BAR (Floating Glassmorphic Reservation Bar)
+   FROSTED GLASS CAPSULE BOOKING BAR
    ========================================================================== */
 .booking-bar-wrapper {
   position: relative;
@@ -706,13 +710,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .booking-bar {
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 20px 50px rgba(11, 25, 44, 0.25);
+  background: rgba(14, 27, 46, 0.68);
+  backdrop-filter: var(--glass-blur-lg);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 35px rgba(212, 175, 55, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.25);
   border-radius: var(--radius-xl);
-  padding: 16px 24px;
+  padding: 18px 26px;
   display: grid;
   grid-template-columns: repeat(4, 1fr) auto;
   gap: 16px;
@@ -720,11 +724,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .booking-col {
-  padding: 8px 16px;
-  border-right: 1px solid var(--border-light);
+  padding: 8px 18px;
+  border-right: 1px solid var(--glass-border-subtle);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   text-align: left;
 }
 
@@ -741,11 +745,11 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--navy-rich);
+  color: var(--gold-light);
 }
 
 .booking-label svg {
-  color: var(--gold-dark);
+  color: var(--gold-rich);
 }
 
 .booking-input, 
@@ -755,10 +759,15 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--navy-dark);
+  color: var(--text-white);
   outline: none;
   width: 100%;
   cursor: pointer;
+}
+
+.booking-select option {
+  background: #0B192C;
+  color: #FFFFFF;
 }
 
 .booking-btn {
@@ -767,55 +776,61 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   FEATURE STRIP (5 Features Strip)
-   Comfortable Rooms · Restaurant & Bar · Free WiFi · Free Parking · Prime Location
+   FEATURE STRIP (5 Frosted Glass Cards)
    ========================================================================== */
 .feature-strip-section {
-  background: var(--bg-primary);
-  border-bottom: 1px solid var(--border-subtle);
+  background: transparent;
   position: relative;
   z-index: 10;
-  padding: 36px 0;
+  padding: 30px 0;
   margin-top: -30px;
 }
 
 .feature-strip-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  gap: 16px;
 }
 
 .feature-item {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 12px 16px;
+  padding: 16px 18px;
   border-radius: var(--radius-md);
+  background: rgba(14, 27, 46, 0.45);
+  backdrop-filter: var(--glass-blur-md);
+  -webkit-backdrop-filter: var(--glass-blur-md);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
   transition: all var(--transition-fast);
 }
 
 .feature-item:hover {
-  background: var(--bg-tertiary);
-  transform: translateY(-2px);
+  background: rgba(22, 42, 70, 0.65);
+  transform: translateY(-3px);
+  border-color: var(--glass-border-gold);
+  box-shadow: var(--shadow-glass-hover);
 }
 
 .feature-icon-box {
   width: 48px;
   height: 48px;
   min-width: 48px;
-  border-radius: var(--radius-md);
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-gold);
-  color: var(--gold-dark);
+  border-radius: var(--radius-sm);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid var(--glass-border-gold);
+  color: var(--gold-light);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
   transition: all var(--transition-fast);
 }
 
 .feature-item:hover .feature-icon-box {
   background: var(--gold-gradient);
-  color: #0E1A2B;
+  color: #0A1422;
   box-shadow: var(--shadow-gold);
 }
 
@@ -828,7 +843,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-accent);
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--navy-dark);
+  color: var(--text-white);
   line-height: 1.25;
 }
 
@@ -838,7 +853,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   FEATURED ROOMS CARDS GRID
+   FEATURED ROOMS & ROOMS GRID (Frosted Glass Cards)
    ========================================================================== */
 .rooms-grid {
   display: grid;
@@ -847,10 +862,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .room-card {
-  background: var(--surface-card);
+  background: var(--glass-card);
+  backdrop-filter: var(--glass-blur-md);
+  -webkit-backdrop-filter: var(--glass-blur-md);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
   overflow: hidden;
   transition: all var(--transition-normal);
   display: flex;
@@ -860,8 +877,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .room-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-card-hover);
-  border-color: rgba(212, 175, 55, 0.35);
+  background: var(--glass-card-hover);
+  box-shadow: var(--shadow-glass-hover);
+  border-color: var(--glass-border-gold-hover);
 }
 
 .room-media {
@@ -885,28 +903,32 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: 16px;
   left: 16px;
-  background: rgba(11, 25, 44, 0.85);
-  backdrop-filter: blur(10px);
+  background: rgba(8, 18, 32, 0.78);
+  backdrop-filter: var(--glass-blur-sm);
+  -webkit-backdrop-filter: var(--glass-blur-sm);
   color: var(--gold-light);
   font-family: var(--font-accent);
   font-size: 0.75rem;
   font-weight: 600;
-  padding: 5px 12px;
+  padding: 5px 14px;
   border-radius: var(--radius-full);
-  border: 1px solid var(--border-gold);
+  border: 1px solid var(--glass-border-gold);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .room-price-tag {
   position: absolute;
   bottom: 16px;
   right: 16px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(8, 18, 32, 0.85);
+  backdrop-filter: var(--glass-blur-md);
+  -webkit-backdrop-filter: var(--glass-blur-md);
   padding: 6px 14px;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: baseline;
   gap: 4px;
@@ -914,9 +936,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .price-val {
   font-family: var(--font-accent);
-  font-size: 1.15rem;
+  font-size: 1.18rem;
   font-weight: 700;
-  color: var(--navy-dark);
+  color: var(--gold-light);
 }
 
 .price-period {
@@ -948,13 +970,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .room-meta-item svg {
-  color: var(--gold-dark);
+  color: var(--gold-rich);
 }
 
 .room-card-title {
   font-size: 1.35rem;
   margin-bottom: 10px;
-  color: var(--navy-dark);
+  color: var(--text-white);
 }
 
 .room-card-desc {
@@ -975,11 +997,12 @@ h1, h2, h3, h4, h5, h6 {
 .room-feature-tag {
   font-size: 0.74rem;
   font-weight: 500;
-  color: var(--navy-rich);
-  background: var(--bg-tertiary);
+  color: var(--gold-light);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: var(--glass-blur-sm);
   padding: 4px 10px;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--glass-border-subtle);
 }
 
 .room-footer {
@@ -987,7 +1010,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: space-between;
   padding-top: 16px;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid var(--glass-border-subtle);
 }
 
 .btn-room-details {
@@ -997,12 +1020,13 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-accent);
   font-weight: 600;
   font-size: 0.88rem;
-  color: var(--navy-dark);
-  transition: color var(--transition-fast);
+  color: var(--gold-light);
+  transition: all var(--transition-fast);
 }
 
 .btn-room-details:hover {
-  color: var(--gold-dark);
+  color: var(--text-white);
+  text-shadow: 0 0 10px var(--gold-glow);
 }
 
 .btn-room-details svg {
@@ -1014,11 +1038,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   KOTA CITY & WALLFLOWER SHOWCASE BLOCK (Replaces Beach Video)
+   KOTA CITY SHOWCASE BLOCK (Glass Frame)
    ========================================================================== */
 .kota-showcase-section {
   position: relative;
-  background: #0B192C;
+  background: transparent;
   color: var(--text-white);
   padding: 100px 0;
   overflow: hidden;
@@ -1035,8 +1059,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--glass-border-gold);
 }
 
 .showcase-media-wrap img {
@@ -1052,13 +1076,15 @@ h1, h2, h3, h4, h5, h6 {
   transform: translate(-50%, -50%);
   width: 76px;
   height: 76px;
-  background: rgba(212, 175, 55, 0.95);
+  background: rgba(212, 175, 55, 0.92);
+  backdrop-filter: var(--glass-blur-sm);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0B192C;
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+  color: #0A1422;
+  box-shadow: 0 0 35px rgba(212, 175, 55, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   cursor: pointer;
   transition: all var(--transition-normal);
 }
@@ -1072,11 +1098,13 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   bottom: 24px;
   left: 24px;
-  background: rgba(11, 25, 44, 0.9);
-  backdrop-filter: blur(16px);
+  background: rgba(8, 18, 32, 0.85);
+  backdrop-filter: var(--glass-blur-md);
+  -webkit-backdrop-filter: var(--glass-blur-md);
   padding: 14px 22px;
   border-radius: var(--radius-md);
-  border: 1px solid var(--border-gold);
+  border: 1px solid var(--glass-border-gold);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   gap: 14px;
@@ -1086,11 +1114,12 @@ h1, h2, h3, h4, h5, h6 {
   width: 40px;
   height: 40px;
   background: var(--gold-gradient);
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0E1A2B;
+  color: #0A1422;
+  box-shadow: var(--shadow-gold);
 }
 
 .stat-text h4 {
@@ -1105,13 +1134,8 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--gold-light);
 }
 
-.showcase-content .section-title {
-  color: var(--text-white);
-  text-align: left;
-}
-
 .showcase-content p {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(241, 245, 249, 0.85);
   font-size: 1.05rem;
   line-height: 1.75;
   margin-bottom: 28px;
@@ -1128,12 +1152,14 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: var(--glass-blur-sm);
+  border: 1px solid var(--glass-border);
+  padding: 12px 18px;
   border-radius: var(--radius-sm);
   font-size: 0.88rem;
   color: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-glass);
 }
 
 .landmark-pill svg {
@@ -1141,7 +1167,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   HOTEL EXPERIENCES (4 CARDS: Dining, Bar, Fitness, Pool Table)
+   HOTEL EXPERIENCES (4 Frosted Glass Cards)
    ========================================================================== */
 .experiences-grid {
   display: grid;
@@ -1151,19 +1177,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .experience-card {
   position: relative;
-  height: 380px;
+  height: 390px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur-sm);
   transition: all var(--transition-normal);
   cursor: pointer;
 }
 
 .experience-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-card-hover);
-  border-color: var(--gold-rich);
+  box-shadow: var(--shadow-glass-hover);
+  border-color: var(--glass-border-gold-hover);
 }
 
 .experience-card img {
@@ -1185,9 +1212,9 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   background: linear-gradient(
     180deg,
-    rgba(11, 25, 44, 0.1) 0%,
-    rgba(11, 25, 44, 0.4) 40%,
-    rgba(11, 25, 44, 0.95) 100%
+    rgba(6, 13, 23, 0.15) 0%,
+    rgba(8, 18, 32, 0.55) 45%,
+    rgba(6, 13, 23, 0.95) 100%
   );
   z-index: 1;
 }
@@ -1219,10 +1246,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .experience-desc {
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.5;
-  opacity: 0.9;
   margin-bottom: 14px;
 }
 
@@ -1233,19 +1259,20 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-accent);
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--gold-rich);
+  color: var(--gold-light);
   transition: gap var(--transition-fast);
 }
 
 .experience-card:hover .experience-link {
   gap: 10px;
+  color: var(--text-white);
 }
 
 /* ==========================================================================
-   WALLFLOWER ADVANTAGE & GUEST REVIEWS SLIDER
+   ADVANTAGE & GUEST REVIEWS (Glass Panels)
    ========================================================================== */
 .advantage-section {
-  background: var(--bg-secondary);
+  background: transparent;
 }
 
 .advantage-grid {
@@ -1253,10 +1280,6 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-columns: 1fr 1.1fr;
   gap: 50px;
   align-items: center;
-}
-
-.advantage-content .section-title {
-  text-align: left;
 }
 
 .advantage-list {
@@ -1270,14 +1293,20 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   gap: 16px;
   align-items: flex-start;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: var(--glass-blur-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border-subtle);
+  box-shadow: var(--shadow-glass);
 }
 
 .advantage-num {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  background: var(--navy-dark);
-  color: var(--gold-light);
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  background: var(--gold-gradient);
+  color: #0A1422;
   font-family: var(--font-accent);
   font-weight: 700;
   font-size: 0.9rem;
@@ -1285,13 +1314,13 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-gold);
 }
 
 .advantage-item h4 {
   font-family: var(--font-accent);
   font-size: 1.1rem;
-  color: var(--navy-dark);
+  color: var(--text-white);
   margin-bottom: 4px;
 }
 
@@ -1300,13 +1329,15 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-muted);
 }
 
-/* Review Slider Box */
+/* Review Slider Box (Glass Card) */
 .review-slider-card {
-  background: var(--surface-card);
+  background: var(--glass-surface);
+  backdrop-filter: var(--glass-blur-lg);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
   border-radius: var(--radius-xl);
-  padding: 40px;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-subtle);
+  padding: 44px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--glass-border-light);
   position: relative;
 }
 
@@ -1318,7 +1349,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
   font-size: 7rem;
   line-height: 1;
-  color: rgba(212, 175, 55, 0.15);
+  color: rgba(212, 175, 55, 0.18);
   pointer-events: none;
 }
 
@@ -1340,14 +1371,16 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   gap: 4px;
   color: #F59E0B;
+  font-size: 1.2rem;
   margin-bottom: 16px;
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
 }
 
 .review-text {
   font-family: var(--font-serif);
   font-size: 1.18rem;
   font-style: italic;
-  color: var(--navy-dark);
+  color: var(--text-white);
   line-height: 1.7;
   margin-bottom: 24px;
 }
@@ -1356,19 +1389,19 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid var(--glass-border-subtle);
   padding-top: 18px;
 }
 
 .author-info h4 {
   font-family: var(--font-accent);
   font-size: 1rem;
-  color: var(--navy-dark);
+  color: var(--text-white);
 }
 
 .author-info span {
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: var(--gold-light);
 }
 
 .slider-controls {
@@ -1377,45 +1410,40 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .slider-btn {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: var(--bg-tertiary);
-  color: var(--navy-dark);
-  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: var(--glass-blur-sm);
+  color: var(--text-white);
+  border: 1px solid var(--glass-border);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-fast);
 }
 
 .slider-btn:hover {
   background: var(--gold-gradient);
-  color: #0E1A2B;
+  color: #0A1422;
   border-color: transparent;
+  box-shadow: var(--shadow-gold);
 }
 
 /* ==========================================================================
-   OFFER BANNER WITH LIVE COUNTDOWN
+   SPECIAL OFFER BANNER (Frosted Glass with Amber Glow)
    ========================================================================== */
 .offer-banner-section {
-  background: linear-gradient(135deg, #0B192C 0%, #16325B 100%);
+  background: rgba(14, 28, 48, 0.6);
+  backdrop-filter: var(--glass-blur-md);
+  border-top: 1px solid var(--glass-border-gold);
+  border-bottom: 1px solid var(--glass-border-gold);
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.2);
   color: var(--text-white);
-  padding: 80px 0;
+  padding: 85px 0;
   position: relative;
   overflow: hidden;
-}
-
-.offer-banner-section::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
-  pointer-events: none;
 }
 
 .offer-container {
@@ -1435,7 +1463,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(212, 175, 55, 0.2);
+  background: rgba(212, 175, 55, 0.16);
   border: 1px solid var(--gold-rich);
   color: var(--gold-light);
   font-family: var(--font-accent);
@@ -1456,7 +1484,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .offer-desc {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(241, 245, 249, 0.85);
   line-height: 1.6;
   margin-bottom: 24px;
 }
@@ -1466,6 +1494,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 12px;
   background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: var(--glass-blur-sm);
   border: 1px dashed var(--gold-rich);
   padding: 8px 18px;
   border-radius: var(--radius-sm);
@@ -1487,12 +1516,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .countdown-unit {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: var(--glass-blur-md);
+  border: 1px solid var(--glass-border-light);
   border-radius: var(--radius-md);
   padding: 16px 20px;
   min-width: 85px;
+  box-shadow: var(--shadow-glass);
 }
 
 .countdown-num {
@@ -1502,47 +1532,41 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--gold-light);
   line-height: 1;
   margin-bottom: 4px;
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
 .countdown-lbl {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-muted);
   font-family: var(--font-accent);
 }
 
 /* ==========================================================================
-   INNER PAGE HERO BANNER
+   INNER PAGE HERO BANNER (Glass Ambient)
    ========================================================================== */
 .page-hero-banner {
   position: relative;
   padding: 160px 0 80px;
-  background: linear-gradient(180deg, #0B192C 0%, #16325B 100%);
+  background: rgba(8, 18, 32, 0.65);
+  backdrop-filter: var(--glass-blur-md);
+  border-bottom: 1px solid var(--glass-border-subtle);
   color: var(--text-white);
   text-align: center;
   overflow: hidden;
-}
-
-.page-hero-banner::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background: linear-gradient(to top, var(--bg-primary), transparent);
 }
 
 .page-hero-title {
   font-size: clamp(2.4rem, 4.5vw, 3.8rem);
   color: var(--text-white);
   margin-bottom: 14px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .page-hero-subtitle {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(241, 245, 249, 0.85);
   max-width: 650px;
   margin: 0 auto 20px;
 }
@@ -1554,10 +1578,14 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-accent);
   font-size: 0.85rem;
   color: var(--gold-light);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--glass-border);
 }
 
 .breadcrumbs a {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .breadcrumbs a:hover {
@@ -1565,14 +1593,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   ROOMS PAGE FILTERS
+   ROOMS PAGE FILTERS (Glass Filter Bar)
    ========================================================================== */
 .rooms-filter-bar {
-  background: var(--surface-card);
+  background: var(--glass-surface);
+  backdrop-filter: var(--glass-blur-md);
+  -webkit-backdrop-filter: var(--glass-blur-md);
   border-radius: var(--radius-lg);
   padding: 20px 28px;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-glass);
+  border: 1px solid var(--glass-border);
   margin-bottom: 40px;
   display: flex;
   align-items: center;
@@ -1593,7 +1623,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--navy-dark);
+  color: var(--gold-light);
 }
 
 .filter-btn {
@@ -1603,29 +1633,37 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.86rem;
   font-weight: 600;
   color: var(--text-muted);
-  background: var(--bg-tertiary);
-  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
   transition: all var(--transition-fast);
 }
 
 .filter-btn:hover,
 .filter-btn.active {
-  background: var(--navy-dark);
-  color: var(--text-white);
+  background: var(--gold-gradient);
+  color: #0A1422;
+  border-color: transparent;
+  box-shadow: var(--shadow-gold);
 }
 
 .filter-select {
   padding: 8px 16px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--glass-border);
   font-size: 0.88rem;
-  color: var(--navy-dark);
-  background: var(--bg-primary);
+  color: var(--text-white);
+  background: rgba(255, 255, 255, 0.08);
   outline: none;
+  cursor: pointer;
+}
+
+.filter-select option {
+  background: #0B192C;
+  color: #FFF;
 }
 
 /* ==========================================================================
-   DINING PAGE STYLES
+   DINING PAGE STYLES (Glass Blocks & Menus)
    ========================================================================== */
 .dining-feature-block {
   display: grid;
@@ -1633,6 +1671,12 @@ h1, h2, h3, h4, h5, h6 {
   gap: 50px;
   align-items: center;
   margin-bottom: 80px;
+  background: var(--glass-surface);
+  backdrop-filter: var(--glass-blur-md);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
 }
 
 .dining-feature-block.reverse {
@@ -1644,9 +1688,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .dining-img-wrap {
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--glass-border-gold);
   height: 440px;
 }
 
@@ -1664,10 +1709,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .timing-box {
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
   padding: 14px 18px;
+  backdrop-filter: var(--glass-blur-sm);
 }
 
 .timing-meal {
@@ -1675,17 +1721,17 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--gold-light);
   margin-bottom: 4px;
 }
 
 .timing-hours {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--navy-dark);
+  color: var(--text-white);
 }
 
-/* Menu Highlights */
+/* Menu Category Tabs */
 .menu-category-tabs {
   display: flex;
   justify-content: center;
@@ -1700,16 +1746,17 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-accent);
   font-size: 0.92rem;
   font-weight: 600;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  color: var(--navy-dark);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: var(--glass-blur-sm);
+  border: 1px solid var(--glass-border);
+  color: var(--text-white);
   transition: all var(--transition-fast);
 }
 
 .menu-tab-btn.active,
 .menu-tab-btn:hover {
   background: var(--gold-gradient);
-  color: #0E1A2B;
+  color: #0A1422;
   border-color: transparent;
   box-shadow: var(--shadow-gold);
 }
@@ -1717,29 +1764,31 @@ h1, h2, h3, h4, h5, h6 {
 .menu-items-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 28px;
+  gap: 24px;
 }
 
 .menu-item-card {
-  background: var(--surface-card);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-card);
+  backdrop-filter: var(--glass-blur-md);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
-  padding: 20px;
+  padding: 22px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-glass);
   transition: all var(--transition-fast);
 }
 
 .menu-item-card:hover {
-  border-color: var(--gold-rich);
-  box-shadow: var(--shadow-sm);
+  border-color: var(--glass-border-gold);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-glass-hover);
 }
 
 .menu-item-info h4 {
   font-size: 1.15rem;
+  color: var(--text-white);
   margin-bottom: 6px;
 }
 
@@ -1750,14 +1799,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .menu-item-price {
   font-family: var(--font-accent);
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: var(--gold-dark);
+  color: var(--gold-light);
   white-space: nowrap;
 }
 
 /* ==========================================================================
-   AMENITIES GRID
+   AMENITIES GRID (10 Frosted Glass Cards)
    ========================================================================== */
 .amenities-grid-full {
   display: grid;
@@ -1766,11 +1815,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .amenity-card-item {
-  background: var(--surface-card);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-card);
+  backdrop-filter: var(--glass-blur-md);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  padding: 32px 24px;
-  box-shadow: var(--shadow-xs);
+  padding: 34px 26px;
+  box-shadow: var(--shadow-glass);
   transition: all var(--transition-normal);
   text-align: center;
   display: flex;
@@ -1780,32 +1830,35 @@ h1, h2, h3, h4, h5, h6 {
 
 .amenity-card-item:hover {
   transform: translateY(-6px);
-  box-shadow: var(--shadow-card-hover);
-  border-color: var(--gold-rich);
+  background: var(--glass-card-hover);
+  box-shadow: var(--shadow-glass-hover);
+  border-color: var(--glass-border-gold-hover);
 }
 
 .amenity-icon-large {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  background: var(--bg-tertiary);
-  color: var(--gold-dark);
+  width: 66px;
+  height: 66px;
+  border-radius: 18px;
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--gold-light);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  border: 1px solid var(--border-gold);
+  margin-bottom: 22px;
+  border: 1px solid var(--glass-border-gold);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25);
   transition: all var(--transition-fast);
 }
 
 .amenity-card-item:hover .amenity-icon-large {
   background: var(--gold-gradient);
-  color: #0E1A2B;
+  color: #0A1422;
   box-shadow: var(--shadow-gold);
 }
 
 .amenity-card-item h3 {
   font-size: 1.25rem;
+  color: var(--text-white);
   margin-bottom: 10px;
 }
 
@@ -1816,7 +1869,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   GALLERY & LIGHTBOX
+   GALLERY & LIGHTBOX (Glass Viewport)
    ========================================================================== */
 .gallery-filter-tabs {
   display: flex;
@@ -1832,16 +1885,19 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-accent);
   font-size: 0.88rem;
   font-weight: 600;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-subtle);
-  color: var(--navy-dark);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: var(--glass-blur-sm);
+  border: 1px solid var(--glass-border);
+  color: var(--text-white);
   transition: all var(--transition-fast);
 }
 
 .gallery-tab-btn.active,
 .gallery-tab-btn:hover {
-  background: var(--navy-dark);
-  color: var(--text-white);
+  background: var(--gold-gradient);
+  color: #0A1422;
+  border-color: transparent;
+  box-shadow: var(--shadow-gold);
 }
 
 .gallery-grid {
@@ -1855,7 +1911,8 @@ h1, h2, h3, h4, h5, h6 {
   height: 280px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-glass);
+  border: 1px solid var(--glass-border);
   cursor: pointer;
 }
 
@@ -1878,9 +1935,10 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   background: linear-gradient(
     180deg,
-    rgba(11, 25, 44, 0.2) 0%,
-    rgba(11, 25, 44, 0.88) 100%
+    rgba(6, 13, 23, 0.2) 0%,
+    rgba(6, 13, 23, 0.92) 100%
   );
+  backdrop-filter: var(--glass-blur-sm);
   opacity: 0;
   transition: opacity var(--transition-normal);
   display: flex;
@@ -1915,8 +1973,8 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(11, 25, 44, 0.95);
-  backdrop-filter: blur(16px);
+  background: rgba(4, 9, 16, 0.94);
+  backdrop-filter: var(--glass-blur-xl);
   z-index: 2000;
   display: none;
   align-items: center;
@@ -1939,8 +1997,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--glass-border-gold);
   max-height: 75vh;
 }
 
@@ -1964,7 +2022,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .lightbox-caption p {
   font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--text-muted);
 }
 
 .lightbox-close {
@@ -1984,7 +2042,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .lightbox-close:hover {
   background: var(--gold-rich);
-  color: #0E1A2B;
+  color: #0A1422;
 }
 
 .lightbox-nav-btn {
@@ -1993,30 +2051,27 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 50%;
   color: var(--text-white);
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid var(--glass-border);
   transition: all var(--transition-fast);
 }
 
 .lightbox-nav-btn:hover {
   background: var(--gold-rich);
-  color: #0E1A2B;
+  color: #0A1422;
+  border-color: transparent;
 }
 
-.lightbox-prev {
-  left: -70px;
-}
-
-.lightbox-next {
-  right: -70px;
-}
+.lightbox-prev { left: -70px; }
+.lightbox-next { right: -70px; }
 
 /* ==========================================================================
-   ABOUT & LOCATION PAGE
+   ABOUT & LOCATION (Glass Distances & Story)
    ========================================================================== */
 .about-story-grid {
   display: grid;
@@ -2032,7 +2087,8 @@ h1, h2, h3, h4, h5, h6 {
 .about-main-img {
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--glass-border-gold);
   height: 480px;
 }
 
@@ -2046,26 +2102,27 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   bottom: -24px;
   right: -24px;
-  background: var(--navy-dark);
+  background: rgba(8, 18, 32, 0.88);
+  backdrop-filter: var(--glass-blur-md);
   color: var(--text-white);
   padding: 24px;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-gold);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--glass-border-gold);
   max-width: 260px;
 }
 
 .about-badge-card h4 {
   font-family: var(--font-accent);
   font-size: 1.8rem;
-  color: var(--gold-rich);
+  color: var(--gold-light);
   line-height: 1;
   margin-bottom: 6px;
 }
 
 .about-badge-card p {
   font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .location-distances-grid {
@@ -2076,26 +2133,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .distance-card {
-  background: var(--surface-card);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-card);
+  backdrop-filter: var(--glass-blur-md);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
   padding: 20px;
   display: flex;
   align-items: center;
   gap: 16px;
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-glass);
   transition: all var(--transition-fast);
 }
 
 .distance-card:hover {
   transform: translateY(-3px);
-  border-color: var(--gold-rich);
-  box-shadow: var(--shadow-sm);
+  border-color: var(--glass-border-gold);
+  box-shadow: var(--shadow-glass-hover);
 }
 
 .distance-time-badge {
   background: var(--gold-gradient);
-  color: #0E1A2B;
+  color: #0A1422;
   font-family: var(--font-accent);
   font-weight: 700;
   font-size: 0.85rem;
@@ -2103,10 +2161,12 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-sm);
   text-align: center;
   min-width: 70px;
+  box-shadow: var(--shadow-gold);
 }
 
 .distance-info h4 {
   font-size: 1rem;
+  color: var(--text-white);
   margin-bottom: 2px;
 }
 
@@ -2118,8 +2178,8 @@ h1, h2, h3, h4, h5, h6 {
 .map-embed-wrapper {
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-subtle);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--glass-border);
   height: 420px;
 }
 
@@ -2130,7 +2190,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   CONTACT & BOOKING ENQUIRY PAGE
+   CONTACT & BOOKING FORM (Glass Enclosures)
    ========================================================================== */
 .contact-layout-grid {
   display: grid;
@@ -2139,12 +2199,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact-info-card {
-  background: var(--navy-dark);
+  background: var(--glass-surface);
+  backdrop-filter: var(--glass-blur-lg);
   color: var(--text-white);
   padding: 44px;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: var(--shadow-glass);
+  border: 1px solid var(--glass-border-gold);
   position: relative;
   overflow: hidden;
 }
@@ -2156,7 +2217,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact-info-card p {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(241, 245, 249, 0.85);
   font-size: 0.95rem;
   margin-bottom: 32px;
 }
@@ -2178,13 +2239,14 @@ h1, h2, h3, h4, h5, h6 {
   width: 44px;
   height: 44px;
   min-width: 44px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  border: 1px solid var(--border-gold);
-  color: var(--gold-rich);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  border: 1px solid var(--glass-border-gold);
+  color: var(--gold-light);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--shadow-sm);
 }
 
 .contact-detail-text h4 {
@@ -2202,13 +2264,14 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.95rem;
 }
 
-/* Booking & Enquiry Form */
+/* Booking & Enquiry Form (Frosted Glass Card) */
 .booking-form-card {
-  background: var(--surface-card);
+  background: var(--glass-surface);
+  backdrop-filter: var(--glass-blur-lg);
   padding: 44px;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-glass);
+  border: 1px solid var(--glass-border);
 }
 
 .form-grid-2 {
@@ -2228,7 +2291,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--navy-dark);
+  color: var(--gold-light);
   margin-bottom: 8px;
 }
 
@@ -2236,18 +2299,24 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   padding: 13px 18px;
   border-radius: var(--radius-sm);
-  border: 1.5px solid var(--border-light);
+  border: 1.5px solid var(--glass-border);
   font-size: 0.95rem;
-  color: var(--navy-dark);
-  background: var(--bg-secondary);
+  color: var(--text-white);
+  background: var(--glass-input);
+  backdrop-filter: var(--glass-blur-sm);
   transition: all var(--transition-fast);
   outline: none;
 }
 
 .form-control:focus {
-  background: var(--bg-primary);
+  background: var(--glass-input-focus);
   border-color: var(--gold-rich);
   box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
+.form-control option {
+  background: #0B192C;
+  color: #FFF;
 }
 
 textarea.form-control {
@@ -2256,14 +2325,15 @@ textarea.form-control {
 }
 
 /* ==========================================================================
-   FOOTER (Dark Navy Base with Warm Gold Touches)
+   FOOTER (Deep Glass Floor)
    ========================================================================== */
 .site-footer {
-  background: var(--navy-dark);
+  background: rgba(6, 13, 23, 0.85);
+  backdrop-filter: var(--glass-blur-md);
   color: rgba(255, 255, 255, 0.8);
   padding: 90px 0 30px;
   position: relative;
-  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  border-top: 1px solid var(--glass-border-gold);
 }
 
 .footer-top-grid {
@@ -2277,7 +2347,7 @@ textarea.form-control {
   margin: 18px 0 24px;
   font-size: 0.9rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
 }
 
 .footer-social-links {
@@ -2290,7 +2360,7 @@ textarea.form-control {
   height: 40px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--glass-border);
   color: var(--text-white);
   display: flex;
   align-items: center;
@@ -2300,9 +2370,10 @@ textarea.form-control {
 
 .social-btn:hover {
   background: var(--gold-gradient);
-  color: #0E1A2B;
+  color: #0A1422;
   border-color: transparent;
   transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
 }
 
 .footer-col h4 {
@@ -2324,6 +2395,7 @@ textarea.form-control {
   width: 32px;
   height: 2px;
   background: var(--gold-rich);
+  box-shadow: 0 0 8px var(--gold-rich);
 }
 
 .footer-links-list {
@@ -2334,19 +2406,19 @@ textarea.form-control {
 
 .footer-links-list a {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
   transition: all var(--transition-fast);
 }
 
 .footer-links-list a:hover {
-  color: var(--gold-rich);
+  color: var(--gold-light);
   transform: translateX(4px);
 }
 
 .footer-newsletter-box p {
   font-size: 0.88rem;
   margin-bottom: 16px;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
 }
 
 .newsletter-form {
@@ -2358,19 +2430,19 @@ textarea.form-control {
   flex-grow: 1;
   padding: 11px 16px;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--glass-border);
   color: var(--text-white);
   font-size: 0.88rem;
   outline: none;
 }
 
 .newsletter-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .footer-bottom-bar {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--glass-border-subtle);
   padding-top: 30px;
   display: flex;
   align-items: center;
@@ -2387,11 +2459,11 @@ textarea.form-control {
 }
 
 .footer-bottom-links a:hover {
-  color: var(--gold-rich);
+  color: var(--gold-light);
 }
 
 /* ==========================================================================
-   FLOATING WHATSAPP BUTTON (With Pulse)
+   FLOATING WHATSAPP BUTTON (Glass Glow & Pulse)
    ========================================================================== */
 .floating-whatsapp-btn {
   position: fixed;
@@ -2406,13 +2478,13 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   color: #FFFFFF;
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.45);
   transition: all var(--transition-normal);
 }
 
 .floating-whatsapp-btn:hover {
   transform: scale(1.1);
-  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.65);
 }
 
 .floating-whatsapp-btn::after {
@@ -2433,7 +2505,8 @@ textarea.form-control {
 .whatsapp-tooltip {
   position: absolute;
   right: 70px;
-  background: var(--navy-dark);
+  background: rgba(8, 18, 32, 0.9);
+  backdrop-filter: var(--glass-blur-sm);
   color: var(--text-white);
   font-family: var(--font-accent);
   font-size: 0.82rem;
@@ -2445,7 +2518,7 @@ textarea.form-control {
   opacity: 0;
   transition: opacity var(--transition-fast);
   box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-gold);
+  border: 1px solid var(--glass-border-gold);
 }
 
 .floating-whatsapp-btn:hover .whatsapp-tooltip {
@@ -2453,7 +2526,7 @@ textarea.form-control {
 }
 
 /* ==========================================================================
-   MODALS (Room Details, Quick Booking, Table Reservation)
+   GLASS MODALS (Deep Backdrop Blur, Crystal Card Sheets)
    ========================================================================== */
 .site-modal-overlay {
   position: fixed;
@@ -2461,9 +2534,9 @@ textarea.form-control {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(11, 25, 44, 0.85);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(3, 7, 13, 0.82);
+  backdrop-filter: var(--glass-blur-lg);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
   z-index: 2500;
   display: none;
   align-items: center;
@@ -2477,17 +2550,20 @@ textarea.form-control {
 }
 
 .site-modal-card {
-  background: var(--surface-card);
+  background: rgba(10, 22, 38, 0.92);
+  backdrop-filter: var(--glass-blur-xl);
+  -webkit-backdrop-filter: var(--glass-blur-xl);
   border-radius: var(--radius-xl);
   max-width: 780px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-gold);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--glass-border-gold);
   position: relative;
   padding: 36px;
   animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--text-white);
 }
 
 @keyframes modalIn {
@@ -2499,11 +2575,12 @@ textarea.form-control {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: var(--bg-tertiary);
-  color: var(--navy-dark);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
+  color: var(--text-white);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2511,17 +2588,19 @@ textarea.form-control {
 }
 
 .modal-close-btn:hover {
-  background: var(--navy-dark);
-  color: var(--text-white);
+  background: var(--gold-rich);
+  color: #0A1422;
+  border-color: transparent;
 }
 
-/* Room Details Slider Inside Modal */
+/* Room Details Inside Modal */
 .modal-room-carousel {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
   height: 340px;
   margin-bottom: 24px;
+  border: 1px solid var(--glass-border);
 }
 
 .modal-carousel-img {
@@ -2536,18 +2615,21 @@ textarea.form-control {
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
-  background: rgba(11, 25, 44, 0.7);
+  background: rgba(6, 13, 23, 0.75);
+  backdrop-filter: var(--glass-blur-sm);
   color: #FFF;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid var(--glass-border);
   transition: all var(--transition-fast);
 }
 
 .carousel-arrow:hover {
   background: var(--gold-rich);
-  color: #0E1A2B;
+  color: #0A1422;
+  border-color: transparent;
 }
 
 .carousel-prev { left: 16px; }
@@ -2557,17 +2639,18 @@ textarea.form-control {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  background: var(--bg-tertiary);
+  background: rgba(255, 255, 255, 0.05);
   padding: 14px 20px;
   border-radius: var(--radius-md);
   margin-bottom: 24px;
   text-align: center;
+  border: 1px solid var(--glass-border-subtle);
 }
 
 .spec-box h5 {
   font-family: var(--font-accent);
   font-size: 0.74rem;
-  color: var(--text-muted);
+  color: var(--gold-light);
   text-transform: uppercase;
   margin-bottom: 2px;
 }
@@ -2576,7 +2659,7 @@ textarea.form-control {
   font-family: var(--font-accent);
   font-size: 0.94rem;
   font-weight: 700;
-  color: var(--navy-dark);
+  color: var(--text-white);
 }
 
 .modal-amenities-checklist {
@@ -2598,18 +2681,19 @@ textarea.form-control {
   color: #10B981;
 }
 
-/* Toast Notifications */
+/* Toast */
 .toast-notice {
   position: fixed;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background: var(--navy-dark);
+  background: rgba(10, 22, 38, 0.92);
+  backdrop-filter: var(--glass-blur-md);
   color: var(--text-white);
   padding: 14px 28px;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-gold);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--glass-border-gold);
   z-index: 3000;
   font-family: var(--font-accent);
   font-size: 0.92rem;
@@ -2668,7 +2752,7 @@ textarea.form-control {
   }
   .feature-strip-container {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 10px;
   }
   .offer-container {
     flex-direction: column;
@@ -2702,7 +2786,7 @@ textarea.form-control {
   }
   .booking-col {
     border-right: none;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--glass-border-subtle);
     padding: 10px 4px;
   }
   .booking-btn {
@@ -2728,4 +2812,21 @@ textarea.form-control {
   .site-modal-card {
     padding: 24px 18px;
   }
+}
+
+.faq-card {
+  background: var(--glass-card) !important;
+  backdrop-filter: var(--glass-blur-md) !important;
+  -webkit-backdrop-filter: var(--glass-blur-md) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 22px 28px !important;
+  box-shadow: var(--shadow-glass) !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.faq-card:hover {
+  border-color: var(--glass-border-gold) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glass-hover) !important;
 }

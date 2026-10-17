@@ -351,9 +351,9 @@ function updateBookingPriceEstimate() {
       <span>Hotel GST & Services (12%)</span>
       <span>₹${gst.toLocaleString('en-IN')}</span>
     </div>
-    <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.05rem; color:var(--navy-dark); border-top:1px dashed var(--border-light); padding-top:6px; margin-top:6px;">
+    <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.05rem; color:#FFFFFF; border-top:1px dashed var(--glass-border); padding-top:6px; margin-top:6px;">
       <span>Estimated Total Payable:</span>
-      <span style="color:var(--gold-dark);">₹${total.toLocaleString('en-IN')}</span>
+      <span style="color:var(--gold-light);">₹${total.toLocaleString('en-IN')}</span>
     </div>
   `;
 }
@@ -516,7 +516,7 @@ function showConfirmationDialog({ title, message, whatsappUrl }) {
     confModal.className = 'site-modal-overlay';
     confModal.innerHTML = `
       <div class="site-modal-card" style="max-width: 540px; text-align: center; padding: 40px 30px;">
-        <div style="width: 64px; height: 64px; border-radius: 50%; background: #ECFDF5; color: #10B981; display:flex; align-items:center; justify-content:center; margin: 0 auto 20px;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: #34D399; display:flex; align-items:center; justify-content:center; margin: 0 auto 20px;">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
         <h3 id="conf-dialog-title" style="font-size: 1.6rem; margin-bottom: 12px; color: var(--navy-dark);"></h3>
