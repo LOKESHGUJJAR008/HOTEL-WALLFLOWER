@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dining & Bar | The Wallflower Bistro & Velvet Lounge Kota</title>
+  <meta name="description" content="Savor culinary excellence at Hotel Wallflower, Kota. The Wallflower Bistro serves authentic Rajasthani and global cuisines, and The Velvet Lounge offers signature cocktails.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVBAR (Horizontal, Sticky)
+       ========================================================================== -->
+  <header class="site-header solid-nav" id="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo" id="nav-logo" aria-label="Hotel Wallflower Home">
+        <div class="logo-crest">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="brand-name">WALLFLOWER</span>
+          <span class="brand-tagline">HOTEL · KOTA</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="desktop-nav" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rooms.html" class="nav-link">Rooms</a>
+        <a href="dining.html" class="nav-link active">Dining</a>
+        <a href="amenities.html" class="nav-link">Amenities</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-gold nav-cta-btn" data-open-booking>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Book Now
+        </button>
+
+        <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
+  <aside class="mobile-nav-drawer" id="mobile-drawer">
+    <div class="mobile-links">
+      <a href="index.html" class="mobile-nav-link">Home <span>→</span></a>
+      <a href="rooms.html" class="mobile-nav-link">Rooms <span>→</span></a>
+      <a href="dining.html" class="mobile-nav-link active">Dining & Bar <span>→</span></a>
+      <a href="amenities.html" class="mobile-nav-link">Amenities <span>→</span></a>
+      <a href="gallery.html" class="mobile-nav-link">Gallery <span>→</span></a>
+      <a href="about.html" class="mobile-nav-link">About & Location <span>→</span></a>
+      <a href="contact.html" class="mobile-nav-link">Contact & Enquiry <span>→</span></a>
+    </div>
+    <div style="margin-bottom: 24px;">
+      <button class="btn btn-gold" style="width: 100%;" data-open-booking>
+        Book Your Stay
+      </button>
+    </div>
+  </aside>
+
+  <!-- Page Hero Banner -->
+  <section class="page-hero-banner">
+    <div class="container">
+      <span class="section-label" style="background: rgba(212,175,55,0.2); color: var(--gold-light);">Gastronomy & Spirits</span>
+      <h1 class="page-hero-title">Culinary Experiences</h1>
+      <p class="page-hero-subtitle">
+        Indulge in royal Rajasthani heritage flavors, contemporary Indian classics, and artisanal cocktails in an atmosphere of refined boutique luxury.
+      </p>
+      <div class="breadcrumbs">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span>Dining & Bar</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Dining Content -->
+  <main class="section">
+    <div class="container">
+
+      <!-- Venue 1: The Wallflower Bistro -->
+      <section class="dining-feature-block" id="wallflower-bistro">
+        <div class="dining-img-wrap">
+          <img src="assets/images/hotel-dining.jpg" alt="The Wallflower Bistro Restaurant Kota">
+        </div>
+        <div class="dining-text-wrap">
+          <span class="section-label">All-Day Fine Dining</span>
+          <h2 class="section-title" style="text-align: left;">The Wallflower Bistro</h2>
+          <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.75; margin-bottom: 20px;">
+            A culinary landmark on Jhalawar Road, The Wallflower Bistro marries the regal food heritage of Hadoti Rajasthan with elevated North Indian and global gastronomy. Every ingredient is sourced with unyielding freshness, offering comforting home-style dishes alongside gourmet masterpieces.
+          </p>
+
+          <!-- Timings Grid -->
+          <div class="dining-timings-grid">
+            <div class="timing-box">
+              <div class="timing-meal">Breakfast Buffet</div>
+              <div class="timing-hours">07:00 AM – 10:30 AM</div>
+            </div>
+            <div class="timing-box">
+              <div class="timing-meal">Lunch Service</div>
+              <div class="timing-hours">12:30 PM – 03:30 PM</div>
+            </div>
+            <div class="timing-box">
+              <div class="timing-meal">High Tea & Snacks</div>
+              <div class="timing-hours">04:30 PM – 06:30 PM</div>
+            </div>
+            <div class="timing-box">
+              <div class="timing-meal">Dinner Service</div>
+              <div class="timing-hours">07:00 PM – 11:00 PM</div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+            <button class="btn btn-gold" data-open-reserve-table data-venue="bistro">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              Reserve a Table
+            </button>
+            <a href="https://wa.me/919829012345?text=Hello%20Wallflower%20Bistro,%20I%20would%20like%20to%20book%20a%20table." target="_blank" class="btn btn-outline-gold" style="background:#25D366; color:#FFF; border-color:#25D366;">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+              Table on WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Venue 2: The Velvet Lounge & Bar -->
+      <section class="dining-feature-block reverse" id="velvet-bar">
+        <div class="dining-img-wrap">
+          <img src="assets/images/hotel-bar.jpg" alt="The Velvet Lounge Bar Hotel Wallflower">
+        </div>
+        <div class="dining-text-wrap">
+          <span class="section-label">Cocktail Bar & Spirits</span>
+          <h2 class="section-title" style="text-align: left;">The Velvet Lounge & Bar</h2>
+          <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.75; margin-bottom: 20px;">
+            Step into an intimate, moody sanctuary bathed in amber lighting and rich wood paneling. The Velvet Lounge offers an exceptional selection of single malts, international wines, craft brews, and bespoke cocktails stirred to perfection by our resident mixologists.
+          </p>
+
+          <div class="dining-timings-grid">
+            <div class="timing-box">
+              <div class="timing-meal">Operating Hours</div>
+              <div class="timing-hours">12:00 PM – 11:30 PM (Daily)</div>
+            </div>
+            <div class="timing-box">
+              <div class="timing-meal">Happy Hours</div>
+              <div class="timing-hours">05:00 PM – 07:30 PM (1+1 Brews)</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+            <button class="btn btn-navy" data-open-reserve-table data-venue="bar">
+              Reserve Lounge Booth
+            </button>
+            <a href="https://wa.me/919829012345?text=Hello%20Velvet%20Lounge,%20I%20would%20like%20to%20reserve%20a%20table%20at%20the%20bar." target="_blank" class="btn btn-outline-gold" style="background:#25D366; color:#FFF; border-color:#25D366;">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+              WhatsApp Enquiry
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Menu Highlights -->
+      <section style="margin-top: 80px;" id="menu-highlights">
+        <div class="section-header">
+          <span class="section-label">Chef's Selection</span>
+          <h2 class="section-title">Signature Menu Highlights</h2>
+          <p class="section-subtitle">
+            A sample of guest favorites crafted with locally-sourced spices and uncompromising hygiene.
+          </p>
+        </div>
+
+        <div class="menu-category-tabs">
+          <button class="menu-tab-btn active" data-menu-category="rajasthani">Rajasthani Heritage</button>
+          <button class="menu-tab-btn" data-menu-category="tandoor">Tandoor & Starters</button>
+          <button class="menu-tab-btn" data-menu-category="mains">Main Courses</button>
+          <button class="menu-tab-btn" data-menu-category="beverages">Bar & Cocktails</button>
+          <button class="menu-tab-btn" data-menu-category="desserts">Desserts</button>
+        </div>
+
+        <div class="menu-items-grid" id="menu-container">
+          <!-- Injected dynamically by script below -->
+        </div>
+      </section>
+
+      <!-- Breakfast Showcase Block -->
+      <section style="margin-top: 90px; background: var(--bg-secondary); border-radius: var(--radius-xl); padding: 50px; border: 1px solid var(--border-subtle);">
+        <div class="advantage-grid">
+          <div>
+            <span class="section-label">Complimentary with Stay</span>
+            <h2 class="section-title" style="text-align: left;">Lavish Morning Breakfast Buffet</h2>
+            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 24px;">
+              Start every day in Kota energized. Enjoy our daily spread featuring warm Indori poha, steamed idlis, fresh cut seasonal fruits, live egg stations, freshly baked croissants, and artisanal South Indian filter coffee & tea.
+            </p>
+            <ul style="display:flex; flex-direction:column; gap:10px; margin-bottom:28px;">
+              <li style="display:flex; align-items:center; gap:8px; font-weight:600; color:var(--navy-dark);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Included free with all direct room bookings
+              </li>
+              <li style="display:flex; align-items:center; gap:8px; font-weight:600; color:var(--navy-dark);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Fresh, hygienic, pure vegetarian and non-vegetarian options
+              </li>
+              <li style="display:flex; align-items:center; gap:8px; font-weight:600; color:var(--navy-dark);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Timing: 07:00 AM – 10:30 AM daily
+              </li>
+            </ul>
+            <button class="btn btn-gold" data-open-booking>
+              Book Room with Free Breakfast
+            </button>
+          </div>
+          <div style="border-radius: var(--radius-lg); overflow: hidden; height: 360px; box-shadow: var(--shadow-md);">
+            <img src="assets/images/hotel-breakfast.jpg" alt="Breakfast Buffet Spread Hotel Wallflower" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Table Reservation Modal -->
+  <div class="site-modal-overlay" id="table-modal" aria-hidden="true" role="dialog">
+    <div class="site-modal-card" style="max-width: 600px;">
+      <button class="modal-close-btn" aria-label="Close Modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div style="margin-bottom: 24px;">
+        <span class="section-label">Dining Reservation</span>
+        <h3 style="font-size: 1.8rem; margin-top: 6px; color: var(--navy-dark);">Reserve Your Table</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">
+          Enjoy instant table confirmation for family lunches, celebratory dinners, or business meetings.
+        </p>
+      </div>
+
+      <form id="modal-table-form">
+        <div class="form-group">
+          <label for="modal-table-venue">Choose Dining Venue</label>
+          <select id="modal-table-venue" class="form-control" required>
+            <option value="bistro">The Wallflower Bistro (Fine Dining)</option>
+            <option value="bar">The Velvet Lounge & Bar</option>
+          </select>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-table-name">Full Name</label>
+            <input type="text" id="modal-table-name" class="form-control" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-table-phone">Mobile Phone</label>
+            <input type="tel" id="modal-table-phone" class="form-control" placeholder="98290 12345" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-table-date">Reservation Date</label>
+            <input type="date" id="modal-table-date" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-table-time">Preferred Time Slot</label>
+            <select id="modal-table-time" class="form-control" required>
+              <option value="12:30 PM">12:30 PM (Lunch)</option>
+              <option value="01:30 PM">01:30 PM (Lunch)</option>
+              <option value="07:30 PM" selected>07:30 PM (Dinner)</option>
+              <option value="08:30 PM">08:30 PM (Dinner)</option>
+              <option value="09:30 PM">09:30 PM (Dinner / Lounge)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-table-guests">Number of Guests</label>
+            <select id="modal-table-guests" class="form-control">
+              <option value="2 Guests" selected>2 Guests</option>
+              <option value="3-4 Guests">3-4 Guests</option>
+              <option value="5-8 Guests">5-8 Guests</option>
+              <option value="8+ Large Party">8+ Large Gathering</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="modal-table-seating">Seating Preference</label>
+            <select id="modal-table-seating" class="form-control">
+              <option value="Indoor Main Hall">Indoor Main Hall</option>
+              <option value="Window View">Window Table</option>
+              <option value="Velvet Booth">Private Velvet Booth</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-table-notes">Special Occasion or Dietary Notes</label>
+          <input type="text" id="modal-table-notes" class="form-control" placeholder="e.g. Birthday celebration, Jain food options...">
+        </div>
+
+        <button type="submit" class="btn btn-gold btn-lg" style="width: 100%;">
+          Confirm Table Reservation
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="site-modal-overlay" id="booking-modal" aria-hidden="true" role="dialog">
+    <div class="site-modal-card">
+      <button class="modal-close-btn" aria-label="Close Modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div style="margin-bottom: 24px;">
+        <span class="section-label">Direct Reservation</span>
+        <h3 style="font-size: 1.8rem; margin-top: 6px; color: var(--navy-dark);">Book Your Stay at Wallflower</h3>
+      </div>
+
+      <form id="modal-booking-form">
+        <div class="form-group">
+          <label for="modal-book-room">Select Accommodation</label>
+          <select id="modal-book-room" class="form-control" required></select>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-checkin">Check-In Date</label>
+            <input type="date" id="modal-book-checkin" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-checkout">Check-Out Date</label>
+            <input type="date" id="modal-book-checkout" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-guests">Guests</label>
+            <select id="modal-book-guests" class="form-control">
+              <option value="2 Guests" selected>2 Guests</option>
+              <option value="3 Guests">3 Guests</option>
+              <option value="4 Guests">4 Guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-name">Guest Full Name</label>
+            <input type="text" id="modal-book-name" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-phone">Mobile Phone</label>
+            <input type="tel" id="modal-book-phone" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-email">Email Address</label>
+            <input type="email" id="modal-book-email" class="form-control" required>
+          </div>
+        </div>
+
+        <div id="modal-price-estimate" style="background: var(--bg-tertiary); padding: 16px 20px; border-radius: var(--radius-md); margin-bottom: 24px; border: 1px solid var(--border-subtle);"></div>
+
+        <button type="submit" class="btn btn-gold btn-lg" style="width: 100%;">
+          Submit Booking Enquiry
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 12px;">
+            <div class="logo-crest">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
+              </svg>
+            </div>
+            <div class="logo-text">
+              <span class="brand-name" style="color: #FFF;">WALLFLOWER</span>
+              <span class="brand-tagline">HOTEL · KOTA</span>
+            </div>
+          </a>
+          <p>Gastronomic brilliance and mixology in the heart of Kota, Rajasthan.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="dining.html">Dining</a></li>
+            <li><a href="amenities.html">Amenities</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Timings</h4>
+          <ul class="footer-links-list">
+            <li>Bistro: 07:00 AM – 11:00 PM</li>
+            <li>Velvet Lounge: 12:00 PM – 11:30 PM</li>
+            <li>Room Service: 24 Hours</li>
+          </ul>
+        </div>
+        <div class="footer-col footer-newsletter-box">
+          <h4>Table Reservations</h4>
+          <p>📞 +91 98290 12345</p>
+          <p>✉️ bistro@hotelwallflower.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div>© 2026 Hotel Wallflower, Kota. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact Us</a>
+          <a href="contact.html#privacy">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/919829012345?text=Hello%20Hotel%20Wallflower,%20I%20would%20like%20to%20reserve%20a%20table%20at%20the%20Bistro." target="_blank" class="floating-whatsapp-btn" aria-label="Reserve Table on WhatsApp">
+    <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+  </a>
+
+  <!-- Scripts -->
+  <script src="js/rooms-data.js"></script>
+  <script src="js/gallery-data.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Dining Menu Data & Tab Handler -->
+  <script>
+    const MENU_DATA = {
+      rajasthani: [
+        { name: "Royal Kota Dal Baati Churma", desc: "Crisp wheat baatis dipped in pure desi ghee, pancharatna spiced dal, garlic chutney, and rose-cardamom churma.", price: "₹480" },
+        { name: "Hadoti Ker Sangri", desc: "Sun-dried desert berries and beans tossed with whole red chilies, amchur, and Rajasthani mustard oil.", price: "₹420" },
+        { name: "Rajasthani Gatte ki Subz", desc: "Hand-rolled gram flour dumplings simmered in rich spiced curd gravy, tempered with hing and cumin.", price: "₹380" },
+        { name: "Paneer Rajputana", desc: "Cottage cheese steeped in rich mathania red chili and coriander gravy, cooked in copper handi.", price: "₹440" }
+      ],
+      tandoor: [
+        { name: "Paneer Tikka Angaar", desc: "Fresh cottage cheese marinated in hung curd, Kashmiri deggi mirch, mustard oil, chargrilled over charcoal.", price: "₹390" },
+        { name: "Dahi ke Sholay / Kebabs", desc: "Crisp golden bread pockets stuffed with spiced hung curd, bell peppers, and fresh coriander.", price: "₹360" },
+        { name: "Tandoori Malai Soya Chaap", desc: "Tender soya chaap infused with cashew paste, cardamom, and fresh cream, cooked to perfection.", price: "₹370" },
+        { name: "Crispy Chana Zor Corn Chaat", desc: "Golden sweet corn and crushed spiced chickpeas tossed with lime, chaat masala, and pomegranate.", price: "₹310" }
+      ],
+      mains: [
+        { name: "Dal Wallflower (Signature Black Dal)", desc: "Slow-simmered for 24 hours over slow tandoor embers with organic butter and dairy cream.", price: "₹390" },
+        { name: "Paneer Lababdar", desc: "Charcoal roasted paneer cubes enveloped in rich tomato onion gravy with grated paneer garnish.", price: "₹420" },
+        { name: "Subz Dum Handi Biryani", desc: "Long-grain aged basmati rice cooked with garden vegetables and saffron, served with Burani garlic raita.", price: "₹410" },
+        { name: "Artisanal Wood-Fired Margherita", desc: "San Marzano tomato base, fresh buffalo mozzarella, aromatic basil leaves, and cold-pressed olive oil.", price: "₹460" }
+      ],
+      beverages: [
+        { name: "Smoked Old Fashioned", desc: "Bourbon, Angostura bitters, organic sugar cube, smoked with dried applewood chips.", price: "₹650" },
+        { name: "Wallflower Sunset Martini", desc: "Vodka, elderflower cordial, passionfruit puree, chilled prosecco float.", price: "₹590" },
+        { name: "Kota Masala Shikanji", desc: "Fresh lemon, roasted cumin, black salt, mint sprigs, and aerated soda — ultimate cooler.", price: "₹180" },
+        { name: "Artisanal Cold Brew Coffee", desc: "18-hour cold steeped Arabica beans served over crystal ice with vanilla foam.", price: "₹220" }
+      ],
+      desserts: [
+        { name: "Kota Rabdi Ghewar", desc: "Authentic honeycomb pastry topped with slow-reduced saffron malai rabdi and silver vark.", price: "₹260" },
+        { name: "Sizzling Belgian Brownie", desc: "Warm dark chocolate walnut brownie with Madagascar vanilla bean ice cream and hot fudge.", price: "₹290" },
+        { name: "Kesari Rasmalai", desc: "Delicate chenna discs soaked in saffron and cardamom scented milk with roasted pistachios.", price: "₹220" }
+      ]
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('menu-container');
+      const tabs = document.querySelectorAll('[data-menu-category]');
+
+      function renderMenu(cat) {
+        if (!container) return;
+        const items = MENU_DATA[cat] || MENU_DATA.rajasthani;
+        container.innerHTML = items.map(item => `
+          <div class="menu-item-card">
+            <div class="menu-item-info">
+              <h4>${item.name}</h4>
+              <p>${item.desc}</p>
+            </div>
+            <div class="menu-item-price">${item.price}</div>
+          </div>
+        `).join('');
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          const cat = tab.getAttribute('data-menu-category');
+          renderMenu(cat);
+        });
+      });
+
+      renderMenu('rajasthani');
+    });
+  </script>
+</body>
+</html>

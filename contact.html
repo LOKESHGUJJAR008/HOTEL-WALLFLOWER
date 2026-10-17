@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Booking Enquiry | Hotel Wallflower Kota</title>
+  <meta name="description" content="Get in touch with Hotel Wallflower, Kota. Submit a booking enquiry, contact 24x7 reservations, view driving directions on Jhalawar Road near City Mall, or chat via WhatsApp.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="site-header solid-nav" id="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo" id="nav-logo" aria-label="Hotel Wallflower Home">
+        <div class="logo-crest">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="brand-name">WALLFLOWER</span>
+          <span class="brand-tagline">HOTEL · KOTA</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="desktop-nav" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rooms.html" class="nav-link">Rooms</a>
+        <a href="dining.html" class="nav-link">Dining</a>
+        <a href="amenities.html" class="nav-link">Amenities</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-gold nav-cta-btn" data-open-booking>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Book Now
+        </button>
+
+        <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
+  <aside class="mobile-nav-drawer" id="mobile-drawer">
+    <div class="mobile-links">
+      <a href="index.html" class="mobile-nav-link">Home <span>→</span></a>
+      <a href="rooms.html" class="mobile-nav-link">Rooms <span>→</span></a>
+      <a href="dining.html" class="mobile-nav-link">Dining & Bar <span>→</span></a>
+      <a href="amenities.html" class="mobile-nav-link">Amenities <span>→</span></a>
+      <a href="gallery.html" class="mobile-nav-link">Gallery <span>→</span></a>
+      <a href="about.html" class="mobile-nav-link">About & Location <span>→</span></a>
+      <a href="contact.html" class="mobile-nav-link active">Contact & Enquiry <span>→</span></a>
+    </div>
+    <div style="margin-bottom: 24px;">
+      <button class="btn btn-gold" style="width: 100%;" data-open-booking>
+        Book Your Stay
+      </button>
+    </div>
+  </aside>
+
+  <!-- Page Hero Banner -->
+  <section class="page-hero-banner">
+    <div class="container">
+      <span class="section-label" style="background: rgba(212,175,55,0.2); color: var(--gold-light);">Connect With Us</span>
+      <h1 class="page-hero-title">Contact & Booking Enquiry</h1>
+      <p class="page-hero-subtitle">
+        We are here to assist you 24 hours a day. Reach out for direct bookings, customized group rates, or travel inquiries.
+      </p>
+      <div class="breadcrumbs">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span>Contact & Enquiry</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Enquiry Layout -->
+  <main class="section bg-secondary">
+    <div class="container">
+      <div class="contact-layout-grid">
+        
+        <!-- Left Column: Hotel Info & Contacts -->
+        <div class="contact-info-card">
+          <span class="section-label" style="background: rgba(212,175,55,0.2); color: var(--gold-light);">Get In Touch</span>
+          <h3>Hotel Wallflower Kota</h3>
+          <p>
+            Whether you are planning a family trip, coaching admission visit, or corporate conference, our team is always eager to welcome you.
+          </p>
+
+          <div class="contact-details-list">
+            <!-- Address -->
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>Hotel Address</h4>
+                <p>Jhalawar Road, Near City Mall,<br>Kota, Rajasthan - 324005, India</p>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>Reservations & Front Desk</h4>
+                <p><a href="tel:+919829012345">+91 98290 12345</a><br><a href="tel:07442401234">0744-2401234</a> (24x7)</p>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>Email Inquiries</h4>
+                <p><a href="mailto:reservations@hotelwallflower.com">reservations@hotelwallflower.com</a><br><a href="mailto:info@hotelwallflower.com">info@hotelwallflower.com</a></p>
+              </div>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon" style="background: rgba(37,211,102,0.15); border-color:#25D366; color:#25D366;">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>WhatsApp Helpdesk</h4>
+                <p><a href="https://wa.me/919829012345" target="_blank" style="color:#25D366; font-weight:600;">+91 98290 12345 (Instant Reply)</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: rgba(255,255,255,0.08); padding: 18px; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.15);">
+            <h4 style="font-family: var(--font-accent); font-size: 0.9rem; color: var(--gold-light); text-transform: uppercase; margin-bottom: 4px;">Front Desk Hours</h4>
+            <p style="font-size: 0.88rem; color: rgba(255,255,255,0.85); margin: 0;">Open 24 Hours · 7 Days a week · All Year Round</p>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Booking Enquiry Form -->
+        <div class="booking-form-card">
+          <span class="section-label">Online Enquiry</span>
+          <h2 class="section-title" style="text-align: left; font-size: 2.2rem; margin-bottom: 8px;">
+            Reservation & Enquiry Form
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 28px;">
+            Fill in your preferred dates and room choice below. Our reservations team will confirm room availability and payment link instantly.
+          </p>
+
+          <form id="contact-booking-form">
+            <!-- Full Name & Phone -->
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="c-name">Full Name *</label>
+                <input type="text" id="c-name" class="form-control" placeholder="e.g. Rahul Sharma" required>
+              </div>
+              <div class="form-group">
+                <label for="c-phone">Mobile Phone (WhatsApp Enabled) *</label>
+                <input type="tel" id="c-phone" class="form-control" placeholder="e.g. 98290 12345" required>
+              </div>
+            </div>
+
+            <!-- Email & Room -->
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="c-email">Email Address *</label>
+                <input type="email" id="c-email" class="form-control" placeholder="name@example.com" required>
+              </div>
+              <div class="form-group">
+                <label for="c-room">Preferred Room *</label>
+                <select id="c-room" class="form-control" required>
+                  <option value="deluxe-executive">Deluxe Executive Room (₹2,499)</option>
+                  <option value="superior-twin">Superior Twin Room (₹2,299)</option>
+                  <option value="super-deluxe-balcony">Super Deluxe Balcony (₹3,299)</option>
+                  <option value="premium-royal-suite">Premium Royal Suite (₹4,499)</option>
+                  <option value="family-luxury-suite">Family Luxury Suite (₹5,499)</option>
+                  <option value="presidential-wallflower-suite">Presidential Suite (₹6,999)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Dates -->
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="c-checkin">Check-In Date *</label>
+                <input type="date" id="c-checkin" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="c-checkout">Check-Out Date *</label>
+                <input type="date" id="c-checkout" class="form-control" required>
+              </div>
+            </div>
+
+            <!-- Guests & Rooms Count -->
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="c-guests">Number of Guests</label>
+                <select id="c-guests" class="form-control">
+                  <option value="1 Adult">1 Adult</option>
+                  <option value="2 Adults" selected>2 Adults</option>
+                  <option value="3 Guests">3 Guests</option>
+                  <option value="4+ Guests">4+ Guests (Family)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="c-purpose">Purpose of Visit</label>
+                <select id="c-purpose" class="form-control">
+                  <option value="Coaching Admission / Parent Visit">Coaching Admission / Parent Visit</option>
+                  <option value="Corporate / Business Travel">Corporate / Business Travel</option>
+                  <option value="Tourism & Leisure">Tourism & Leisure</option>
+                  <option value="Family Function">Family Function / Other</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="form-group">
+              <label for="c-notes">Special Requests or Transport Requirements</label>
+              <textarea id="c-notes" class="form-control" rows="3" placeholder="e.g. Quiet study desk, airport/station cab pickup, Jain breakfast..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg" style="width: 100%;">
+              Send Booking Enquiry
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Google Map Embed -->
+      <section style="margin-top: 80px;">
+        <div class="section-header">
+          <span class="section-label">Find Us in Kota</span>
+          <h2 class="section-title">Hotel Wallflower on the Map</h2>
+          <p class="section-subtitle">
+            Centrally situated on Jhalawar Road, just 2 minutes from City Mall with ample free valet parking.
+          </p>
+        </div>
+        <div class="map-embed-wrapper">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115456.76214247852!2d75.76868846934336!3d25.143890333333335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396f849cfd22c95d%3A0xb35a3962b8ab240!2sCity%20Mall%2C%20Jhalawar%20Road%2C%20Kota%2C%20Rajasthan%20324005!5e0!3m2!1sen!2sin!4v1711234567890!5m2!1sen!2sin" 
+            allowfullscreen="" 
+            loading="lazy" 
+            title="Hotel Wallflower Google Map">
+          </iframe>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section style="margin-top: 80px;" id="faq-section">
+        <div class="section-header">
+          <span class="section-label">Frequently Asked</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+
+        <div style="max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+          <div style="background: var(--surface-card); padding: 22px 28px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-xs);">
+            <h4 style="font-size: 1.15rem; color: var(--navy-dark); margin-bottom: 8px;">What are the Check-in and Check-out timings?</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6;">
+              Standard check-in is 01:00 PM and check-out is 11:00 AM. Early check-in and late check-out can be accommodated based on room availability at no extra charge if booked directly.
+            </p>
+          </div>
+
+          <div style="background: var(--surface-card); padding: 22px 28px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-xs);">
+            <h4 style="font-size: 1.15rem; color: var(--navy-dark); margin-bottom: 8px;">Is Hotel Wallflower suitable for students and visiting parents?</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6;">
+              Yes! We are especially favored by students and parents. Our Superior Twin Rooms feature two dedicated study desks, sound-insulated windows, 100 Mbps fiber WiFi, and pure, wholesome home-style food at our Bistro.
+            </p>
+          </div>
+
+          <div style="background: var(--surface-card); padding: 22px 28px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-xs);">
+            <h4 style="font-size: 1.15rem; color: var(--navy-dark); margin-bottom: 8px;">How far is the hotel from Kota Junction Railway Station?</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6;">
+              Kota Junction is approximately 6.5 km (~15 minutes drive) away. We can arrange a comfortable private cab transfer for you with direct platform pickup.
+            </p>
+          </div>
+
+          <div style="background: var(--surface-card); padding: 22px 28px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-xs);">
+            <h4 style="font-size: 1.15rem; color: var(--navy-dark); margin-bottom: 8px;">Is free parking available for guests?</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6;">
+              Yes, we offer complimentary, secure parking inside our premises with 24-hour CCTV surveillance and valet assistance.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Global Modals -->
+  <div class="site-modal-overlay" id="booking-modal" aria-hidden="true" role="dialog">
+    <div class="site-modal-card">
+      <button class="modal-close-btn" aria-label="Close Modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div style="margin-bottom: 24px;">
+        <span class="section-label">Direct Reservation</span>
+        <h3 style="font-size: 1.8rem; margin-top: 6px; color: var(--navy-dark);">Book Your Stay at Wallflower</h3>
+      </div>
+
+      <form id="modal-booking-form">
+        <div class="form-group">
+          <label for="modal-book-room">Select Accommodation</label>
+          <select id="modal-book-room" class="form-control" required></select>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-checkin">Check-In Date</label>
+            <input type="date" id="modal-book-checkin" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-checkout">Check-Out Date</label>
+            <input type="date" id="modal-book-checkout" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-guests">Guests</label>
+            <select id="modal-book-guests" class="form-control">
+              <option value="2 Guests" selected>2 Guests</option>
+              <option value="3 Guests">3 Guests</option>
+              <option value="4 Guests">4 Guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-name">Full Name</label>
+            <input type="text" id="modal-book-name" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-phone">Mobile Phone</label>
+            <input type="tel" id="modal-book-phone" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-email">Email Address</label>
+            <input type="email" id="modal-book-email" class="form-control" required>
+          </div>
+        </div>
+        <div id="modal-price-estimate" style="background: var(--bg-tertiary); padding: 16px 20px; border-radius: var(--radius-md); margin-bottom: 24px; border: 1px solid var(--border-subtle);"></div>
+        <button type="submit" class="btn btn-gold btn-lg" style="width: 100%;">
+          Submit Booking Enquiry
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 12px;">
+            <div class="logo-crest">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
+              </svg>
+            </div>
+            <div class="logo-text">
+              <span class="brand-name" style="color: #FFF;">WALLFLOWER</span>
+              <span class="brand-tagline">HOTEL · KOTA</span>
+            </div>
+          </a>
+          <p>Always at your service in Kota, Rajasthan. Jhalawar Road near City Mall.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="dining.html">Dining</a></li>
+            <li><a href="amenities.html">Amenities</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Location</h4>
+          <ul class="footer-links-list">
+            <li>City Mall (2 min)</li>
+            <li>Kishore Sagar (~5 min)</li>
+            <li>Kota Airport (~3.3 km)</li>
+            <li>Kota Junction (~15 min)</li>
+          </ul>
+        </div>
+        <div class="footer-col footer-newsletter-box">
+          <h4>24x7 Desk</h4>
+          <p>📞 +91 98290 12345</p>
+          <p>✉️ reservations@hotelwallflower.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div>© 2026 Hotel Wallflower, Kota. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact Us</a>
+          <a href="contact.html#privacy">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/919829012345?text=Hello%20Hotel%20Wallflower,%20I%20have%20an%20enquiry%20regarding%20hotel%20bookings." target="_blank" class="floating-whatsapp-btn" aria-label="Chat on WhatsApp">
+    <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+  </a>
+
+  <!-- Scripts -->
+  <script src="js/rooms-data.js"></script>
+  <script src="js/gallery-data.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Contact Form Submit Handler -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const contactForm = document.getElementById('contact-booking-form');
+      const cin = document.getElementById('c-checkin');
+      const cout = document.getElementById('c-checkout');
+
+      if (cin && cout) {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const formatDate = (d) => d.toISOString().split('T')[0];
+        cin.min = formatDate(today);
+        cin.value = formatDate(today);
+        cout.min = formatDate(tomorrow);
+        cout.value = formatDate(tomorrow);
+
+        cin.addEventListener('change', () => {
+          const selected = new Date(cin.value);
+          const next = new Date(selected);
+          next.setDate(next.getDate() + 1);
+          cout.min = formatDate(next);
+          if (new Date(cout.value) <= selected) {
+            cout.value = formatDate(next);
+          }
+        });
+      }
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('c-name')?.value || 'Guest';
+          const phone = document.getElementById('c-phone')?.value || '';
+          const email = document.getElementById('c-email')?.value || '';
+          const roomSelect = document.getElementById('c-room');
+          const roomName = roomSelect?.options[roomSelect.selectedIndex]?.text || 'Deluxe Room';
+          const checkin = cin?.value || '';
+          const checkout = cout?.value || '';
+          const guests = document.getElementById('c-guests')?.value || '2 Adults';
+          const purpose = document.getElementById('c-purpose')?.value || 'Visit';
+          const notes = document.getElementById('c-notes')?.value || 'None';
+
+          const whatsappMsg = `*Hotel Wallflower - Contact & Booking Enquiry*%0A%0A` +
+            `👤 *Guest Name:* ${encodeURIComponent(name)}%0A` +
+            `📞 *Phone:* ${encodeURIComponent(phone)}%0A` +
+            `📧 *Email:* ${encodeURIComponent(email)}%0A` +
+            `🏨 *Room:* ${encodeURIComponent(roomName)}%0A` +
+            `📅 *Dates:* ${encodeURIComponent(checkin)} to ${encodeURIComponent(checkout)}%0A` +
+            `👥 *Guests:* ${encodeURIComponent(guests)}%0A` +
+            `🎯 *Purpose:* ${encodeURIComponent(purpose)}%0A` +
+            `📝 *Notes:* ${encodeURIComponent(notes)}%0A%0A` +
+            `Please confirm room booking and payment options. Thank you!`;
+
+          showConfirmationDialog({
+            title: "Enquiry Sent Successfully!",
+            message: `Thank you, <strong>${name}</strong>! Your enquiry for <strong>${roomName}</strong> from ${checkin} to ${checkout} has been received. Our team will contact you at ${phone} shortly.`,
+            whatsappUrl: `https://wa.me/919829012345?text=${whatsappMsg}`
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

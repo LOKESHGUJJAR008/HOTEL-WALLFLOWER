@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rooms & Suites | Hotel Wallflower Kota</title>
+  <meta name="description" content="Explore luxury rooms and executive suites at Hotel Wallflower, Kota. Tailored for corporate travelers, students, visiting parents, and family getaways.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVBAR (Horizontal, Sticky)
+       ========================================================================== -->
+  <header class="site-header solid-nav" id="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo" id="nav-logo" aria-label="Hotel Wallflower Home">
+        <div class="logo-crest">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="brand-name">WALLFLOWER</span>
+          <span class="brand-tagline">HOTEL · KOTA</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="desktop-nav" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rooms.html" class="nav-link active">Rooms</a>
+        <a href="dining.html" class="nav-link">Dining</a>
+        <a href="amenities.html" class="nav-link">Amenities</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-gold nav-cta-btn" data-open-booking>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Book Now
+        </button>
+
+        <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
+  <aside class="mobile-nav-drawer" id="mobile-drawer">
+    <div class="mobile-links">
+      <a href="index.html" class="mobile-nav-link">Home <span>→</span></a>
+      <a href="rooms.html" class="mobile-nav-link active">Rooms <span>→</span></a>
+      <a href="dining.html" class="mobile-nav-link">Dining & Bar <span>→</span></a>
+      <a href="amenities.html" class="mobile-nav-link">Amenities <span>→</span></a>
+      <a href="gallery.html" class="mobile-nav-link">Gallery <span>→</span></a>
+      <a href="about.html" class="mobile-nav-link">About & Location <span>→</span></a>
+      <a href="contact.html" class="mobile-nav-link">Contact & Enquiry <span>→</span></a>
+    </div>
+    <div style="margin-bottom: 24px;">
+      <button class="btn btn-gold" style="width: 100%;" data-open-booking>
+        Book Your Stay
+      </button>
+    </div>
+  </aside>
+
+  <!-- Page Hero Banner -->
+  <section class="page-hero-banner">
+    <div class="container">
+      <span class="section-label" style="background: rgba(212,175,55,0.2); color: var(--gold-light);">Accommodations</span>
+      <h1 class="page-hero-title">Rooms & Suites</h1>
+      <p class="page-hero-subtitle">
+        Discover tranquil elegance, acoustic soundproofing, ergonomic workstations, and refined hospitality in Kota, Rajasthan.
+      </p>
+      <div class="breadcrumbs">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span>Rooms & Suites</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rooms Listing Section with Filter -->
+  <main class="section bg-secondary">
+    <div class="container">
+      
+      <!-- Filter Bar (Guests, Bed type, Sort) -->
+      <div class="rooms-filter-bar">
+        <div class="filter-group">
+          <span class="filter-label">Filter by Guests:</span>
+          <button class="filter-btn active" data-filter-guest="all">All</button>
+          <button class="filter-btn" data-filter-guest="2">2 Guests</button>
+          <button class="filter-btn" data-filter-guest="3">3 Guests</button>
+          <button class="filter-btn" data-filter-guest="4">4+ Guests</button>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Bed Type:</span>
+          <select class="filter-select" id="bed-type-filter">
+            <option value="all">All Bed Types</option>
+            <option value="King">King Bed</option>
+            <option value="Twin">Twin Beds (Student/Colleague)</option>
+          </select>
+
+          <span class="filter-label" style="margin-left: 12px;">Sort Price:</span>
+          <select class="filter-select" id="price-sort">
+            <option value="default">Featured</option>
+            <option value="low-high">Price: Low to High</option>
+            <option value="high-low">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Rooms Grid (Dynamically rendered or fully populated from ROOMS_DATA) -->
+      <div class="rooms-grid" id="all-rooms-grid">
+        <!-- Rendered by client script below -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       ROOM DETAILS & BOOKING MODALS (Included on all pages)
+       ========================================================================== -->
+  <div class="site-modal-overlay" id="room-detail-modal" aria-hidden="true" role="dialog">
+    <div class="site-modal-card" style="max-width: 860px;">
+      <button class="modal-close-btn" aria-label="Close Room Details">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-room-carousel">
+        <img id="modal-carousel-image" class="modal-carousel-img" src="" alt="Hotel Wallflower Room Image">
+        <button class="carousel-arrow carousel-prev" id="room-carousel-prev" aria-label="Previous Photo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="carousel-arrow carousel-next" id="room-carousel-next" aria-label="Next Photo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 16px; flex-wrap: wrap;">
+        <div>
+          <span class="section-label" id="modal-room-tagline">Room Tagline</span>
+          <h2 id="modal-room-title" style="font-size: 2rem; color: var(--navy-dark); margin-top: 4px;">Room Title</h2>
+        </div>
+        <div style="text-align: right;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Starting from</span>
+          <span id="modal-room-price" style="font-family: var(--font-accent); font-size: 2rem; font-weight: 700; color: var(--gold-dark);">₹0</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">/ night</span>
+        </div>
+      </div>
+
+      <div class="modal-specs-strip">
+        <div class="spec-box">
+          <h5>Room Area</h5>
+          <p id="modal-spec-size">-</p>
+        </div>
+        <div class="spec-box">
+          <h5>Bed Arrangement</h5>
+          <p id="modal-spec-bed">-</p>
+        </div>
+        <div class="spec-box">
+          <h5>Capacity</h5>
+          <p id="modal-spec-guests">-</p>
+        </div>
+        <div class="spec-box">
+          <h5>Window View</h5>
+          <p id="modal-spec-view">-</p>
+        </div>
+      </div>
+
+      <p id="modal-room-desc" style="color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; font-size: 0.98rem;">
+        Detailed room description.
+      </p>
+
+      <h4 style="font-family: var(--font-accent); font-size: 1.05rem; margin-bottom: 12px; color: var(--navy-dark);">
+        Included Room Amenities
+      </h4>
+      <div class="modal-amenities-checklist" id="modal-room-amenities"></div>
+
+      <div style="display: flex; gap: 16px; justify-content: flex-end; border-top: 1px solid var(--border-light); padding-top: 24px; margin-top: 20px;">
+        <button class="btn btn-navy" onclick="closeAllModals()">Back</button>
+        <button class="btn btn-gold" id="modal-room-book-btn">Book This Room Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="site-modal-overlay" id="booking-modal" aria-hidden="true" role="dialog">
+    <div class="site-modal-card">
+      <button class="modal-close-btn" aria-label="Close Modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div style="margin-bottom: 24px;">
+        <span class="section-label">Direct Reservation</span>
+        <h3 style="font-size: 1.8rem; margin-top: 6px; color: var(--navy-dark);">Book Your Stay at Wallflower</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">
+          Enjoy lowest direct rate guarantee, complimentary breakfast, and flexible check-in.
+        </p>
+      </div>
+
+      <form id="modal-booking-form">
+        <div class="form-group">
+          <label for="modal-book-room">Select Accommodation</label>
+          <select id="modal-book-room" class="form-control" required></select>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-checkin">Check-In Date</label>
+            <input type="date" id="modal-book-checkin" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-checkout">Check-Out Date</label>
+            <input type="date" id="modal-book-checkout" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-guests">Guests</label>
+            <select id="modal-book-guests" class="form-control">
+              <option value="1 Guest">1 Guest</option>
+              <option value="2 Guests" selected>2 Guests</option>
+              <option value="3 Guests">3 Guests</option>
+              <option value="4 Guests">4 Guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-name">Guest Full Name</label>
+            <input type="text" id="modal-book-name" class="form-control" placeholder="e.g. Rahul Sharma" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-phone">Mobile Phone (for Confirmation)</label>
+            <input type="tel" id="modal-book-phone" class="form-control" placeholder="e.g. 98290 12345" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-email">Email Address</label>
+            <input type="email" id="modal-book-email" class="form-control" placeholder="name@example.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-book-notes">Special Requests / Preferences</label>
+          <textarea id="modal-book-notes" class="form-control" rows="2" placeholder="e.g. Quiet room for studying, late arrival..."></textarea>
+        </div>
+
+        <div id="modal-price-estimate" style="background: var(--bg-tertiary); padding: 16px 20px; border-radius: var(--radius-md); margin-bottom: 24px; border: 1px solid var(--border-subtle);"></div>
+
+        <button type="submit" class="btn btn-gold btn-lg" style="width: 100%;">
+          Submit Booking Enquiry
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 12px;">
+            <div class="logo-crest">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
+              </svg>
+            </div>
+            <div class="logo-text">
+              <span class="brand-name" style="color: #FFF;">WALLFLOWER</span>
+              <span class="brand-tagline">HOTEL · KOTA</span>
+            </div>
+          </a>
+          <p>Boutique luxury hospitality in Kota, Rajasthan. Jhalawar Road, near City Mall.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html">Rooms & Suites</a></li>
+            <li><a href="dining.html">Dining & Bar</a></li>
+            <li><a href="amenities.html">Amenities</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Location</h4>
+          <ul class="footer-links-list">
+            <li><a href="about.html">City Mall (2 min)</a></li>
+            <li><a href="about.html">Kishore Sagar (~5 min)</a></li>
+            <li><a href="about.html">Kota Airport (~3.3 km)</a></li>
+            <li><a href="about.html">Kota Junction (~15 min)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-newsletter-box">
+          <h4>Reservations</h4>
+          <p>📞 +91 98290 12345</p>
+          <p>✉️ reservations@hotelwallflower.com</p>
+          <p>24x7 Front Desk Assistance</p>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div>© 2026 Hotel Wallflower, Kota. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact Us</a>
+          <a href="contact.html#privacy">Privacy</a>
+          <a href="contact.html#terms">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/919829012345?text=Hello%20Hotel%20Wallflower,%20I%20would%20like%20to%20enquire%20about%20room%20bookings." target="_blank" class="floating-whatsapp-btn" aria-label="Chat on WhatsApp">
+    <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+  </a>
+
+  <!-- Scripts -->
+  <script src="js/rooms-data.js"></script>
+  <script src="js/gallery-data.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Rooms Page Specific Filtering Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const roomsGrid = document.getElementById('all-rooms-grid');
+      const guestBtns = document.querySelectorAll('[data-filter-guest]');
+      const bedFilter = document.getElementById('bed-type-filter');
+      const priceSort = document.getElementById('price-sort');
+
+      let currentGuest = 'all';
+      let currentBed = 'all';
+      let currentSort = 'default';
+
+      function renderRooms() {
+        if (!roomsGrid || typeof ROOMS_DATA === 'undefined') return;
+
+        let list = [...ROOMS_DATA];
+
+        // Filter by Guests
+        if (currentGuest !== 'all') {
+          const gCount = parseInt(currentGuest);
+          list = list.filter(r => r.maxGuests >= gCount);
+        }
+
+        // Filter by Bed Type
+        if (currentBed !== 'all') {
+          list = list.filter(r => r.bedType.toLowerCase() === currentBed.toLowerCase());
+        }
+
+        // Sort by Price
+        if (currentSort === 'low-high') {
+          list.sort((a, b) => a.price - b.price);
+        } else if (currentSort === 'high-low') {
+          list.sort((a, b) => b.price - a.price);
+        }
+
+        roomsGrid.innerHTML = '';
+
+        if (!list.length) {
+          roomsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+            <h3>No rooms matching your filter</h3>
+            <p style="color:var(--text-muted); margin-top:8px;">Try clearing some filters to see available options.</p>
+          </div>`;
+          return;
+        }
+
+        list.forEach(room => {
+          const card = document.createElement('article');
+          card.className = 'room-card';
+          card.innerHTML = `
+            <div class="room-media">
+              <img src="${room.coverImage}" alt="${room.name}">
+              <span class="room-badge">${room.discount}</span>
+              <div class="room-price-tag">
+                <span class="price-val">₹${room.price.toLocaleString('en-IN')}</span>
+                <span class="price-period">/ night</span>
+              </div>
+            </div>
+            <div class="room-body">
+              <div class="room-meta-strip">
+                <span class="room-meta-item">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                  ${room.guests}
+                </span>
+                <span class="room-meta-item">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path></svg>
+                  ${room.bedType} Bed
+                </span>
+                <span class="room-meta-item">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
+                  ${room.size}
+                </span>
+              </div>
+              <h3 class="room-card-title">${room.name}</h3>
+              <p class="room-card-desc">${room.shortDesc}</p>
+              <div class="room-features-pill-row">
+                ${room.features.map(f => `<span class="room-feature-tag">${f}</span>`).join('')}
+              </div>
+              <div class="room-footer">
+                <button class="btn-room-details" onclick="openRoomDetailsModal('${room.id}')">
+                  View Room Details
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+                <button class="btn btn-navy btn-sm" onclick="openBookingModal({ roomType: '${room.id}' })">
+                  Book Now
+                </button>
+              </div>
+            </div>
+          `;
+          roomsGrid.appendChild(card);
+        });
+      }
+
+      guestBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          guestBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentGuest = btn.getAttribute('data-filter-guest');
+          renderRooms();
+        });
+      });
+
+      bedFilter.addEventListener('change', () => {
+        currentBed = bedFilter.value;
+        renderRooms();
+      });
+
+      priceSort.addEventListener('change', () => {
+        currentSort = priceSort.value;
+        renderRooms();
+      });
+
+      renderRooms();
+    });
+  </script>
+</body>
+</html>

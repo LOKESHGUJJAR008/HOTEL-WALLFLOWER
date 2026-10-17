@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery | Hotel Wallflower Kota</title>
+  <meta name="description" content="Browse high-resolution photographs of Hotel Wallflower Kota: boutique rooms, The Wallflower Bistro, Velvet Lounge, pool table games room, gym, and nearby landmarks.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="site-header solid-nav" id="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo" id="nav-logo" aria-label="Hotel Wallflower Home">
+        <div class="logo-crest">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="brand-name">WALLFLOWER</span>
+          <span class="brand-tagline">HOTEL · KOTA</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="desktop-nav" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rooms.html" class="nav-link">Rooms</a>
+        <a href="dining.html" class="nav-link">Dining</a>
+        <a href="amenities.html" class="nav-link">Amenities</a>
+        <a href="gallery.html" class="nav-link active">Gallery</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-gold nav-cta-btn" data-open-booking>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Book Now
+        </button>
+
+        <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
+  <aside class="mobile-nav-drawer" id="mobile-drawer">
+    <div class="mobile-links">
+      <a href="index.html" class="mobile-nav-link">Home <span>→</span></a>
+      <a href="rooms.html" class="mobile-nav-link">Rooms <span>→</span></a>
+      <a href="dining.html" class="mobile-nav-link">Dining & Bar <span>→</span></a>
+      <a href="amenities.html" class="mobile-nav-link">Amenities <span>→</span></a>
+      <a href="gallery.html" class="mobile-nav-link active">Gallery <span>→</span></a>
+      <a href="about.html" class="mobile-nav-link">About & Location <span>→</span></a>
+      <a href="contact.html" class="mobile-nav-link">Contact & Enquiry <span>→</span></a>
+    </div>
+    <div style="margin-bottom: 24px;">
+      <button class="btn btn-gold" style="width: 100%;" data-open-booking>
+        Book Your Stay
+      </button>
+    </div>
+  </aside>
+
+  <!-- Page Hero Banner -->
+  <section class="page-hero-banner">
+    <div class="container">
+      <span class="section-label" style="background: rgba(212,175,55,0.2); color: var(--gold-light);">Visual Journey</span>
+      <h1 class="page-hero-title">Hotel Photo Gallery</h1>
+      <p class="page-hero-subtitle">
+        Explore our boutique interiors, elegant dining, recreation spaces, and the captivating city of Kota.
+      </p>
+      <div class="breadcrumbs">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span>Gallery</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Main Section -->
+  <main class="section bg-secondary">
+    <div class="container">
+      
+      <!-- Category Tabs (Rooms / Dining / Lobby & Exterior / Recreation / Kota City) -->
+      <div class="gallery-filter-tabs">
+        <button class="gallery-tab-btn active" data-category="all">All Photos</button>
+        <button class="gallery-tab-btn" data-category="rooms">Rooms & Suites</button>
+        <button class="gallery-tab-btn" data-category="dining">Dining & Bar</button>
+        <button class="gallery-tab-btn" data-category="lobby">Lobby & Exterior</button>
+        <button class="gallery-tab-btn" data-category="recreation">Pool & Fitness</button>
+        <button class="gallery-tab-btn" data-category="city">Kota City & Sights</button>
+      </div>
+
+      <!-- Gallery Grid (Rendered by main.js from GALLERY_DATA) -->
+      <div class="gallery-grid" id="gallery-items-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" id="gallery-lightbox-modal" aria-hidden="true" role="dialog">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close Lightbox">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <button class="lightbox-nav-btn lightbox-prev" id="lightbox-prev-btn" aria-label="Previous Image">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <div class="lightbox-img-wrap">
+        <img id="lightbox-image" src="" alt="Hotel Wallflower Lightbox Image">
+      </div>
+
+      <button class="lightbox-nav-btn lightbox-next" id="lightbox-next-btn" aria-label="Next Image">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <div class="lightbox-caption">
+        <h4 id="lightbox-title">Image Title</h4>
+        <p id="lightbox-desc">Image Description</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="site-modal-overlay" id="booking-modal" aria-hidden="true" role="dialog">
+    <div class="site-modal-card">
+      <button class="modal-close-btn" aria-label="Close Modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div style="margin-bottom: 24px;">
+        <span class="section-label">Direct Reservation</span>
+        <h3 style="font-size: 1.8rem; margin-top: 6px; color: var(--navy-dark);">Book Your Stay at Wallflower</h3>
+      </div>
+
+      <form id="modal-booking-form">
+        <div class="form-group">
+          <label for="modal-book-room">Select Accommodation</label>
+          <select id="modal-book-room" class="form-control" required></select>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-checkin">Check-In Date</label>
+            <input type="date" id="modal-book-checkin" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-checkout">Check-Out Date</label>
+            <input type="date" id="modal-book-checkout" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-guests">Guests</label>
+            <select id="modal-book-guests" class="form-control">
+              <option value="2 Guests" selected>2 Guests</option>
+              <option value="3 Guests">3 Guests</option>
+              <option value="4 Guests">4 Guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-name">Full Name</label>
+            <input type="text" id="modal-book-name" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-phone">Mobile Phone</label>
+            <input type="tel" id="modal-book-phone" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-email">Email Address</label>
+            <input type="email" id="modal-book-email" class="form-control" required>
+          </div>
+        </div>
+        <div id="modal-price-estimate" style="background: var(--bg-tertiary); padding: 16px 20px; border-radius: var(--radius-md); margin-bottom: 24px; border: 1px solid var(--border-subtle);"></div>
+        <button type="submit" class="btn btn-gold btn-lg" style="width: 100%;">
+          Submit Booking Enquiry
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 12px;">
+            <div class="logo-crest">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
+              </svg>
+            </div>
+            <div class="logo-text">
+              <span class="brand-name" style="color: #FFF;">WALLFLOWER</span>
+              <span class="brand-tagline">HOTEL · KOTA</span>
+            </div>
+          </a>
+          <p>Every photo reflects our passion for comfort and luxury in Kota, Rajasthan.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="dining.html">Dining</a></li>
+            <li><a href="amenities.html">Amenities</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Gallery Categories</h4>
+          <ul class="footer-links-list">
+            <li>Rooms & Suites</li>
+            <li>The Wallflower Bistro</li>
+            <li>The Velvet Lounge</li>
+            <li>Billiards Lounge</li>
+            <li>Kishore Sagar Lake</li>
+          </ul>
+        </div>
+        <div class="footer-col footer-newsletter-box">
+          <h4>Stay Connected</h4>
+          <p>Follow us on Instagram for regular photos and stories.</p>
+          <p>📞 +91 98290 12345</p>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div>© 2026 Hotel Wallflower, Kota. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact Us</a>
+          <a href="contact.html#privacy">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/919829012345?text=Hello%20Hotel%20Wallflower,%20I%20would%20like%20to%20enquire%20about%20a%20stay." target="_blank" class="floating-whatsapp-btn" aria-label="Chat on WhatsApp">
+    <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+  </a>
+
+  <!-- Scripts -->
+  <script src="js/rooms-data.js"></script>
+  <script src="js/gallery-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

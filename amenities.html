@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amenities & Services | Hotel Wallflower Kota</title>
+  <meta name="description" content="Discover premium hotel amenities at Hotel Wallflower, Kota: Free high-speed WiFi, valet parking, 24x7 reception, fitness centre, pool table games lounge, car rentals, and buffet breakfast.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVBAR (Horizontal, Sticky)
+       ========================================================================== -->
+  <header class="site-header solid-nav" id="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo" id="nav-logo" aria-label="Hotel Wallflower Home">
+        <div class="logo-crest">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="brand-name">WALLFLOWER</span>
+          <span class="brand-tagline">HOTEL · KOTA</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="desktop-nav" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rooms.html" class="nav-link">Rooms</a>
+        <a href="dining.html" class="nav-link">Dining</a>
+        <a href="amenities.html" class="nav-link active">Amenities</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-gold nav-cta-btn" data-open-booking>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Book Now
+        </button>
+
+        <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
+  <aside class="mobile-nav-drawer" id="mobile-drawer">
+    <div class="mobile-links">
+      <a href="index.html" class="mobile-nav-link">Home <span>→</span></a>
+      <a href="rooms.html" class="mobile-nav-link">Rooms <span>→</span></a>
+      <a href="dining.html" class="mobile-nav-link">Dining & Bar <span>→</span></a>
+      <a href="amenities.html" class="mobile-nav-link active">Amenities <span>→</span></a>
+      <a href="gallery.html" class="mobile-nav-link">Gallery <span>→</span></a>
+      <a href="about.html" class="mobile-nav-link">About & Location <span>→</span></a>
+      <a href="contact.html" class="mobile-nav-link">Contact & Enquiry <span>→</span></a>
+    </div>
+    <div style="margin-bottom: 24px;">
+      <button class="btn btn-gold" style="width: 100%;" data-open-booking>
+        Book Your Stay
+      </button>
+    </div>
+  </aside>
+
+  <!-- Page Hero Banner -->
+  <section class="page-hero-banner">
+    <div class="container">
+      <span class="section-label" style="background: rgba(212,175,55,0.2); color: var(--gold-light);">Modern Comforts</span>
+      <h1 class="page-hero-title">Hotel Amenities & Services</h1>
+      <p class="page-hero-subtitle">
+        Everything you need for an effortless, rejuvenating stay in Kota — from high-speed connectivity to our signature billiards lounge.
+      </p>
+      <div class="breadcrumbs">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span>Amenities</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Amenities Full Grid -->
+  <main class="section bg-secondary">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Tailored For Kota Travelers</span>
+        <h2 class="section-title">Designed for Your Total Comfort</h2>
+        <p class="section-subtitle">
+          Whether you are visiting for coaching admissions, corporate meetings, or city exploration, our curated boutique amenities cater to every requirement.
+        </p>
+      </div>
+
+      <div class="amenities-grid-full">
+        <!-- 1. Free WiFi -->
+        <div class="amenity-card-item">
+          <div class="amenity-icon-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+          </div>
+          <h3>High-Speed Free WiFi</h3>
+          <p>
+            Dedicated 100+ Mbps high-speed fiber internet coverage across all guest rooms, lobby, and dining areas. Perfect for online coaching lectures and video conferences.
+          </p>
+        </div>
+
+        <!-- 2. Free Parking -->
+        <div class="amenity-card-item">
+          <div class="amenity-icon-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+          </div>
+          <h3>Free Valet & Parking</h3>
+          <p>
+            Complimentary secure parking inside our premises with round-the-clock CCTV surveillance, dedicated security guards, and professional valet service.
+          </p>
+        </div>
+
+        <!-- 3. 24x7 Reception -->
+        <div class="amenity-card-item">
+          <div class="amenity-icon-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3>24x7 Front Desk</h3>
+          <p>
+            Our concierge team is at your service 24 hours a day for late night arrivals, local coaching travel guidance, wake-up calls, and luggage storage.
+          </p>
+        </div>
+
+        <!-- 4. 24-Hour Room Service -->
+        <div class="amenity-card-item">
+          <div class="amenity-icon-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+          </div>
+          <h3>In-Room Dining Service</h3>
+          <p>
+            Savor hot, wholesome meals from The Wallflower Bistro in the privacy of your room. Available 24 hours a day with prompt, courteous service.
+          </p>
+        </div>
+
+        <!-- 5. Fitness Centre -->
+        <div class="amenity-card-item" id="fitness">
+          <div class="amenity-icon-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 5v14M18 5v14M2 9h4M18 9h4M2 15h4M18 15h4M6 12h12"></path></svg>
+          </div>
+          <h3>Modern Fitness Centre</h3>
+          <p>
+            Equipped with state-of-the-art treadmills, cross-trainers, multi-station strength machines, free dumbbells, and clean workout towels with garden views.
+          </p>
+        </div>
+
+        <!-- 6. Pool Table & Games Lounge -->
+        <div class="amenity-card-item" id="pool-table">
+          <div class="amenity-icon-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"></line><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"></line><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"></line><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"></line></svg>
+          </div>
+          <h3>Pool Table & Lounge</h3>
+          <p>
+            Unwind in our signature games lounge featuring a regulation green felt billiards table, Chesterfield sofas, chess sets, and a cozy evening ambiance.
+          </p>
+        </div>
+
+        <!-- 7. Car Rental & Transfers -->
+        <div class="amenity-card-item">
+          <div class="amenity-icon-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9C2.1 11.2 2 11.6 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+          </div>
+          <h3>Car Rental & Transfers</h3>
+          <p>
+            Effortless chauffeur-driven airport transfers, railway station pick-ups (Kota Junction), and dedicated cabs for visiting Allen, Resonance, or tourist sites.
+          </p>
+        </div>
+
+        <!-- 8. Breakfast Buffet -->
+        <div class="amenity-card-item">
+          <div class="amenity-icon-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path></svg>
+          </div>
+          <h3>Complimentary Breakfast</h3>
+          <p>
+            Wake up to a lavish buffet of hot Rajasthani poha, parathas, idlis, seasonal fruits, live egg stations, and artisanal coffee included with direct bookings.
+          </p>
+        </div>
+
+        <!-- 9. Business & Banquets -->
+        <div class="amenity-card-item">
+          <div class="amenity-icon-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          </div>
+          <h3>Meeting & Banquet Facility</h3>
+          <p>
+            Well-appointed boardroom and banquet hall equipped with ultra HD projection, wireless mics, high-speed WiFi, and customized corporate catering.
+          </p>
+        </div>
+
+        <!-- 10. Daily Housekeeping -->
+        <div class="amenity-card-item">
+          <div class="amenity-icon-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h3>Daily Sanitization & Laundry</h3>
+          <p>
+            Spotless hygiene with hospital-grade sanitization, daily fresh linen changes, evening turndown service, and same-day express laundry/dry cleaning.
+          </p>
+        </div>
+      </div>
+
+      <!-- Spotlight 1: Pool Table Lounge Showcase -->
+      <section style="margin-top: 80px; background: #0B192C; color: #FFF; border-radius: var(--radius-xl); padding: 50px; overflow: hidden; border: 1px solid var(--border-gold);">
+        <div class="advantage-grid">
+          <div>
+            <span class="section-label" style="background: rgba(212,175,55,0.2); color: var(--gold-light);">Recreation Spotlight</span>
+            <h2 class="section-title" style="color: #FFF; text-align: left;">The Billiards & Games Lounge</h2>
+            <p style="color: rgba(255,255,255,0.85); font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px;">
+              Designed as an exclusive retreat where parents can unwind while waiting, or colleagues can brainstorm over a friendly game of pool. Enjoy leather Chesterfields, warm wood accents, and beverage service directly to the lounge table.
+            </p>
+            <div style="display: flex; gap: 16px;">
+              <button class="btn btn-gold" data-open-booking>
+                Book Your Stay
+              </button>
+              <a href="dining.html#velvet-bar" class="btn btn-outline-white">
+                View Lounge Bar
+              </a>
+            </div>
+          </div>
+          <div style="border-radius: var(--radius-lg); overflow: hidden; height: 380px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+            <img src="assets/images/hotel-lounge-pool.jpg" alt="Pool Table Lounge at Hotel Wallflower" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+        </div>
+      </section>
+
+      <!-- Spotlight 2: Modern Fitness Center -->
+      <section style="margin-top: 50px; background: var(--surface-card); border-radius: var(--radius-xl); padding: 50px; overflow: hidden; border: 1px solid var(--border-subtle);">
+        <div class="advantage-grid">
+          <div style="border-radius: var(--radius-lg); overflow: hidden; height: 380px; box-shadow: var(--shadow-md);">
+            <img src="assets/images/hotel-fitness.jpg" alt="Modern Gym at Hotel Wallflower" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div>
+            <span class="section-label">Wellness Spotlight</span>
+            <h2 class="section-title" style="text-align: left;">Stay Energized on the Road</h2>
+            <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px;">
+              Never compromise on your fitness routine while traveling. Our modern gymnasium is open from 06:00 AM to 10:00 PM, fully air-conditioned, with cardio machines, multi-weight stations, clean rolled towels, and filtered water.
+            </p>
+            <button class="btn btn-navy" data-open-booking>
+              Experience Wallflower
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Global Modals -->
+  <div class="site-modal-overlay" id="booking-modal" aria-hidden="true" role="dialog">
+    <div class="site-modal-card">
+      <button class="modal-close-btn" aria-label="Close Modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div style="margin-bottom: 24px;">
+        <span class="section-label">Direct Reservation</span>
+        <h3 style="font-size: 1.8rem; margin-top: 6px; color: var(--navy-dark);">Book Your Stay at Wallflower</h3>
+      </div>
+
+      <form id="modal-booking-form">
+        <div class="form-group">
+          <label for="modal-book-room">Select Accommodation</label>
+          <select id="modal-book-room" class="form-control" required></select>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-checkin">Check-In Date</label>
+            <input type="date" id="modal-book-checkin" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-checkout">Check-Out Date</label>
+            <input type="date" id="modal-book-checkout" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-guests">Guests</label>
+            <select id="modal-book-guests" class="form-control">
+              <option value="2 Guests" selected>2 Guests</option>
+              <option value="3 Guests">3 Guests</option>
+              <option value="4 Guests">4 Guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-name">Full Name</label>
+            <input type="text" id="modal-book-name" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="modal-book-phone">Mobile Phone</label>
+            <input type="tel" id="modal-book-phone" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-book-email">Email Address</label>
+            <input type="email" id="modal-book-email" class="form-control" required>
+          </div>
+        </div>
+        <div id="modal-price-estimate" style="background: var(--bg-tertiary); padding: 16px 20px; border-radius: var(--radius-md); margin-bottom: 24px; border: 1px solid var(--border-subtle);"></div>
+        <button type="submit" class="btn btn-gold btn-lg" style="width: 100%;">
+          Submit Booking Enquiry
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 12px;">
+            <div class="logo-crest">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
+              </svg>
+            </div>
+            <div class="logo-text">
+              <span class="brand-name" style="color: #FFF;">WALLFLOWER</span>
+              <span class="brand-tagline">HOTEL · KOTA</span>
+            </div>
+          </a>
+          <p>Unmatched boutique amenities and peaceful stays in Kota, Rajasthan.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="dining.html">Dining</a></li>
+            <li><a href="amenities.html">Amenities</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Key Amenities</h4>
+          <ul class="footer-links-list">
+            <li>Free Fiber WiFi</li>
+            <li>Valet Parking</li>
+            <li>Fitness Center</li>
+            <li>Billiards Lounge</li>
+            <li>24/7 Room Service</li>
+          </ul>
+        </div>
+        <div class="footer-col footer-newsletter-box">
+          <h4>Help & Concierge</h4>
+          <p>📞 +91 98290 12345</p>
+          <p>✉️ concierge@hotelwallflower.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div>© 2026 Hotel Wallflower, Kota. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact Us</a>
+          <a href="contact.html#privacy">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/919829012345?text=Hello%20Hotel%20Wallflower,%20I%20have%20an%20enquiry%20regarding%20hotel%20amenities." target="_blank" class="floating-whatsapp-btn" aria-label="Chat on WhatsApp">
+    <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+  </a>
+
+  <!-- Scripts -->
+  <script src="js/rooms-data.js"></script>
+  <script src="js/gallery-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
