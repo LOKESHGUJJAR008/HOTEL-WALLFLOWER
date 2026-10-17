@@ -690,47 +690,74 @@ window.showToast = function(msg) {
 };
 
 /* ==========================================================================
-   HERO SCROLL CHOREOGRAPHY (Zoom Out + Watermark Slide + Section Slide)
+   HERO SCROLL CHOREOGRAPHY (Pinned Scroll Track: Page Locked Until Full Zoom Out)
    ========================================================================== */
 function initHeroScrollChoreography() {
-  const hero = document.getElementById('hero');
+  const track = document.getElementById('hero-scroll-track');
   const heroImg = document.getElementById('hero-img');
   const watermarkText = document.getElementById('hero-watermark-text');
   const heroContent = document.getElementById('hero-content');
+  const zoomPctEl = document.getElementById('hero-zoom-pct');
+  const progressBadge = document.getElementById('hero-scroll-progress-badge');
 
-  if (!hero || !heroImg) return;
+  if (!track || !heroImg) return;
 
   let ticking = false;
 
   const onScroll = () => {
-    const scrollY = window.scrollY;
-    const heroHeight = hero.offsetHeight || window.innerHeight;
+    const rect = track.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const trackHeight = track.offsetHeight;
+    const scrollDistance = Math.max(1, trackHeight - windowHeight);
 
-    // Progress through hero viewport [0.0 -> 1.0]
-    const progress = Math.min(1.2, Math.max(0, scrollY / (heroHeight * 0.95)));
+    // Current scroll distance inside the pinned track
+    const currentScroll = Math.max(0, -rect.top);
+    const progress = Math.min(1.0, Math.max(0, currentScroll / scrollDistance));
 
-    // 1. Image zooms out as user scrolls down: from 1.25 down to 1.00 smoothly
-    const zoomScale = Math.max(0.98, 1.25 - progress * 0.25);
-    const parallaxY = scrollY * 0.2;
-    const brightness = Math.max(0.48, 0.68 - progress * 0.2);
-    heroImg.style.transform = `scale(${zoomScale.toFixed(4)}) translateY(${parallaxY.toFixed(1)}px)`;
+    // 1. Image zooms out as user scrolls down:
+    // Starts deeply zoomed in at scale(1.45)
+    // As user scrolls, zooms out continuously until scale(1.00)
+    // ONLY when progress reaches 1.0 does the image complete zoom-out and page moves!
+    const startScale = 1.45;
+    const endScale = 1.00;
+    const currentScale = startScale - (progress * (startScale - endScale));
+    const brightness = Math.max(0.50, 0.70 - progress * 0.18);
+
+    heroImg.style.transform = `scale(${currentScale.toFixed(4)})`;
     heroImg.style.filter = `brightness(${brightness.toFixed(3)}) contrast(1.1) grayscale(0.12)`;
 
     // 2. Bold italic transparent watermark text slides horizontally across the screen
     if (watermarkText) {
-      const slideX = progress * 260; // slides right-to-left
-      const slideY = progress * 70;
-      const textScale = 1 + progress * 0.05;
+      const slideX = progress * 320; // slides right-to-left
+      const slideY = progress * 40;
+      const textScale = 1 + progress * 0.08;
       watermarkText.style.transform = `translate3d(${-slideX.toFixed(1)}px, ${slideY.toFixed(1)}px, 0) scale(${textScale.toFixed(3)})`;
-      watermarkText.style.opacity = Math.max(0.08, 1 - progress * 0.75);
+      watermarkText.style.opacity = Math.max(0.10, 1 - progress * 0.75);
     }
 
-    // 3. Foreground title & booking bar slide up with parallax & fade
+    // 3. Foreground title & booking bar slide up and fade out in the latter half of the zoom-out
     if (heroContent) {
-      const contentSlideY = -scrollY * 0.35;
-      const contentOpacity = Math.max(0, 1 - progress * 1.35);
-      heroContent.style.transform = `translate3d(0, ${contentSlideY.toFixed(1)}px, 0)`;
+      let contentOpacity = 1;
+      let contentY = 0;
+      if (progress > 0.20) {
+        const fadeProgress = (progress - 0.20) / 0.80; // 0 to 1
+        contentOpacity = Math.max(0, 1 - fadeProgress * 1.35);
+        contentY = -fadeProgress * 90;
+      }
+      heroContent.style.transform = `translate3d(0, ${contentY.toFixed(1)}px, 0)`;
       heroContent.style.opacity = contentOpacity.toFixed(3);
+    }
+
+    // 4. Update HUD progress indicator
+    if (zoomPctEl) {
+      const pct = Math.round(progress * 100);
+      if (pct >= 100) {
+        zoomPctEl.textContent = '100% · UNLOCKED';
+        if (progressBadge) progressBadge.style.borderColor = '#FFFFFF';
+      } else {
+        zoomPctEl.textContent = `${pct}%`;
+        if (progressBadge) progressBadge.style.borderColor = 'rgba(255, 255, 255, 0.25)';
+      }
     }
 
     ticking = false;
