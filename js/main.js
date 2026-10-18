@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initToast();
   initScrollDrivenHero();
   initPinnedStorytellingSection();
-  initFloatingPerspectiveShowcase();
+  // initFloatingPerspectiveShowcase(); // Replaced by 3D Image Stack Showcase (js/image-stack.js)
   initRoomsHorizontalTrack();
   initAtmosphereReveal();
   initStatementMaskReveal();
@@ -820,6 +820,7 @@ function initLenisSmoothScroll() {
     smoothWheel: true,
     syncTouch: false
   });
+  window.lenis = lenisInstance;
 
   if (typeof ScrollTrigger !== 'undefined') {
     lenisInstance.on('scroll', ScrollTrigger.update);
