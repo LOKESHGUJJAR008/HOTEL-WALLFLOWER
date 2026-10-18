@@ -77,10 +77,10 @@
         <a href="#book-your-stay" class="nav-link">Contact</a>
       </nav>
 
-      <!-- Right: Book Now Action & Accessible Mobile Menu Button -->
+      <!-- Right: Book Your Stay Action & Accessible Mobile Menu Button -->
       <div class="header-actions">
-        <button type="button" class="btn-book-stay" data-open-booking aria-label="Book Now">
-          <span>Book Now</span>
+        <button type="button" class="btn-book-stay" data-open-booking aria-label="Book Your Stay">
+          <span>Book Your Stay</span>
         </button>
 
         <button type="button" class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Open Navigation Menu" aria-expanded="false" aria-controls="mobile-nav-panel">
@@ -175,12 +175,6 @@
               <span class="subtext-line"></span>
               <span class="subtext-label">HOTEL</span>
               <span class="subtext-line"></span>
-            </div>
-            <div class="hero-cta-wrapper" id="hero-cta-wrapper">
-              <a href="#rooms-track" class="btn-hero-cta" aria-label="Explore Rooms">
-                <span>Explore Rooms</span>
-                <span class="hero-cta-arrow" aria-hidden="true">→</span>
-              </a>
             </div>
           </div>
 
@@ -430,72 +424,133 @@
     </section>
 
     <!-- ==========================================================================
-         02 — 3D IMAGE STACK SHOWCASE
-         Scroll-driven vertical 3D perspective stack with paper-bending physics,
-         minimal layout, light grey (#EDEDED) background, right-side dynamic list,
-         very large blurred counter, scroll hint, audio ambient toggle, and counter.
+         02 — FLOATING PERSPECTIVES (SCROLL-DRIVEN AESTHETIC MOTION SHOWCASE)
+         Theme: Obsidian & Charcoal (#0B0B0B) · Pinned Stage
+         Animation: Floating image enters from Left and glides across to Right as user scrolls,
+         with continuously evolving motion effects (tilt, 3D gyroscopic roll, S-wave, scale).
          ========================================================================== -->
-    <section class="chapter-section image-stack-showcase-section" id="brand-story" aria-label="3D Image Stack Showcase">
-      <div class="stack-pinned-viewport" id="stack-viewport">
+    <section class="chapter-section floating-perspective-section" id="brand-story" aria-label="Aesthetic Floating Image Motion Showcase">
+      <div class="floating-perspective-stage" id="floating-perspective-stage">
+        
+        <!-- Ambient Radial Stage Vignette -->
+        <div class="perspective-stage-ambient"></div>
 
-        <!-- Top Navigation Bar -->
-        <header class="stack-top-nav" aria-label="Showcase Navigation">
-          <div class="stack-top-links">
-            <a href="#rooms-track" class="stack-nav-link">Rooms</a>
-            <a href="about.html" class="stack-nav-link">About</a>
-            <a href="#hotel-experience" class="stack-nav-link">Experiences</a>
-            <a href="#book-your-stay" class="stack-nav-link">Contact</a>
+        <!-- Background Kinetic Marquee Watermark -->
+        <div class="perspective-watermark-strip" aria-hidden="true">
+          <span class="perspective-watermark-text" id="perspective-watermark-text">
+            WALLFLOWER · AESTHETIC PERSPECTIVE · SCULPTED TRANQUILITY · KOTA LUXURY · MINDFUL SILENCE · 
+          </span>
+        </div>
+
+        <!-- Top Header: Minimalist Editorial Indicator & Live Motion Phase -->
+        <div class="container perspective-header-container">
+          <div class="perspective-header-bar">
+            <div class="perspective-kicker-group">
+              <span class="perspective-badge-pill">02 — FLOATING PERSPECTIVES</span>
+              <span class="perspective-stage-telemetry" id="motion-telemetry-badge">PHASE 01 · LEFT INCOMING DRIFT</span>
+            </div>
+            <div class="perspective-header-meta">
+              <span class="perspective-meta-coord">25.18° N, 75.83° E</span>
+              <span class="perspective-meta-dot">✦</span>
+              <span class="perspective-meta-loc">JHALAWAR ROAD, KOTA</span>
+            </div>
           </div>
-          <button type="button" class="stack-audio-toggle" id="stack-audio-toggle" aria-label="Toggle Ambient Audio">
-            <span class="audio-toggle-dot" aria-hidden="true"></span>
-            <span class="audio-toggle-label" id="stack-audio-label">Audio Off</span>
-          </button>
-        </header>
+          <div class="perspective-divider-line" aria-hidden="true"></div>
+        </div>
 
-        <!-- Main Grid: Left / Center 3D Stage & Right Item List -->
-        <div class="stack-stage-grid">
+        <!-- Central Floating Track & Canvas -->
+        <div class="floating-motion-canvas" id="floating-motion-canvas">
           
-          <!-- Center 3D Stack Stage -->
-          <div class="stack-center-stage">
-            <div class="stack-3d-perspective-stage" id="stack-cards-container">
-              <!-- Cards rendered dynamically by js/image-stack.js -->
+          <!-- Atmospheric Halo Glow -->
+          <div class="motion-ambient-glow" id="motion-ambient-glow"></div>
+
+          <!-- The Hero Floating Image Cluster (Scrolls from Left to Right) -->
+          <div class="floating-hero-cluster" id="floating-hero-cluster">
+            
+            <!-- Secondary Companion Shadow Card (Float behind with counter-drift) -->
+            <div class="floating-companion-card" id="floating-companion-card">
+              <div class="companion-levitation-wrap">
+                <div class="companion-inner-frame">
+                  <picture>
+                    <source srcset="assets/images/hotel-bar.webp" type="image/webp">
+                    <img src="assets/images/hotel-bar.jpg" alt="Velvet Lounge Atmosphere" class="companion-photo" loading="lazy">
+                  </picture>
+                  <div class="companion-card-scrim"></div>
+                  <div class="companion-tag">THE VELVET LOUNGE</div>
+                </div>
+              </div>
             </div>
+
+            <!-- Primary Hero Aesthetic Floating Card (Autonomous Levitation + Changing Motion) -->
+            <div class="floating-main-card" id="floating-main-card">
+              <!-- Inner wrapper for continuous autonomous organic levitation physics -->
+              <div class="floating-levitation-wrap" id="floating-card-levitator">
+                <div class="floating-main-frame">
+                  
+                  <!-- Photo Layer 1: Ground Atrium (Phase 1) -->
+                  <div class="motion-photo-layer layer-active" id="motion-photo-1">
+                    <picture>
+                      <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
+                      <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Ground Atrium" class="motion-photo-img" loading="lazy">
+                    </picture>
+                  </div>
+
+                  <!-- Photo Layer 2: Royal Sanctuary Suite (Phase 2) -->
+                  <div class="motion-photo-layer" id="motion-photo-2">
+                    <picture>
+                      <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
+                      <img src="assets/images/room-royal-suite.jpg" alt="Royal Sanctuary Suite" class="motion-photo-img" loading="lazy">
+                    </picture>
+                  </div>
+
+                  <!-- Photo Layer 3: Twilight Courtyard & Pool (Phase 3) -->
+                  <div class="motion-photo-layer" id="motion-photo-3">
+                    <picture>
+                      <source srcset="assets/images/hotel-lounge-pool.webp" type="image/webp">
+                      <img src="assets/images/hotel-lounge-pool.jpg" alt="Twilight Courtyard" class="motion-photo-img" loading="lazy">
+                    </picture>
+                  </div>
+
+                  <!-- Glass Light Shimmer Beam & Crisp Razor Border -->
+                  <div class="motion-glass-glare"></div>
+                  <div class="motion-card-border"></div>
+
+                  <!-- Floating Floating Badge on Card -->
+                  <div class="motion-card-floating-badge" id="motion-card-badge">
+                    <span class="card-badge-num">01</span>
+                    <span class="card-badge-title" id="motion-card-title">Ground Atrium · Sculpted Limestone</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Third Companion Floating Spec Card (Travels alongside with float drift) -->
+            <div class="floating-tertiary-card" id="floating-tertiary-card">
+              <div class="tertiary-levitation-wrap">
+                <div class="tertiary-inner-frame">
+                  <picture>
+                    <source srcset="assets/images/hotel-dining.webp" type="image/webp">
+                    <img src="assets/images/hotel-dining.jpg" alt="Wallflower Bistro" class="tertiary-photo" loading="lazy">
+                  </picture>
+                  <div class="tertiary-card-scrim"></div>
+                  <div class="tertiary-tag">WALLFLOWER BISTRO</div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Right Side Vertical List of All 18 Items -->
-          <aside class="stack-right-column" aria-label="Spaces & Amenities Index">
-            <div class="stack-list-wrapper">
-              <ul class="stack-items-list" id="stack-items-list" role="list">
-                <!-- 18 Items with 3-color palette dots rendered dynamically -->
-              </ul>
-            </div>
-          </aside>
-
-        </div>
-
-        <!-- Big Blurred Counter (Bottom Left) -->
-        <div class="stack-big-counter-box" aria-hidden="true">
-          <span class="stack-big-counter-number" id="stack-big-counter-number">01</span>
-        </div>
-
-        <!-- Scroll Indicator Hint (Bottom Center) -->
-        <div class="stack-bottom-scroll-hint" aria-hidden="true">
-          <span class="stack-scroll-text">Scroll</span>
-          <div class="stack-scroll-line"></div>
-        </div>
-
-        <!-- Dynamic Counter (Bottom Right) -->
-        <div class="stack-bottom-total-counter">
-          <span class="stack-total-text" id="stack-total-counter">18 shown</span>
-        </div>
-
-        <!-- Mobile-Only Compact Active Card (Bottom) -->
-        <div class="stack-mobile-active-card" id="stack-mobile-active-card">
-          <span class="mobile-active-num">01</span>
-          <div class="mobile-active-text">
-            <h4 class="mobile-active-title">Premium Rooms</h4>
-            <p class="mobile-active-desc">Spacious architectural sanctuaries featuring sculpted Kota limestone and teak accents.</p>
+          <!-- Bottom Editorial Floating Caption Strip (Follows Scroll Journey) -->
+          <div class="motion-bottom-caption" id="motion-bottom-caption">
+            <h3 class="motion-caption-headline" id="motion-caption-headline">
+              Where architectural silence <em>glides through mindful space.</em>
+            </h3>
+            <p class="motion-caption-sub" id="motion-caption-sub">
+              Scroll to explore perspective · Handcrafted Kota limestone and acoustic stillness in dynamic motion.
+            </p>
           </div>
+
         </div>
 
       </div>
@@ -1268,7 +1323,6 @@
   <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/rooms-data.js"></script>
   <script src="js/gallery-data.js"></script>
-  <script src="js/image-stack.js"></script>
   <script src="js/main.js?v=flight8"></script>
 </body>
 </html>
