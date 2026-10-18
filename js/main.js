@@ -1780,35 +1780,24 @@ function initPinnedStorytellingSection() {
 function initFloatingPerspectiveShowcase() {
   const section = document.getElementById('brand-story');
   const stage = document.getElementById('floating-perspective-stage');
-  const cluster = document.getElementById('floating-hero-cluster');
-  const mainCard = document.getElementById('floating-main-card');
-  const companionCard = document.getElementById('floating-companion-card');
-  const tertiaryCard = document.getElementById('floating-tertiary-card');
-  const watermark = document.getElementById('perspective-watermark-text');
+  const backdrop = document.getElementById('comfort-zone-backdrop');
+  const cards = Array.from(document.querySelectorAll('.floating-room-card'));
   const telemetryBadge = document.getElementById('motion-telemetry-badge');
-  const cardTitle = document.getElementById('motion-card-title');
-  const photo1 = document.getElementById('motion-photo-1');
-  const photo2 = document.getElementById('motion-photo-2');
-  const photo3 = document.getElementById('motion-photo-3');
   const captionHeadline = document.getElementById('motion-caption-headline');
   const captionSub = document.getElementById('motion-caption-sub');
 
-  if (!section || !stage || !cluster || !mainCard) return;
+  if (!section || !stage || cards.length === 0) return;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) {
-    cluster.style.transform = 'none';
-    mainCard.style.transform = 'none';
-    if (companionCard) companionCard.style.transform = 'none';
-    if (tertiaryCard) tertiaryCard.style.transform = 'none';
-    if (photo1) photo1.classList.add('layer-active');
+    if (backdrop) backdrop.style.transform = 'none';
+    cards.forEach(card => card.style.transform = 'none');
     return;
   }
 
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    cluster.style.transform = 'none';
-    mainCard.style.transform = 'none';
-    if (photo1) photo1.classList.add('layer-active');
+    if (backdrop) backdrop.style.transform = 'none';
+    cards.forEach(card => card.style.transform = 'none');
     return;
   }
 
@@ -1818,252 +1807,164 @@ function initFloatingPerspectiveShowcase() {
   const oldTrigger = ScrollTrigger.getById('floating-perspective-trigger');
   if (oldTrigger) oldTrigger.kill();
 
-  const getSweepDistance = () => {
-    return Math.max(window.innerWidth * 0.62, 550);
-  };
+  const getStageWidth = () => window.innerWidth;
 
-  // 1. Initial State: Cluster starts positioned on the LEFT side of viewport
-  gsap.set(cluster, {
-    x: () => -getSweepDistance(),
-    y: 0,
-    force3D: true
-  });
-
-  gsap.set(mainCard, {
-    rotation: -18,
-    rotationY: 28,
-    rotationX: 8,
-    y: 70,
-    scale: 0.8,
-    opacity: 0.7,
-    force3D: true,
-    transformPerspective: 1200
-  });
-
-  if (companionCard) {
-    gsap.set(companionCard, {
-      x: -60,
-      y: -40,
-      scale: 0.72,
-      rotation: -12,
-      opacity: 0.65,
+  // 1. Initial State:
+  // "COMFORT ZONE" STARTS ON THE RIGHT SIDE (behind cards)
+  if (backdrop) {
+    gsap.set(backdrop, {
+      x: () => getStageWidth() * 0.28, // Anchored towards right side
+      opacity: 0.9,
       force3D: true
     });
   }
 
-  if (tertiaryCard) {
-    gsap.set(tertiaryCard, {
-      x: 50,
-      y: 60,
-      scale: 0.68,
-      rotation: 14,
-      opacity: 0.6,
-      force3D: true
+  // 9 ROOM CARDS START OFF-SCREEN ON THE LEFT SIDE
+  // Staggered initial left positions, tilts, and 3D angles
+  const cardData = [
+    { startOffset: 0.85, initialRot: -14, initialRotY: 26, scale: 0.84, waveY: -35, midRot: 6, midRotY: -10, exitRot: 16, exitRotY: -28 },
+    { startOffset: 1.15, initialRot: -10, initialRotY: 22, scale: 0.86, waveY: 30,  midRot: 4, midRotY: -8,  exitRot: 14, exitRotY: -24 },
+    { startOffset: 1.45, initialRot: -16, initialRotY: 28, scale: 0.82, waveY: -40, midRot: 8, midRotY: -12, exitRot: 18, exitRotY: -30 },
+    { startOffset: 1.75, initialRot: -8,  initialRotY: 20, scale: 0.88, waveY: 25,  midRot: 5, midRotY: -6,  exitRot: 12, exitRotY: -22 },
+    { startOffset: 2.05, initialRot: -12, initialRotY: 25, scale: 0.94, waveY: -20, midRot: 9, midRotY: -14, exitRot: 17, exitRotY: -32 }, // Hero Center
+    { startOffset: 2.35, initialRot: -15, initialRotY: 24, scale: 0.85, waveY: 35,  midRot: 6, midRotY: -9,  exitRot: 15, exitRotY: -26 },
+    { startOffset: 2.65, initialRot: -9,  initialRotY: 22, scale: 0.89, waveY: -30, midRot: 7, midRotY: -11, exitRot: 16, exitRotY: -28 },
+    { startOffset: 2.95, initialRot: -13, initialRotY: 20, scale: 0.84, waveY: 20,  midRot: 4, midRotY: -7,  exitRot: 13, exitRotY: -20 },
+    { startOffset: 3.25, initialRot: -11, initialRotY: 26, scale: 0.87, waveY: -25, midRot: 8, midRotY: -13, exitRot: 19, exitRotY: -30 }
+  ];
+
+  cards.forEach((card, idx) => {
+    const config = cardData[idx] || cardData[0];
+    gsap.set(card, {
+      x: () => -getStageWidth() * config.startOffset,
+      y: 0,
+      rotation: config.initialRot,
+      rotationY: config.initialRotY,
+      rotationX: 6,
+      scale: config.scale,
+      opacity: 0.85,
+      force3D: true,
+      transformPerspective: 1600
     });
-  }
 
-  if (watermark) {
-    gsap.set(watermark, { x: 0 });
-  }
+    // Merge interaction: clicking any card opens room modal or books that room
+    card.addEventListener('click', () => {
+      const roomId = card.getAttribute('data-room-id');
+      if (typeof window.openBookingModal === 'function') {
+        window.openBookingModal({ roomType: roomId });
+      }
+    });
+  });
 
-  // 2. Main Scroll-driven Timeline (pin stage for 240vh)
+  // 2. Main Scroll-driven Scrub Timeline
   const motionTimeline = gsap.timeline({
     scrollTrigger: {
       id: 'floating-perspective-trigger',
       trigger: section,
       pin: stage,
       start: 'top top',
-      end: '+=240%',
-      scrub: 0.7, // Silky smooth organic scrub
+      end: '+=280%',
+      scrub: 0.8, // Smooth organic scrub
       pinSpacing: true,
       anticipatePin: 1,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const p = self.progress;
 
-        // Dynamically update telemetry and caption state as motion evolves
-        if (p < 0.38) {
+        // Dynamic Telemetry & Editorial updates as scroll evolves
+        if (p < 0.33) {
           if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 01 · LEFT INCOMING DRIFT') {
             telemetryBadge.textContent = 'PHASE 01 · LEFT INCOMING DRIFT';
           }
-          if (cardTitle && cardTitle.textContent !== 'Ground Atrium · Sculpted Limestone') {
-            cardTitle.textContent = 'Ground Atrium · Sculpted Limestone';
-          }
-          if (photo1 && !photo1.classList.contains('layer-active')) {
-            photo1.classList.add('layer-active');
-            if (photo2) photo2.classList.remove('layer-active');
-            if (photo3) photo3.classList.remove('layer-active');
-          }
           if (captionHeadline) {
-            captionHeadline.innerHTML = 'Where architectural silence <em>glides through mindful space.</em>';
+            captionHeadline.innerHTML = 'Where architectural silence <em>glides into your comfort zone.</em>';
           }
           if (captionSub) {
-            captionSub.textContent = 'Scroll to explore perspective · Handcrafted Kota limestone and acoustic stillness in dynamic motion.';
+            captionSub.textContent = 'Scroll to explore 9 handcrafted room sanctuaries · Drifting smoothly from left across to Kota horizons.';
           }
-        } else if (p >= 0.38 && p < 0.72) {
-          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 02 · 3D GYROSCOPIC TILT') {
-            telemetryBadge.textContent = 'PHASE 02 · 3D GYROSCOPIC TILT';
-          }
-          if (cardTitle && cardTitle.textContent !== 'Royal Sanctuary Suite · Acoustic Isolation') {
-            cardTitle.textContent = 'Royal Sanctuary Suite · Acoustic Isolation';
-          }
-          if (photo2 && !photo2.classList.contains('layer-active')) {
-            photo2.classList.add('layer-active');
-            if (photo1) photo1.classList.remove('layer-active');
-            if (photo3) photo3.classList.remove('layer-active');
+        } else if (p >= 0.33 && p < 0.68) {
+          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 02 · 3D GYROSCOPIC WAVE SURGE') {
+            telemetryBadge.textContent = 'PHASE 02 · 3D GYROSCOPIC WAVE SURGE';
           }
           if (captionHeadline) {
-            captionHeadline.innerHTML = 'Sculpted stone and teak <em>in harmonic zero-gravity balance.</em>';
+            captionHeadline.innerHTML = 'Bespoke suites <em>in sculpted zero-gravity harmony.</em>';
           }
           if (captionSub) {
-            captionSub.textContent = 'Full 3D gyroscopic roll · Orthopedic serenity and sound-engineered luxury on Jhalawar Road.';
+            captionSub.textContent = 'Center-stage 3D gyroscopic roll · 400-thread linens, handcrafted teak, and acoustic isolation.';
           }
         } else {
-          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 03 · HORIZON DEPARTURE GLIDE') {
-            telemetryBadge.textContent = 'PHASE 03 · HORIZON DEPARTURE GLIDE';
-          }
-          if (cardTitle && cardTitle.textContent !== 'Twilight Courtyard · Amber Reflections') {
-            cardTitle.textContent = 'Twilight Courtyard · Amber Reflections';
-          }
-          if (photo3 && !photo3.classList.contains('layer-active')) {
-            photo3.classList.add('layer-active');
-            if (photo1) photo1.classList.remove('layer-active');
-            if (photo2) photo2.classList.remove('layer-active');
+          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 03 · HORIZON EXIT GLIDE') {
+            telemetryBadge.textContent = 'PHASE 03 · HORIZON EXIT GLIDE';
           }
           if (captionHeadline) {
-            captionHeadline.innerHTML = 'Restorative twilight horizons <em>unfolding into the Kota night.</em>';
+            captionHeadline.innerHTML = 'Restorative sleep horizons <em>unfolding into serenity.</em>';
           }
           if (captionSub) {
-            captionSub.textContent = 'Kinetic perspective exit · Private courtyards and bespoke cocktails stirred under the stars.';
+            captionSub.textContent = 'Kinetic departure glide · Click any sanctuary suite to explore private balconies and deep tranquility.';
           }
         }
       }
     }
   });
 
-  // --- HORIZONTAL JOURNEY (Sweep from Left -sweepDistance to Right +sweepDistance) ---
-  motionTimeline.to(cluster, {
-    x: () => getSweepDistance(),
-    duration: 1.0,
-    ease: 'none'
-  }, 0.0);
-
-  // Background watermark subtle counter-drift
-  if (watermark) {
-    motionTimeline.to(watermark, {
-      x: () => -window.innerWidth * 0.25,
+  // A. Backdrop "COMFORT ZONE": Drifts from Right towards Left across the background
+  if (backdrop) {
+    motionTimeline.to(backdrop, {
+      x: () => -getStageWidth() * 0.45,
       duration: 1.0,
       ease: 'none'
     }, 0.0);
   }
 
-  // --- MOTION EFFECT PHASE 1: Left Entrance to Center-Left (0.00 -> 0.38) ---
-  // Rises up along an ascending levitation curve, rotation eases, scale expands
-  motionTimeline.to(mainCard, {
-    y: -35,
-    rotation: -4,
-    rotationY: 10,
-    rotationX: 4,
-    scale: 1.05,
-    opacity: 1,
-    duration: 0.38,
-    ease: 'power2.out'
-  }, 0.0);
+  // B. Animate each of the 9 Room Cards with changing motion effects (Left -> Right)
+  const totalSweep = () => getStageWidth() * 3.6;
 
-  if (companionCard) {
-    motionTimeline.to(companionCard, {
-      x: -40,
-      y: 20,
-      scale: 0.88,
-      rotation: 6,
-      opacity: 0.85,
-      duration: 0.38,
-      ease: 'power2.out'
+  cards.forEach((card, idx) => {
+    const config = cardData[idx] || cardData[0];
+
+    // Card travels across the viewport from Left to Right
+    motionTimeline.to(card, {
+      x: `+=${totalSweep()}`,
+      duration: 1.0,
+      ease: 'none'
     }, 0.0);
-  }
 
-  if (tertiaryCard) {
-    motionTimeline.to(tertiaryCard, {
-      x: 30,
-      y: -25,
-      scale: 0.82,
-      rotation: -8,
-      opacity: 0.85,
-      duration: 0.38,
-      ease: 'power2.out'
+    // Dynamic Phase 1: Entry Lift & Scale-Up (0.00 -> 0.35)
+    motionTimeline.to(card, {
+      y: config.waveY,
+      rotation: config.initialRot * 0.35,
+      rotationY: config.initialRotY * 0.35,
+      scale: config.scale * 1.1,
+      opacity: 1,
+      duration: 0.35,
+      ease: 'power1.out'
     }, 0.0);
-  }
 
-  // --- MOTION EFFECT PHASE 2: Center-Stage 3D Gyroscopic Roll & Wave Dip (0.38 -> 0.70) ---
-  // Motion effect flips: dips into S-wave, rotation inverts to +6deg, rotateY inverts to -14deg, scale surges to 1.2
-  motionTimeline.to(mainCard, {
-    y: 15,
-    rotation: 6,
-    rotationY: -14,
-    rotationX: -6,
-    scale: 1.2,
-    duration: 0.32,
-    ease: 'sine.inOut'
-  }, 0.38);
-
-  if (companionCard) {
-    motionTimeline.to(companionCard, {
-      x: -110,
-      y: -45,
-      scale: 0.78,
-      rotation: -14,
-      duration: 0.32,
+    // Dynamic Phase 2: Center-Stage 3D Gyroscopic Roll & Wave Dip (0.35 -> 0.68)
+    // Motion effect changes dynamically: inverts rotation, increases scale, dips in wave
+    motionTimeline.to(card, {
+      y: -config.waveY * 0.8,
+      rotation: config.midRot,
+      rotationY: config.midRotY,
+      rotationX: -4,
+      scale: config.scale * 1.18, // Center-stage scale surge
+      duration: 0.33,
       ease: 'sine.inOut'
-    }, 0.38);
-  }
+    }, 0.35);
 
-  if (tertiaryCard) {
-    motionTimeline.to(tertiaryCard, {
-      x: 100,
-      y: 55,
-      scale: 0.75,
-      rotation: 12,
+    // Dynamic Phase 3: Departure Horizon Glide (0.68 -> 1.00)
+    // Motion effect shifts again into a horizon departure bank angle towards right
+    motionTimeline.to(card, {
+      y: config.waveY * 1.2,
+      rotation: config.exitRot,
+      rotationY: config.exitRotY,
+      rotationX: 6,
+      scale: config.scale * 0.86,
+      opacity: 0.8,
       duration: 0.32,
-      ease: 'sine.inOut'
-    }, 0.38);
-  }
-
-  // --- MOTION EFFECT PHASE 3: Center-Right to Far Right Departure (0.70 -> 1.00) ---
-  // Motion changes again: banks upward then departs smoothly into right edge with +18deg angle
-  motionTimeline.to(mainCard, {
-    y: 50,
-    rotation: 18,
-    rotationY: -30,
-    rotationX: 8,
-    scale: 0.82,
-    opacity: 0.75,
-    duration: 0.30,
-    ease: 'power2.in'
-  }, 0.70);
-
-  if (companionCard) {
-    motionTimeline.to(companionCard, {
-      x: 30,
-      y: 60,
-      scale: 0.65,
-      rotation: 16,
-      opacity: 0.5,
-      duration: 0.30,
       ease: 'power2.in'
-    }, 0.70);
-  }
-
-  if (tertiaryCard) {
-    motionTimeline.to(tertiaryCard, {
-      x: -20,
-      y: -50,
-      scale: 0.65,
-      rotation: -14,
-      opacity: 0.5,
-      duration: 0.30,
-      ease: 'power2.in'
-    }, 0.70);
-  }
+    }, 0.68);
+  });
 }
 
 /* ==========================================================================
