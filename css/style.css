@@ -2269,6 +2269,8 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-bottom: 78px; /* Clearance for bottom booking bar */
+  box-sizing: border-box;
   background: radial-gradient(circle at 50% 50%, #151515 0%, #0B0B0B 75%, #050505 100%);
   will-change: transform;
 }
@@ -2305,7 +2307,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 26px 48px 0;
+  padding: 24px 48px 0;
   box-sizing: border-box;
 }
 
@@ -2436,7 +2438,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 1px;
   background: rgba(255, 255, 255, 0.12);
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 /* Floating Motion Canvas & 3D Perspective Context */
@@ -2447,8 +2449,8 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1800px;
-  -webkit-perspective: 1800px;
+  perspective: 2000px;
+  -webkit-perspective: 2000px;
   overflow: visible;
   z-index: 5;
 }
@@ -2466,8 +2468,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Subtle Book Spine Guide Axis */
 .flipbook-spine-axis {
   position: absolute;
-  top: 15%;
-  bottom: 22%;
+  top: 12%;
+  bottom: 16%;
   left: 50%;
   width: 1px;
   background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.08) 20%, rgba(255, 255, 255, 0.08) 80%, transparent);
@@ -2481,8 +2483,8 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 .flipbook-corner-display {
   position: absolute;
-  top: 20px;
-  left: 48px;
+  top: 18px;
+  left: 88px;
   z-index: 25;
   pointer-events: none;
   display: flex;
@@ -2495,24 +2497,25 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 7px 18px;
-  background: rgba(14, 14, 14, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 8px 18px;
+  background: rgba(14, 14, 14, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   opacity: 0.72; /* Requested: thodi opacity kam */
   transition: opacity 0.3s ease, border-color 0.3s ease;
+  border-radius: 2px;
 }
 
 .corner-kicker-dot {
   color: var(--gold, #C5A880);
-  font-size: 0.62rem;
+  font-size: 0.65rem;
 }
 
 .corner-num {
   font-family: var(--font-dm);
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: #FFFFFF;
@@ -2520,12 +2523,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .corner-sep {
   color: rgba(255, 255, 255, 0.4);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
 }
 
 .corner-name {
   font-family: var(--font-dm);
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -2538,8 +2541,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.72rem;
   font-weight: 400;
   letter-spacing: 0.08em;
-  color: #A8A59E;
-  opacity: 0.68; /* Requested: thodi opacity kam */
+  color: #B3B0A8;
+  opacity: 0.65; /* Requested: thodi opacity kam */
   padding-left: 4px;
   transition: opacity 0.3s ease;
 }
@@ -2552,10 +2555,10 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   width: 100%;
   max-width: 1200px;
-  height: 560px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: clamp(420px, 46vh, 560px);
+  margin: 0 auto;
+  perspective: 2000px;
+  -webkit-perspective: 2000px;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   z-index: 5;
@@ -2563,16 +2566,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .flip-page-card {
   position: absolute;
-  width: clamp(330px, 31vw, 470px);
-  height: clamp(430px, 45vh, 570px);
+  top: 50%;
+  left: 50%;
+  width: clamp(290px, 26vw, 420px);
+  height: clamp(390px, 42vh, 530px);
+  margin-top: calc(-1 * clamp(390px, 42vh, 530px) / 2);
+  margin-left: calc(-1 * clamp(290px, 26vw, 420px) / 2);
   will-change: transform, opacity;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   cursor: grab;
   user-select: none;
   touch-action: pan-y;
-  /* Default initial resting position on upper right */
-  transform: translate3d(320px, -85px, -60px) rotateY(-40deg) rotateZ(8deg) rotateX(6deg) scale(0.86);
   opacity: 0;
   pointer-events: none;
   transition: box-shadow 0.3s ease;
@@ -2588,10 +2593,10 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 100%;
   background: #0B0B0B;
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 35px 85px rgba(0, 0, 0, 0.92), 0 0 45px rgba(0, 0, 0, 0.7);
-  transform-origin: left center;
+  box-shadow: 0 35px 85px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 0, 0, 0.7);
+  transform-origin: center center;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -2599,21 +2604,21 @@ h1, h2, h3, h4, h5, h6 {
 /* "LEFT TOP CORNE MAIN HAR PIC KI NAME OR NO. LIKHA HOGA THODI OPACITY KAM" */
 .page-corner-tag {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 14px;
+  left: 14px;
   z-index: 10;
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 5px 13px;
-  background: rgba(11, 11, 11, 0.64);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 5px 12px;
+  background: rgba(11, 11, 11, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   opacity: 0.72; /* Requested: thodi opacity kam */
   pointer-events: none;
   border-radius: 2px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
   transition: opacity 0.3s ease;
 }
 

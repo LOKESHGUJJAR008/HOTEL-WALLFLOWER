@@ -40,6 +40,33 @@ window.addEventListener('load', () => {
 });
 
 /* ==========================================================================
+   LENIS SMOOTH SCROLL INTEGRATION
+   ========================================================================== */
+function initLenisSmoothScroll() {
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false
+    });
+
+    lenis.on('scroll', () => {
+      if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.update();
+      }
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+    window.lenis = lenis;
+  }
+}
+
+/* ==========================================================================
    MINIMAL LUXURY NAVIGATION & KEYBOARD-ACCESSIBLE MOBILE MENU
    - Transparent over hero -> solid Obsidian after scrolling (window.scrollY > 40)
    - Smooth anchor scrolling with header offset
@@ -1836,10 +1863,10 @@ function initFloatingPerspectiveShowcase() {
   const isMobile = () => window.innerWidth <= 768;
 
   // Geometry configuration for book page switch trajectory
-  const getRightX = () => (isMobile() ? window.innerWidth * 0.42 : Math.max(300, window.innerWidth * 0.26));
-  const getRightY = () => (isMobile() ? -60 : -95);
-  const getLeftX = () => (isMobile() ? -window.innerWidth * 0.42 : -Math.max(300, window.innerWidth * 0.26));
-  const getLeftY = () => (isMobile() ? 40 : 55);
+  const getRightX = () => (isMobile() ? window.innerWidth * 0.36 : Math.max(260, window.innerWidth * 0.23));
+  const getRightY = () => (isMobile() ? -55 : -85);
+  const getLeftX = () => (isMobile() ? -window.innerWidth * 0.36 : -Math.max(250, window.innerWidth * 0.22));
+  const getLeftY = () => (isMobile() ? 35 : 50);
 
   let activeIndex = 0;
 
@@ -2056,25 +2083,36 @@ function initFloatingPerspectiveShowcase() {
 
     // Rapid riffle speed: ~2.4 seconds across all 18 images
     const remainingP = 1.0 - startP;
-    const duration = Math.max(1.2, remainingP * 2.6);
+    const duration = Math.max(1.4, remainingP * 2.8);
 
-    // Scroll page smoothly via ScrollTrigger
     const stStart = scrollTriggerInstance.start;
     const stEnd = scrollTriggerInstance.end;
-    const targetScroll = stStart + remainingP * (stEnd - stStart);
+    const targetScroll = stStart + (stEnd - stStart);
 
     if (startP === 0) {
-      window.scrollTo({ top: stStart, behavior: 'auto' });
+      if (window.lenis) {
+        window.lenis.scrollTo(stStart, { immediate: true });
+      } else {
+        window.scrollTo({ top: stStart, behavior: 'auto' });
+      }
     }
 
-    speedTween = gsap.to(window, {
-      scrollTo: targetScroll,
-      duration: duration,
-      ease: 'power1.inOut',
-      onComplete: () => {
-        stopSpeedFlip();
-      }
-    });
+    if (window.lenis) {
+      window.lenis.scrollTo(targetScroll, {
+        duration: duration,
+        easing: (t) => t,
+        onComplete: stopSpeedFlip
+      });
+    } else {
+      const scrollObj = { y: window.scrollY };
+      speedTween = gsap.to(scrollObj, {
+        y: targetScroll,
+        duration: duration,
+        ease: 'none',
+        onUpdate: () => window.scrollTo(0, scrollObj.y),
+        onComplete: stopSpeedFlip
+      });
+    }
   };
 
   if (speedBtn) {
@@ -2092,16 +2130,22 @@ function initFloatingPerspectiveShowcase() {
   const navigateToPage = (targetIdx) => {
     stopSpeedFlip();
     const clamped = Math.max(0, Math.min(totalPages - 1, targetIdx));
-    const targetProgress = (clamped + 0.4) / totalPages;
+    const targetProgress = (clamped + 0.35) / totalPages;
     const stStart = scrollTriggerInstance.start;
     const stEnd = scrollTriggerInstance.end;
     const targetScroll = stStart + targetProgress * (stEnd - stStart);
 
-    gsap.to(window, {
-      scrollTo: targetScroll,
-      duration: 0.55,
-      ease: 'power2.out'
-    });
+    if (window.lenis) {
+      window.lenis.scrollTo(targetScroll, { duration: 0.65 });
+    } else {
+      const scrollObj = { y: window.scrollY };
+      gsap.to(scrollObj, {
+        y: targetScroll,
+        duration: 0.65,
+        ease: 'power2.out',
+        onUpdate: () => window.scrollTo(0, scrollObj.y)
+      });
+    }
   };
 
   if (prevBtn) {
