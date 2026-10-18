@@ -5,9 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hotel Wallflower | Boutique Luxury Hotel in Kota, Rajasthan</title>
   <meta name="description" content="Experience refined boutique hospitality at Hotel Wallflower, Kota. Luxury rooms, The Wallflower Bistro, Velvet Lounge, pool table, fitness center, near City Mall on Jhalawar Road.">
-  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=flight8">
 </head>
 <body>
+
+  <!-- Floating Transparent Glass Dock Navbar (Left-Side Floating Dock, 5 Page Links) -->
+  <nav class="floating-glass-dock" id="floating-dock" aria-label="Quick Dock Navigation">
+    <a href="index.html" class="dock-brand-crest" aria-label="Hotel Wallflower Home" data-tooltip="Hotel Wallflower">
+      <img src="assets/images/logo.png" alt="Hotel Wallflower Logo" class="dock-brand-logo-img">
+    </a>
+    <div class="dock-divider"></div>
+    <a href="index.html" class="dock-item active" aria-label="Home" data-tooltip="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+    </a>
+    <a href="rooms.html" class="dock-item" aria-label="Rooms & Suites" data-tooltip="Suites & Rooms">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 4v16"></path>
+        <path d="M2 10h18a2 2 0 0 1 2 2v8"></path>
+        <path d="M2 17h20"></path>
+        <circle cx="6" cy="7" r="2"></circle>
+      </svg>
+    </a>
+    <a href="dining.html" class="dock-item" aria-label="Dining & Bistro" data-tooltip="Bistro & Bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 3h10l-2 9a3 3 0 0 1-3 3 3 3 0 0 1-3-3L7 3z"></path>
+        <path d="M12 15v6"></path>
+        <path d="M8 21h8"></path>
+      </svg>
+    </a>
+    <a href="amenities.html" class="dock-item" aria-label="Amenities & Experiences" data-tooltip="Amenities & Wellness">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6l2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6l2.1-2.1"></path>
+      </svg>
+    </a>
+    <a href="contact.html" class="dock-item" aria-label="Contact & Location" data-tooltip="Contact & Location">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+    </a>
+    <div class="dock-divider"></div>
+    <button type="button" class="dock-item dock-book-btn" data-open-booking aria-label="Book Stay" data-tooltip="Reserve A Stay">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line>
+        <line x1="8" y1="2" x2="8" y2="6"></line>
+        <line x1="3" y1="10" x2="21" y2="10"></line>
+      </svg>
+    </button>
+  </nav>
 
   <!-- ==========================================================================
        MINIMAL LUXURY NAVIGATION (Wallflower Wordmark · Sections · Solid on Scroll)
@@ -102,7 +151,7 @@
             <div class="hero-slide" id="hero-slide-2">
               <picture>
                 <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
-                <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Ground Atrium" class="hero-slide-photo" loading="eager">
+                <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Ground Atrium" class="hero-slide-photo" loading="lazy" decoding="async">
               </picture>
             </div>
 
@@ -110,7 +159,7 @@
             <div class="hero-slide" id="hero-slide-3">
               <picture>
                 <source srcset="assets/images/hotel-hero-night.webp" type="image/webp">
-                <img src="assets/images/hotel-hero-night.jpg" alt="Hotel Wallflower Twilight Sanctuary" class="hero-slide-photo" loading="eager">
+                <img src="assets/images/hotel-hero-night.jpg" alt="Hotel Wallflower Twilight Sanctuary" class="hero-slide-photo" loading="lazy" decoding="async">
               </picture>
             </div>
 
@@ -227,11 +276,17 @@
          Layout: 2-Column pinned 100vh stage (Left text, Right diamond images)
          Images: 2 Diamond-cube shapes with SVG clipPath objectBoundingBox
          ========================================================================== -->
-    <!-- SVG Defs for Responsive Rounded-Corner Diamond ClipPath -->
+    <!-- SVG Defs for Responsive Irregular Rounded-Polygon Shapes (Shape A & Shape B) -->
     <svg width="0" height="0" class="svg-clip-defs" style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
       <defs>
-        <clipPath id="diamond-rounded-clip" clipPathUnits="objectBoundingBox">
-          <path d="M 0.46,0.04 C 0.485,0.015 0.515,0.015 0.54,0.04 L 0.96,0.46 C 0.985,0.485 0.985,0.515 0.96,0.54 L 0.54,0.96 C 0.515,0.985 0.485,0.985 0.46,0.96 L 0.04,0.54 C 0.015,0.515 0.015,0.485 0.04,0.46 Z" />
+        <!-- Shape A (Top / Big): Irregular Slanted Polygon with Soft Rounded Corners (~8-12%) -->
+        <clipPath id="story-shape-a" clipPathUnits="objectBoundingBox">
+          <path d="M 0.28,0.05 C 0.20,0.05 0.12,0.12 0.10,0.22 L 0.06,0.72 C 0.04,0.82 0.12,0.92 0.24,0.94 L 0.72,0.96 C 0.82,0.97 0.90,0.89 0.92,0.80 L 0.96,0.34 C 0.97,0.24 0.90,0.14 0.80,0.10 L 0.38,0.05 C 0.34,0.05 0.30,0.05 0.28,0.05 Z" />
+        </clipPath>
+
+        <!-- Shape B (Bottom / Companion): Complementary Slanted Polygon with Soft Rounded Corners (~8-12%) -->
+        <clipPath id="story-shape-b" clipPathUnits="objectBoundingBox">
+          <path d="M 0.24,0.10 C 0.14,0.12 0.07,0.20 0.05,0.32 L 0.14,0.76 C 0.16,0.86 0.24,0.93 0.35,0.94 L 0.78,0.96 C 0.88,0.96 0.95,0.88 0.96,0.78 L 0.94,0.24 C 0.93,0.14 0.84,0.06 0.74,0.05 L 0.34,0.07 C 0.29,0.08 0.26,0.09 0.24,0.10 Z" />
         </clipPath>
       </defs>
     </svg>
@@ -266,79 +321,105 @@
                 </div>
               </div>
 
-              <!-- Step 3 Right Text Placeholder (Structured for Step 3) -->
-              <div class="story-content-block step3-content" id="story-step3-content" style="opacity: 0; pointer-events: none; display: none;">
+            </div>
+
+            <!-- Right Column: Image Cluster & Step 3 Text Block -->
+            <div class="storytelling-col-right" id="storytelling-col-right">
+              
+              <!-- Image Cluster with Organic Irregular Polygons (Flies to Left Column in Step 2) -->
+              <div class="diamond-cluster-stage" id="story-diamond-cluster">
+                
+                <!-- Card 1: Top Image A (Outer wrapper handles scroll travel, S-curve drift & scale swap) -->
+                <div class="diamond-card-wrap diamond-card-1" id="diamond-card-1">
+                  <!-- Inner wrapper handles autonomous idle floating -->
+                  <div class="story-photo-inner" id="diamond-inner-1">
+                    <div class="diamond-frame diamond-frame-a">
+                      <!-- Layer 1: Image #1 Exterior -->
+                      <div class="diamond-layer layer-active" id="diamond-1-img-a">
+                        <picture>
+                          <source srcset="assets/images/hotel-hero.webp" type="image/webp">
+                          <img src="assets/images/hotel-hero.jpg" alt="Hotel Wallflower Exterior Architecture" class="diamond-photo" loading="lazy">
+                        </picture>
+                      </div>
+                      <!-- Layer 2: Image #3 Room (Crossfades in Step 2) -->
+                      <div class="diamond-layer layer-incoming" id="diamond-1-img-c">
+                        <picture>
+                          <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
+                          <img src="assets/images/room-royal-suite.jpg" alt="Hotel Wallflower Royal Suite" class="diamond-photo" loading="lazy">
+                        </picture>
+                      </div>
+                      <!-- SVG Contour Border matching Shape A -->
+                      <svg class="diamond-glimmer-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M 28,5 C 20,5 12,12 10,22 L 6,72 C 4,82 12,92 24,94 L 72,96 C 82,97 90,89 92,80 L 96,34 C 97,24 90,14 80,10 L 38,5 C 34,5 30,5 28,5 Z" fill="none" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.8" vector-effect="non-scaling-stroke" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2: Bottom Image B (Outer wrapper handles scroll travel, S-curve drift & scale swap) -->
+                <div class="diamond-card-wrap diamond-card-2" id="diamond-card-2">
+                  <!-- Inner wrapper handles autonomous idle floating -->
+                  <div class="story-photo-inner" id="diamond-inner-2">
+                    <div class="diamond-frame diamond-frame-b">
+                      <!-- Layer 1: Image #2 Lobby -->
+                      <div class="diamond-layer layer-active" id="diamond-2-img-b">
+                        <picture>
+                          <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
+                          <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Atrium Lobby" class="diamond-photo" loading="lazy">
+                        </picture>
+                      </div>
+                      <!-- Layer 2: Image #4 Dining (Crossfades in Step 2) -->
+                      <div class="diamond-layer layer-incoming" id="diamond-2-img-d">
+                        <picture>
+                          <source srcset="assets/images/hotel-dining.webp" type="image/webp">
+                          <img src="assets/images/hotel-dining.jpg" alt="The Wallflower Bistro Dining" class="diamond-photo" loading="lazy">
+                        </picture>
+                      </div>
+                      <!-- SVG Contour Border matching Shape B -->
+                      <svg class="diamond-glimmer-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M 24,10 C 14,12 7,20 5,32 L 14,76 C 16,86 24,93 35,94 L 78,96 C 88,96 95,88 96,78 L 94,24 C 93,14 84,6 74,5 L 34,7 C 29,8 26,9 24,10 Z" fill="none" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.8" vector-effect="non-scaling-stroke" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Step 3 Right Text Block (Revealed word-by-word when images move to left) -->
+              <div class="story-content-block story-step3-content" id="story-step3-content" aria-hidden="true">
                 <div class="story-kicker-badge">
-                  <span class="badge-tag">CURATED HOSPITALITY</span>
+                  <span class="badge-tag">BOUTIQUE SANCTUARY</span>
                 </div>
                 <h2 class="story-display-title">
                   Thoughtfully appointed spaces <em>for focus and repose.</em>
                 </h2>
                 <p class="story-reveal-paragraph" id="story-reveal-p2">
-                  From ergonomic workstations and plush orthopedic bedding to artisan breakfast roasts at The Wallflower Bistro, every touchpoint is designed to cater to student families, corporate leaders, and leisurely travelers.
+                  From 24 sound-engineered guestrooms with plush orthopedic bedding to handcrafted teak interiors and morning roasts at The Wallflower Bistro on Jhalawar Road, every detail is tailored for calm focus, warm hospitality, and deep restorative sleep.
                 </p>
+                <div class="story-explore-action">
+                  <a href="#rooms-track" class="btn-story-explore" aria-label="Explore Rooms and Suites">
+                    <span>EXPLORE ROOMS &amp; SUITES</span>
+                    <span class="btn-arrow" aria-hidden="true">→</span>
+                  </a>
+                </div>
               </div>
 
-            </div>
-
-            <!-- Right Column: Diamond Image Cluster -->
-            <div class="storytelling-col-right" id="storytelling-col-right">
-              <div class="diamond-cluster-stage" id="story-diamond-cluster">
-                
-                <!-- Diamond Card 1: Top-Left (-6deg rotation) -->
-                <div class="diamond-card-wrap diamond-card-1" id="diamond-card-1">
-                  <div class="diamond-frame">
-                    <!-- Layer 1: Image #1 Exterior -->
-                    <div class="diamond-layer layer-active" id="diamond-1-img-a">
-                      <picture>
-                        <source srcset="assets/images/hotel-hero.webp" type="image/webp">
-                        <img src="assets/images/hotel-hero.jpg" alt="Hotel Wallflower Exterior Architecture" class="diamond-photo" loading="lazy">
-                      </picture>
-                    </div>
-                    <!-- Layer 2: Image #3 Room (Crossfades in Step 2) -->
-                    <div class="diamond-layer layer-incoming" id="diamond-1-img-c">
-                      <picture>
-                        <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
-                        <img src="assets/images/room-royal-suite.jpg" alt="Hotel Wallflower Royal Suite" class="diamond-photo" loading="lazy">
-                      </picture>
-                    </div>
-                    <div class="diamond-glimmer-border" aria-hidden="true"></div>
-                  </div>
-                </div>
-
-                <!-- Diamond Card 2: Bottom-Right (+4deg rotation) -->
-                <div class="diamond-card-wrap diamond-card-2" id="diamond-card-2">
-                  <div class="diamond-frame">
-                    <!-- Layer 1: Image #2 Lobby -->
-                    <div class="diamond-layer layer-active" id="diamond-2-img-b">
-                      <picture>
-                        <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
-                        <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Atrium Lobby" class="diamond-photo" loading="lazy">
-                      </picture>
-                    </div>
-                    <!-- Layer 2: Image #4 Dining (Crossfades in Step 2) -->
-                    <div class="diamond-layer layer-incoming" id="diamond-2-img-d">
-                      <picture>
-                        <source srcset="assets/images/hotel-dining.webp" type="image/webp">
-                        <img src="assets/images/hotel-dining.jpg" alt="The Wallflower Bistro Dining" class="diamond-photo" loading="lazy">
-                      </picture>
-                    </div>
-                    <div class="diamond-glimmer-border" aria-hidden="true"></div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- Step 4 Centered Climax Heading Placeholder (Structured for Step 4) -->
-            <div class="storytelling-center-climax" id="story-center-climax" style="opacity: 0; pointer-events: none; display: none;">
-              <h2 class="climax-heading">
-                Welcome to our hotel<br><em>with your energetic smile.</em>
-              </h2>
             </div>
 
           </div>
         </div>
+
+        <!-- Step 4 Centered Climax Heading -->
+        <div class="storytelling-center-climax" id="story-center-climax" aria-hidden="true">
+          <div class="climax-container">
+            <span class="climax-kicker">HOTEL WALLFLOWER · KOTA</span>
+            <h2 class="climax-heading">
+              Welcome to our hotel<br><em>with your energetic smile.</em>
+            </h2>
+            <div class="climax-accent-line" aria-hidden="true"></div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -390,7 +471,10 @@
             <!-- Primary Tall Photo (Ground Atrium) -->
             <div class="story-photo-frame story-photo-primary" id="story-photo-1">
               <div class="story-photo-clip">
-                <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Ground Atrium and Teak Architecture" class="story-arch-img" loading="lazy">
+                <picture>
+                  <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
+                  <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Ground Atrium and Teak Architecture" class="story-arch-img" loading="lazy">
+                </picture>
               </div>
               <div class="story-photo-caption">
                 <span class="caption-tag">01</span>
@@ -401,7 +485,10 @@
             <!-- Secondary Offset Photo (Courtyard Terrace) -->
             <div class="story-photo-frame story-photo-secondary" id="story-photo-2">
               <div class="story-photo-clip">
-                <img src="assets/images/hotel-lounge-pool.jpg" alt="Hotel Wallflower Twilight Courtyard Terrace" class="story-arch-img" loading="lazy">
+                <picture>
+                  <source srcset="assets/images/hotel-lounge-pool.webp" type="image/webp">
+                  <img src="assets/images/hotel-lounge-pool.jpg" alt="Hotel Wallflower Twilight Courtyard Terrace" class="story-arch-img" loading="lazy">
+                </picture>
               </div>
               <div class="story-photo-caption">
                 <span class="caption-tag">02</span>
@@ -460,11 +547,14 @@
             <!-- ROOM 01: Deluxe Executive Room -->
             <article class="room-horizontal-card" data-room-id="deluxe-executive" data-room-index="0" tabindex="0" aria-label="Deluxe Executive Room, ₹2,499 per night">
               <div class="room-card-photo-wrap">
-                <img src="assets/images/room-executive-suite.jpg" 
-                     alt="Deluxe Executive Room featuring plush king bed and ergonomic study workstation at Hotel Wallflower Kota" 
-                     class="room-card-img" 
-                     loading="lazy"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <picture>
+                  <source srcset="assets/images/room-executive-suite.webp" type="image/webp">
+                  <img src="assets/images/room-executive-suite.jpg" 
+                       alt="Deluxe Executive Room featuring plush king bed and ergonomic study workstation at Hotel Wallflower Kota" 
+                       class="room-card-img" 
+                       loading="lazy"
+                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                </picture>
                 <div class="room-photo-placeholder" style="display: none;">
                   <span class="placeholder-kicker">SANCTUARY 01</span>
                   <span class="placeholder-name">DELUXE EXECUTIVE</span>
@@ -501,11 +591,14 @@
             <!-- ROOM 02: Superior Twin Room -->
             <article class="room-horizontal-card" data-room-id="superior-twin" data-room-index="1" tabindex="0" aria-label="Superior Twin Room, ₹2,299 per night">
               <div class="room-card-photo-wrap">
-                <img src="assets/images/room-twin.jpg" 
-                     alt="Superior Twin Room with dual study desks and acoustic soundproof insulation at Hotel Wallflower Kota" 
-                     class="room-card-img" 
-                     loading="lazy"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <picture>
+                  <source srcset="assets/images/room-twin.webp" type="image/webp">
+                  <img src="assets/images/room-twin.jpg" 
+                       alt="Superior Twin Room with dual study desks and acoustic soundproof insulation at Hotel Wallflower Kota" 
+                       class="room-card-img" 
+                       loading="lazy"
+                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                </picture>
                 <div class="room-photo-placeholder" style="display: none;">
                   <span class="placeholder-kicker">SANCTUARY 02</span>
                   <span class="placeholder-name">SUPERIOR TWIN</span>
@@ -542,11 +635,14 @@
             <!-- ROOM 03: Super Deluxe Room with Balcony -->
             <article class="room-horizontal-card" data-room-id="super-deluxe-balcony" data-room-index="2" tabindex="0" aria-label="Super Deluxe Room with Balcony, ₹3,299 per night">
               <div class="room-card-photo-wrap">
-                <img src="assets/images/room-executive-suite.jpg" 
-                     alt="Super Deluxe Room with Balcony and private sit-out overlooking Kota cityscape at Hotel Wallflower" 
-                     class="room-card-img" 
-                     loading="lazy"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <picture>
+                  <source srcset="assets/images/room-executive-suite.webp" type="image/webp">
+                  <img src="assets/images/room-executive-suite.jpg" 
+                       alt="Super Deluxe Room with Balcony and private sit-out overlooking Kota cityscape at Hotel Wallflower" 
+                       class="room-card-img" 
+                       loading="lazy"
+                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                </picture>
                 <div class="room-photo-placeholder" style="display: none;">
                   <span class="placeholder-kicker">SANCTUARY 03</span>
                   <span class="placeholder-name">SUPER DELUXE BALCONY</span>
@@ -583,11 +679,14 @@
             <!-- ROOM 04: Premium Royal Suite -->
             <article class="room-horizontal-card" data-room-id="premium-royal-suite" data-room-index="3" tabindex="0" aria-label="Premium Royal Suite, ₹4,499 per night">
               <div class="room-card-photo-wrap">
-                <img src="assets/images/room-royal-suite.jpg" 
-                     alt="Premium Royal Suite featuring separate parlor living room and marble bathtub at Hotel Wallflower Kota" 
-                     class="room-card-img" 
-                     loading="lazy"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <picture>
+                  <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
+                  <img src="assets/images/room-royal-suite.jpg" 
+                       alt="Premium Royal Suite featuring separate parlor living room and marble bathtub at Hotel Wallflower Kota" 
+                       class="room-card-img" 
+                       loading="lazy"
+                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                </picture>
                 <div class="room-photo-placeholder" style="display: none;">
                   <span class="placeholder-kicker">SANCTUARY 04</span>
                   <span class="placeholder-name">PREMIUM ROYAL SUITE</span>
@@ -624,11 +723,14 @@
             <!-- ROOM 05: Presidential Wallflower Suite -->
             <article class="room-horizontal-card" data-room-id="presidential-wallflower-suite" data-room-index="4" tabindex="0" aria-label="Presidential Wallflower Suite, ₹6,999 per night">
               <div class="room-card-photo-wrap">
-                <img src="assets/images/room-royal-suite.jpg" 
-                     alt="Presidential Wallflower Suite luxury flagship residence with heated jacuzzi and butler service at Hotel Wallflower" 
-                     class="room-card-img" 
-                     loading="lazy"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <picture>
+                  <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
+                  <img src="assets/images/room-royal-suite.jpg" 
+                       alt="Presidential Wallflower Suite luxury flagship residence with heated jacuzzi and butler service at Hotel Wallflower" 
+                       class="room-card-img" 
+                       loading="lazy"
+                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                </picture>
                 <div class="room-photo-placeholder" style="display: none;">
                   <span class="placeholder-kicker">SANCTUARY 05</span>
                   <span class="placeholder-name">PRESIDENTIAL SUITE</span>
@@ -726,11 +828,14 @@
           <!-- Column 2: One Strong Existing Image Frame -->
           <div class="atmosphere-image-showcase" id="atmosphere-image-showcase">
             <div class="atmosphere-photo-frame" id="atmosphere-photo-frame">
-              <img src="assets/images/hotel-bar.jpg" 
-                   alt="The Velvet Lounge and ambient social spaces at Hotel Wallflower Kota" 
-                   class="atmosphere-photo-img" 
-                   id="atmosphere-img" 
-                   loading="lazy">
+              <picture>
+                <source srcset="assets/images/hotel-bar.webp" type="image/webp">
+                <img src="assets/images/hotel-bar.jpg" 
+                     alt="The Velvet Lounge and ambient social spaces at Hotel Wallflower Kota" 
+                     class="atmosphere-photo-img" 
+                     id="atmosphere-img" 
+                     loading="lazy">
+              </picture>
               <div class="atmosphere-photo-scrim"></div>
               <div class="atmosphere-photo-hud-top">
                 <span class="hud-oxblood-dot"></span>
@@ -751,7 +856,10 @@
          ========================================================================== -->
     <section class="chapter-section statement-moment-section" id="statement-moment" aria-label="A Moment to Remember">
       <div class="statement-viewport" id="statement-viewport">
-        <img src="assets/images/hotel-hero-night.jpg" alt="Hotel Wallflower Night Architecture Vista" class="statement-bg-photo" id="statement-bg-img" loading="lazy">
+        <picture>
+          <source srcset="assets/images/hotel-hero-night.webp" type="image/webp">
+          <img src="assets/images/hotel-hero-night.jpg" alt="Hotel Wallflower Night Architecture Vista" class="statement-bg-photo" id="statement-bg-img" loading="lazy">
+        </picture>
         <div class="statement-scrim"></div>
         <div class="statement-content">
           <div class="chapter-kicker" style="margin-bottom: 20px; justify-content: center;">
@@ -1159,6 +1267,6 @@
   <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/rooms-data.js"></script>
   <script src="js/gallery-data.js"></script>
-  <script src="js/main.js?v=4"></script>
+  <script src="js/main.js?v=flight8"></script>
 </body>
 </html>

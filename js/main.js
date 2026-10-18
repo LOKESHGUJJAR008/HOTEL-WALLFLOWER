@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGalleryLightbox();
   initToast();
   initScrollDrivenHero();
+  initPinnedStorytellingSection();
   initBrandStoryParallax();
   initRoomsHorizontalTrack();
   initAtmosphereReveal();
@@ -23,6 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
   initHomepageQuickBookForm();
   initRooms3DMotionframeSlider();
   initRedCarpetWelcomeAnimation();
+});
+
+// Refresh ScrollTrigger when window loads and web fonts are fully rendered
+window.addEventListener('load', () => {
+  if (typeof ScrollTrigger !== 'undefined') {
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        ScrollTrigger.refresh();
+      });
+    } else {
+      ScrollTrigger.refresh();
+    }
+  }
 });
 
 /* ==========================================================================
@@ -802,10 +816,9 @@ function initLenisSmoothScroll() {
   if (prefersReducedMotion || typeof Lenis === 'undefined') return;
 
   lenisInstance = new Lenis({
-    duration: 1.15,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    lerp: 0.1,
     smoothWheel: true,
-    touchMultiplier: 1.2
+    syncTouch: false
   });
 
   if (typeof ScrollTrigger !== 'undefined') {
@@ -848,6 +861,7 @@ function initScrollDrivenHero() {
   const subtextBadge = document.getElementById('hero-subtext-badge');
   const scrollCue = document.getElementById('hero-scroll-cue');
   const carouselTrack = document.getElementById('incoming-carousel-track');
+  const incomingStage = document.getElementById('hero-incoming-stage');
   const header = document.getElementById('main-header');
 
   if (!track || !stickyStage || !bannerStrip) return;
@@ -891,13 +905,14 @@ function initScrollDrivenHero() {
       }
     });
 
-    // 1. Shrink Hero Banner Strip: 100vh -> 28vh (35svh on mobile)
-    const targetHeight = isMobile() ? '35svh' : '28vh';
-    heroTimeline.to(bannerStrip, {
-      height: targetHeight,
-      ease: 'none',
-      duration: 1.0
-    }, 0);
+    // 1. Incoming Luxury Stage slides up via pure GPU transform: translateY (100% -> 0%)
+    if (incomingStage) {
+      heroTimeline.fromTo(incomingStage, 
+        { yPercent: 100 }, 
+        { yPercent: 0, ease: 'none', duration: 1.0 }, 
+        0
+      );
+    }
 
     // 2. Initial Scroll Cue fades out early (0.0 -> 0.12)
     if (scrollCue) {
@@ -939,14 +954,13 @@ function initScrollDrivenHero() {
       heroTimeline.fromTo(photo3, { scale: 1.15 }, { scale: 1.0, ease: 'none', duration: 0.34 }, 0.66);
     }
 
-    // 6. Wordmark: scales down and shifts to bottom-center of the 28vh strip
+    // 6. Wordmark: scales down and shifts to bottom-center of the 28vh strip (pure transform)
     if (wordmark) {
       const targetScale = isMobile() ? 0.44 : 0.40;
       const targetY = isMobile() ? 12 : 16;
       heroTimeline.to(wordmark, {
         scale: targetScale,
         y: targetY,
-        letterSpacing: isMobile() ? '0.24em' : '0.36em',
         ease: 'power1.out',
         duration: 1.0
       }, 0);
@@ -987,11 +1001,10 @@ function initScrollDrivenHero() {
     const scrollDist = track.offsetHeight - window.innerHeight;
     const progress = clamp(-rect.top / (scrollDist || 1), 0, 1);
 
-    // Height shrink
-    const startH = isMobile() ? window.innerHeight : window.innerHeight;
-    const endH = isMobile() ? window.innerHeight * 0.35 : window.innerHeight * 0.28;
-    const currentH = startH - progress * (startH - endH);
-    bannerStrip.style.height = `${currentH.toFixed(1)}px`;
+    // Incoming stage translate fallback (pure GPU transform)
+    if (incomingStage) {
+      incomingStage.style.transform = `translate3d(0, ${((1 - progress) * 100).toFixed(2)}%, 0)`;
+    }
 
     // Wordmark
     if (wordmark) {
@@ -1270,6 +1283,380 @@ function initRedCarpetWelcomeAnimation() {
 }
 
 /* ==========================================================================
+   PINNED SCROLL-STORYTELLING SECTION (GSAP + ScrollTrigger, pin: true, scrub: 0.6)
+   Theme: Luxury Deep Forest Green (#0D2318) + White & Black Font Accents
+   - Irregular rounded polygon shapes with slanted side (SVG objectBoundingBox)
+   - Size swap via scale transform:
+       Right side: Image A small (scale 0.6), Image B big (scale 1.0)
+       Left side: Image A big (scale 1.0), Image B small (scale 0.6)
+   - Motion: "Azaad parinda" flight feel with S-curve y drift (~30-50px)
+   - ~15% scroll progress follow lag/stagger between Image A and Image B
+   - Travel rotation: Image A (-6deg -> +3deg), Image B (+4deg -> -4deg)
+   - Idle float on inner wrapper (y +-10px, rot +-1.5deg, 4s & 5.5s)
+   ========================================================================== */
+function initPinnedStorytellingSection() {
+  const section = document.getElementById('storytelling-scroll-section');
+  const stickyStage = document.getElementById('storytelling-sticky-stage');
+  const step1Content = document.getElementById('story-step1-content');
+  const paragraph1 = document.getElementById('story-reveal-p1');
+  const exploreBtn1 = step1Content ? step1Content.querySelector('.btn-story-explore') : null;
+  const step3Content = document.getElementById('story-step3-content');
+  const paragraph2 = document.getElementById('story-reveal-p2');
+  const exploreBtn2 = step3Content ? step3Content.querySelector('.btn-story-explore') : null;
+  const climaxBlock = document.getElementById('story-center-climax');
+  const card1 = document.getElementById('diamond-card-1');
+  const card2 = document.getElementById('diamond-card-2');
+  const inner1 = document.getElementById('diamond-inner-1');
+  const inner2 = document.getElementById('diamond-inner-2');
+  const img1A = document.getElementById('diamond-1-img-a');
+  const img1C = document.getElementById('diamond-1-img-c');
+  const img2B = document.getElementById('diamond-2-img-b');
+  const img2D = document.getElementById('diamond-2-img-d');
+
+  if (!section || !stickyStage) return;
+
+  // Word-by-word span splitting for #story-reveal-p1
+  if (paragraph1 && !paragraph1.querySelector('.story-word')) {
+    const rawText1 = paragraph1.textContent.trim();
+    paragraph1.innerHTML = rawText1.split(/\s+/).map(w => `<span class="story-word">${w}</span>`).join(' ');
+  }
+  const words1 = paragraph1 ? paragraph1.querySelectorAll('.story-word') : [];
+
+  // Word-by-word span splitting for #story-reveal-p2
+  if (paragraph2 && !paragraph2.querySelector('.story-word')) {
+    const rawText2 = paragraph2.textContent.trim();
+    paragraph2.innerHTML = rawText2.split(/\s+/).map(w => `<span class="story-word">${w}</span>`).join(' ');
+  }
+  const words2 = paragraph2 ? paragraph2.querySelectorAll('.story-word') : [];
+
+  // Reduced motion check
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    if (words1.length) words1.forEach(w => w.style.opacity = '1');
+    if (words2.length) words2.forEach(w => w.style.opacity = '1');
+    if (card1) {
+      card1.style.opacity = '1';
+      card1.style.transform = 'scale(0.85)';
+    }
+    if (card2) {
+      card2.style.opacity = '1';
+      card2.style.transform = 'scale(0.85)';
+    }
+    if (step1Content) step1Content.style.opacity = '1';
+    if (step3Content) {
+      step3Content.style.position = 'relative';
+      step3Content.style.opacity = '1';
+      step3Content.style.pointerEvents = 'auto';
+    }
+    if (climaxBlock) {
+      climaxBlock.style.position = 'relative';
+      climaxBlock.style.opacity = '1';
+      climaxBlock.style.transform = 'none';
+    }
+    return;
+  }
+
+  // Check GSAP and ScrollTrigger availability
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    if (words1.length) words1.forEach(w => w.style.opacity = '1');
+    if (words2.length) words2.forEach(w => w.style.opacity = '1');
+    if (card1) card1.style.opacity = '1';
+    if (card2) card2.style.opacity = '1';
+    if (step3Content) step3Content.style.opacity = '1';
+    if (climaxBlock) climaxBlock.style.opacity = '1';
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Clean up previous trigger if reinitialized
+  const existingTrigger = ScrollTrigger.getById('storytelling-pinned-trigger');
+  if (existingTrigger) existingTrigger.kill();
+
+  // Dynamic distance calculation for cluster slide (from right column to left column)
+  const getClusterSlideDistance = () => {
+    if (window.innerWidth <= 768) return 0; // Stacked vertically on mobile
+    const colLeft = document.getElementById('storytelling-col-left');
+    const colRight = document.getElementById('storytelling-col-right');
+    if (colLeft && colRight) {
+      const leftRect = colLeft.getBoundingClientRect();
+      const rightRect = colRight.getBoundingClientRect();
+      const diff = rightRect.left - leftRect.left;
+      return -diff;
+    }
+    return -520;
+  };
+
+  // 1. Initial State:
+  // Right side: Image A is small (scale 0.6, rotation -6deg), Image B is big (scale 1.0, rotation +4deg)
+  gsap.set(card1, { x: 0, y: 120, scale: 0.6, rotation: -6, opacity: 0 });
+  gsap.set(card2, { x: 0, y: 140, scale: 1.0, rotation: 4, opacity: 0 });
+  if (words1.length) gsap.set(words1, { opacity: 0.15 });
+  if (exploreBtn1) gsap.set(exploreBtn1, { opacity: 0, y: 16 });
+  if (img1C) gsap.set(img1C, { opacity: 0, scale: 1.1 });
+  if (img2D) gsap.set(img2D, { opacity: 0, scale: 1.1 });
+
+  if (step3Content) gsap.set(step3Content, { opacity: 0, y: 24, pointerEvents: 'none' });
+  if (words2.length) gsap.set(words2, { opacity: 0.15 });
+  if (exploreBtn2) gsap.set(exploreBtn2, { opacity: 0, y: 16 });
+  if (climaxBlock) gsap.set(climaxBlock, { opacity: 0, scale: 0.92, pointerEvents: 'none' });
+
+  // 2. Autonomous Idle Float on INNER wrappers (avoids conflict with outer scroll timeline)
+  if (inner1) {
+    gsap.to(inner1, {
+      y: 10,
+      rotation: 1.5,
+      duration: 4.0,
+      yoyo: true,
+      repeat: -1,
+      ease: 'sine.inOut'
+    });
+  }
+  if (inner2) {
+    gsap.to(inner2, {
+      y: -10,
+      rotation: -1.5,
+      duration: 5.5,
+      yoyo: true,
+      repeat: -1,
+      ease: 'sine.inOut'
+    });
+  }
+
+  // 3. Main ScrollTrigger timeline (pin length +=500%, scrub: 0.6)
+  const storyTimeline = gsap.timeline({
+    scrollTrigger: {
+      id: 'storytelling-pinned-trigger',
+      trigger: section,
+      pin: stickyStage,
+      start: 'top top',
+      end: '+=500%',
+      scrub: 0.6, // Smooth organic scrub
+      pinSpacing: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true
+    }
+  });
+
+  // -------------------------------------------------------------
+  // STEP 1: (0.00 -> 0.24)
+  // - Right: Image A (scale 0.6) and Image B (scale 1.0) rise with stagger
+  // - Left: paragraph words reveal opacity 0.15 -> 1.0
+  // - Left: explore button fades in
+  // -------------------------------------------------------------
+  storyTimeline.to(card1, {
+    y: 0,
+    opacity: 1,
+    duration: 0.14,
+    ease: 'power2.out'
+  }, 0.0);
+
+  storyTimeline.to(card2, {
+    y: 0,
+    opacity: 1,
+    duration: 0.16,
+    ease: 'power2.out'
+  }, 0.02);
+
+  if (words1.length) {
+    const totalStagger = 0.15;
+    const stepDuration = totalStagger / Math.max(words1.length, 1);
+    storyTimeline.to(words1, {
+      opacity: 1,
+      stagger: stepDuration,
+      duration: 0.05,
+      ease: 'none'
+    }, 0.02);
+  }
+
+  if (exploreBtn1) {
+    storyTimeline.to(exploreBtn1, {
+      opacity: 1,
+      y: 0,
+      duration: 0.05,
+      ease: 'power1.out'
+    }, 0.16);
+  }
+
+  // Pacing settle for reading Step 1
+  storyTimeline.to({}, { duration: 0.03 }, 0.21);
+
+  // -------------------------------------------------------------
+  // STEP 2: (0.24 -> 0.50)
+  // - Left: Step 1 content block fades out (y: 0 -> -30px)
+  // - Crossfade images: Card 1 (A -> C) & Card 2 (B -> D)
+  // - MOTION: "Azaad Parinda" S-curve travel, ~15% follow lag, scale swap
+  //     Image A: leads, scale 0.6 -> 1.0, rot -6deg -> +3deg, y arc (0 -> -40 -> 0)
+  //     Image B: follows ~15% behind, scale 1.0 -> 0.6, rot +4deg -> -4deg, y arc (0 -> +45 -> 0)
+  // -------------------------------------------------------------
+  if (step1Content) {
+    storyTimeline.to(step1Content, {
+      opacity: 0,
+      y: -30,
+      duration: 0.07,
+      ease: 'power2.in'
+    }, 0.24);
+  }
+
+  // Crossfade Card 1: Image A out, Image C in (scale 1.1 -> 1.0)
+  if (img1A && img1C) {
+    storyTimeline.to(img1A, {
+      opacity: 0,
+      duration: 0.10,
+      ease: 'power1.inOut'
+    }, 0.26);
+    storyTimeline.to(img1C, {
+      opacity: 1,
+      scale: 1.0,
+      duration: 0.11,
+      ease: 'power1.out'
+    }, 0.26);
+  }
+
+  // Crossfade Card 2: Image B out, Image D in (scale 1.1 -> 1.0)
+  if (img2B && img2D) {
+    storyTimeline.to(img2B, {
+      opacity: 0,
+      duration: 0.10,
+      ease: 'power1.inOut'
+    }, 0.29);
+    storyTimeline.to(img2D, {
+      opacity: 1,
+      scale: 1.0,
+      duration: 0.11,
+      ease: 'power1.out'
+    }, 0.29);
+  }
+
+  // --- Image A: Leading bird (starts at 0.26, duration 0.18 -> ends at 0.44) ---
+  // Horizontal travel + Size swap (0.6 -> 1.0) + Rotation change (-6deg -> +3deg)
+  storyTimeline.to(card1, {
+    x: () => getClusterSlideDistance(),
+    scale: 1.0,
+    rotation: 3,
+    duration: 0.18,
+    ease: 'sine.inOut'
+  }, 0.26);
+
+  // S-Curve vertical arc for Image A: rises up by -40px then returns to 0
+  storyTimeline.to(card1, {
+    y: -40,
+    duration: 0.09,
+    ease: 'sine.out'
+  }, 0.26);
+  storyTimeline.to(card1, {
+    y: 0,
+    duration: 0.09,
+    ease: 'sine.in'
+  }, 0.35);
+
+  // --- Image B: Following bird (~15% relative follow lag: starts at 0.32, duration 0.18 -> ends at 0.50) ---
+  // Horizontal travel + Size swap (1.0 -> 0.6) + Rotation change (+4deg -> -4deg)
+  storyTimeline.to(card2, {
+    x: () => getClusterSlideDistance(),
+    scale: 0.6,
+    rotation: -4,
+    duration: 0.18,
+    ease: 'sine.inOut'
+  }, 0.32);
+
+  // S-Curve vertical arc for Image B: dips down by +45px then returns to 0
+  storyTimeline.to(card2, {
+    y: 45,
+    duration: 0.09,
+    ease: 'sine.out'
+  }, 0.32);
+  storyTimeline.to(card2, {
+    y: 0,
+    duration: 0.09,
+    ease: 'sine.in'
+  }, 0.41);
+
+  // Settle pause at left side
+  storyTimeline.to({}, { duration: 0.02 }, 0.50);
+
+  // -------------------------------------------------------------
+  // STEP 3: (0.50 -> 0.74)
+  // - Images remain resting on the left side (with idle float active)
+  // - Right: Step 3 content block fades in (y: 20 -> 0)
+  // - Right: paragraph #story-reveal-p2 words reveal word-by-word
+  // - Right: explore button fades in
+  // -------------------------------------------------------------
+  if (step3Content) {
+    storyTimeline.to(step3Content, {
+      opacity: 1,
+      y: 0,
+      duration: 0.06,
+      ease: 'power2.out',
+      onStart: () => { step3Content.style.pointerEvents = 'auto'; }
+    }, 0.50);
+  }
+
+  if (words2.length) {
+    const totalStagger2 = 0.14;
+    const stepDuration2 = totalStagger2 / Math.max(words2.length, 1);
+    storyTimeline.to(words2, {
+      opacity: 1,
+      stagger: stepDuration2,
+      duration: 0.04,
+      ease: 'none'
+    }, 0.52);
+  }
+
+  if (exploreBtn2) {
+    storyTimeline.to(exploreBtn2, {
+      opacity: 1,
+      y: 0,
+      duration: 0.05,
+      ease: 'power1.out'
+    }, 0.66);
+  }
+
+  // Reading pause for Step 3
+  storyTimeline.to({}, { duration: 0.06 }, 0.68);
+
+  // -------------------------------------------------------------
+  // STEP 4: (0.74 -> 1.00)
+  // - Images on left and text on right fade out
+  // - Center: Large Serif Climax Heading fades/scales in
+  //   "Welcome to our hotel with your energetic smile"
+  // - Heading stays held for ~10-12% scroll progress before pin releases
+  // -------------------------------------------------------------
+  // Fade out left images
+  storyTimeline.to([card1, card2], {
+    opacity: 0,
+    y: -25,
+    duration: 0.06,
+    ease: 'power2.in'
+  }, 0.74);
+
+  // Fade out right Step 3 content
+  if (step3Content) {
+    storyTimeline.to(step3Content, {
+      opacity: 0,
+      y: -25,
+      duration: 0.06,
+      ease: 'power2.in',
+      onComplete: () => { step3Content.style.pointerEvents = 'none'; }
+    }, 0.74);
+  }
+
+  // Fade & scale in Center Climax Heading
+  if (climaxBlock) {
+    storyTimeline.to(climaxBlock, {
+      opacity: 1,
+      scale: 1.0,
+      duration: 0.09,
+      ease: 'power2.out',
+      onStart: () => { climaxBlock.style.pointerEvents = 'auto'; }
+    }, 0.79);
+  }
+
+  // Hold centered climax heading for the final ~12% of scroll before releasing pin
+  storyTimeline.to({}, { duration: 0.12 }, 0.88);
+}
+
+/* ==========================================================================
    02 — BRAND STORY: SPLIT TEXT REVEAL & ASYMMETRIC ARCHITECTURAL PARALLAX
    ========================================================================== */
 function initBrandStoryParallax() {
@@ -1410,7 +1797,7 @@ function initRoomsHorizontalTrack() {
         pin: viewport,
         start: 'top top',
         end: () => `+=${getTravelDistance()}`,
-        scrub: 0.5,
+        scrub: 0.3,
         pinSpacing: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
