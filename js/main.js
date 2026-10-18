@@ -1298,9 +1298,11 @@ function initPinnedStorytellingSection() {
   const section = document.getElementById('storytelling-scroll-section');
   const stickyStage = document.getElementById('storytelling-sticky-stage');
   const step1Content = document.getElementById('story-step1-content');
+  const title1 = step1Content ? step1Content.querySelector('.story-display-title') : null;
   const paragraph1 = document.getElementById('story-reveal-p1');
   const exploreBtn1 = step1Content ? step1Content.querySelector('.btn-story-explore') : null;
   const step3Content = document.getElementById('story-step3-content');
+  const title2 = step3Content ? step3Content.querySelector('.story-display-title') : null;
   const paragraph2 = document.getElementById('story-reveal-p2');
   const exploreBtn2 = step3Content ? step3Content.querySelector('.btn-story-explore') : null;
   const climaxBlock = document.getElementById('story-center-climax');
@@ -1315,32 +1317,94 @@ function initPinnedStorytellingSection() {
 
   if (!section || !stickyStage) return;
 
-  // Word-by-word span splitting for #story-reveal-p1
-  if (paragraph1 && !paragraph1.querySelector('.story-word')) {
-    const rawText1 = paragraph1.textContent.trim();
-    paragraph1.innerHTML = rawText1.split(/\s+/).map(w => `<span class="story-word">${w}</span>`).join(' ');
-  }
-  const words1 = paragraph1 ? paragraph1.querySelectorAll('.story-word') : [];
+  // Helper: Split text and em tags into individual kinetic words with alternating upper/downside floating wrappers
+  function prepareWritingWords(container) {
+    if (!container) return [];
+    if (container.getAttribute('data-writing-split') === 'true') {
+      return Array.from(container.querySelectorAll('.writing-word-wrap'));
+    }
 
-  // Word-by-word span splitting for #story-reveal-p2
-  if (paragraph2 && !paragraph2.querySelector('.story-word')) {
-    const rawText2 = paragraph2.textContent.trim();
-    paragraph2.innerHTML = rawText2.split(/\s+/).map(w => `<span class="story-word">${w}</span>`).join(' ');
+    const temp = document.createElement('div');
+    temp.innerHTML = container.innerHTML;
+
+    let wordIdx = 0;
+    const fragment = document.createDocumentFragment();
+
+    function process(node, isItalic = false) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent;
+        const rawWords = text.split(/\s+/).filter(Boolean);
+        rawWords.forEach((word) => {
+          const fromTop = (wordIdx % 2 === 0);
+          const dirClass = fromTop ? 'word-from-top' : 'word-from-bottom';
+          const emClass = isItalic ? 'writing-word-em' : '';
+          const delay = ((wordIdx % 8) * 0.14).toFixed(2);
+
+          const wrap = document.createElement('span');
+          wrap.className = `writing-word-wrap ${dirClass}`;
+          wrap.setAttribute('data-word-idx', wordIdx);
+
+          const inner = document.createElement('span');
+          inner.className = `writing-word-inner ${emClass}`.trim();
+          inner.style.animationDelay = `${delay}s`;
+          inner.textContent = word;
+
+          wrap.appendChild(inner);
+          fragment.appendChild(wrap);
+          fragment.appendChild(document.createTextNode(' '));
+          wordIdx++;
+        });
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const italic = isItalic || node.tagName.toLowerCase() === 'em';
+        Array.from(node.childNodes).forEach(child => process(child, italic));
+      }
+    }
+
+    Array.from(temp.childNodes).forEach(child => process(child, false));
+
+    container.innerHTML = '';
+    container.appendChild(fragment);
+    container.setAttribute('data-writing-split', 'true');
+    return Array.from(container.querySelectorAll('.writing-word-wrap'));
   }
-  const words2 = paragraph2 ? paragraph2.querySelectorAll('.story-word') : [];
+
+  const titleWords1 = prepareWritingWords(title1);
+  const paraWords1 = prepareWritingWords(paragraph1);
+  const titleWords2 = prepareWritingWords(title2);
+  const paraWords2 = prepareWritingWords(paragraph2);
+
+  const allWords = [...titleWords1, ...paraWords1, ...titleWords2, ...paraWords2];
+
+  // Helper to set alternating initial position (upper side vs downside) with blur & tilt
+  const setupWordInitialState = (words, fromTopY = -46, fromBottomY = 46, blurAmt = '8px') => {
+    if (!words || !words.length) return;
+    words.forEach(w => {
+      const isTop = w.classList.contains('word-from-top');
+      gsap.set(w, {
+        y: isTop ? fromTopY : fromBottomY,
+        opacity: 0,
+        filter: `blur(${blurAmt})`,
+        scale: 0.9,
+        rotation: isTop ? -4 : 4
+      });
+    });
+  };
 
   // Reduced motion check
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) {
-    if (words1.length) words1.forEach(w => w.style.opacity = '1');
-    if (words2.length) words2.forEach(w => w.style.opacity = '1');
+    allWords.forEach(w => {
+      w.style.opacity = '1';
+      w.style.transform = 'none';
+      w.style.filter = 'none';
+    });
     if (card1) {
       card1.style.opacity = '1';
-      card1.style.transform = 'scale(0.85)';
+      card1.style.transform = 'scale(1.0)';
     }
     if (card2) {
       card2.style.opacity = '1';
-      card2.style.transform = 'scale(0.85)';
+      card2.style.transform = 'scale(1.0)';
     }
     if (step1Content) step1Content.style.opacity = '1';
     if (step3Content) {
@@ -1358,8 +1422,11 @@ function initPinnedStorytellingSection() {
 
   // Check GSAP and ScrollTrigger availability
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    if (words1.length) words1.forEach(w => w.style.opacity = '1');
-    if (words2.length) words2.forEach(w => w.style.opacity = '1');
+    allWords.forEach(w => {
+      w.style.opacity = '1';
+      w.style.transform = 'none';
+      w.style.filter = 'none';
+    });
     if (card1) card1.style.opacity = '1';
     if (card2) card2.style.opacity = '1';
     if (step3Content) step3Content.style.opacity = '1';
@@ -1375,7 +1442,7 @@ function initPinnedStorytellingSection() {
 
   // Dynamic distance calculation for cluster slide (from right column to left column)
   const getClusterSlideDistance = () => {
-    if (window.innerWidth <= 768) return 0; // Stacked vertically on mobile
+    if (window.innerWidth <= 768) return 0;
     const colLeft = document.getElementById('storytelling-col-left');
     const colRight = document.getElementById('storytelling-col-right');
     if (colLeft && colRight) {
@@ -1384,29 +1451,34 @@ function initPinnedStorytellingSection() {
       const diff = rightRect.left - leftRect.left;
       return -diff;
     }
-    return -520;
+    return -560;
   };
 
   // 1. Initial State:
-  // Right side: Image A is small (scale 0.6, rotation -6deg), Image B is big (scale 1.0, rotation +4deg)
-  gsap.set(card1, { x: 0, y: 120, scale: 0.6, rotation: -6, opacity: 0 });
-  gsap.set(card2, { x: 0, y: 140, scale: 1.0, rotation: 4, opacity: 0 });
-  if (words1.length) gsap.set(words1, { opacity: 0.15 });
+  // Grand & Large Image Cubes: Card 1 starts at scale 0.88 (~390px), Card 2 starts at scale 1.15 (~500px)
+  gsap.set(card1, { x: 0, y: 130, scale: 0.88, rotation: -6, opacity: 0 });
+  gsap.set(card2, { x: 0, y: 150, scale: 1.15, rotation: 4, opacity: 0 });
+
+  // Floating Kinetic Words: Upper words come from -46px, bottom words from +46px
+  setupWordInitialState(titleWords1, -50, 50, '8px');
+  setupWordInitialState(paraWords1, -38, 38, '6px');
+  setupWordInitialState(titleWords2, -50, 50, '8px');
+  setupWordInitialState(paraWords2, -38, 38, '6px');
+
   if (exploreBtn1) gsap.set(exploreBtn1, { opacity: 0, y: 16 });
   if (img1C) gsap.set(img1C, { opacity: 0, scale: 1.1 });
   if (img2D) gsap.set(img2D, { opacity: 0, scale: 1.1 });
 
   if (step3Content) gsap.set(step3Content, { opacity: 0, y: 24, pointerEvents: 'none' });
-  if (words2.length) gsap.set(words2, { opacity: 0.15 });
   if (exploreBtn2) gsap.set(exploreBtn2, { opacity: 0, y: 16 });
   if (climaxBlock) gsap.set(climaxBlock, { opacity: 0, scale: 0.92, pointerEvents: 'none' });
 
-  // 2. Autonomous Idle Float on INNER wrappers (avoids conflict with outer scroll timeline)
+  // 2. Autonomous Idle Float on INNER wrappers
   if (inner1) {
     gsap.to(inner1, {
-      y: 10,
+      y: 12,
       rotation: 1.5,
-      duration: 4.0,
+      duration: 4.2,
       yoyo: true,
       repeat: -1,
       ease: 'sine.inOut'
@@ -1414,24 +1486,24 @@ function initPinnedStorytellingSection() {
   }
   if (inner2) {
     gsap.to(inner2, {
-      y: -10,
+      y: -12,
       rotation: -1.5,
-      duration: 5.5,
+      duration: 5.8,
       yoyo: true,
       repeat: -1,
       ease: 'sine.inOut'
     });
   }
 
-  // 3. Main ScrollTrigger timeline (pin length +=500%, scrub: 0.6)
+  // 3. Main ScrollTrigger timeline
   const storyTimeline = gsap.timeline({
     scrollTrigger: {
       id: 'storytelling-pinned-trigger',
       trigger: section,
       pin: stickyStage,
       start: 'top top',
-      end: '+=500%',
-      scrub: 0.6, // Smooth organic scrub
+      end: '+=520%',
+      scrub: 0.6,
       pinSpacing: true,
       anticipatePin: 1,
       invalidateOnRefresh: true
@@ -1440,9 +1512,10 @@ function initPinnedStorytellingSection() {
 
   // -------------------------------------------------------------
   // STEP 1: (0.00 -> 0.24)
-  // - Right: Image A (scale 0.6) and Image B (scale 1.0) rise with stagger
-  // - Left: paragraph words reveal opacity 0.15 -> 1.0
-  // - Left: explore button fades in
+  // - Right: Image Cubes rise into view
+  // - Left: Title words write themselves out from upper (-50px) & lower (+50px)
+  // - Left: Paragraph words write themselves out sequentially
+  // - Left: Explore button fades in
   // -------------------------------------------------------------
   storyTimeline.to(card1, {
     y: 0,
@@ -1458,15 +1531,36 @@ function initPinnedStorytellingSection() {
     ease: 'power2.out'
   }, 0.02);
 
-  if (words1.length) {
-    const totalStagger = 0.15;
-    const stepDuration = totalStagger / Math.max(words1.length, 1);
-    storyTimeline.to(words1, {
+  // Progressive Title writing animation (words assemble from alternating upper & lower positions)
+  if (titleWords1.length) {
+    const titleDuration = 0.07;
+    const titleStep = titleDuration / Math.max(titleWords1.length, 1);
+    storyTimeline.to(titleWords1, {
+      y: 0,
       opacity: 1,
-      stagger: stepDuration,
-      duration: 0.05,
-      ease: 'none'
-    }, 0.02);
+      filter: 'blur(0px)',
+      scale: 1,
+      rotation: 0,
+      stagger: titleStep,
+      duration: 0.04,
+      ease: 'power2.out'
+    }, 0.01);
+  }
+
+  // Progressive Paragraph writing animation (words stream in like live ink)
+  if (paraWords1.length) {
+    const paraDuration = 0.14;
+    const paraStep = paraDuration / Math.max(paraWords1.length, 1);
+    storyTimeline.to(paraWords1, {
+      y: 0,
+      opacity: 1,
+      filter: 'blur(0px)',
+      scale: 1,
+      rotation: 0,
+      stagger: paraStep,
+      duration: 0.035,
+      ease: 'power2.out'
+    }, 0.05);
   }
 
   if (exploreBtn1) {
@@ -1475,7 +1569,7 @@ function initPinnedStorytellingSection() {
       y: 0,
       duration: 0.05,
       ease: 'power1.out'
-    }, 0.16);
+    }, 0.18);
   }
 
   // Pacing settle for reading Step 1
@@ -1485,9 +1579,9 @@ function initPinnedStorytellingSection() {
   // STEP 2: (0.24 -> 0.50)
   // - Left: Step 1 content block fades out (y: 0 -> -30px)
   // - Crossfade images: Card 1 (A -> C) & Card 2 (B -> D)
-  // - MOTION: "Azaad Parinda" S-curve travel, ~15% follow lag, scale swap
-  //     Image A: leads, scale 0.6 -> 1.0, rot -6deg -> +3deg, y arc (0 -> -40 -> 0)
-  //     Image B: follows ~15% behind, scale 1.0 -> 0.6, rot +4deg -> -4deg, y arc (0 -> +45 -> 0)
+  // - MOTION: "Azaad Parinda" S-curve travel, scale swap
+  //     Image A: leads, scale 0.88 -> 1.15, rot -6deg -> +3deg, y arc (0 -> -40 -> 0)
+  //     Image B: follows ~15% behind, scale 1.15 -> 0.88, rot +4deg -> -4deg, y arc (0 -> +45 -> 0)
   // -------------------------------------------------------------
   if (step1Content) {
     storyTimeline.to(step1Content, {
@@ -1498,7 +1592,7 @@ function initPinnedStorytellingSection() {
     }, 0.24);
   }
 
-  // Crossfade Card 1: Image A out, Image C in (scale 1.1 -> 1.0)
+  // Crossfade Card 1: Image A out, Image C in
   if (img1A && img1C) {
     storyTimeline.to(img1A, {
       opacity: 0,
@@ -1513,7 +1607,7 @@ function initPinnedStorytellingSection() {
     }, 0.26);
   }
 
-  // Crossfade Card 2: Image B out, Image D in (scale 1.1 -> 1.0)
+  // Crossfade Card 2: Image B out, Image D in
   if (img2B && img2D) {
     storyTimeline.to(img2B, {
       opacity: 0,
@@ -1528,17 +1622,15 @@ function initPinnedStorytellingSection() {
     }, 0.29);
   }
 
-  // --- Image A: Leading bird (starts at 0.26, duration 0.18 -> ends at 0.44) ---
-  // Horizontal travel + Size swap (0.6 -> 1.0) + Rotation change (-6deg -> +3deg)
+  // Card 1: Leading flight + Size increase (0.88 -> 1.15)
   storyTimeline.to(card1, {
     x: () => getClusterSlideDistance(),
-    scale: 1.0,
+    scale: 1.15,
     rotation: 3,
     duration: 0.18,
     ease: 'sine.inOut'
   }, 0.26);
 
-  // S-Curve vertical arc for Image A: rises up by -40px then returns to 0
   storyTimeline.to(card1, {
     y: -40,
     duration: 0.09,
@@ -1550,17 +1642,15 @@ function initPinnedStorytellingSection() {
     ease: 'sine.in'
   }, 0.35);
 
-  // --- Image B: Following bird (~15% relative follow lag: starts at 0.32, duration 0.18 -> ends at 0.50) ---
-  // Horizontal travel + Size swap (1.0 -> 0.6) + Rotation change (+4deg -> -4deg)
+  // Card 2: Following flight (~15% relative follow lag) + Size adapt (1.15 -> 0.88)
   storyTimeline.to(card2, {
     x: () => getClusterSlideDistance(),
-    scale: 0.6,
+    scale: 0.88,
     rotation: -4,
     duration: 0.18,
     ease: 'sine.inOut'
   }, 0.32);
 
-  // S-Curve vertical arc for Image B: dips down by +45px then returns to 0
   storyTimeline.to(card2, {
     y: 45,
     duration: 0.09,
@@ -1578,9 +1668,10 @@ function initPinnedStorytellingSection() {
   // -------------------------------------------------------------
   // STEP 3: (0.50 -> 0.74)
   // - Images remain resting on the left side (with idle float active)
-  // - Right: Step 3 content block fades in (y: 20 -> 0)
-  // - Right: paragraph #story-reveal-p2 words reveal word-by-word
-  // - Right: explore button fades in
+  // - Right: Step 3 content block fades in
+  // - Right: Title 2 words write themselves out from upper & lower sides
+  // - Right: Paragraph 2 words write themselves out sequentially
+  // - Right: Explore button fades in
   // -------------------------------------------------------------
   if (step3Content) {
     storyTimeline.to(step3Content, {
@@ -1592,15 +1683,36 @@ function initPinnedStorytellingSection() {
     }, 0.50);
   }
 
-  if (words2.length) {
-    const totalStagger2 = 0.14;
-    const stepDuration2 = totalStagger2 / Math.max(words2.length, 1);
-    storyTimeline.to(words2, {
+  // Progressive Title 2 writing animation
+  if (titleWords2.length) {
+    const titleDuration2 = 0.06;
+    const titleStep2 = titleDuration2 / Math.max(titleWords2.length, 1);
+    storyTimeline.to(titleWords2, {
+      y: 0,
       opacity: 1,
-      stagger: stepDuration2,
+      filter: 'blur(0px)',
+      scale: 1,
+      rotation: 0,
+      stagger: titleStep2,
       duration: 0.04,
-      ease: 'none'
+      ease: 'power2.out'
     }, 0.52);
+  }
+
+  // Progressive Paragraph 2 writing animation
+  if (paraWords2.length) {
+    const paraDuration2 = 0.13;
+    const paraStep2 = paraDuration2 / Math.max(paraWords2.length, 1);
+    storyTimeline.to(paraWords2, {
+      y: 0,
+      opacity: 1,
+      filter: 'blur(0px)',
+      scale: 1,
+      rotation: 0,
+      stagger: paraStep2,
+      duration: 0.035,
+      ease: 'power2.out'
+    }, 0.56);
   }
 
   if (exploreBtn2) {
@@ -1609,7 +1721,7 @@ function initPinnedStorytellingSection() {
       y: 0,
       duration: 0.05,
       ease: 'power1.out'
-    }, 0.66);
+    }, 0.68);
   }
 
   // Reading pause for Step 3
