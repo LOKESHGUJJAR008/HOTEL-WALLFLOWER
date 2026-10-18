@@ -1781,6 +1781,9 @@ function initFloatingPerspectiveShowcase() {
   const section = document.getElementById('brand-story');
   const stage = document.getElementById('floating-perspective-stage');
   const backdrop = document.getElementById('comfort-zone-backdrop');
+  const chars = Array.from(document.querySelectorAll('.cz-char'));
+  const cursor = document.getElementById('cz-typewriter-cursor');
+  const liveLabel = document.getElementById('cz-live-type-label');
   const cards = Array.from(document.querySelectorAll('.floating-room-card'));
   const telemetryBadge = document.getElementById('motion-telemetry-badge');
   const captionHeadline = document.getElementById('motion-caption-headline');
@@ -1791,12 +1794,14 @@ function initFloatingPerspectiveShowcase() {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) {
     if (backdrop) backdrop.style.transform = 'none';
+    chars.forEach(c => c.classList.add('typed'));
     cards.forEach(card => card.style.transform = 'none');
     return;
   }
 
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
     if (backdrop) backdrop.style.transform = 'none';
+    chars.forEach(c => c.classList.add('typed'));
     cards.forEach(card => card.style.transform = 'none');
     return;
   }
@@ -1810,17 +1815,22 @@ function initFloatingPerspectiveShowcase() {
   const getStageWidth = () => window.innerWidth;
 
   // 1. Initial State:
-  // "COMFORT ZONE" STARTS ON THE RIGHT SIDE (behind cards)
+  // "COMFORT ZONE" STARTS ANCHORED ON THE RIGHT SIDE (behind cards)
   if (backdrop) {
     gsap.set(backdrop, {
-      x: () => getStageWidth() * 0.28, // Anchored towards right side
-      opacity: 0.9,
+      x: () => getStageWidth() * 0.22, // Anchored towards right side
+      opacity: 0.95,
       force3D: true
     });
   }
 
+  // Position typewriter cursor initially before first letter
+  if (cursor && chars[0]) {
+    chars[0].before(cursor);
+  }
+
   // 9 ROOM CARDS START OFF-SCREEN ON THE LEFT SIDE
-  // Staggered initial left positions, tilts, and 3D angles
+  // Staggered initial left positions, tilts, and 3D angles across 3 vertical lanes
   const cardData = [
     { startOffset: 0.85, initialRot: -14, initialRotY: 26, scale: 0.84, waveY: -35, midRot: 6, midRotY: -10, exitRot: 16, exitRotY: -28 },
     { startOffset: 1.15, initialRot: -10, initialRotY: 22, scale: 0.86, waveY: 30,  midRot: 4, midRotY: -8,  exitRot: 14, exitRotY: -24 },
@@ -1854,6 +1864,30 @@ function initFloatingPerspectiveShowcase() {
         window.openBookingModal({ roomType: roomId });
       }
     });
+
+    // 3D gyroscopic tilt tracking on mouse hover
+    const innerFrame = card.querySelector('.room-card-inner');
+    if (innerFrame) {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const xRel = (e.clientX - rect.left) / rect.width - 0.5;
+        const yRel = (e.clientY - rect.top) / rect.height - 0.5;
+        gsap.to(innerFrame, {
+          rotationY: xRel * 18,
+          rotationX: -yRel * 18,
+          duration: 0.25,
+          ease: 'power1.out'
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(innerFrame, {
+          rotationY: 0,
+          rotationX: 0,
+          duration: 0.5,
+          ease: 'power2.out'
+        });
+      });
+    }
   });
 
   // 2. Main Scroll-driven Scrub Timeline
@@ -1871,8 +1905,51 @@ function initFloatingPerspectiveShowcase() {
       onUpdate: (self) => {
         const p = self.progress;
 
-        // Dynamic Telemetry & Editorial updates as scroll evolves
-        if (p < 0.33) {
+        // --- TYPEWRITER LETTER-BY-LETTER REVEAL (Starts from Right) ---
+        // Letters: C O M F O R T   Z O N E (11 letters)
+        let typedCount = 0;
+        if (p >= 0.62) typedCount = 11;
+        else if (p >= 0.56) typedCount = 10;
+        else if (p >= 0.50) typedCount = 9;
+        else if (p >= 0.44) typedCount = 8;
+        else if (p >= 0.36) typedCount = 7;
+        else if (p >= 0.30) typedCount = 6;
+        else if (p >= 0.25) typedCount = 5;
+        else if (p >= 0.20) typedCount = 4;
+        else if (p >= 0.15) typedCount = 3;
+        else if (p >= 0.10) typedCount = 2;
+        else if (p >= 0.05) typedCount = 1;
+        else typedCount = 0;
+
+        chars.forEach((charEl, i) => {
+          if (i < typedCount) {
+            if (!charEl.classList.contains('typed')) {
+              charEl.classList.add('typed');
+            }
+          } else {
+            if (charEl.classList.contains('typed')) {
+              charEl.classList.remove('typed');
+            }
+          }
+        });
+
+        // Move the typewriter cursor immediately after latest typed character
+        if (cursor) {
+          if (typedCount === 0) {
+            if (chars[0] && cursor.previousElementSibling !== null) {
+              chars[0].before(cursor);
+            }
+          } else {
+            const latestChar = chars[typedCount - 1];
+            if (latestChar && cursor.previousElementSibling !== latestChar) {
+              latestChar.after(cursor);
+            }
+          }
+        }
+
+        // Dynamic Telemetry & Typewriter Status Updates
+        if (typedCount === 0) {
+          if (liveLabel) liveLabel.textContent = 'TYPEWRITER // READY TO WRITE';
           if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 01 · LEFT INCOMING DRIFT') {
             telemetryBadge.textContent = 'PHASE 01 · LEFT INCOMING DRIFT';
           }
@@ -1882,10 +1959,14 @@ function initFloatingPerspectiveShowcase() {
           if (captionSub) {
             captionSub.textContent = 'Scroll to explore 9 handcrafted room sanctuaries · Drifting smoothly from left across to Kota horizons.';
           }
-        } else if (p >= 0.33 && p < 0.68) {
-          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 02 · 3D GYROSCOPIC WAVE SURGE') {
-            telemetryBadge.textContent = 'PHASE 02 · 3D GYROSCOPIC WAVE SURGE';
-          }
+        } else if (typedCount < 7) {
+          const typedChars = chars.slice(0, typedCount).map(c => c.textContent).join('');
+          if (liveLabel) liveLabel.textContent = `TYPEWRITER // TYPING: "${typedChars}..."`;
+          if (telemetryBadge) telemetryBadge.textContent = `TYPEWRITER // "${typedChars}" · 9 SANCTUARIES`;
+        } else if (typedCount < 11) {
+          const zonePart = chars.slice(7, typedCount).map(c => c.textContent).join('');
+          if (liveLabel) liveLabel.textContent = `TYPEWRITER // TYPING: "COMFORT ${zonePart}..."`;
+          if (telemetryBadge) telemetryBadge.textContent = `PHASE 02 // "COMFORT ${zonePart}" · 3D GYROSCOPIC SURGE`;
           if (captionHeadline) {
             captionHeadline.innerHTML = 'Bespoke suites <em>in sculpted zero-gravity harmony.</em>';
           }
@@ -1893,9 +1974,8 @@ function initFloatingPerspectiveShowcase() {
             captionSub.textContent = 'Center-stage 3D gyroscopic roll · 400-thread linens, handcrafted teak, and acoustic isolation.';
           }
         } else {
-          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 03 · HORIZON EXIT GLIDE') {
-            telemetryBadge.textContent = 'PHASE 03 · HORIZON EXIT GLIDE';
-          }
+          if (liveLabel) liveLabel.textContent = 'COMFORT ZONE // COMPLETE PROJECTION';
+          if (telemetryBadge) telemetryBadge.textContent = 'PHASE 03 · HORIZON EXIT GLIDE';
           if (captionHeadline) {
             captionHeadline.innerHTML = 'Restorative sleep horizons <em>unfolding into serenity.</em>';
           }
@@ -1910,7 +1990,7 @@ function initFloatingPerspectiveShowcase() {
   // A. Backdrop "COMFORT ZONE": Drifts from Right towards Left across the background
   if (backdrop) {
     motionTimeline.to(backdrop, {
-      x: () => -getStageWidth() * 0.45,
+      x: () => -getStageWidth() * 0.42,
       duration: 1.0,
       ease: 'none'
     }, 0.0);

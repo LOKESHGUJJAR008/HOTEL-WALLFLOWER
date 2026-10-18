@@ -440,14 +440,37 @@
         <div class="stage-blend-bottom" aria-hidden="true"></div>
         <div class="perspective-stage-ambient" aria-hidden="true"></div>
 
-        <!-- GIANT LUXURY BACKDROP TYPOGRAPHY: "COMFORT ZONE" (Behind images, starts from Right side) -->
+        <!-- GIANT LUXURY BACKDROP TYPOGRAPHY: "COMFORT ZONE" (Typewriter letter-by-letter reveal, starts from Right side) -->
         <div class="comfort-zone-backdrop" id="comfort-zone-backdrop" aria-hidden="true">
-          <div class="comfort-zone-marquee" id="comfort-zone-marquee">
-            <span class="comfort-zone-text">COMFORT ZONE</span>
-            <span class="comfort-zone-text comfort-zone-text-repeat">COMFORT ZONE</span>
-          </div>
-          <div class="comfort-zone-kicker-strip">
-            <span>24 SOUND-ENGINEERED SANCTUARIES · BESPOKE BOUTIQUE HOSPITALITY · KOTA</span>
+          <div class="comfort-typewriter-wrapper" id="comfort-typewriter-wrapper">
+            <div class="comfort-typewriter-row">
+              <!-- Word 1: COMFORT -->
+              <span class="comfort-word-group" id="comfort-word-group">
+                <span class="cz-char" data-idx="0">C</span>
+                <span class="cz-char" data-idx="1">O</span>
+                <span class="cz-char" data-idx="2">M</span>
+                <span class="cz-char" data-idx="3">F</span>
+                <span class="cz-char" data-idx="4">O</span>
+                <span class="cz-char" data-idx="5">R</span>
+                <span class="cz-char" data-idx="6">T</span>
+              </span>
+              <!-- Space -->
+              <span class="cz-char-space">&nbsp;</span>
+              <!-- Word 2: ZONE -->
+              <span class="zone-word-group" id="zone-word-group">
+                <span class="cz-char" data-idx="7">Z</span>
+                <span class="cz-char" data-idx="8">O</span>
+                <span class="cz-char" data-idx="9">N</span>
+                <span class="cz-char" data-idx="10">E</span>
+              </span>
+              <!-- Blinking Typewriter Cursor -->
+              <span class="cz-typewriter-cursor" id="cz-typewriter-cursor"></span>
+            </div>
+            <div class="comfort-zone-kicker-strip">
+              <span class="cz-live-type-label" id="cz-live-type-label">TYPEWRITER // ACTIVE PROJECTION</span>
+              <span class="cz-kicker-dot">✦</span>
+              <span>24 SOUND-ENGINEERED SANCTUARIES · KOTA, RAJASTHAN</span>
+            </div>
           </div>
         </div>
 
@@ -480,6 +503,8 @@
             <article class="floating-room-card room-card-1" data-room-id="deluxe-executive" tabindex="0" aria-label="Presidential Master Suite">
               <div class="room-levitation-wrap levitator-1">
                 <div class="room-card-inner">
+                  <div class="card-corner-bracket bracket-tl"></div>
+                  <div class="card-corner-bracket bracket-br"></div>
                   <div class="room-card-photo-box">
                     <img src="assets/images/room-presidential.jpg" alt="Presidential Master Suite" class="room-card-photo" loading="lazy">
                     <div class="room-card-scrim"></div>
@@ -489,8 +514,9 @@
                     <span class="badge-idx">01</span>
                     <div class="badge-info">
                       <span class="badge-title">Presidential Master Suite</span>
-                      <span class="badge-price">₹4,999 / night</span>
+                      <span class="badge-price">₹4,999 / night · King Bed</span>
                     </div>
+                    <span class="badge-cta-hint" aria-hidden="true">VIEW →</span>
                   </div>
                 </div>
               </div>
@@ -500,6 +526,8 @@
             <article class="floating-room-card room-card-2" data-room-id="deluxe-executive" tabindex="0" aria-label="Deluxe Executive Suite">
               <div class="room-levitation-wrap levitator-2">
                 <div class="room-card-inner">
+                  <div class="card-corner-bracket bracket-tl"></div>
+                  <div class="card-corner-bracket bracket-br"></div>
                   <div class="room-card-photo-box">
                     <img src="assets/images/room-executive-suite.jpg" alt="Deluxe Executive Suite" class="room-card-photo" loading="lazy">
                     <div class="room-card-scrim"></div>
@@ -509,8 +537,9 @@
                     <span class="badge-idx">02</span>
                     <div class="badge-info">
                       <span class="badge-title">Deluxe Executive Suite</span>
-                      <span class="badge-price">₹2,499 / night</span>
+                      <span class="badge-price">₹2,499 / night · Workstation</span>
                     </div>
+                    <span class="badge-cta-hint" aria-hidden="true">VIEW →</span>
                   </div>
                 </div>
               </div>
@@ -520,6 +549,8 @@
             <article class="floating-room-card room-card-3" data-room-id="premium-royal-suite" tabindex="0" aria-label="Premium Royal Suite">
               <div class="room-levitation-wrap levitator-3">
                 <div class="room-card-inner">
+                  <div class="card-corner-bracket bracket-tl"></div>
+                  <div class="card-corner-bracket bracket-br"></div>
                   <div class="room-card-photo-box">
                     <img src="assets/images/room-royal-suite.jpg" alt="Premium Royal Suite" class="room-card-photo" loading="lazy">
                     <div class="room-card-scrim"></div>
@@ -529,8 +560,9 @@
                     <span class="badge-idx">03</span>
                     <div class="badge-info">
                       <span class="badge-title">Premium Royal Suite</span>
-                      <span class="badge-price">₹4,499 / night</span>
+                      <span class="badge-price">₹4,499 / night · Living Parlor</span>
                     </div>
+                    <span class="badge-cta-hint" aria-hidden="true">VIEW →</span>
                   </div>
                 </div>
               </div>
@@ -540,6 +572,8 @@
             <article class="floating-room-card room-card-4" data-room-id="super-deluxe-balcony" tabindex="0" aria-label="Private Balcony Sanctuary">
               <div class="room-levitation-wrap levitator-4">
                 <div class="room-card-inner">
+                  <div class="card-corner-bracket bracket-tl"></div>
+                  <div class="card-corner-bracket bracket-br"></div>
                   <div class="room-card-photo-box">
                     <img src="assets/images/room-balcony.jpg" alt="Private Balcony Sanctuary" class="room-card-photo" loading="lazy">
                     <div class="room-card-scrim"></div>
@@ -549,8 +583,9 @@
                     <span class="badge-idx">04</span>
                     <div class="badge-info">
                       <span class="badge-title">Balcony Sanctuary</span>
-                      <span class="badge-price">₹3,299 / night</span>
+                      <span class="badge-price">₹3,299 / night · Private Sit-Out</span>
                     </div>
+                    <span class="badge-cta-hint" aria-hidden="true">VIEW →</span>
                   </div>
                 </div>
               </div>
@@ -560,6 +595,8 @@
             <article class="floating-room-card room-card-5" data-room-id="deluxe-executive" tabindex="0" aria-label="Heritage Teak Deluxe">
               <div class="room-levitation-wrap levitator-5">
                 <div class="room-card-inner">
+                  <div class="card-corner-bracket bracket-tl"></div>
+                  <div class="card-corner-bracket bracket-br"></div>
                   <div class="room-card-photo-box">
                     <img src="assets/images/room-heritage.jpg" alt="Heritage Teak Deluxe" class="room-card-photo" loading="lazy">
                     <div class="room-card-scrim"></div>
@@ -569,8 +606,9 @@
                     <span class="badge-idx">05</span>
                     <div class="badge-info">
                       <span class="badge-title">Heritage Teak Deluxe</span>
-                      <span class="badge-price">₹2,899 / night</span>
+                      <span class="badge-price">₹2,899 / night · Kota Stone</span>
                     </div>
+                    <span class="badge-cta-hint" aria-hidden="true">VIEW →</span>
                   </div>
                 </div>
               </div>
@@ -580,6 +618,8 @@
             <article class="floating-room-card room-card-6" data-room-id="superior-twin" tabindex="0" aria-label="Acoustic Slat Soundproof Suite">
               <div class="room-levitation-wrap levitator-6">
                 <div class="room-card-inner">
+                  <div class="card-corner-bracket bracket-tl"></div>
+                  <div class="card-corner-bracket bracket-br"></div>
                   <div class="room-card-photo-box">
                     <img src="assets/images/room-acoustic.jpg" alt="Acoustic Slat Soundproof Suite" class="room-card-photo" loading="lazy">
                     <div class="room-card-scrim"></div>
@@ -589,8 +629,9 @@
                     <span class="badge-idx">06</span>
                     <div class="badge-info">
                       <span class="badge-title">Acoustic Slat Suite</span>
-                      <span class="badge-price">₹2,699 / night</span>
+                      <span class="badge-price">₹2,699 / night · Soundproof</span>
                     </div>
+                    <span class="badge-cta-hint" aria-hidden="true">VIEW →</span>
                   </div>
                 </div>
               </div>
@@ -600,6 +641,8 @@
             <article class="floating-room-card room-card-7" data-room-id="premium-royal-suite" tabindex="0" aria-label="Skyline Penthouse Haven">
               <div class="room-levitation-wrap levitator-7">
                 <div class="room-card-inner">
+                  <div class="card-corner-bracket bracket-tl"></div>
+                  <div class="card-corner-bracket bracket-br"></div>
                   <div class="room-card-photo-box">
                     <img src="assets/images/room-penthouse.jpg" alt="Skyline Penthouse Haven" class="room-card-photo" loading="lazy">
                     <div class="room-card-scrim"></div>
@@ -609,8 +652,9 @@
                     <span class="badge-idx">07</span>
                     <div class="badge-info">
                       <span class="badge-title">Skyline Penthouse</span>
-                      <span class="badge-price">₹5,499 / night</span>
+                      <span class="badge-price">₹5,499 / night · Twilight View</span>
                     </div>
+                    <span class="badge-cta-hint" aria-hidden="true">VIEW →</span>
                   </div>
                 </div>
               </div>
@@ -620,6 +664,8 @@
             <article class="floating-room-card room-card-8" data-room-id="superior-twin" tabindex="0" aria-label="Superior Twin Room">
               <div class="room-levitation-wrap levitator-8">
                 <div class="room-card-inner">
+                  <div class="card-corner-bracket bracket-tl"></div>
+                  <div class="card-corner-bracket bracket-br"></div>
                   <div class="room-card-photo-box">
                     <img src="assets/images/room-twin.jpg" alt="Superior Twin Room" class="room-card-photo" loading="lazy">
                     <div class="room-card-scrim"></div>
@@ -629,8 +675,9 @@
                     <span class="badge-idx">08</span>
                     <div class="badge-info">
                       <span class="badge-title">Superior Twin Room</span>
-                      <span class="badge-price">₹2,299 / night</span>
+                      <span class="badge-price">₹2,299 / night · Dual Desks</span>
                     </div>
+                    <span class="badge-cta-hint" aria-hidden="true">VIEW →</span>
                   </div>
                 </div>
               </div>
@@ -640,6 +687,8 @@
             <article class="floating-room-card room-card-9" data-room-id="super-deluxe-balcony" tabindex="0" aria-label="Rainforest Italian Marble Ensuite">
               <div class="room-levitation-wrap levitator-9">
                 <div class="room-card-inner">
+                  <div class="card-corner-bracket bracket-tl"></div>
+                  <div class="card-corner-bracket bracket-br"></div>
                   <div class="room-card-photo-box">
                     <img src="assets/images/room-bathroom.jpg" alt="Rainforest Italian Marble Ensuite" class="room-card-photo" loading="lazy">
                     <div class="room-card-scrim"></div>
@@ -649,8 +698,9 @@
                     <span class="badge-idx">09</span>
                     <div class="badge-info">
                       <span class="badge-title">Rainforest Marble Ensuite</span>
-                      <span class="badge-price">Deep Soak Tub</span>
+                      <span class="badge-price">Deep Soak Tub · Luxury Spa</span>
                     </div>
+                    <span class="badge-cta-hint" aria-hidden="true">VIEW →</span>
                   </div>
                 </div>
               </div>

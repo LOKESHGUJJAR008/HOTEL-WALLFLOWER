@@ -2307,17 +2307,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   GIANT LUXURY BACKDROP TYPOGRAPHY: "COMFORT ZONE"
+   GIANT LUXURY BACKDROP TYPOGRAPHY: "COMFORT ZONE" (Typewriter Reveal)
    - Starts from the RIGHT side
    - Placed BEHIND floating images (z-index: 2 vs cards z-index: 10)
-   - Drifts smoothly with scroll to create dramatic counter-depth parallax
+   - Letters type in sequentially as user scrolls
    ========================================================================== */
 .comfort-zone-backdrop {
   position: absolute;
   top: 50%;
-  right: -5vw;
+  right: -2vw;
   transform: translateY(-50%);
-  width: 240%;
+  width: 200%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -2326,37 +2326,106 @@ h1, h2, h3, h4, h5, h6 {
   will-change: transform;
 }
 
-.comfort-zone-marquee {
+.comfort-typewriter-wrapper {
   display: flex;
-  align-items: baseline;
-  justify-content: flex-end;
-  gap: 4vw;
-  white-space: nowrap;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 5vw;
 }
 
-.comfort-zone-text {
+.comfort-typewriter-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.comfort-word-group,
+.zone-word-group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.cz-char-space {
+  display: inline-block;
+  width: clamp(2rem, 4vw, 5rem);
+}
+
+.cz-char {
+  display: inline-block;
   font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
-  font-size: clamp(6.5rem, 16vw, 22rem);
+  font-size: clamp(5.5rem, 14vw, 19rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   line-height: 0.85;
   color: rgba(255, 255, 255, 0.04);
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.22);
-  text-shadow: 0 0 80px rgba(255, 255, 255, 0.03);
-  user-select: none;
+  -webkit-text-stroke: 1.6px rgba(255, 255, 255, 0.28);
+  text-shadow: 0 0 50px rgba(255, 255, 255, 0.04);
+  opacity: 0.12;
+  transform: translateY(24px) scale(0.88);
+  filter: blur(8px);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              filter 0.25s ease, 
+              color 0.3s ease, 
+              -webkit-text-stroke 0.3s ease,
+              text-shadow 0.3s ease;
+  will-change: opacity, transform, filter;
+}
+
+/* Typed Active Letter State */
+.cz-char.typed {
+  opacity: 1;
+  transform: translateY(0px) scale(1);
+  filter: blur(0px);
+  color: rgba(255, 255, 255, 0.14);
+  -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.65);
+  text-shadow: 0 0 45px rgba(255, 255, 255, 0.35), 0 0 90px rgba(255, 255, 255, 0.15);
+}
+
+/* Blinking Luxury Typewriter Cursor */
+.cz-typewriter-cursor {
+  display: inline-block;
+  width: clamp(4px, 0.75vw, 9px);
+  height: clamp(3.8rem, 10vw, 13rem);
+  background: #FFFFFF;
+  margin-left: clamp(8px, 1.2vw, 18px);
+  box-shadow: 0 0 25px #FFFFFF, 0 0 50px rgba(255, 255, 255, 0.7);
+  animation: czTypeBlink 0.85s infinite ease-in-out;
+  vertical-align: middle;
+}
+
+@keyframes czTypeBlink {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50% { opacity: 0.15; transform: scaleY(0.92); }
 }
 
 .comfort-zone-kicker-strip {
-  margin-top: 18px;
-  padding-right: 6vw;
+  margin-top: 16px;
+  padding-right: 1vw;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--font-dm, 'DM Sans', sans-serif);
-  font-size: clamp(0.7rem, 0.85vw, 0.95rem);
+  font-size: clamp(0.7rem, 0.85vw, 0.92rem);
   font-weight: 600;
-  letter-spacing: 0.28em;
-  color: rgba(255, 255, 255, 0.32);
+  letter-spacing: 0.26em;
+  color: rgba(255, 255, 255, 0.35);
   text-transform: uppercase;
   user-select: none;
+}
+
+.cz-live-type-label {
+  color: #FFFFFF;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.cz-kicker-dot {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.7rem;
 }
 
 /* ==========================================================================
@@ -2483,8 +2552,8 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 .floating-room-card {
   position: absolute;
-  width: clamp(290px, 25vw, 390px);
-  height: clamp(390px, 35vh, 500px);
+  width: clamp(280px, 24vw, 375px);
+  height: clamp(370px, 34vh, 480px);
   pointer-events: auto;
   cursor: pointer;
   will-change: transform, opacity;
@@ -2492,16 +2561,16 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-transform-style: preserve-3d;
 }
 
-/* Staggered Vertical Placements for High-End Asymmetry */
-.floating-room-card.room-card-1 { top: 12%; z-index: 9; }
-.floating-room-card.room-card-2 { top: 38%; z-index: 8; }
-.floating-room-card.room-card-3 { top: 16%; z-index: 9; }
-.floating-room-card.room-card-4 { top: 42%; z-index: 7; }
-.floating-room-card.room-card-5 { top: 14%; z-index: 10; } /* Hero Centerpiece */
-.floating-room-card.room-card-6 { top: 40%; z-index: 8; }
-.floating-room-card.room-card-7 { top: 18%; z-index: 9; }
-.floating-room-card.room-card-8 { top: 36%; z-index: 7; }
-.floating-room-card.room-card-9 { top: 22%; z-index: 8; }
+/* 3 Dynamic Vertical Elevation Lanes for Organic Stagger */
+.floating-room-card.room-card-1 { top: 10%; z-index: 9; }
+.floating-room-card.room-card-2 { top: 32%; z-index: 8; }
+.floating-room-card.room-card-3 { top: 52%; z-index: 7; }
+.floating-room-card.room-card-4 { top: 14%; z-index: 9; }
+.floating-room-card.room-card-5 { top: 30%; z-index: 10; } /* Centerpiece Hero */
+.floating-room-card.room-card-6 { top: 50%; z-index: 8; }
+.floating-room-card.room-card-7 { top: 12%; z-index: 9; }
+.floating-room-card.room-card-8 { top: 34%; z-index: 8; }
+.floating-room-card.room-card-9 { top: 54%; z-index: 7; }
 
 /* Autonomous Organic Levitations (Breathes and floats even when idle) */
 .room-levitation-wrap {
@@ -2536,8 +2605,39 @@ h1, h2, h3, h4, h5, h6 {
 
 .floating-room-card:hover .room-card-inner {
   border-color: #FFFFFF;
-  box-shadow: 0 35px 85px rgba(0, 0, 0, 0.96), 0 0 50px rgba(255, 255, 255, 0.18);
-  transform: scale(1.03) translateY(-6px);
+  box-shadow: 0 35px 85px rgba(0, 0, 0, 0.96), 0 0 50px rgba(255, 255, 255, 0.22);
+  transform: scale(1.04) translateY(-6px);
+}
+
+/* Luxury Corner Brackets */
+.card-corner-bracket {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  z-index: 6;
+  transition: all 0.3s ease;
+}
+
+.bracket-tl {
+  top: 10px;
+  left: 10px;
+  border-top: 2px solid rgba(255, 255, 255, 0.55);
+  border-left: 2px solid rgba(255, 255, 255, 0.55);
+}
+
+.bracket-br {
+  bottom: 10px;
+  right: 10px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+  border-right: 2px solid rgba(255, 255, 255, 0.55);
+}
+
+.floating-room-card:hover .bracket-tl,
+.floating-room-card:hover .bracket-br {
+  border-color: #FFFFFF;
+  width: 16px;
+  height: 16px;
 }
 
 .room-card-photo-box {
@@ -2564,7 +2664,7 @@ h1, h2, h3, h4, h5, h6 {
 .room-card-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(11, 11, 11, 0.85) 0%, rgba(11, 11, 11, 0.2) 40%, transparent 70%);
+  background: linear-gradient(to top, rgba(11, 11, 11, 0.88) 0%, rgba(11, 11, 11, 0.22) 42%, transparent 72%);
   pointer-events: none;
 }
 
@@ -2578,9 +2678,9 @@ h1, h2, h3, h4, h5, h6 {
 /* Floating Card Badge Strip */
 .room-card-badge-strip {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
   z-index: 5;
   background: rgba(11, 11, 11, 0.92);
   backdrop-filter: blur(14px);
@@ -2595,8 +2695,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .floating-room-card:hover .room-card-badge-strip {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(18, 18, 18, 0.95);
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(18, 18, 18, 0.96);
 }
 
 .badge-idx {
@@ -2631,8 +2731,25 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-dm, 'DM Sans', sans-serif);
   font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--muted-grey, #A6A6A6);
+}
+
+.badge-cta-hint {
+  font-family: var(--font-dm, 'DM Sans', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #FFFFFF;
+  margin-left: auto;
+  opacity: 0.65;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  white-space: nowrap;
+}
+
+.floating-room-card:hover .badge-cta-hint {
+  opacity: 1;
+  transform: translateX(3px);
 }
 
 /* Autonomous Floating Levitation Keyframes (9 unique organic oscillations) */
