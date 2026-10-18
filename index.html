@@ -90,7 +90,7 @@
        1. HERO SECTION ("Your Perfect Getaway Awaits") + Booking Bar
        ========================================================================== -->
   <main>
-    <!-- Pinned Scroll-Driven Hero Architecture (Page scroll locked until fully zoomed out) -->
+    <!-- Pinned Scroll-Driven Hero Architecture (Pure Cinematic Visual Experience - Zero Font/Text) -->
     <div class="hero-scroll-track" id="hero-scroll-track">
       <div class="hero-sticky-frame" id="hero-sticky-frame">
         <section class="hero-section" id="hero">
@@ -98,93 +98,73 @@
             <img src="assets/images/hotel-hero-pool.png" alt="Hotel Wallflower Exterior Twilight Infinity Pool Kota" id="hero-img">
           </div>
           <div class="hero-overlay"></div>
-
-          <!-- Watermark Background: Bold Italic Transparent Word "WALLFLOWER HOTEL" -->
-          <div class="hero-watermark" id="hero-watermark" aria-hidden="true">
-            <span class="hero-watermark-text" id="hero-watermark-text">WALLFLOWER HOTEL</span>
-          </div>
-
-          <div class="container hero-content" id="hero-content">
-            <div class="hero-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-              Kota's Premier Boutique Sanctuary
-            </div>
-
-            <h1 class="hero-title">
-              Your Perfect <span>Getaway</span> Awaits in Kota
-            </h1>
-
-            <p class="hero-description">
-              Where modern sophistication meets warm Rajasthani hospitality. Unwind in quiet luxury rooms, savor curated bistro dining, and enjoy our exclusive recreation lounge in the vibrant heart of Kota.
-            </p>
-
-            <!-- Booking Bar (Check-in / Check-out / Guests / Room Type / Check Availability) -->
-            <div class="booking-bar-wrapper">
-              <form class="booking-bar" id="home-booking-form">
-                <!-- Check-in -->
-                <div class="booking-col">
-                  <span class="booking-label">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    Check-In Date
-                  </span>
-                  <input type="date" class="booking-input" id="booking-checkin" required>
-                </div>
-
-                <!-- Check-out -->
-                <div class="booking-col">
-                  <span class="booking-label">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    Check-Out Date
-                  </span>
-                  <input type="date" class="booking-input" id="booking-checkout" required>
-                </div>
-
-                <!-- Guests -->
-                <div class="booking-col">
-                  <span class="booking-label">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    Guests & Capacity
-                  </span>
-                  <select class="booking-select" id="booking-guests">
-                    <option value="1">1 Adult (Solo / Corporate)</option>
-                    <option value="2" selected>2 Adults (Twin / Couple)</option>
-                    <option value="3">3 Guests (Family / Student Duo)</option>
-                    <option value="4">4+ Guests (Family Suite)</option>
-                  </select>
-                </div>
-
-                <!-- Room Choice -->
-                <div class="booking-col">
-                  <span class="booking-label">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-                    Room Selection
-                  </span>
-                  <select class="booking-select" id="booking-room-type">
-                    <option value="deluxe-executive">Deluxe Executive Room (₹2,499)</option>
-                    <option value="superior-twin">Superior Twin Room (₹2,299)</option>
-                    <option value="super-deluxe-balcony">Super Deluxe Balcony (₹3,299)</option>
-                    <option value="premium-royal-suite">Premium Royal Suite (₹4,499)</option>
-                    <option value="family-luxury-suite">Family Luxury Suite (₹5,499)</option>
-                    <option value="presidential-wallflower-suite">Presidential Suite (₹6,999)</option>
-                  </select>
-                </div>
-
-                <!-- Submit CTA -->
-                <button type="submit" class="btn btn-gold booking-btn" id="home-check-availability-btn">
-                  Check Availability
-                </button>
-              </form>
-            </div>
-          </div>
-
-          <!-- Scroll Lock & Zoom Telemetry Indicator -->
-          <div class="hero-scroll-progress-badge" id="hero-scroll-progress-badge">
-            <span class="progress-dot"></span>
-            <span>HERO ZOOM: <strong id="hero-zoom-pct">0%</strong> · SCROLL TO COMPLETE ZOOM</span>
-          </div>
         </section>
       </div>
     </div>
+
+    <!-- ==========================================================================
+         BOOKING RESERVATION BAR STRIP (Positioned right after the pure hero visual)
+         ========================================================================== -->
+    <section class="home-booking-strip-section" aria-label="Room Availability Check">
+      <div class="container">
+        <div class="booking-bar-wrapper">
+          <form class="booking-bar" id="home-booking-form">
+            <!-- Check-in -->
+            <div class="booking-col">
+              <span class="booking-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                Check-In Date
+              </span>
+              <input type="date" class="booking-input" id="booking-checkin" required>
+            </div>
+
+            <!-- Check-out -->
+            <div class="booking-col">
+              <span class="booking-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                Check-Out Date
+              </span>
+              <input type="date" class="booking-input" id="booking-checkout" required>
+            </div>
+
+            <!-- Guests -->
+            <div class="booking-col">
+              <span class="booking-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                Guests & Capacity
+              </span>
+              <select class="booking-select" id="booking-guests">
+                <option value="1">1 Adult (Solo / Corporate)</option>
+                <option value="2" selected>2 Adults (Twin / Couple)</option>
+                <option value="3">3 Guests (Family / Student Duo)</option>
+                <option value="4">4+ Guests (Family Suite)</option>
+              </select>
+            </div>
+
+            <!-- Room Choice -->
+            <div class="booking-col">
+              <span class="booking-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                Room Selection
+              </span>
+              <select class="booking-select" id="booking-room-type">
+                <option value="deluxe-executive">Deluxe Executive Room (₹2,499)</option>
+                <option value="superior-twin">Superior Twin Room (₹2,299)</option>
+                <option value="super-deluxe-balcony">Super Deluxe Balcony (₹3,299)</option>
+                <option value="premium-royal-suite">Premium Royal Suite (₹4,499)</option>
+                <option value="family-luxury-suite">Family Luxury Suite (₹5,499)</option>
+                <option value="presidential-wallflower-suite">Presidential Suite (₹6,999)</option>
+              </select>
+            </div>
+
+            <!-- Submit CTA -->
+            <button type="submit" class="btn btn-gold booking-btn" id="home-check-availability-btn">
+              Check Availability
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
 
     <!-- ==========================================================================
          2. ICON STRIP (5 Features)

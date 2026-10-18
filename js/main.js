@@ -722,10 +722,10 @@ function initHeroScrollChoreography() {
     const startScale = 1.45;
     const endScale = 1.00;
     const currentScale = startScale - (progress * (startScale - endScale));
-    const brightness = Math.max(0.50, 0.70 - progress * 0.18);
+    const brightness = Math.max(0.85, 0.98 - progress * 0.08);
 
     heroImg.style.transform = `scale(${currentScale.toFixed(4)})`;
-    heroImg.style.filter = `brightness(${brightness.toFixed(3)}) contrast(1.1) grayscale(0.12)`;
+    heroImg.style.filter = `brightness(${brightness.toFixed(3)}) contrast(1.05)`;
 
     // 2. Bold italic transparent watermark text glides like a fish across the screen
     // Combines horizontal glide, undulating vertical sine-wave, and subtle swimming yaw tilt
