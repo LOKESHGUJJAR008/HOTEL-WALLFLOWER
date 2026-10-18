@@ -1769,46 +1769,61 @@ function initPinnedStorytellingSection() {
 }
 
 /* ==========================================================================
-   02 — FLOATING PERSPECTIVES (SCROLL-DRIVEN AESTHETIC MOTION SHOWCASE)
-   - Image cluster enters from Left and glides across to Right as user scrolls
-   - Motion effect dynamically evolves/changes at each stage:
-     * Phase 1 (Left): Ascending levitation arc, -18deg tilt, 3D yaw 28deg
-     * Phase 2 (Center): 3D gyroscopic roll, wave dip, scale surge to 1.2, photo crossfade
-     * Phase 3 (Right): Horizon glide departure, +18deg tilt, 3D yaw -30deg, photo crossfade
-   - Autonomous floating levitation continues even when scroll stops
+   02 — ARCHITECTURAL LOOKBOOK (18-IMAGE RAPID 3D BOOK FLIPBOOK SHOWCASE)
+   - 18 images sweep in from UPPER-RIGHT down to LEFT like rapidly switching book pages
+   - Real 3D page curl, specular light beam, spine axis, and depth layering
+   - Left-Top corner displays active picture number and name with reduced opacity
+   - Synchronous 18-tick interactive scrubber, Prev/Next arrows, and Speed Flip auto-riffle
    ========================================================================== */
 function initFloatingPerspectiveShowcase() {
   const section = document.getElementById('brand-story');
   const stage = document.getElementById('floating-perspective-stage');
-  const cluster = document.getElementById('floating-hero-cluster');
-  const mainCard = document.getElementById('floating-main-card');
-  const companionCard = document.getElementById('floating-companion-card');
-  const tertiaryCard = document.getElementById('floating-tertiary-card');
+  const deck = document.getElementById('flipbook-deck');
+  const cards = Array.from(document.querySelectorAll('.flip-page-card'));
   const watermark = document.getElementById('perspective-watermark-text');
   const telemetryBadge = document.getElementById('motion-telemetry-badge');
-  const cardTitle = document.getElementById('motion-card-title');
-  const photo1 = document.getElementById('motion-photo-1');
-  const photo2 = document.getElementById('motion-photo-2');
-  const photo3 = document.getElementById('motion-photo-3');
-  const captionHeadline = document.getElementById('motion-caption-headline');
-  const captionSub = document.getElementById('motion-caption-sub');
+  const cornerNum = document.getElementById('corner-pic-number');
+  const cornerName = document.getElementById('corner-pic-name');
+  const cornerCaption = document.getElementById('corner-pic-caption');
+  const speedBtn = document.getElementById('flipbook-speed-btn');
+  const speedLabel = document.getElementById('flipbook-speed-label');
+  const prevBtn = document.getElementById('flip-nav-prev');
+  const nextBtn = document.getElementById('flip-nav-next');
+  const scrubBar = document.getElementById('flipbook-scrub-bar');
+  const scrubTicks = Array.from(document.querySelectorAll('.scrub-tick'));
+  const scrubFill = document.getElementById('scrub-progress-fill');
 
-  if (!section || !stage || !cluster || !mainCard) return;
+  if (!section || !stage || !deck || cards.length === 0) return;
+
+  const FOLIO_DATA = [
+    { num: '01', name: 'PREMIUM ROOMS', desc: 'Soundproof Sanctuary & Teak Craftsmanship' },
+    { num: '02', name: 'LUXURY SUITES', desc: 'Panoramic Balcony & Marble Ensuite' },
+    { num: '03', name: 'FINE DINING RESTAURANT', desc: 'The Wallflower Bistro & Global Cuisine' },
+    { num: '04', name: 'CAFÉ & LOUNGE', desc: 'Artisanal Brews & Chesterfield Library' },
+    { num: '05', name: 'ROOFTOP DINING', desc: 'Open Sky Terrace & Amber Sunset Views' },
+    { num: '06', name: 'SWIMMING POOL', desc: 'Acoustic Stillness & Azure Waters' },
+    { num: '07', name: 'FITNESS CENTER', desc: 'Cardio, Strength & Garden Horizons' },
+    { num: '08', name: 'SPA & WELLNESS', desc: 'Ayurvedic Aromatherapy & Rejuvenation' },
+    { num: '09', name: 'BANQUET & EVENT HALL', desc: 'Grand Galas, Receptions & Celebrations' },
+    { num: '10', name: 'CONFERENCE ROOM', desc: 'Executive Boardroom & High-Tech AV' },
+    { num: '11', name: '24X7 FRONT DESK', desc: 'Italian Marble Concierge & Warm Welcome' },
+    { num: '12', name: 'VALET PARKING', desc: 'Secure Porte-Cochère & EV Charging' },
+    { num: '13', name: 'HIGH-SPEED WI-FI', desc: 'Ultra-Fast Fiber Across Every Suite' },
+    { num: '14', name: 'IN-ROOM DINING', desc: '24x7 Artisanal Gourmet Room Service' },
+    { num: '15', name: 'AIRPORT SHUTTLE', desc: 'Chauffeured Transfers & Station Pickups' },
+    { num: '16', name: 'LAUNDRY & DRY CLEANING', desc: 'Same-Day Express Garment Care' },
+    { num: '17', name: 'CONCIERGE SERVICE', desc: 'Curated Kota Tours & Custom Itineraries' },
+    { num: '18', name: 'PET-FRIENDLY STAYS', desc: 'Dedicated Pampered Pet Amenities' }
+  ];
+
+  const totalPages = cards.length;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
-    cluster.style.transform = 'none';
-    mainCard.style.transform = 'none';
-    if (companionCard) companionCard.style.transform = 'none';
-    if (tertiaryCard) tertiaryCard.style.transform = 'none';
-    if (photo1) photo1.classList.add('layer-active');
-    return;
-  }
-
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    cluster.style.transform = 'none';
-    mainCard.style.transform = 'none';
-    if (photo1) photo1.classList.add('layer-active');
+  if (prefersReducedMotion || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    cards.forEach((card, idx) => {
+      card.style.transform = 'none';
+      card.style.opacity = idx === 0 ? '1' : '0.4';
+    });
     return;
   }
 
@@ -1818,252 +1833,324 @@ function initFloatingPerspectiveShowcase() {
   const oldTrigger = ScrollTrigger.getById('floating-perspective-trigger');
   if (oldTrigger) oldTrigger.kill();
 
-  const getSweepDistance = () => {
-    return Math.max(window.innerWidth * 0.62, 550);
+  const isMobile = () => window.innerWidth <= 768;
+
+  // Geometry configuration for book page switch trajectory
+  const getRightX = () => (isMobile() ? window.innerWidth * 0.42 : Math.max(300, window.innerWidth * 0.26));
+  const getRightY = () => (isMobile() ? -60 : -95);
+  const getLeftX = () => (isMobile() ? -window.innerWidth * 0.42 : -Math.max(300, window.innerWidth * 0.26));
+  const getLeftY = () => (isMobile() ? 40 : 55);
+
+  let activeIndex = 0;
+
+  // Real-time UI indicator updater
+  const updateUI = (idx, progress = null) => {
+    const clampedIdx = Math.max(0, Math.min(totalPages - 1, idx));
+    activeIndex = clampedIdx;
+    const item = FOLIO_DATA[clampedIdx] || { num: String(clampedIdx + 1).padStart(2, '0'), name: 'HOTEL WALLFLOWER', desc: '' };
+
+    if (cornerNum) cornerNum.textContent = `${item.num} / ${String(totalPages).padStart(2, '0')}`;
+    if (cornerName) cornerName.textContent = item.name;
+    if (cornerCaption) cornerCaption.textContent = item.desc;
+    if (telemetryBadge) telemetryBadge.textContent = `FOLIO ${item.num} / ${String(totalPages).padStart(2, '0')} · ${item.name}`;
+
+    // Update scrubber ticks
+    scrubTicks.forEach((tick, tIdx) => {
+      if (tIdx === clampedIdx) {
+        tick.classList.add('active');
+      } else {
+        tick.classList.remove('active');
+      }
+    });
+
+    if (scrubFill) {
+      const p = progress !== null ? progress : clampedIdx / (totalPages - 1);
+      scrubFill.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
+    }
   };
 
-  // 1. Initial State: Cluster starts positioned on the LEFT side of viewport
-  gsap.set(cluster, {
-    x: () => -getSweepDistance(),
-    y: 0,
-    force3D: true
+  // Set initial 3D positions for all 18 cards
+  // Card 0 starts center-stage, remaining cards stacked on upper right waiting to flip
+  cards.forEach((card, idx) => {
+    if (idx === 0) {
+      gsap.set(card, {
+        x: 0,
+        y: 0,
+        z: 30,
+        rotationY: 0,
+        rotationZ: 0,
+        rotationX: 0,
+        scale: 1,
+        opacity: 1,
+        force3D: true,
+        transformPerspective: 1800
+      });
+      card.classList.add('active', 'is-visible');
+    } else {
+      const staggerZ = -idx * 8;
+      const staggerX = getRightX() + Math.min(idx * 2, 20);
+      const staggerY = getRightY() - Math.min(idx * 1.5, 15);
+      gsap.set(card, {
+        x: staggerX,
+        y: staggerY,
+        z: staggerZ,
+        rotationY: -42,
+        rotationZ: 8,
+        rotationX: 6,
+        scale: Math.max(0.78, 0.88 - idx * 0.006),
+        opacity: idx <= 4 ? 0.95 : 0, // Keep first few visible for depth stacking
+        force3D: true,
+        transformPerspective: 1800
+      });
+      card.classList.remove('active');
+    }
   });
 
-  gsap.set(mainCard, {
-    rotation: -18,
-    rotationY: 28,
-    rotationX: 8,
-    y: 70,
-    scale: 0.8,
-    opacity: 0.7,
-    force3D: true,
-    transformPerspective: 1200
+  // Construct master timeline for the 18-page rapid flip
+  // Total timeline duration is normalized to 1.0
+  const flipTimeline = gsap.timeline({
+    paused: true
   });
 
-  if (companionCard) {
-    gsap.set(companionCard, {
-      x: -60,
-      y: -40,
-      scale: 0.72,
-      rotation: -12,
-      opacity: 0.65,
-      force3D: true
-    });
-  }
+  const stepDuration = 1 / totalPages;
 
-  if (tertiaryCard) {
-    gsap.set(tertiaryCard, {
-      x: 50,
-      y: 60,
-      scale: 0.68,
-      rotation: 14,
-      opacity: 0.6,
-      force3D: true
-    });
-  }
-
+  // Background watermark subtle counter-drift across duration
   if (watermark) {
-    gsap.set(watermark, { x: 0 });
+    flipTimeline.to(watermark, {
+      x: () => -window.innerWidth * 0.28,
+      duration: 1.0,
+      ease: 'none'
+    }, 0);
   }
 
-  // 2. Main Scroll-driven Timeline (pin stage for 240vh)
-  const motionTimeline = gsap.timeline({
-    scrollTrigger: {
-      id: 'floating-perspective-trigger',
-      trigger: section,
-      pin: stage,
-      start: 'top top',
-      end: '+=240%',
-      scrub: 0.7, // Silky smooth organic scrub
-      pinSpacing: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        const p = self.progress;
+  // Build each page's dynamic flip transition:
+  // For page i: flips from right-top -> center -> left
+  cards.forEach((card, i) => {
+    const cardStart = i * stepDuration;
+    const cardMid = cardStart + stepDuration * 0.48;
+    const cardEnd = (i + 1) * stepDuration;
 
-        // Dynamically update telemetry and caption state as motion evolves
-        if (p < 0.38) {
-          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 01 · LEFT INCOMING DRIFT') {
-            telemetryBadge.textContent = 'PHASE 01 · LEFT INCOMING DRIFT';
-          }
-          if (cardTitle && cardTitle.textContent !== 'Ground Atrium · Sculpted Limestone') {
-            cardTitle.textContent = 'Ground Atrium · Sculpted Limestone';
-          }
-          if (photo1 && !photo1.classList.contains('layer-active')) {
-            photo1.classList.add('layer-active');
-            if (photo2) photo2.classList.remove('layer-active');
-            if (photo3) photo3.classList.remove('layer-active');
-          }
-          if (captionHeadline) {
-            captionHeadline.innerHTML = 'Where architectural silence <em>glides through mindful space.</em>';
-          }
-          if (captionSub) {
-            captionSub.textContent = 'Scroll to explore perspective · Handcrafted Kota limestone and acoustic stillness in dynamic motion.';
-          }
-        } else if (p >= 0.38 && p < 0.72) {
-          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 02 · 3D GYROSCOPIC TILT') {
-            telemetryBadge.textContent = 'PHASE 02 · 3D GYROSCOPIC TILT';
-          }
-          if (cardTitle && cardTitle.textContent !== 'Royal Sanctuary Suite · Acoustic Isolation') {
-            cardTitle.textContent = 'Royal Sanctuary Suite · Acoustic Isolation';
-          }
-          if (photo2 && !photo2.classList.contains('layer-active')) {
-            photo2.classList.add('layer-active');
-            if (photo1) photo1.classList.remove('layer-active');
-            if (photo3) photo3.classList.remove('layer-active');
-          }
-          if (captionHeadline) {
-            captionHeadline.innerHTML = 'Sculpted stone and teak <em>in harmonic zero-gravity balance.</em>';
-          }
-          if (captionSub) {
-            captionSub.textContent = 'Full 3D gyroscopic roll · Orthopedic serenity and sound-engineered luxury on Jhalawar Road.';
-          }
-        } else {
-          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 03 · HORIZON DEPARTURE GLIDE') {
-            telemetryBadge.textContent = 'PHASE 03 · HORIZON DEPARTURE GLIDE';
-          }
-          if (cardTitle && cardTitle.textContent !== 'Twilight Courtyard · Amber Reflections') {
-            cardTitle.textContent = 'Twilight Courtyard · Amber Reflections';
-          }
-          if (photo3 && !photo3.classList.contains('layer-active')) {
-            photo3.classList.add('layer-active');
-            if (photo1) photo1.classList.remove('layer-active');
-            if (photo2) photo2.classList.remove('layer-active');
-          }
-          if (captionHeadline) {
-            captionHeadline.innerHTML = 'Restorative twilight horizons <em>unfolding into the Kota night.</em>';
-          }
-          if (captionSub) {
-            captionSub.textContent = 'Kinetic perspective exit · Private courtyards and bespoke cocktails stirred under the stars.';
-          }
-        }
+    // Inner photo and sheen for page turn light sweep
+    const sheen = card.querySelector('.page-card-sheen');
+    const shadow = card.querySelector('.page-card-shadow');
+
+    if (i === 0) {
+      // First card only moves from center to left
+      flipTimeline.to(card, {
+        x: () => getLeftX(),
+        y: () => getLeftY(),
+        z: -140,
+        rotationY: 60,
+        rotationZ: -9,
+        rotationX: -4,
+        scale: 0.84,
+        opacity: 0.6,
+        duration: cardEnd - cardStart,
+        ease: 'power2.inOut'
+      }, cardStart);
+
+      if (sheen) {
+        flipTimeline.fromTo(sheen, { opacity: 0.1 }, { opacity: 0.5, duration: (cardEnd - cardStart) * 0.5, ease: 'sine.out' }, cardStart)
+                    .to(sheen, { opacity: 0, duration: (cardEnd - cardStart) * 0.5, ease: 'sine.in' }, cardStart + (cardEnd - cardStart) * 0.5);
+      }
+    } else {
+      // Cards 1..17:
+      // Phase 1: incoming from upper-right to center
+      flipTimeline.to(card, {
+        x: 0,
+        y: -10,
+        z: 40,
+        rotationY: 0,
+        rotationZ: 0,
+        rotationX: 0,
+        scale: 1.04,
+        opacity: 1,
+        duration: cardMid - cardStart,
+        ease: 'power2.out'
+      }, cardStart);
+
+      // Phase 2: center to left stack
+      flipTimeline.to(card, {
+        x: () => getLeftX(),
+        y: () => getLeftY(),
+        z: -(totalPages - i) * 8 - 20,
+        rotationY: 58,
+        rotationZ: -8,
+        rotationX: -4,
+        scale: 0.85,
+        opacity: i === totalPages - 1 ? 1 : 0.65,
+        duration: cardEnd - cardMid,
+        ease: 'power2.in'
+      }, cardMid);
+
+      if (sheen) {
+        flipTimeline.fromTo(sheen, { opacity: 0.05 }, { opacity: 0.55, duration: (cardMid - cardStart), ease: 'sine.out' }, cardStart)
+                    .to(sheen, { opacity: 0.08, duration: (cardEnd - cardMid), ease: 'sine.in' }, cardMid);
+      }
+
+      if (shadow) {
+        flipTimeline.fromTo(shadow, { opacity: 0.5 }, { opacity: 0.1, duration: (cardMid - cardStart) }, cardStart)
+                    .to(shadow, { opacity: 0.45, duration: (cardEnd - cardMid) }, cardMid);
       }
     }
   });
 
-  // --- HORIZONTAL JOURNEY (Sweep from Left -sweepDistance to Right +sweepDistance) ---
-  motionTimeline.to(cluster, {
-    x: () => getSweepDistance(),
-    duration: 1.0,
-    ease: 'none'
-  }, 0.0);
+  // Main ScrollTrigger: pins stage and scrubs flipbook timeline
+  const scrollTriggerInstance = ScrollTrigger.create({
+    id: 'floating-perspective-trigger',
+    trigger: section,
+    pin: stage,
+    start: 'top top',
+    end: '+=280%',
+    scrub: 0.65, // Silky smooth organic scrub
+    pinSpacing: true,
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
+    onUpdate: (self) => {
+      const p = self.progress;
+      flipTimeline.progress(p);
 
-  // Background watermark subtle counter-drift
-  if (watermark) {
-    motionTimeline.to(watermark, {
-      x: () => -window.innerWidth * 0.25,
-      duration: 1.0,
-      ease: 'none'
-    }, 0.0);
+      const targetIdx = Math.min(totalPages - 1, Math.floor(p * totalPages));
+      updateUI(targetIdx, p);
+
+      // Manage active and visibility classes for clean stacking and performance
+      cards.forEach((card, idx) => {
+        if (idx === targetIdx) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+
+        // Show cards within active sliding window
+        if (Math.abs(idx - targetIdx) <= 3) {
+          card.classList.add('is-visible');
+        } else {
+          card.classList.remove('is-visible');
+        }
+      });
+    }
+  });
+
+  // Speed Flip (Autoplay Riffle) Engine
+  let isSpeedFlipping = false;
+  let speedTween = null;
+
+  const stopSpeedFlip = () => {
+    if (speedTween) {
+      speedTween.kill();
+      speedTween = null;
+    }
+    isSpeedFlipping = false;
+    if (speedBtn) speedBtn.classList.remove('is-active');
+    if (speedLabel) speedLabel.textContent = 'SPEED FLIP';
+  };
+
+  const startSpeedFlip = () => {
+    isSpeedFlipping = true;
+    if (speedBtn) speedBtn.classList.add('is-active');
+    if (speedLabel) speedLabel.textContent = 'PAUSE';
+
+    // If already at end, rewind to start
+    const currentP = scrollTriggerInstance.progress;
+    const startP = currentP >= 0.98 ? 0 : currentP;
+
+    // Rapid riffle speed: ~2.4 seconds across all 18 images
+    const remainingP = 1.0 - startP;
+    const duration = Math.max(1.2, remainingP * 2.6);
+
+    // Scroll page smoothly via ScrollTrigger
+    const stStart = scrollTriggerInstance.start;
+    const stEnd = scrollTriggerInstance.end;
+    const targetScroll = stStart + remainingP * (stEnd - stStart);
+
+    if (startP === 0) {
+      window.scrollTo({ top: stStart, behavior: 'auto' });
+    }
+
+    speedTween = gsap.to(window, {
+      scrollTo: targetScroll,
+      duration: duration,
+      ease: 'power1.inOut',
+      onComplete: () => {
+        stopSpeedFlip();
+      }
+    });
+  };
+
+  if (speedBtn) {
+    speedBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (isSpeedFlipping) {
+        stopSpeedFlip();
+      } else {
+        startSpeedFlip();
+      }
+    });
   }
 
-  // --- MOTION EFFECT PHASE 1: Left Entrance to Center-Left (0.00 -> 0.38) ---
-  // Rises up along an ascending levitation curve, rotation eases, scale expands
-  motionTimeline.to(mainCard, {
-    y: -35,
-    rotation: -4,
-    rotationY: 10,
-    rotationX: 4,
-    scale: 1.05,
-    opacity: 1,
-    duration: 0.38,
-    ease: 'power2.out'
-  }, 0.0);
+  // Prev / Next Folio Page Jump Buttons
+  const navigateToPage = (targetIdx) => {
+    stopSpeedFlip();
+    const clamped = Math.max(0, Math.min(totalPages - 1, targetIdx));
+    const targetProgress = (clamped + 0.4) / totalPages;
+    const stStart = scrollTriggerInstance.start;
+    const stEnd = scrollTriggerInstance.end;
+    const targetScroll = stStart + targetProgress * (stEnd - stStart);
 
-  if (companionCard) {
-    motionTimeline.to(companionCard, {
-      x: -40,
-      y: 20,
-      scale: 0.88,
-      rotation: 6,
-      opacity: 0.85,
-      duration: 0.38,
+    gsap.to(window, {
+      scrollTo: targetScroll,
+      duration: 0.55,
       ease: 'power2.out'
-    }, 0.0);
+    });
+  };
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateToPage(activeIndex - 1);
+    });
   }
 
-  if (tertiaryCard) {
-    motionTimeline.to(tertiaryCard, {
-      x: 30,
-      y: -25,
-      scale: 0.82,
-      rotation: -8,
-      opacity: 0.85,
-      duration: 0.38,
-      ease: 'power2.out'
-    }, 0.0);
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateToPage(activeIndex + 1);
+    });
   }
 
-  // --- MOTION EFFECT PHASE 2: Center-Stage 3D Gyroscopic Roll & Wave Dip (0.38 -> 0.70) ---
-  // Motion effect flips: dips into S-wave, rotation inverts to +6deg, rotateY inverts to -14deg, scale surges to 1.2
-  motionTimeline.to(mainCard, {
-    y: 15,
-    rotation: 6,
-    rotationY: -14,
-    rotationX: -6,
-    scale: 1.2,
-    duration: 0.32,
-    ease: 'sine.inOut'
-  }, 0.38);
+  // 18-Tick Interactive Scrubber Click & Drag
+  scrubTicks.forEach((tick, idx) => {
+    tick.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateToPage(idx);
+    });
+  });
 
-  if (companionCard) {
-    motionTimeline.to(companionCard, {
-      x: -110,
-      y: -45,
-      scale: 0.78,
-      rotation: -14,
-      duration: 0.32,
-      ease: 'sine.inOut'
-    }, 0.38);
+  // Enable direct click on timeline bar
+  if (scrubBar) {
+    scrubBar.addEventListener('click', (e) => {
+      if (e.target.classList.contains('scrub-tick')) return;
+      const rect = scrubBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const p = Math.max(0, Math.min(1, clickX / rect.width));
+      const targetIdx = Math.floor(p * totalPages);
+      navigateToPage(targetIdx);
+    });
   }
 
-  if (tertiaryCard) {
-    motionTimeline.to(tertiaryCard, {
-      x: 100,
-      y: 55,
-      scale: 0.75,
-      rotation: 12,
-      duration: 0.32,
-      ease: 'sine.inOut'
-    }, 0.38);
-  }
+  // Card click: clicking active card advances to next page
+  cards.forEach((card, idx) => {
+    card.addEventListener('click', () => {
+      if (idx === activeIndex) {
+        navigateToPage(activeIndex + 1 >= totalPages ? 0 : activeIndex + 1);
+      } else {
+        navigateToPage(idx);
+      }
+    });
+  });
 
-  // --- MOTION EFFECT PHASE 3: Center-Right to Far Right Departure (0.70 -> 1.00) ---
-  // Motion changes again: banks upward then departs smoothly into right edge with +18deg angle
-  motionTimeline.to(mainCard, {
-    y: 50,
-    rotation: 18,
-    rotationY: -30,
-    rotationX: 8,
-    scale: 0.82,
-    opacity: 0.75,
-    duration: 0.30,
-    ease: 'power2.in'
-  }, 0.70);
-
-  if (companionCard) {
-    motionTimeline.to(companionCard, {
-      x: 30,
-      y: 60,
-      scale: 0.65,
-      rotation: 16,
-      opacity: 0.5,
-      duration: 0.30,
-      ease: 'power2.in'
-    }, 0.70);
-  }
-
-  if (tertiaryCard) {
-    motionTimeline.to(tertiaryCard, {
-      x: -20,
-      y: -50,
-      scale: 0.65,
-      rotation: -14,
-      opacity: 0.5,
-      duration: 0.30,
-      ease: 'power2.in'
-    }, 0.70);
-  }
+  // Initial update
+  updateUI(0, 0);
 }
 
 /* ==========================================================================

@@ -424,12 +424,12 @@
     </section>
 
     <!-- ==========================================================================
-         02 — FLOATING PERSPECTIVES (SCROLL-DRIVEN AESTHETIC MOTION SHOWCASE)
+         02 — ARCHITECTURAL LOOKBOOK (18-IMAGE RAPID 3D BOOK FLIPBOOK SHOWCASE)
          Theme: Obsidian & Charcoal (#0B0B0B) · Pinned Stage
-         Animation: Floating image enters from Left and glides across to Right as user scrolls,
-         with continuously evolving motion effects (tilt, 3D gyroscopic roll, S-wave, scale).
+         Animation: 18 folio cards sweep in from upper-right down to left like a rapid book page turn.
+         Top-Left corner displays active picture number and name with subtle reduced opacity.
          ========================================================================== -->
-    <section class="chapter-section floating-perspective-section" id="brand-story" aria-label="Aesthetic Floating Image Motion Showcase">
+    <section class="chapter-section floating-perspective-section flipbook-section" id="brand-story" aria-label="18 Perspectives Architectural Lookbook">
       <div class="floating-perspective-stage" id="floating-perspective-stage">
         
         <!-- Ambient Radial Stage Vignette -->
@@ -438,7 +438,7 @@
         <!-- Background Kinetic Marquee Watermark -->
         <div class="perspective-watermark-strip" aria-hidden="true">
           <span class="perspective-watermark-text" id="perspective-watermark-text">
-            WALLFLOWER · AESTHETIC PERSPECTIVE · SCULPTED TRANQUILITY · KOTA LUXURY · MINDFUL SILENCE · 
+            WALLFLOWER · ARCHITECTURAL LOOKBOOK · 18 PERSPECTIVES · KOTA LUXURY · MINDFUL SILENCE · 
           </span>
         </div>
 
@@ -446,9 +446,25 @@
         <div class="container perspective-header-container">
           <div class="perspective-header-bar">
             <div class="perspective-kicker-group">
-              <span class="perspective-badge-pill">02 — FLOATING PERSPECTIVES</span>
-              <span class="perspective-stage-telemetry" id="motion-telemetry-badge">PHASE 01 · LEFT INCOMING DRIFT</span>
+              <span class="perspective-badge-pill">02 — HOTEL LOOKBOOK</span>
+              <span class="perspective-stage-telemetry" id="motion-telemetry-badge">FOLIO 01 / 18 · PREMIUM ROOMS</span>
             </div>
+
+            <!-- Rapid Flip & Directional Action Controls -->
+            <div class="flipbook-header-actions">
+              <button type="button" class="flipbook-speed-btn" id="flipbook-speed-btn" aria-label="Speed Flip Through 18 Pages">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="13 19 22 12 13 5 13 19"></polygon>
+                  <polygon points="2 19 11 12 2 5 2 19"></polygon>
+                </svg>
+                <span id="flipbook-speed-label">SPEED FLIP</span>
+              </button>
+              <div class="flipbook-arrow-pair">
+                <button type="button" class="flip-arrow-nav prev" id="flip-nav-prev" aria-label="Previous Folio Page">←</button>
+                <button type="button" class="flip-arrow-nav next" id="flip-nav-next" aria-label="Next Folio Page">→</button>
+              </div>
+            </div>
+
             <div class="perspective-header-meta">
               <span class="perspective-meta-coord">25.18° N, 75.83° E</span>
               <span class="perspective-meta-dot">✦</span>
@@ -461,94 +477,334 @@
         <!-- Central Floating Track & Canvas -->
         <div class="floating-motion-canvas" id="floating-motion-canvas">
           
+          <!-- LEFT TOP CORNER NAME & NUMBER DISPLAY (REDUCED OPACITY EDITORIAL BADGE) -->
+          <div class="flipbook-corner-display" id="flipbook-corner-display" aria-live="polite">
+            <div class="corner-display-pill">
+              <span class="corner-kicker-dot">✦</span>
+              <span class="corner-num" id="corner-pic-number">01 / 18</span>
+              <span class="corner-sep">·</span>
+              <span class="corner-name" id="corner-pic-name">PREMIUM ROOMS</span>
+            </div>
+            <span class="corner-caption-sub" id="corner-pic-caption">Soundproof Sanctuary &amp; Teak Craftsmanship</span>
+          </div>
+
           <!-- Atmospheric Halo Glow -->
           <div class="motion-ambient-glow" id="motion-ambient-glow"></div>
 
-          <!-- The Hero Floating Image Cluster (Scrolls from Left to Right) -->
-          <div class="floating-hero-cluster" id="floating-hero-cluster">
-            
-            <!-- Secondary Companion Shadow Card (Float behind with counter-drift) -->
-            <div class="floating-companion-card" id="floating-companion-card">
-              <div class="companion-levitation-wrap">
-                <div class="companion-inner-frame">
-                  <picture>
-                    <source srcset="assets/images/hotel-bar.webp" type="image/webp">
-                    <img src="assets/images/hotel-bar.jpg" alt="Velvet Lounge Atmosphere" class="companion-photo" loading="lazy">
-                  </picture>
-                  <div class="companion-card-scrim"></div>
-                  <div class="companion-tag">THE VELVET LOUNGE</div>
+          <!-- Subtle 3D Book Spine Axis Guideline -->
+          <div class="flipbook-spine-axis" aria-hidden="true"></div>
+
+          <!-- The 18 Book Pages Deck (Rapid Page-Turn Cascade: Upper Right -> Left) -->
+          <div class="flipbook-deck" id="flipbook-deck">
+
+            <!-- 01 · Premium Rooms -->
+            <article class="flip-page-card active" data-index="0" data-num="01" data-name="PREMIUM ROOMS" data-desc="Soundproof Sanctuary &amp; Teak Craftsmanship">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">01</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">PREMIUM ROOMS</span>
                 </div>
+                <img src="assets/images/hotel-images/01-premium-rooms.png" alt="Premium Rooms" class="page-card-photo" loading="eager">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
               </div>
-            </div>
+            </article>
 
-            <!-- Primary Hero Aesthetic Floating Card (Autonomous Levitation + Changing Motion) -->
-            <div class="floating-main-card" id="floating-main-card">
-              <!-- Inner wrapper for continuous autonomous organic levitation physics -->
-              <div class="floating-levitation-wrap" id="floating-card-levitator">
-                <div class="floating-main-frame">
-                  
-                  <!-- Photo Layer 1: Ground Atrium (Phase 1) -->
-                  <div class="motion-photo-layer layer-active" id="motion-photo-1">
-                    <picture>
-                      <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
-                      <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Ground Atrium" class="motion-photo-img" loading="lazy">
-                    </picture>
-                  </div>
-
-                  <!-- Photo Layer 2: Royal Sanctuary Suite (Phase 2) -->
-                  <div class="motion-photo-layer" id="motion-photo-2">
-                    <picture>
-                      <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
-                      <img src="assets/images/room-royal-suite.jpg" alt="Royal Sanctuary Suite" class="motion-photo-img" loading="lazy">
-                    </picture>
-                  </div>
-
-                  <!-- Photo Layer 3: Twilight Courtyard & Pool (Phase 3) -->
-                  <div class="motion-photo-layer" id="motion-photo-3">
-                    <picture>
-                      <source srcset="assets/images/hotel-lounge-pool.webp" type="image/webp">
-                      <img src="assets/images/hotel-lounge-pool.jpg" alt="Twilight Courtyard" class="motion-photo-img" loading="lazy">
-                    </picture>
-                  </div>
-
-                  <!-- Glass Light Shimmer Beam & Crisp Razor Border -->
-                  <div class="motion-glass-glare"></div>
-                  <div class="motion-card-border"></div>
-
-                  <!-- Floating Floating Badge on Card -->
-                  <div class="motion-card-floating-badge" id="motion-card-badge">
-                    <span class="card-badge-num">01</span>
-                    <span class="card-badge-title" id="motion-card-title">Ground Atrium · Sculpted Limestone</span>
-                  </div>
-
+            <!-- 02 · Luxury Suites -->
+            <article class="flip-page-card" data-index="1" data-num="02" data-name="LUXURY SUITES" data-desc="Panoramic Balcony &amp; Marble Ensuite">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">02</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">LUXURY SUITES</span>
                 </div>
+                <img src="assets/images/hotel-images/02-luxury-suites.png" alt="Luxury Suites" class="page-card-photo" loading="eager">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
               </div>
-            </div>
+            </article>
 
-            <!-- Third Companion Floating Spec Card (Travels alongside with float drift) -->
-            <div class="floating-tertiary-card" id="floating-tertiary-card">
-              <div class="tertiary-levitation-wrap">
-                <div class="tertiary-inner-frame">
-                  <picture>
-                    <source srcset="assets/images/hotel-dining.webp" type="image/webp">
-                    <img src="assets/images/hotel-dining.jpg" alt="Wallflower Bistro" class="tertiary-photo" loading="lazy">
-                  </picture>
-                  <div class="tertiary-card-scrim"></div>
-                  <div class="tertiary-tag">WALLFLOWER BISTRO</div>
+            <!-- 03 · Fine Dining Restaurant -->
+            <article class="flip-page-card" data-index="2" data-num="03" data-name="FINE DINING RESTAURANT" data-desc="The Wallflower Bistro &amp; Global Cuisine">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">03</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">FINE DINING RESTAURANT</span>
                 </div>
+                <img src="assets/images/hotel-images/03-fine-dining-restaurant.png" alt="Fine Dining Restaurant" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
               </div>
-            </div>
+            </article>
+
+            <!-- 04 · Café & Lounge -->
+            <article class="flip-page-card" data-index="3" data-num="04" data-name="CAFÉ &amp; LOUNGE" data-desc="Artisanal Brews &amp; Chesterfield Library">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">04</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">CAFÉ &amp; LOUNGE</span>
+                </div>
+                <img src="assets/images/hotel-images/04-cafe-lounge.png" alt="Café &amp; Lounge" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 05 · Rooftop Dining -->
+            <article class="flip-page-card" data-index="4" data-num="05" data-name="ROOFTOP DINING" data-desc="Open Sky Terrace &amp; Amber Sunset Views">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">05</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">ROOFTOP DINING</span>
+                </div>
+                <img src="assets/images/hotel-images/05-rooftop-dining.png" alt="Rooftop Dining" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 06 · Swimming Pool -->
+            <article class="flip-page-card" data-index="5" data-num="06" data-name="SWIMMING POOL" data-desc="Acoustic Stillness &amp; Azure Waters">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">06</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">SWIMMING POOL</span>
+                </div>
+                <img src="assets/images/hotel-images/06-swimming-pool.png" alt="Swimming Pool" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 07 · Fitness Center -->
+            <article class="flip-page-card" data-index="6" data-num="07" data-name="FITNESS CENTER" data-desc="Cardio, Strength &amp; Garden Horizons">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">07</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">FITNESS CENTER</span>
+                </div>
+                <img src="assets/images/hotel-images/07-fitness-center.png" alt="Fitness Center" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 08 · Spa & Wellness -->
+            <article class="flip-page-card" data-index="7" data-num="08" data-name="SPA &amp; WELLNESS" data-desc="Ayurvedic Aromatherapy &amp; Rejuvenation">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">08</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">SPA &amp; WELLNESS</span>
+                </div>
+                <img src="assets/images/hotel-images/08-spa-wellness.png" alt="Spa &amp; Wellness" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 09 · Banquet & Event Hall -->
+            <article class="flip-page-card" data-index="8" data-num="09" data-name="BANQUET &amp; EVENT HALL" data-desc="Grand Galas, Receptions &amp; Celebrations">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">09</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">BANQUET &amp; EVENT HALL</span>
+                </div>
+                <img src="assets/images/hotel-images/09-banquet-event-hall.png" alt="Banquet &amp; Event Hall" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 10 · Conference Room -->
+            <article class="flip-page-card" data-index="9" data-num="10" data-name="CONFERENCE ROOM" data-desc="Executive Boardroom &amp; High-Tech AV">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">10</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">CONFERENCE ROOM</span>
+                </div>
+                <img src="assets/images/hotel-images/10-conference-room.png" alt="Conference Room" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 11 · 24x7 Front Desk -->
+            <article class="flip-page-card" data-index="10" data-num="11" data-name="24X7 FRONT DESK" data-desc="Italian Marble Concierge &amp; Warm Welcome">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">11</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">24X7 FRONT DESK</span>
+                </div>
+                <img src="assets/images/hotel-images/11-front-desk-24x7.png" alt="24x7 Front Desk" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 12 · Valet Parking -->
+            <article class="flip-page-card" data-index="11" data-num="12" data-name="VALET PARKING" data-desc="Secure Porte-Cochère &amp; EV Charging">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">12</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">VALET PARKING</span>
+                </div>
+                <img src="assets/images/hotel-images/12-valet-parking.png" alt="Valet Parking" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 13 · High-Speed Wi-Fi -->
+            <article class="flip-page-card" data-index="12" data-num="13" data-name="HIGH-SPEED WI-FI" data-desc="Ultra-Fast Fiber Across Every Suite">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">13</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">HIGH-SPEED WI-FI</span>
+                </div>
+                <img src="assets/images/hotel-images/13-high-speed-wifi.png" alt="High-Speed Wi-Fi" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 14 · In-Room Dining -->
+            <article class="flip-page-card" data-index="13" data-num="14" data-name="IN-ROOM DINING" data-desc="24x7 Artisanal Gourmet Room Service">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">14</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">IN-ROOM DINING</span>
+                </div>
+                <img src="assets/images/hotel-images/14-in-room-dining.png" alt="In-Room Dining" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 15 · Airport Shuttle -->
+            <article class="flip-page-card" data-index="14" data-num="15" data-name="AIRPORT SHUTTLE" data-desc="Chauffeured Transfers &amp; Station Pickups">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">15</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">AIRPORT SHUTTLE</span>
+                </div>
+                <img src="assets/images/hotel-images/15-airport-shuttle.png" alt="Airport Shuttle" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 16 · Laundry & Dry Cleaning -->
+            <article class="flip-page-card" data-index="15" data-num="16" data-name="LAUNDRY &amp; DRY CLEANING" data-desc="Same-Day Express Garment Care">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">16</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">LAUNDRY &amp; DRY CLEANING</span>
+                </div>
+                <img src="assets/images/hotel-images/16-laundry-dry-cleaning.png" alt="Laundry &amp; Dry Cleaning" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 17 · Concierge Service -->
+            <article class="flip-page-card" data-index="16" data-num="17" data-name="CONCIERGE SERVICE" data-desc="Curated Kota Tours &amp; Custom Itineraries">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">17</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">CONCIERGE SERVICE</span>
+                </div>
+                <img src="assets/images/hotel-images/17-concierge-service.png" alt="Concierge Service" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
+
+            <!-- 18 · Pet-Friendly Stays -->
+            <article class="flip-page-card" data-index="17" data-num="18" data-name="PET-FRIENDLY STAYS" data-desc="Dedicated Pampered Pet Amenities">
+              <div class="flip-card-inner">
+                <div class="page-corner-tag">
+                  <span class="tag-num">18</span>
+                  <span class="tag-sep">·</span>
+                  <span class="tag-name">PET-FRIENDLY STAYS</span>
+                </div>
+                <img src="assets/images/hotel-images/18-pet-friendly-stays.png" alt="Pet-Friendly Stays" class="page-card-photo" loading="lazy">
+                <div class="page-card-sheen"></div>
+                <div class="page-card-shadow"></div>
+                <div class="page-card-border"></div>
+              </div>
+            </article>
 
           </div>
 
-          <!-- Bottom Editorial Floating Caption Strip (Follows Scroll Journey) -->
-          <div class="motion-bottom-caption" id="motion-bottom-caption">
-            <h3 class="motion-caption-headline" id="motion-caption-headline">
-              Where architectural silence <em>glides through mindful space.</em>
-            </h3>
-            <p class="motion-caption-sub" id="motion-caption-sub">
-              Scroll to explore perspective · Handcrafted Kota limestone and acoustic stillness in dynamic motion.
-            </p>
+          <!-- Bottom Editorial Caption Strip & 18-Tick Interactive Scrubber -->
+          <div class="motion-bottom-caption flipbook-bottom-caption" id="motion-bottom-caption">
+            <!-- 18-Tick Interactive Progress Scrubber -->
+            <div class="flipbook-scrub-bar" id="flipbook-scrub-bar" role="slider" aria-label="18 Perspectives Lookbook Timeline" aria-valuemin="1" aria-valuemax="18" aria-valuenow="1">
+              <div class="scrub-ticks-track" id="scrub-ticks-track">
+                <!-- 18 interactive ticks generated / styled -->
+                <button type="button" class="scrub-tick active" data-tick="0" aria-label="Folio 01: Premium Rooms"></button>
+                <button type="button" class="scrub-tick" data-tick="1" aria-label="Folio 02: Luxury Suites"></button>
+                <button type="button" class="scrub-tick" data-tick="2" aria-label="Folio 03: Fine Dining"></button>
+                <button type="button" class="scrub-tick" data-tick="3" aria-label="Folio 04: Cafe Lounge"></button>
+                <button type="button" class="scrub-tick" data-tick="4" aria-label="Folio 05: Rooftop Dining"></button>
+                <button type="button" class="scrub-tick" data-tick="5" aria-label="Folio 06: Swimming Pool"></button>
+                <button type="button" class="scrub-tick" data-tick="6" aria-label="Folio 07: Fitness Center"></button>
+                <button type="button" class="scrub-tick" data-tick="7" aria-label="Folio 08: Spa Wellness"></button>
+                <button type="button" class="scrub-tick" data-tick="8" aria-label="Folio 09: Banquet Hall"></button>
+                <button type="button" class="scrub-tick" data-tick="9" aria-label="Folio 10: Conference Room"></button>
+                <button type="button" class="scrub-tick" data-tick="10" aria-label="Folio 11: Front Desk"></button>
+                <button type="button" class="scrub-tick" data-tick="11" aria-label="Folio 12: Valet Parking"></button>
+                <button type="button" class="scrub-tick" data-tick="12" aria-label="Folio 13: Wi-Fi"></button>
+                <button type="button" class="scrub-tick" data-tick="13" aria-label="Folio 14: In-Room Dining"></button>
+                <button type="button" class="scrub-tick" data-tick="14" aria-label="Folio 15: Airport Shuttle"></button>
+                <button type="button" class="scrub-tick" data-tick="15" aria-label="Folio 16: Laundry"></button>
+                <button type="button" class="scrub-tick" data-tick="16" aria-label="Folio 17: Concierge"></button>
+                <button type="button" class="scrub-tick" data-tick="17" aria-label="Folio 18: Pet-Friendly"></button>
+              </div>
+              <div class="scrub-progress-fill" id="scrub-progress-fill"></div>
+            </div>
+
+            <div class="flipbook-caption-text-block">
+              <h3 class="motion-caption-headline" id="motion-caption-headline">
+                Where architectural silence <em>glides through mindful space.</em>
+              </h3>
+              <p class="motion-caption-sub" id="motion-caption-sub">
+                Scroll or speed-flip through 18 perspectives · From upper right across to left in dynamic 3D page turn sequence.
+              </p>
+            </div>
           </div>
 
         </div>
