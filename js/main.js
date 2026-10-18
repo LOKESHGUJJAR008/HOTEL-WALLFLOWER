@@ -860,6 +860,7 @@ function initScrollDrivenHero() {
   const wordmark = document.getElementById('hero-brand-wordmark');
   const subtextBadge = document.getElementById('hero-subtext-badge');
   const scrollCue = document.getElementById('hero-scroll-cue');
+  const heroCta = document.getElementById('hero-cta-wrapper');
   const carouselTrack = document.getElementById('incoming-carousel-track');
   const incomingStage = document.getElementById('hero-incoming-stage');
   const header = document.getElementById('main-header');
@@ -914,11 +915,19 @@ function initScrollDrivenHero() {
       );
     }
 
-    // 2. Initial Scroll Cue fades out early (0.0 -> 0.12)
+    // 2. Initial Scroll Cue and Hero CTA fade out early (0.0 -> 0.12)
     if (scrollCue) {
       heroTimeline.to(scrollCue, {
         opacity: 0,
         y: -12,
+        ease: 'power1.out',
+        duration: 0.12
+      }, 0);
+    }
+    if (heroCta) {
+      heroTimeline.to(heroCta, {
+        opacity: 0,
+        y: -10,
         ease: 'power1.out',
         duration: 0.12
       }, 0);
