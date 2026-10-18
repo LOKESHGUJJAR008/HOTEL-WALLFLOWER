@@ -4,26 +4,151 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initLenisSmoothScroll();
+  initMinimalNavigation();
   initStickyNavbar();
   initMobileNav();
   initBookingBarDates();
+  initStickyBookingBar();
   initCountdownTimer();
   initReviewSlider();
   initModals();
   initGalleryLightbox();
   initToast();
-  initHeroScrollChoreography();
+  initScrollDrivenHero();
+  initBrandStoryParallax();
+  initRoomsHorizontalTrack();
+  initAtmosphereReveal();
+  initStatementMaskReveal();
+  initHomepageQuickBookForm();
   initRooms3DMotionframeSlider();
   initRedCarpetWelcomeAnimation();
 });
 
 /* ==========================================================================
-   STICKY NAVBAR & SCROLL BEHAVIOR
+   MINIMAL LUXURY NAVIGATION & KEYBOARD-ACCESSIBLE MOBILE MENU
+   - Transparent over hero -> solid Obsidian after scrolling (window.scrollY > 40)
+   - Smooth anchor scrolling with header offset
+   - Keyboard accessible mobile menu with focus trapping and ESC support
    ========================================================================== */
+function initMinimalNavigation() {
+  const header = document.getElementById('main-header');
+  const toggleBtn = document.getElementById('mobile-toggle-btn');
+  const mobilePanel = document.getElementById('mobile-nav-panel');
+  const closeBtn = document.getElementById('mobile-close-btn');
+  const backdrop = document.getElementById('mobile-nav-backdrop');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  // 1. Header scroll state (transparent over hero, solid after scrolling)
+  if (header) {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        header.classList.add('header-solid');
+      } else {
+        header.classList.remove('header-solid');
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  }
+
+  // 2. Smooth anchor scrolling for all in-page links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const href = anchor.getAttribute('href');
+      if (href === '#' || href === '') return;
+      const targetEl = document.querySelector(href);
+      if (targetEl) {
+        e.preventDefault();
+        const headerHeight = header ? header.offsetHeight : 70;
+        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+        if (mobilePanel && !mobilePanel.hidden) {
+          closeMobileMenu();
+        }
+      }
+    });
+  });
+
+  // 3. Accessible Mobile Navigation Menu
+  if (!toggleBtn || !mobilePanel) return;
+
+  const focusableSelector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  let firstFocusableEl = null;
+  let lastFocusableEl = null;
+
+  const updateFocusableElements = () => {
+    const focusable = mobilePanel.querySelectorAll(focusableSelector);
+    firstFocusableEl = focusable[0];
+    lastFocusableEl = focusable[focusable.length - 1];
+  };
+
+  const openMobileMenu = () => {
+    mobilePanel.hidden = false;
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    updateFocusableElements();
+    if (closeBtn) closeBtn.focus();
+  };
+
+  const closeMobileMenu = () => {
+    mobilePanel.hidden = true;
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    toggleBtn.focus();
+  };
+
+  toggleBtn.addEventListener('click', () => {
+    const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+    if (isExpanded) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeMobileMenu);
+  if (backdrop) backdrop.addEventListener('click', closeMobileMenu);
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  // Keyboard navigation: Escape key closes menu, Tab traps focus
+  mobilePanel.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeMobileMenu();
+      return;
+    }
+
+    if (e.key === 'Tab') {
+      updateFocusableElements();
+      if (!firstFocusableEl || !lastFocusableEl) return;
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstFocusableEl) {
+          e.preventDefault();
+          lastFocusableEl.focus();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastFocusableEl) {
+          e.preventDefault();
+          firstFocusableEl.focus();
+        }
+      }
+    }
+  });
+}
+
+/* Fallback for other subpages using old navbar */
 function initStickyNavbar() {
   const header = document.querySelector('.site-header');
   if (!header) return;
-
   const handleScroll = () => {
     if (window.scrollY > 40) {
       header.classList.add('scrolled');
@@ -31,51 +156,26 @@ function initStickyNavbar() {
       header.classList.remove('scrolled');
     }
   };
-
   window.addEventListener('scroll', handleScroll, { passive: true });
-  handleScroll(); // Initial check
+  handleScroll();
 }
 
-/* ==========================================================================
-   MOBILE NAVIGATION DRAWER
-   ========================================================================== */
 function initMobileNav() {
   const hamburgerBtn = document.querySelector('.hamburger-btn');
   const drawer = document.querySelector('.mobile-nav-drawer');
   const overlay = document.querySelector('.mobile-drawer-overlay');
-
   if (!hamburgerBtn || !drawer || !overlay) return;
-
-  const toggleMenu = () => {
-    const isOpen = drawer.classList.contains('open');
-    if (isOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  };
-
-  const openMenu = () => {
-    hamburgerBtn.classList.add('active');
-    drawer.classList.add('open');
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  };
-
   const closeMenu = () => {
     hamburgerBtn.classList.remove('active');
     drawer.classList.remove('open');
     overlay.classList.remove('active');
     document.body.style.overflow = '';
   };
-
-  hamburgerBtn.addEventListener('click', toggleMenu);
-  overlay.addEventListener('click', closeMenu);
-
-  // Close when clicking mobile nav links
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', closeMenu);
+  hamburgerBtn.addEventListener('click', () => {
+    drawer.classList.toggle('open');
+    overlay.classList.toggle('active');
   });
+  overlay.addEventListener('click', closeMenu);
 }
 
 /* ==========================================================================
@@ -691,75 +791,226 @@ window.showToast = function(msg) {
 };
 
 /* ==========================================================================
-   HERO SCROLL CHOREOGRAPHY (Pinned Scroll Track: Page Locked Until Full Zoom Out)
+   LENIS SMOOTH SCROLL INITIALIZATION
+   - 60fps buttery smooth scroll synced with GSAP ticker & ScrollTrigger
+   - Bypassed under prefers-reduced-motion
    ========================================================================== */
-function initHeroScrollChoreography() {
+let lenisInstance = null;
+
+function initLenisSmoothScroll() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion || typeof Lenis === 'undefined') return;
+
+  lenisInstance = new Lenis({
+    duration: 1.15,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    touchMultiplier: 1.2
+  });
+
+  if (typeof ScrollTrigger !== 'undefined') {
+    lenisInstance.on('scroll', ScrollTrigger.update);
+  }
+
+  if (typeof gsap !== 'undefined') {
+    gsap.ticker.add((time) => {
+      lenisInstance.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    function raf(time) {
+      lenisInstance.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
+}
+
+/* ==========================================================================
+   SCROLL-DRIVEN HERO PIN & SHRINK (GSAP + ScrollTrigger, scrub: true)
+   - Pins hero at top
+   - Height shrinks 100vh -> 28vh (35svh on mobile)
+   - 3 Images crossfade: 0-33%, 33-66%, 66-100% with scale 1.15 -> 1.0 parallax
+   - Logo centers then shifts to bottom-center of the 28vh strip, shrinks
+   - "HOTEL" subtext fades in under the logo
+   - Incoming content (tagline + carousel) slides up in normal flow
+   - Top nav fades in after 10% scroll progress (transparent -> blur background)
+   - Bypassed under prefers-reduced-motion
+   ========================================================================== */
+function initScrollDrivenHero() {
   const track = document.getElementById('hero-scroll-track');
-  const heroImg = document.getElementById('hero-img');
-  const watermarkText = document.getElementById('hero-watermark-text');
-  const heroContent = document.getElementById('hero-content');
-  const zoomPctEl = document.getElementById('hero-zoom-pct');
-  const progressBadge = document.getElementById('hero-scroll-progress-badge');
+  const stickyStage = document.getElementById('hero-sticky-stage');
+  const bannerStrip = document.getElementById('hero-banner-strip');
+  const slide1 = document.getElementById('hero-slide-1');
+  const slide2 = document.getElementById('hero-slide-2');
+  const slide3 = document.getElementById('hero-slide-3');
+  const wordmark = document.getElementById('hero-brand-wordmark');
+  const subtextBadge = document.getElementById('hero-subtext-badge');
+  const scrollCue = document.getElementById('hero-scroll-cue');
+  const carouselTrack = document.getElementById('incoming-carousel-track');
+  const header = document.getElementById('main-header');
 
-  if (!track || !heroImg) return;
+  if (!track || !stickyStage || !bannerStrip) return;
 
-  let ticking = false;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    if (header) header.classList.add('header-visible');
+    return;
+  }
 
-  const onScroll = () => {
-    const rect = track.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    const trackHeight = track.offsetHeight;
-    const scrollDistance = Math.max(1, trackHeight - windowHeight);
+  const isMobile = () => window.innerWidth <= 768;
 
-    // Current scroll distance inside the pinned track
-    const currentScroll = Math.max(0, -rect.top);
-    const progress = Math.min(1.0, Math.max(0, currentScroll / scrollDistance));
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
 
-    // 1. Image zooms out as user scrolls down:
-    // Starts deeply zoomed in at scale(1.45)
-    // As user scrolls, zooms out continuously until scale(1.00)
-    // ONLY when progress reaches 1.0 does the image complete zoom-out and page moves!
-    const startScale = 1.45;
-    const endScale = 1.00;
-    const currentScale = startScale - (progress * (startScale - endScale));
-    const brightness = Math.max(0.85, 0.98 - progress * 0.08);
+    // Clean up any existing trigger
+    const existing = ScrollTrigger.getById('hero-shrink-trigger');
+    if (existing) existing.kill();
 
-    heroImg.style.transform = `scale(${currentScale.toFixed(4)})`;
-    heroImg.style.filter = `brightness(${brightness.toFixed(3)}) contrast(1.05)`;
-
-    // 2. Bold italic transparent watermark text glides like a fish across the screen
-    // Combines horizontal glide, undulating vertical sine-wave, and subtle swimming yaw tilt
-    if (watermarkText) {
-      const slideX = -progress * 420; // Glides horizontally
-      const waveY = Math.sin(progress * Math.PI * 3.5) * 48; // Undulating vertical swimming wave
-      const swimTilt = Math.cos(progress * Math.PI * 3.5) * 5.4; // Fin and tail swimming yaw tilt
-      const textScale = 1 + Math.sin(progress * Math.PI * 2) * 0.04 + progress * 0.05;
-      watermarkText.style.transform = `translate3d(${slideX.toFixed(1)}px, ${waveY.toFixed(1)}px, 0) rotate(${swimTilt.toFixed(2)}deg) scale(${textScale.toFixed(3)})`;
-      watermarkText.style.opacity = Math.max(0.12, 1 - progress * 0.70);
-    }
-
-    // 3. Foreground title & booking bar slide up and fade out in the latter half of the zoom-out
-    if (heroContent) {
-      let contentOpacity = 1;
-      let contentY = 0;
-      if (progress > 0.20) {
-        const fadeProgress = (progress - 0.20) / 0.80; // 0 to 1
-        contentOpacity = Math.max(0, 1 - fadeProgress * 1.35);
-        contentY = -fadeProgress * 90;
+    const heroTimeline = gsap.timeline({
+      scrollTrigger: {
+        id: 'hero-shrink-trigger',
+        trigger: track,
+        pin: stickyStage,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.3,
+        pinSpacing: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          // Top navigation fades in after 10% scroll progress
+          if (header) {
+            if (self.progress > 0.10) {
+              header.classList.add('header-visible');
+            } else {
+              header.classList.remove('header-visible');
+            }
+          }
+        }
       }
-      heroContent.style.transform = `translate3d(0, ${contentY.toFixed(1)}px, 0)`;
-      heroContent.style.opacity = contentOpacity.toFixed(3);
+    });
+
+    // 1. Shrink Hero Banner Strip: 100vh -> 28vh (35svh on mobile)
+    const targetHeight = isMobile() ? '35svh' : '28vh';
+    heroTimeline.to(bannerStrip, {
+      height: targetHeight,
+      ease: 'none',
+      duration: 1.0
+    }, 0);
+
+    // 2. Initial Scroll Cue fades out early (0.0 -> 0.12)
+    if (scrollCue) {
+      heroTimeline.to(scrollCue, {
+        opacity: 0,
+        y: -12,
+        ease: 'power1.out',
+        duration: 0.12
+      }, 0);
     }
 
-    // 4. Update HUD progress indicator
-    if (zoomPctEl) {
-      const pct = Math.round(progress * 100);
-      if (pct >= 100) {
-        zoomPctEl.textContent = '100% · UNLOCKED';
-        if (progressBadge) progressBadge.style.borderColor = '#FFFFFF';
+    // 3. Slide 1 (0.0 -> 0.33): scale 1.15 -> 1.0, crossfade out 0.22 -> 0.33
+    const photo1 = slide1 ? slide1.querySelector('.hero-slide-photo') : null;
+    if (photo1) {
+      heroTimeline.fromTo(photo1, { scale: 1.15 }, { scale: 1.0, ease: 'none', duration: 0.33 }, 0);
+    }
+    if (slide1) {
+      heroTimeline.to(slide1, { opacity: 0, ease: 'power1.inOut', duration: 0.11 }, 0.22);
+    }
+
+    // 4. Slide 2 (0.33 -> 0.66): crossfade in 0.22 -> 0.33, scale 1.15 -> 1.0, crossfade out 0.55 -> 0.66
+    const photo2 = slide2 ? slide2.querySelector('.hero-slide-photo') : null;
+    if (slide2) {
+      heroTimeline.fromTo(slide2, { opacity: 0 }, { opacity: 1, ease: 'power1.inOut', duration: 0.11 }, 0.22);
+    }
+    if (photo2) {
+      heroTimeline.fromTo(photo2, { scale: 1.15 }, { scale: 1.0, ease: 'none', duration: 0.33 }, 0.33);
+    }
+    if (slide2) {
+      heroTimeline.to(slide2, { opacity: 0, ease: 'power1.inOut', duration: 0.11 }, 0.55);
+    }
+
+    // 5. Slide 3 (0.66 -> 1.0): crossfade in 0.55 -> 0.66, scale 1.15 -> 1.0
+    const photo3 = slide3 ? slide3.querySelector('.hero-slide-photo') : null;
+    if (slide3) {
+      heroTimeline.fromTo(slide3, { opacity: 0 }, { opacity: 1, ease: 'power1.inOut', duration: 0.11 }, 0.55);
+    }
+    if (photo3) {
+      heroTimeline.fromTo(photo3, { scale: 1.15 }, { scale: 1.0, ease: 'none', duration: 0.34 }, 0.66);
+    }
+
+    // 6. Wordmark: scales down and shifts to bottom-center of the 28vh strip
+    if (wordmark) {
+      const targetScale = isMobile() ? 0.44 : 0.40;
+      const targetY = isMobile() ? 12 : 16;
+      heroTimeline.to(wordmark, {
+        scale: targetScale,
+        y: targetY,
+        letterSpacing: isMobile() ? '0.24em' : '0.36em',
+        ease: 'power1.out',
+        duration: 1.0
+      }, 0);
+    }
+
+    // 7. Subtext "HOTEL" badge: fades in under the wordmark (0.65 -> 1.0)
+    if (subtextBadge) {
+      heroTimeline.fromTo(subtextBadge, 
+        { opacity: 0, y: 10 }, 
+        { opacity: 1, y: 0, ease: 'power1.out', duration: 0.35 }, 
+        0.65
+      );
+    }
+
+    // 8. Horizontal Carousel Track subtle travel during slide-up (0.60 -> 1.0)
+    if (carouselTrack && !isMobile()) {
+      heroTimeline.fromTo(carouselTrack,
+        { x: 20 },
+        { x: -40, ease: 'none', duration: 0.4 },
+        0.60
+      );
+    }
+
+    // Clean up on page unmount
+    window.addEventListener('beforeunload', () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    });
+
+    return;
+  }
+
+  // Native Fallback if GSAP is unavailable
+  let ticking = false;
+  const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
+
+  const onScrollFallback = () => {
+    const rect = track.getBoundingClientRect();
+    const scrollDist = track.offsetHeight - window.innerHeight;
+    const progress = clamp(-rect.top / (scrollDist || 1), 0, 1);
+
+    // Height shrink
+    const startH = isMobile() ? window.innerHeight : window.innerHeight;
+    const endH = isMobile() ? window.innerHeight * 0.35 : window.innerHeight * 0.28;
+    const currentH = startH - progress * (startH - endH);
+    bannerStrip.style.height = `${currentH.toFixed(1)}px`;
+
+    // Wordmark
+    if (wordmark) {
+      const scale = 1.0 - progress * (isMobile() ? 0.56 : 0.60);
+      wordmark.style.transform = `scale(${scale.toFixed(3)}) translateY(${(progress * 16).toFixed(1)}px)`;
+    }
+
+    // Subtext
+    if (subtextBadge) {
+      const subOpacity = progress > 0.65 ? clamp((progress - 0.65) / 0.35, 0, 1) : 0;
+      subtextBadge.style.opacity = subOpacity.toFixed(3);
+    }
+
+    // Navigation
+    if (header) {
+      if (progress > 0.10) {
+        header.classList.add('header-visible');
       } else {
-        zoomPctEl.textContent = `${pct}%`;
-        if (progressBadge) progressBadge.style.borderColor = 'rgba(255, 255, 255, 0.25)';
+        header.classList.remove('header-visible');
       }
     }
 
@@ -768,14 +1019,72 @@ function initHeroScrollChoreography() {
 
   window.addEventListener('scroll', () => {
     if (!ticking) {
-      requestAnimationFrame(onScroll);
+      requestAnimationFrame(onScrollFallback);
       ticking = true;
     }
   }, { passive: true });
 
-  // Initial calculation
-  onScroll();
+  onScrollFallback();
 }
+
+function initHeroScrollChoreography() {
+  // Alias pointing to initScrollDrivenHero
+  initScrollDrivenHero();
+}
+
+/* ==========================================================================
+   STICKY BOOKING BAR LOGIC (Check-in / Check-out / Guests / Book Flow)
+   - Synchronizes with existing booking modal
+   - Sets today / tomorrow defaults
+   ========================================================================== */
+function initStickyBookingBar() {
+  const checkinInput = document.getElementById('bar-checkin');
+  const checkoutInput = document.getElementById('bar-checkout');
+  const guestsSelect = document.getElementById('bar-guests');
+  const reserveBtn = document.getElementById('btn-bar-reserve');
+
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const formatDate = (d) => {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  if (checkinInput && checkoutInput) {
+    checkinInput.min = formatDate(today);
+    checkinInput.value = formatDate(today);
+    checkoutInput.min = formatDate(tomorrow);
+    checkoutInput.value = formatDate(tomorrow);
+
+    checkinInput.addEventListener('change', () => {
+      const selected = new Date(checkinInput.value);
+      const nextDay = new Date(selected);
+      nextDay.setDate(nextDay.getDate() + 1);
+      checkoutInput.min = formatDate(nextDay);
+      if (new Date(checkoutInput.value) <= selected) {
+        checkoutInput.value = formatDate(nextDay);
+      }
+    });
+  }
+
+  if (reserveBtn) {
+    reserveBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const checkin = checkinInput ? checkinInput.value : '';
+      const checkout = checkoutInput ? checkoutInput.value : '';
+      const guests = guestsSelect ? guestsSelect.value : '2';
+
+      if (typeof window.openBookingModal === 'function') {
+        window.openBookingModal({ checkin, checkout, guests });
+      }
+    });
+  }
+}
+
 
 /* ==========================================================================
    3D MOTIONFRAME ROOM SLIDER (Cinematic Perspective Depth & HUD Telemetry)
@@ -959,3 +1268,391 @@ function initRedCarpetWelcomeAnimation() {
   // Initial check
   onScroll();
 }
+
+/* ==========================================================================
+   02 — BRAND STORY: SPLIT TEXT REVEAL & ASYMMETRIC ARCHITECTURAL PARALLAX
+   ========================================================================== */
+function initBrandStoryParallax() {
+  const storySection = document.getElementById('brand-story');
+  if (!storySection) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const animItems = storySection.querySelectorAll('.story-anim-item');
+  const photoClips = storySection.querySelectorAll('.story-photo-clip');
+
+  // If reduced motion is preferred, show everything immediately
+  if (prefersReducedMotion) {
+    animItems.forEach(el => el.classList.add('in-view'));
+    photoClips.forEach(el => el.classList.add('in-view'));
+    return;
+  }
+
+  // 1. Text & Headline Upward Fade with Reading Stagger
+  if ('IntersectionObserver' in window) {
+    const textObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    animItems.forEach(el => textObserver.observe(el));
+
+    // 2. Photographs Clip-Path Mask Reveal
+    const photoObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+    photoClips.forEach(clip => photoObserver.observe(clip));
+  } else {
+    animItems.forEach(el => el.classList.add('in-view'));
+    photoClips.forEach(clip => clip.classList.add('in-view'));
+  }
+
+  // 3. Optional GSAP ScrollTrigger Integration if present
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.create({
+      trigger: storySection,
+      start: 'top 85%',
+      once: true,
+      onEnter: () => {
+        animItems.forEach(el => el.classList.add('in-view'));
+        photoClips.forEach(clip => clip.classList.add('in-view'));
+      }
+    });
+  }
+}
+
+/* ==========================================================================
+   03 — ROOMS & SUITES: HORIZONTAL PINNED TRACK (DESKTOP) & SWIPE (MOBILE)
+   - Large "STAY YOUR WAY" heading
+   - Desktop: pins section and translates track based on trackWidth - viewportWidth
+   - Recalculates dynamically on resize
+   - Thin progress bar indicator (0% to 100%)
+   - Mobile and tablet portrait: native horizontal swipe with scroll-snap
+   - Page itself never scrolls horizontally
+   - Keyboard arrow access and prefers-reduced-motion respect
+   ========================================================================== */
+function initRoomsHorizontalTrack() {
+  const section = document.getElementById('rooms-track');
+  const viewport = document.getElementById('rooms-pinned-viewport');
+  const track = document.getElementById('rooms-horizontal-track');
+  const stage = document.getElementById('rooms-horizontal-stage');
+  const progressBar = document.getElementById('rooms-progress-bar');
+  const currentIdxEl = document.getElementById('rooms-current-idx');
+  const cards = document.querySelectorAll('.room-horizontal-card');
+
+  if (!section || !viewport || !track || !stage) return;
+
+  const totalCards = cards.length || 5;
+  let scrollTriggerInstance = null;
+
+  const isReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDesktop = () => window.innerWidth > 1024 && !isReducedMotion();
+
+  // Dynamic travel distance calculation: track.scrollWidth - window.innerWidth
+  const getTravelDistance = () => {
+    const trackWidth = track.scrollWidth;
+    const viewportWidth = window.innerWidth;
+    // Add 48px padding buffer so the final card clears comfortably
+    return Math.max(0, trackWidth - viewportWidth + 48);
+  };
+
+  const updateProgressBar = (progress) => {
+    const clamped = Math.min(1, Math.max(0, progress));
+    if (progressBar) {
+      progressBar.style.transform = `scaleX(${clamped.toFixed(4)})`;
+      const trackParent = progressBar.parentElement;
+      if (trackParent) {
+        trackParent.setAttribute('aria-valuenow', Math.round(clamped * 100));
+      }
+    }
+    if (currentIdxEl) {
+      const idx = Math.min(totalCards - 1, Math.floor(clamped * totalCards));
+      currentIdxEl.textContent = String(idx + 1).padStart(2, '0');
+    }
+  };
+
+  // Setup GSAP Desktop Pinned Scroll
+  const setupDesktopPinnedScroll = () => {
+    // Kill existing trigger if any
+    if (scrollTriggerInstance) {
+      scrollTriggerInstance.kill();
+      scrollTriggerInstance = null;
+    }
+
+    if (!isDesktop()) {
+      // Mobile / Tablet Portrait / Reduced Motion cleanup
+      if (typeof gsap !== 'undefined') {
+        gsap.set(track, { clearProps: 'transform' });
+        gsap.set(viewport, { clearProps: 'all' });
+        gsap.set(section, { clearProps: 'all' });
+      } else {
+        track.style.transform = 'none';
+      }
+      updateProgressBar(0);
+      return;
+    }
+
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+
+      scrollTriggerInstance = ScrollTrigger.create({
+        id: 'rooms-horizontal-pin',
+        trigger: section,
+        pin: viewport,
+        start: 'top top',
+        end: () => `+=${getTravelDistance()}`,
+        scrub: 0.5,
+        pinSpacing: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const travel = getTravelDistance();
+          gsap.set(track, { x: -travel * progress });
+          updateProgressBar(progress);
+        }
+      });
+    }
+  };
+
+  // Setup Mobile / Tablet Native Swipe Listener
+  const onMobileStageScroll = () => {
+    if (isDesktop()) return;
+    const maxScroll = stage.scrollWidth - stage.clientWidth;
+    if (maxScroll > 0) {
+      const progress = stage.scrollLeft / maxScroll;
+      updateProgressBar(progress);
+    }
+  };
+
+  stage.addEventListener('scroll', onMobileStageScroll, { passive: true });
+
+  // Keyboard Arrow Navigation
+  stage.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      const direction = e.key === 'ArrowRight' ? 1 : -1;
+      if (isDesktop() && scrollTriggerInstance) {
+        // Smoothly scroll window vertically to advance the pinned scrub
+        const scrollStep = window.innerHeight * 0.45 * direction;
+        window.scrollBy({ top: scrollStep, behavior: 'smooth' });
+        e.preventDefault();
+      } else {
+        // Mobile / Tablet / Reduced motion native scroll
+        const scrollStep = 320 * direction;
+        stage.scrollBy({ left: scrollStep, behavior: 'smooth' });
+        e.preventDefault();
+      }
+    }
+  });
+
+  // Initialize
+  setupDesktopPinnedScroll();
+
+  // Resize Listener: Recalculates travel distance dynamically
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      setupDesktopPinnedScroll();
+      if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+      }
+    }, 120);
+  });
+}
+
+/* ==========================================================================
+   04 — THE ATMOSPHERE: EDITORIAL COMPOSITION & SUBTLE REVEAL
+   - Short editorial statement + One strong verified photograph
+   - Subtle scroll reveal via IntersectionObserver
+   - Subtle, light parallax on desktop only (kept buttery smooth on mobile)
+   - Bypassed under prefers-reduced-motion
+   ========================================================================== */
+function initAtmosphereReveal() {
+  const section = document.getElementById('hotel-experience');
+  if (!section) return;
+
+  const statementBlock = document.getElementById('atmosphere-statement');
+  const imageShowcase = document.getElementById('atmosphere-image-showcase');
+  const photoImg = document.getElementById('atmosphere-img');
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    if (statementBlock) statementBlock.classList.add('in-view');
+    if (imageShowcase) imageShowcase.classList.add('in-view');
+    return;
+  }
+
+  // 1. Reveal on IntersectionObserver
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    if (statementBlock) observer.observe(statementBlock);
+    if (imageShowcase) observer.observe(imageShowcase);
+  } else {
+    if (statementBlock) statementBlock.classList.add('in-view');
+    if (imageShowcase) imageShowcase.classList.add('in-view');
+  }
+
+  // 2. Desktop-only subtle parallax (never on mobile or small tablets to preserve 60fps)
+  const isDesktop = () => window.innerWidth > 1024 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (photoImg) {
+    let ticking = false;
+
+    const onScroll = () => {
+      if (!isDesktop()) {
+        photoImg.style.transform = '';
+        ticking = false;
+        return;
+      }
+
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        // Calculate scroll progress through the section
+        const totalDist = windowHeight + section.offsetHeight;
+        const currentDist = windowHeight - rect.top;
+        const progress = Math.min(1, Math.max(0, currentDist / totalDist));
+        // Subtle vertical parallax movement: -18px to +18px
+        const translateY = (progress - 0.5) * 36;
+        photoImg.style.transform = `scale(1.04) translateY(${translateY.toFixed(2)}px)`;
+      }
+
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      if (!isDesktop()) {
+        photoImg.style.transform = '';
+      }
+    });
+
+    onScroll();
+  }
+}
+
+/* ==========================================================================
+   05 — A MOMENT TO REMEMBER: FULL-WIDTH STATEMENT (IMAGE MASK REVEAL)
+   ========================================================================== */
+function initStatementMaskReveal() {
+  const section = document.getElementById('statement-moment');
+  const viewport = document.getElementById('statement-viewport');
+  const bgImg = document.getElementById('statement-bg-img');
+
+  if (!section || !viewport) return;
+
+  let ticking = false;
+
+  const onScroll = () => {
+    const rect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    if (rect.top <= windowHeight && rect.bottom >= 0) {
+      const totalDist = windowHeight + section.offsetHeight;
+      const progress = Math.min(1, Math.max(0, (windowHeight - rect.top) / (totalDist * 0.75)));
+
+      // Expand clip-path mask from inset(7% 6% round 20px) down to inset(0% 0% round 0px)
+      const insetY = Math.max(0, (1 - progress) * 7);
+      const insetX = Math.max(0, (1 - progress) * 6);
+      const roundR = Math.max(0, (1 - progress) * 20);
+
+      viewport.style.clipPath = `inset(${insetY.toFixed(2)}% ${insetX.toFixed(2)}% round ${roundR.toFixed(1)}px)`;
+
+      if (bgImg) {
+        const scale = 1.08 - (progress * 0.08); // slow cinematic zoom-out
+        bgImg.style.transform = `scale(${scale.toFixed(4)})`;
+      }
+    }
+
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  onScroll();
+}
+
+/* ==========================================================================
+   06 — BOOK YOUR STAY: QUICK RESERVATION FLOW CONSOLE
+   ========================================================================== */
+function initHomepageQuickBookForm() {
+  const checkinInput = document.getElementById('flow-checkin');
+  const checkoutInput = document.getElementById('flow-checkout');
+  const guestsSelect = document.getElementById('flow-guests');
+  const suiteSelect = document.getElementById('flow-suite');
+  const form = document.getElementById('homepage-quick-book-form');
+
+  if (!form) return;
+
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const formatDate = (date) => {
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  if (checkinInput && checkoutInput) {
+    checkinInput.min = formatDate(today);
+    checkinInput.value = formatDate(today);
+    checkoutInput.min = formatDate(tomorrow);
+    checkoutInput.value = formatDate(tomorrow);
+
+    checkinInput.addEventListener('change', () => {
+      const selDate = new Date(checkinInput.value);
+      const nextDay = new Date(selDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      checkoutInput.min = formatDate(nextDay);
+      if (new Date(checkoutInput.value) <= selDate) {
+        checkoutInput.value = formatDate(nextDay);
+      }
+    });
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const checkin = checkinInput ? checkinInput.value : '';
+    const checkout = checkoutInput ? checkoutInput.value : '';
+    const guests = guestsSelect ? guestsSelect.value : '2';
+    const roomType = suiteSelect ? suiteSelect.value : 'deluxe-executive';
+
+    if (typeof window.openBookingModal === 'function') {
+      window.openBookingModal({ checkin, checkout, guests, roomType });
+    }
+  });
+}
+

@@ -5,965 +5,407 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hotel Wallflower | Boutique Luxury Hotel in Kota, Rajasthan</title>
   <meta name="description" content="Experience refined boutique hospitality at Hotel Wallflower, Kota. Luxury rooms, The Wallflower Bistro, Velvet Lounge, pool table, fitness center, near City Mall on Jhalawar Road.">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 
   <!-- ==========================================================================
-       NAVBAR (Horizontal, Sticky, Transparent to Solid on Scroll)
+       MINIMAL LUXURY NAVIGATION (Wallflower Wordmark · Sections · Solid on Scroll)
        ========================================================================== -->
-  <header class="site-header" id="navbar">
-    <div class="container navbar-container">
-      <!-- Logo Left -->
-      <a href="index.html" class="brand-logo" id="nav-logo" aria-label="Hotel Wallflower Home">
-        <div class="logo-crest">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
-          </svg>
-        </div>
-        <div class="logo-text">
-          <span class="brand-name">WALLFLOWER</span>
-          <span class="brand-tagline">HOTEL · KOTA</span>
-        </div>
+  <header class="minimal-header" id="main-header" role="banner">
+    <div class="header-container">
+      <!-- Left: Wallflower Wordmark -->
+      <a href="index.html" class="header-wordmark" aria-label="Hotel Wallflower Home">
+        <span class="wordmark-text">WALLFLOWER</span>
       </a>
 
-      <!-- Center Links (Home · Rooms · Dining · Amenities · Gallery · About · Contact) -->
-      <nav class="nav-links" id="desktop-nav" aria-label="Main Navigation">
-        <a href="index.html" class="nav-link active">Home</a>
-        <a href="rooms.html" class="nav-link">Rooms</a>
-        <a href="dining.html" class="nav-link">Dining</a>
-        <a href="amenities.html" class="nav-link">Amenities</a>
-        <a href="gallery.html" class="nav-link">Gallery</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="contact.html" class="nav-link">Contact</a>
+      <!-- Center/Main: Navigation Links to Existing Sections with Smooth Anchor Scrolling -->
+      <nav class="header-nav" id="header-nav" aria-label="Main Navigation">
+        <a href="#rooms-track" class="nav-link">Rooms &amp; Suites</a>
+        <a href="#brand-story" class="nav-link">About</a>
+        <a href="#hotel-experience" class="nav-link">Experience</a>
+        <a href="#statement-moment" class="nav-link">Statement</a>
+        <a href="#book-your-stay" class="nav-link">Contact</a>
       </nav>
 
-      <!-- Right Action Button -->
-      <div class="nav-actions">
-        <button class="btn btn-gold nav-cta-btn" id="nav-book-btn" data-open-booking>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-          Book Now
+      <!-- Right: Book Your Stay Action & Accessible Mobile Menu Button -->
+      <div class="header-actions">
+        <button type="button" class="btn-book-stay" data-open-booking aria-label="Book Your Stay">
+          <span>Book Your Stay</span>
         </button>
 
-        <!-- Mobile Hamburger -->
-        <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
+        <button type="button" class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Open Navigation Menu" aria-expanded="false" aria-controls="mobile-nav-panel">
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Navigation Drawer -->
-  <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
-  <aside class="mobile-nav-drawer" id="mobile-drawer" aria-label="Mobile Navigation">
-    <div class="mobile-links">
-      <a href="index.html" class="mobile-nav-link active">Home <span>→</span></a>
-      <a href="rooms.html" class="mobile-nav-link">Rooms <span>→</span></a>
-      <a href="dining.html" class="mobile-nav-link">Dining & Bar <span>→</span></a>
-      <a href="amenities.html" class="mobile-nav-link">Amenities <span>→</span></a>
-      <a href="gallery.html" class="mobile-nav-link">Gallery <span>→</span></a>
-      <a href="about.html" class="mobile-nav-link">About & Location <span>→</span></a>
-      <a href="contact.html" class="mobile-nav-link">Contact & Enquiry <span>→</span></a>
-    </div>
-
-    <div style="margin-bottom: 24px;">
-      <button class="btn btn-gold" style="width: 100%;" data-open-booking>
-        Book Your Stay
-      </button>
-    </div>
-
-    <div class="mobile-nav-contact">
-      <div class="mobile-contact-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-        <span>+91 98290 12345</span>
+  <!-- Keyboard-Accessible Mobile Menu Modal with Focus States -->
+  <div class="mobile-nav-panel" id="mobile-nav-panel" role="dialog" aria-modal="true" aria-label="Mobile Navigation" hidden>
+    <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+    <div class="mobile-nav-inner" id="mobile-nav-inner">
+      <div class="mobile-nav-header">
+        <span class="wordmark-text">WALLFLOWER</span>
+        <button type="button" class="mobile-close-btn" id="mobile-close-btn" aria-label="Close Navigation Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
       </div>
-      <div class="mobile-contact-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-        <span>Jhalawar Road, Near City Mall, Kota</span>
+
+      <nav class="mobile-nav-links" id="mobile-nav-links">
+        <a href="#rooms-track" class="mobile-link">Rooms &amp; Suites</a>
+        <a href="#brand-story" class="mobile-link">About Wallflower</a>
+        <a href="#hotel-experience" class="mobile-link">The Experience</a>
+        <a href="#statement-moment" class="mobile-link">A Moment to Remember</a>
+        <a href="#book-your-stay" class="mobile-link">Reserve &amp; Contact</a>
+      </nav>
+
+      <div class="mobile-nav-footer">
+        <button type="button" class="btn-book-stay mobile-book-btn" data-open-booking>
+          Book Your Stay
+        </button>
+        <div class="mobile-contact-info">
+          <span class="mobile-contact-line">+91 98290 12345 · reservations@hotelwallflower.com</span>
+          <span class="mobile-contact-line">Jhalawar Road, Near City Mall, Kota, Rajasthan</span>
+        </div>
       </div>
     </div>
-  </aside>
+  </div>
 
-  <!-- ==========================================================================
-       1. HERO SECTION ("Your Perfect Getaway Awaits") + Booking Bar
-       ========================================================================== -->
   <main>
-    <!-- Pinned Scroll-Driven Hero Architecture (Pure Cinematic Visual Experience - Zero Font/Text) -->
+    <!-- ==========================================================================
+         SCROLL-DRIVEN HERO & INCOMING LUXURY CONTENT
+         - 100vh initial pinned hero with 3 WebP crossfading slides (0-33%, 33-66%, 66-100%)
+         - Scrub-linked shrink from 100vh to 28vh (35svh on mobile)
+         - Logo shifts from vertical center down to bottom-center of the 28vh strip
+         - "HOTEL" subtext badge fades in under the logo
+         - Incoming content (Tagline + Horizontal Image Carousel) slides up in normal flow
+         - Lenis smooth scroll + GSAP ScrollTrigger
+         ========================================================================== -->
     <div class="hero-scroll-track" id="hero-scroll-track">
-      <div class="hero-sticky-frame" id="hero-sticky-frame">
-        <section class="hero-section" id="hero">
-          <div class="hero-bg-media" id="hero-bg-media">
-            <img src="assets/images/hotel-hero-pool.png" alt="Hotel Wallflower Exterior Twilight Infinity Pool Kota" id="hero-img">
+      <div class="hero-sticky-stage" id="hero-sticky-stage">
+        
+        <!-- Pinned Shrinking Banner Strip -->
+        <div class="hero-banner-strip" id="hero-banner-strip">
+          <div class="hero-slides-wrapper" id="hero-slides-wrapper">
+            
+            <!-- Slide 1 (0% to 33% progress) -->
+            <div class="hero-slide active" id="hero-slide-1">
+              <picture>
+                <source srcset="assets/images/hotel-hero.webp" type="image/webp">
+                <img src="assets/images/hotel-hero.jpg" alt="Hotel Wallflower Boutique Architecture" class="hero-slide-photo" fetchpriority="high" loading="eager" decoding="sync">
+              </picture>
+            </div>
+
+            <!-- Slide 2 (33% to 66% progress) -->
+            <div class="hero-slide" id="hero-slide-2">
+              <picture>
+                <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
+                <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Ground Atrium" class="hero-slide-photo" loading="eager">
+              </picture>
+            </div>
+
+            <!-- Slide 3 (66% to 100% progress) -->
+            <div class="hero-slide" id="hero-slide-3">
+              <picture>
+                <source srcset="assets/images/hotel-hero-night.webp" type="image/webp">
+                <img src="assets/images/hotel-hero-night.jpg" alt="Hotel Wallflower Twilight Sanctuary" class="hero-slide-photo" loading="eager">
+              </picture>
+            </div>
+
           </div>
-          <div class="hero-overlay"></div>
-        </section>
+
+          <!-- Dark Scrim Overlay for contrast -->
+          <div class="hero-scrim-overlay"></div>
+
+          <!-- Brand Logo and Subtext Stage (Morphed on scroll) -->
+          <div class="hero-brand-stage" id="hero-brand-stage">
+            <h1 class="hero-brand-wordmark" id="hero-brand-wordmark">WALLFLOWER</h1>
+            <div class="hero-subtext-badge" id="hero-subtext-badge">
+              <span class="subtext-line"></span>
+              <span class="subtext-label">HOTEL</span>
+              <span class="subtext-line"></span>
+            </div>
+          </div>
+
+          <!-- Initial Scroll Indicator (Fades out quickly) -->
+          <div class="hero-scroll-cue" id="hero-scroll-cue">
+            <span class="cue-label">SCROLL TO EXPLORE</span>
+            <span class="cue-arrow-icon" aria-hidden="true">
+              <svg width="14" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Incoming Content Section: Tagline + Horizontal Image Carousel with Captions -->
+        <div class="hero-incoming-stage" id="hero-incoming-stage">
+          <div class="incoming-content-inner">
+            
+            <div class="incoming-tagline-block">
+              <div class="incoming-kicker">
+                <span class="kicker-oxblood-dot"></span>
+                <span>SANCTUARY OF QUIET REFINEMENT · KOTA</span>
+              </div>
+              <h2 class="incoming-tagline-heading">
+                An architectural sanctuary shaped for <em>mindful luxury and restorative focus.</em>
+              </h2>
+            </div>
+
+            <!-- Horizontal Carousel with Captions -->
+            <div class="incoming-carousel-wrap" id="incoming-carousel-wrap">
+              <div class="incoming-carousel-track" id="incoming-carousel-track">
+                
+                <article class="incoming-carousel-card">
+                  <div class="carousel-card-photo-box">
+                    <picture>
+                      <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
+                      <img src="assets/images/hotel-lobby.jpg" alt="Ground Atrium at Hotel Wallflower" class="carousel-card-img" loading="lazy">
+                    </picture>
+                    <span class="carousel-badge-num">01</span>
+                  </div>
+                  <div class="carousel-card-caption">
+                    <h3 class="carousel-caption-title">Ground Atrium</h3>
+                    <p class="carousel-caption-desc">Sculpted Kota limestone, handcrafted teak paneling, and quiet natural light.</p>
+                  </div>
+                </article>
+
+                <article class="incoming-carousel-card">
+                  <div class="carousel-card-photo-box">
+                    <picture>
+                      <source srcset="assets/images/hotel-bar.webp" type="image/webp">
+                      <img src="assets/images/hotel-bar.jpg" alt="The Velvet Lounge at Hotel Wallflower" class="carousel-card-img" loading="lazy">
+                    </picture>
+                    <span class="carousel-badge-num">02</span>
+                  </div>
+                  <div class="carousel-card-caption">
+                    <h3 class="carousel-caption-title">The Velvet Lounge</h3>
+                    <p class="carousel-caption-desc">Botanical cocktails, intimate leather banquettes, and English slate billiards.</p>
+                  </div>
+                </article>
+
+                <article class="incoming-carousel-card">
+                  <div class="carousel-card-photo-box">
+                    <picture>
+                      <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
+                      <img src="assets/images/room-royal-suite.jpg" alt="Acoustic Sanctuaries at Hotel Wallflower" class="carousel-card-img" loading="lazy">
+                    </picture>
+                    <span class="carousel-badge-num">03</span>
+                  </div>
+                  <div class="carousel-card-caption">
+                    <h3 class="carousel-caption-title">Acoustic Sanctuaries</h3>
+                    <p class="carousel-caption-desc">Soundproof double glazing, ergonomic workstation, and plush orthopedic bedding.</p>
+                  </div>
+                </article>
+
+                <article class="incoming-carousel-card">
+                  <div class="carousel-card-photo-box">
+                    <picture>
+                      <source srcset="assets/images/hotel-dining.webp" type="image/webp">
+                      <img src="assets/images/hotel-dining.jpg" alt="The Wallflower Bistro at Hotel Wallflower" class="carousel-card-img" loading="lazy">
+                    </picture>
+                    <span class="carousel-badge-num">04</span>
+                  </div>
+                  <div class="carousel-card-caption">
+                    <h3 class="carousel-caption-title">The Wallflower Bistro</h3>
+                    <p class="carousel-caption-desc">Artisanal regional roasts, heirloom spices, and leisurely morning breakfasts.</p>
+                  </div>
+                </article>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
 
     <!-- ==========================================================================
-         BOOKING RESERVATION BAR STRIP (Positioned right after the pure hero visual)
+         PINNED SCROLL-STORYTELLING SECTION (DIAMOND CUBES · 400vh PINNED SCRUB)
+         Theme: Deep Luxury Forest Green (#0D2318) + Crisp White & Black Fonts
+         Layout: 2-Column pinned 100vh stage (Left text, Right diamond images)
+         Images: 2 Diamond-cube shapes with SVG clipPath objectBoundingBox
          ========================================================================== -->
-    <section class="home-booking-strip-section" aria-label="Room Availability Check">
-      <div class="container">
-        <div class="booking-bar-wrapper">
-          <form class="booking-bar" id="home-booking-form">
-            <!-- Check-in -->
-            <div class="booking-col">
-              <span class="booking-label">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                Check-In Date
-              </span>
-              <input type="date" class="booking-input" id="booking-checkin" required>
+    <!-- SVG Defs for Responsive Rounded-Corner Diamond ClipPath -->
+    <svg width="0" height="0" class="svg-clip-defs" style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+      <defs>
+        <clipPath id="diamond-rounded-clip" clipPathUnits="objectBoundingBox">
+          <path d="M 0.46,0.04 C 0.485,0.015 0.515,0.015 0.54,0.04 L 0.96,0.46 C 0.985,0.485 0.985,0.515 0.96,0.54 L 0.54,0.96 C 0.515,0.985 0.485,0.985 0.46,0.96 L 0.04,0.54 C 0.015,0.515 0.015,0.485 0.04,0.46 Z" />
+        </clipPath>
+      </defs>
+    </svg>
+
+    <section class="storytelling-scroll-section" id="storytelling-scroll-section" aria-label="About The Hotel Story">
+      <div class="storytelling-sticky-stage" id="storytelling-sticky-stage">
+        <div class="container storytelling-container">
+          <div class="storytelling-grid" id="storytelling-grid">
+            
+            <!-- Left Column: Story Content -->
+            <div class="storytelling-col-left" id="storytelling-col-left">
+              
+              <!-- Step 1 Text Content -->
+              <div class="story-content-block active" id="story-step1-content">
+                <div class="story-kicker-badge">
+                  <span class="badge-tag">ABOUT THE HOTEL</span>
+                </div>
+                
+                <h2 class="story-display-title">
+                  A sanctuary crafted for <em>peace, elegance, and deep rest.</em>
+                </h2>
+
+                <p class="story-reveal-paragraph" id="story-reveal-p1">
+                  Nestled along Kota’s prominent Jhalawar Road, The Wallflower Hotel redefines boutique hospitality with an uncompromising focus on serenity. Here, sculpted stone, handcrafted teak, and acoustic isolation converge to offer visitors a calm retreat from the city’s restless rhythm.
+                </p>
+
+                <div class="story-explore-action">
+                  <a href="#rooms-track" class="btn-story-explore" aria-label="Explore Hotel Wallflower">
+                    <span>EXPLORE SANCTUARY</span>
+                    <span class="btn-arrow" aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Step 3 Right Text Placeholder (Structured for Step 3) -->
+              <div class="story-content-block step3-content" id="story-step3-content" style="opacity: 0; pointer-events: none; display: none;">
+                <div class="story-kicker-badge">
+                  <span class="badge-tag">CURATED HOSPITALITY</span>
+                </div>
+                <h2 class="story-display-title">
+                  Thoughtfully appointed spaces <em>for focus and repose.</em>
+                </h2>
+                <p class="story-reveal-paragraph" id="story-reveal-p2">
+                  From ergonomic workstations and plush orthopedic bedding to artisan breakfast roasts at The Wallflower Bistro, every touchpoint is designed to cater to student families, corporate leaders, and leisurely travelers.
+                </p>
+              </div>
+
             </div>
 
-            <!-- Check-out -->
-            <div class="booking-col">
-              <span class="booking-label">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                Check-Out Date
-              </span>
-              <input type="date" class="booking-input" id="booking-checkout" required>
+            <!-- Right Column: Diamond Image Cluster -->
+            <div class="storytelling-col-right" id="storytelling-col-right">
+              <div class="diamond-cluster-stage" id="story-diamond-cluster">
+                
+                <!-- Diamond Card 1: Top-Left (-6deg rotation) -->
+                <div class="diamond-card-wrap diamond-card-1" id="diamond-card-1">
+                  <div class="diamond-frame">
+                    <!-- Layer 1: Image #1 Exterior -->
+                    <div class="diamond-layer layer-active" id="diamond-1-img-a">
+                      <picture>
+                        <source srcset="assets/images/hotel-hero.webp" type="image/webp">
+                        <img src="assets/images/hotel-hero.jpg" alt="Hotel Wallflower Exterior Architecture" class="diamond-photo" loading="lazy">
+                      </picture>
+                    </div>
+                    <!-- Layer 2: Image #3 Room (Crossfades in Step 2) -->
+                    <div class="diamond-layer layer-incoming" id="diamond-1-img-c">
+                      <picture>
+                        <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
+                        <img src="assets/images/room-royal-suite.jpg" alt="Hotel Wallflower Royal Suite" class="diamond-photo" loading="lazy">
+                      </picture>
+                    </div>
+                    <div class="diamond-glimmer-border" aria-hidden="true"></div>
+                  </div>
+                </div>
+
+                <!-- Diamond Card 2: Bottom-Right (+4deg rotation) -->
+                <div class="diamond-card-wrap diamond-card-2" id="diamond-card-2">
+                  <div class="diamond-frame">
+                    <!-- Layer 1: Image #2 Lobby -->
+                    <div class="diamond-layer layer-active" id="diamond-2-img-b">
+                      <picture>
+                        <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
+                        <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Atrium Lobby" class="diamond-photo" loading="lazy">
+                      </picture>
+                    </div>
+                    <!-- Layer 2: Image #4 Dining (Crossfades in Step 2) -->
+                    <div class="diamond-layer layer-incoming" id="diamond-2-img-d">
+                      <picture>
+                        <source srcset="assets/images/hotel-dining.webp" type="image/webp">
+                        <img src="assets/images/hotel-dining.jpg" alt="The Wallflower Bistro Dining" class="diamond-photo" loading="lazy">
+                      </picture>
+                    </div>
+                    <div class="diamond-glimmer-border" aria-hidden="true"></div>
+                  </div>
+                </div>
+
+              </div>
             </div>
 
-            <!-- Guests -->
-            <div class="booking-col">
-              <span class="booking-label">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                Guests & Capacity
-              </span>
-              <select class="booking-select" id="booking-guests">
-                <option value="1">1 Adult (Solo / Corporate)</option>
-                <option value="2" selected>2 Adults (Twin / Couple)</option>
-                <option value="3">3 Guests (Family / Student Duo)</option>
-                <option value="4">4+ Guests (Family Suite)</option>
-              </select>
+            <!-- Step 4 Centered Climax Heading Placeholder (Structured for Step 4) -->
+            <div class="storytelling-center-climax" id="story-center-climax" style="opacity: 0; pointer-events: none; display: none;">
+              <h2 class="climax-heading">
+                Welcome to our hotel<br><em>with your energetic smile.</em>
+              </h2>
             </div>
 
-            <!-- Room Choice -->
-            <div class="booking-col">
-              <span class="booking-label">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-                Room Selection
-              </span>
-              <select class="booking-select" id="booking-room-type">
-                <option value="deluxe-executive">Deluxe Executive Room (₹2,499)</option>
-                <option value="superior-twin">Superior Twin Room (₹2,299)</option>
-                <option value="super-deluxe-balcony">Super Deluxe Balcony (₹3,299)</option>
-                <option value="premium-royal-suite">Premium Royal Suite (₹4,499)</option>
-                <option value="family-luxury-suite">Family Luxury Suite (₹5,499)</option>
-                <option value="presidential-wallflower-suite">Presidential Suite (₹6,999)</option>
-              </select>
-            </div>
-
-            <!-- Submit CTA -->
-            <button type="submit" class="btn btn-gold booking-btn" id="home-check-availability-btn">
-              Check Availability
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         2. ICON STRIP (5 Features)
-         Comfortable Rooms · Restaurant & Bar · Free WiFi · Free Parking · Prime Location
-         ========================================================================== -->
-    <section class="feature-strip-section" aria-label="Key Hotel Highlights">
-      <div class="container feature-strip-container">
-        <!-- Feature 1 -->
-        <div class="feature-item">
-          <div class="feature-icon-box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></svg>
-          </div>
-          <div class="feature-text">
-            <span class="feature-title">Comfortable Rooms</span>
-            <span class="feature-subtitle">Plush Beds & Soundproof</span>
-          </div>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="feature-item">
-          <div class="feature-icon-box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
-          </div>
-          <div class="feature-text">
-            <span class="feature-title">Restaurant & Bar</span>
-            <span class="feature-subtitle">Bistro & Velvet Lounge</span>
-          </div>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="feature-item">
-          <div class="feature-icon-box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
-          </div>
-          <div class="feature-text">
-            <span class="feature-title">Free Fiber WiFi</span>
-            <span class="feature-subtitle">High-Speed in All Rooms</span>
-          </div>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="feature-item">
-          <div class="feature-icon-box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-          </div>
-          <div class="feature-text">
-            <span class="feature-title">Free Parking</span>
-            <span class="feature-subtitle">Valet & 24/7 Security</span>
-          </div>
-        </div>
-
-        <!-- Feature 5 -->
-        <div class="feature-item">
-          <div class="feature-icon-box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-          </div>
-          <div class="feature-text">
-            <span class="feature-title">Prime Location</span>
-            <span class="feature-subtitle">2 Min from City Mall</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ==========================================================================
-         3. FEATURED ROOMS (4 Cards)
-         Deluxe Room · Superior Twin · Super Deluxe Balcony · Premium Royal Suite
+         02 — A DIFFERENT KIND OF STAY (BRAND STORY)
+         Charcoal Background · Thin Divider · Editorial Headline with One Italic Phrase
+         Verified Content Paragraph · Two Asymmetric Photos with Clip-Path Reveal
          ========================================================================== -->
-    <section class="section bg-secondary" id="featured-rooms">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">3D Motionframe Gallery</span>
-          <h2 class="section-title">Featured Rooms & Suites</h2>
-          <p class="section-subtitle">
-            Glide through our boutique suites in cinematic 3D perspective. Each motionframe combines plush bedding, acoustic tranquility, and bespoke luxury amenities.
-          </p>
+    <section class="chapter-section brand-story-section" id="brand-story" aria-label="About Hotel Wallflower">
+      <div class="container story-container">
+        <!-- Top Small Uppercase Label & Thin Divider -->
+        <div class="story-header-block story-anim-item">
+          <div class="story-kicker-row">
+            <span class="story-kicker-label">02 — A DIFFERENT KIND OF STAY</span>
+            <span class="story-kicker-geo">25.18° N, 75.83° E · JHALAWAR ROAD, KOTA</span>
+          </div>
+          <div class="story-divider-line" aria-hidden="true"></div>
         </div>
 
-        <!-- 3D Motionframe Room Showcase -->
-        <div class="motionframe-stage-wrapper" id="motionframe-rooms-stage">
-          <!-- Motionframe HUD Bar -->
-          <div class="motionframe-hud-bar">
-            <div class="motionframe-indicator">
-              <span>MOTIONFRAME</span>
-              <span class="frame-active-num" id="current-frame-num">01</span>
-              <span>/ 06</span>
-            </div>
-            <div class="motionframe-hud-controls">
-              <button type="button" class="motionframe-arrow-btn" id="motionframe-prev" aria-label="Previous Room Frame">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-              </button>
-              <button type="button" class="motionframe-arrow-btn" id="motionframe-next" aria-label="Next Room Frame">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-            </div>
-          </div>
+        <div class="brand-story-grid">
+          <!-- Left Editorial Copy -->
+          <div class="story-lead-block">
+            <h2 class="story-editorial-headline story-anim-item">
+              Where architectural silence <em>meets sculpted boutique luxury.</em>
+            </h2>
 
-          <!-- 3D Track Container with all 6 rooms -->
-          <div class="motionframe-track-container" id="motionframe-track">
-            <!-- Room 1 -->
-            <article class="motionframe-card active" data-index="0" data-room-id="deluxe-executive">
-              <div class="motionframe-bracket-tl"></div>
-              <div class="motionframe-bracket-tr"></div>
-              <div class="motionframe-bracket-bl"></div>
-              <div class="motionframe-bracket-br"></div>
-              <div class="motionframe-media">
-                <img src="assets/images/room-executive-suite.jpg" alt="Deluxe Executive Room Hotel Wallflower Kota">
-                <span class="motionframe-tag">FRAME 01 // DELUXE</span>
-                <div class="motionframe-price">₹2,499<small>/nt</small></div>
-              </div>
-              <div class="motionframe-body">
-                <div class="motionframe-meta">
-                  <span>👥 2 Guests</span> · <span>🛏 1 King Bed</span> · <span>🌆 300 sq.ft</span>
-                </div>
-                <h3 class="motionframe-title">Deluxe Executive Room</h3>
-                <p class="motionframe-desc">Contemporary sanctuary featuring plush orthopedic bedding, dedicated workstation, 100 Mbps WiFi, and Italian rain shower.</p>
-                <div class="motionframe-pills">
-                  <span class="motionframe-pill">Ergonomic Desk</span>
-                  <span class="motionframe-pill">Rain Shower</span>
-                  <span class="motionframe-pill">Free Breakfast</span>
-                </div>
-                <div class="motionframe-footer">
-                  <button class="btn-room-details" onclick="openRoomDetailsModal('deluxe-executive')">
-                    Details <span>→</span>
-                  </button>
-                  <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'deluxe-executive' })">
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            </article>
-
-            <!-- Room 2 -->
-            <article class="motionframe-card next" data-index="1" data-room-id="superior-twin">
-              <div class="motionframe-bracket-tl"></div>
-              <div class="motionframe-bracket-tr"></div>
-              <div class="motionframe-bracket-bl"></div>
-              <div class="motionframe-bracket-br"></div>
-              <div class="motionframe-media">
-                <img src="assets/images/room-twin.jpg" alt="Superior Twin Room Hotel Wallflower Kota">
-                <span class="motionframe-tag">FRAME 02 // TWIN</span>
-                <div class="motionframe-price">₹2,299<small>/nt</small></div>
-              </div>
-              <div class="motionframe-body">
-                <div class="motionframe-meta">
-                  <span>👥 2 Guests</span> · <span>🛏 2 Twin Beds</span> · <span>🔇 320 sq.ft</span>
-                </div>
-                <h3 class="motionframe-title">Superior Twin Room</h3>
-                <p class="motionframe-desc">Engineered for coaching student-parent pairs with acoustic soundproofing, dual study desks, and quiet tranquility.</p>
-                <div class="motionframe-pills">
-                  <span class="motionframe-pill">Dual Study Desks</span>
-                  <span class="motionframe-pill">Soundproof</span>
-                  <span class="motionframe-pill">Quiet Hours</span>
-                </div>
-                <div class="motionframe-footer">
-                  <button class="btn-room-details" onclick="openRoomDetailsModal('superior-twin')">
-                    Details <span>→</span>
-                  </button>
-                  <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'superior-twin' })">
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            </article>
-
-            <!-- Room 3 -->
-            <article class="motionframe-card far-next" data-index="2" data-room-id="super-deluxe-balcony">
-              <div class="motionframe-bracket-tl"></div>
-              <div class="motionframe-bracket-tr"></div>
-              <div class="motionframe-bracket-bl"></div>
-              <div class="motionframe-bracket-br"></div>
-              <div class="motionframe-media">
-                <img src="assets/images/room-executive-suite.jpg" alt="Super Deluxe Balcony Room Hotel Wallflower Kota">
-                <span class="motionframe-tag">FRAME 03 // BALCONY</span>
-                <div class="motionframe-price">₹3,299<small>/nt</small></div>
-              </div>
-              <div class="motionframe-body">
-                <div class="motionframe-meta">
-                  <span>👥 2-3 Guests</span> · <span>🛏 King + Daybed</span> · <span>🌅 380 sq.ft</span>
-                </div>
-                <h3 class="motionframe-title">Super Deluxe Balcony</h3>
-                <p class="motionframe-desc">Private sit-out balcony overlooking Kota's bustling skyline, plus plush king bed, mini-fridge, and peaceful comfort.</p>
-                <div class="motionframe-pills">
-                  <span class="motionframe-pill">Private Balcony</span>
-                  <span class="motionframe-pill">Mini Chiller</span>
-                  <span class="motionframe-pill">City View</span>
-                </div>
-                <div class="motionframe-footer">
-                  <button class="btn-room-details" onclick="openRoomDetailsModal('super-deluxe-balcony')">
-                    Details <span>→</span>
-                  </button>
-                  <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'super-deluxe-balcony' })">
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            </article>
-
-            <!-- Room 4 -->
-            <article class="motionframe-card hidden" data-index="3" data-room-id="premium-royal-suite">
-              <div class="motionframe-bracket-tl"></div>
-              <div class="motionframe-bracket-tr"></div>
-              <div class="motionframe-bracket-bl"></div>
-              <div class="motionframe-bracket-br"></div>
-              <div class="motionframe-media">
-                <img src="assets/images/room-royal-suite.jpg" alt="Premium Royal Suite Hotel Wallflower Kota">
-                <span class="motionframe-tag">FRAME 04 // ROYAL</span>
-                <div class="motionframe-price">₹4,499<small>/nt</small></div>
-              </div>
-              <div class="motionframe-body">
-                <div class="motionframe-meta">
-                  <span>👥 3 Guests</span> · <span>🛏 King + Lounge</span> · <span>👑 490 sq.ft</span>
-                </div>
-                <h3 class="motionframe-title">Premium Royal Suite</h3>
-                <p class="motionframe-desc">Lavish living parlor with velvet Chesterfield sofa, dining table, master bedroom suite, and 2 large 55-inch smart TVs.</p>
-                <div class="motionframe-pills">
-                  <span class="motionframe-pill">Living Parlor</span>
-                  <span class="motionframe-pill">Marble Bath</span>
-                  <span class="motionframe-pill">VIP Welcome</span>
-                </div>
-                <div class="motionframe-footer">
-                  <button class="btn-room-details" onclick="openRoomDetailsModal('premium-royal-suite')">
-                    Details <span>→</span>
-                  </button>
-                  <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'premium-royal-suite' })">
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            </article>
-
-            <!-- Room 5 -->
-            <article class="motionframe-card hidden" data-index="4" data-room-id="family-luxury-suite">
-              <div class="motionframe-bracket-tl"></div>
-              <div class="motionframe-bracket-tr"></div>
-              <div class="motionframe-bracket-bl"></div>
-              <div class="motionframe-bracket-br"></div>
-              <div class="motionframe-media">
-                <img src="assets/images/hotel-lobby.jpg" alt="Family Luxury Suite Hotel Wallflower Kota">
-                <span class="motionframe-tag">FRAME 05 // FAMILY</span>
-                <div class="motionframe-price">₹5,499<small>/nt</small></div>
-              </div>
-              <div class="motionframe-body">
-                <div class="motionframe-meta">
-                  <span>👥 4-5 Guests</span> · <span>🛏 2 Bedrooms</span> · <span>👨‍👩‍👧 580 sq.ft</span>
-                </div>
-                <h3 class="motionframe-title">Family Luxury Suite</h3>
-                <p class="motionframe-desc">Two interconnected bedrooms, central family parlor, private dining setup, and personalized butler call service.</p>
-                <div class="motionframe-pills">
-                  <span class="motionframe-pill">2 Bedrooms</span>
-                  <span class="motionframe-pill">Dining Setup</span>
-                  <span class="motionframe-pill">Family Comfort</span>
-                </div>
-                <div class="motionframe-footer">
-                  <button class="btn-room-details" onclick="openRoomDetailsModal('family-luxury-suite')">
-                    Details <span>→</span>
-                  </button>
-                  <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'family-luxury-suite' })">
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            </article>
-
-            <!-- Room 6 -->
-            <article class="motionframe-card prev" data-index="5" data-room-id="presidential-wallflower-suite">
-              <div class="motionframe-bracket-tl"></div>
-              <div class="motionframe-bracket-tr"></div>
-              <div class="motionframe-bracket-bl"></div>
-              <div class="motionframe-bracket-br"></div>
-              <div class="motionframe-media">
-                <img src="assets/images/hotel-hero-pool.png" alt="Presidential Wallflower Suite Hotel Wallflower Kota">
-                <span class="motionframe-tag">FRAME 06 // PRESIDENTIAL</span>
-                <div class="motionframe-price">₹6,999<small>/nt</small></div>
-              </div>
-              <div class="motionframe-body">
-                <div class="motionframe-meta">
-                  <span>👥 4 Guests</span> · <span>🛏 Penthouse King</span> · <span>💎 750 sq.ft</span>
-                </div>
-                <h3 class="motionframe-title">Presidential Suite</h3>
-                <p class="motionframe-desc">Flagship top-floor penthouse with private terrace, heated jacuzzi whirlpool, and infinity sunset view.</p>
-                <div class="motionframe-pills">
-                  <span class="motionframe-pill">Private Jacuzzi</span>
-                  <span class="motionframe-pill">Terrace Panorama</span>
-                  <span class="motionframe-pill">VIP Host</span>
-                </div>
-                <div class="motionframe-footer">
-                  <button class="btn-room-details" onclick="openRoomDetailsModal('presidential-wallflower-suite')">
-                    Details <span>→</span>
-                  </button>
-                  <button class="btn btn-gold btn-sm" onclick="openBookingModal({ roomType: 'presidential-wallflower-suite' })">
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <!-- Motionframe Pagination Dots -->
-          <div class="motionframe-dots" id="motionframe-dots">
-            <span class="motionframe-dot active" data-index="0"></span>
-            <span class="motionframe-dot" data-index="1"></span>
-            <span class="motionframe-dot" data-index="2"></span>
-            <span class="motionframe-dot" data-index="3"></span>
-            <span class="motionframe-dot" data-index="4"></span>
-            <span class="motionframe-dot" data-index="5"></span>
-          </div>
-        </div>
-
-        <div class="rooms-grid" id="static-rooms-grid" style="display: none;">
-          <!-- Room 1: Deluxe Executive -->
-          <article class="room-card">
-            <div class="room-media">
-              <img src="assets/images/room-executive-suite.jpg" alt="Deluxe Executive Room Hotel Wallflower Kota">
-              <span class="room-badge">Best Seller</span>
-              <div class="room-price-tag">
-                <span class="price-val">₹2,499</span>
-                <span class="price-period">/ night</span>
-              </div>
-            </div>
-            <div class="room-body">
-              <div class="room-meta-strip">
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
-                  2 Guests
-                </span>
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path></svg>
-                  1 King Bed
-                </span>
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
-                  300 sq.ft
-                </span>
-              </div>
-              <h3 class="room-card-title">Deluxe Executive Room</h3>
-              <p class="room-card-desc">
-                Ideal for business professionals and visiting parents, featuring premium orthopedic bedding, an ergonomic workstation, and scenic city views.
-              </p>
-              <div class="room-features-pill-row">
-                <span class="room-feature-tag">100 Mbps WiFi</span>
-                <span class="room-feature-tag">Rain Shower</span>
-                <span class="room-feature-tag">43" Smart TV</span>
-              </div>
-              <div class="room-footer">
-                <button class="btn-room-details" onclick="openRoomDetailsModal('deluxe-executive')">
-                  View Room Details
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
-                <button class="btn btn-navy btn-sm" onclick="openBookingModal({ roomType: 'deluxe-executive' })">
-                  Book Now
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Room 2: Superior Twin (Student & Parent Special) -->
-          <article class="room-card">
-            <div class="room-media">
-              <img src="assets/images/room-twin.jpg" alt="Superior Twin Room Hotel Wallflower Kota">
-              <span class="room-badge" style="border-color: #10B981; color: #10B981;">Student & Parent Pick</span>
-              <div class="room-price-tag">
-                <span class="price-val">₹2,299</span>
-                <span class="price-period">/ night</span>
-              </div>
-            </div>
-            <div class="room-body">
-              <div class="room-meta-strip">
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
-                  2 Guests
-                </span>
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path></svg>
-                  2 Twin Beds
-                </span>
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
-                  320 sq.ft
-                </span>
-              </div>
-              <h3 class="room-card-title">Superior Twin Room</h3>
-              <p class="room-card-desc">
-                Thoughtfully engineered for Kota coaching students and visiting parents with acoustic soundproofing, dual study desks, and serene tranquility.
-              </p>
-              <div class="room-features-pill-row">
-                <span class="room-feature-tag">Dual Study Desks</span>
-                <span class="room-feature-tag">Soundproofed</span>
-                <span class="room-feature-tag">Quiet Hours</span>
-              </div>
-              <div class="room-footer">
-                <button class="btn-room-details" onclick="openRoomDetailsModal('superior-twin')">
-                  View Room Details
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
-                <button class="btn btn-navy btn-sm" onclick="openBookingModal({ roomType: 'superior-twin' })">
-                  Book Now
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Room 3: Super Deluxe with Balcony -->
-          <article class="room-card">
-            <div class="room-media">
-              <img src="assets/images/room-executive-suite.jpg" alt="Super Deluxe Balcony Room Hotel Wallflower Kota">
-              <span class="room-badge">City Balcony</span>
-              <div class="room-price-tag">
-                <span class="price-val">₹3,299</span>
-                <span class="price-period">/ night</span>
-              </div>
-            </div>
-            <div class="room-body">
-              <div class="room-meta-strip">
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
-                  2-3 Guests
-                </span>
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path></svg>
-                  King + Daybed
-                </span>
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
-                  380 sq.ft
-                </span>
-              </div>
-              <h3 class="room-card-title">Super Deluxe Balcony</h3>
-              <p class="room-card-desc">
-                Private sit-out balcony overlooking Kota's bustling skyline, plus a plush king bed, mini-fridge, and comfortable daybed.
-              </p>
-              <div class="room-features-pill-row">
-                <span class="room-feature-tag">Private Balcony</span>
-                <span class="room-feature-tag">Mini Chiller</span>
-                <span class="room-feature-tag">Free Breakfast</span>
-              </div>
-              <div class="room-footer">
-                <button class="btn-room-details" onclick="openRoomDetailsModal('super-deluxe-balcony')">
-                  View Room Details
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
-                <button class="btn btn-navy btn-sm" onclick="openBookingModal({ roomType: 'super-deluxe-balcony' })">
-                  Book Now
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Room 4: Premium Royal Suite -->
-          <article class="room-card">
-            <div class="room-media">
-              <img src="assets/images/room-royal-suite.jpg" alt="Premium Royal Suite Hotel Wallflower Kota">
-              <span class="room-badge">Royal Suite</span>
-              <div class="room-price-tag">
-                <span class="price-val">₹4,499</span>
-                <span class="price-period">/ night</span>
-              </div>
-            </div>
-            <div class="room-body">
-              <div class="room-meta-strip">
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
-                  3 Guests
-                </span>
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path></svg>
-                  King + Lounge
-                </span>
-                <span class="room-meta-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
-                  490 sq.ft
-                </span>
-              </div>
-              <h3 class="room-card-title">Premium Royal Suite</h3>
-              <p class="room-card-desc">
-                Lavish living parlor with velvet Chesterfield sofa, dining table, master bedroom suite, and 2 large 55-inch smart TVs.
-              </p>
-              <div class="room-features-pill-row">
-                <span class="room-feature-tag">Separate Living Room</span>
-                <span class="room-feature-tag">Marble Bath</span>
-                <span class="room-feature-tag">VIP Welcome</span>
-              </div>
-              <div class="room-footer">
-                <button class="btn-room-details" onclick="openRoomDetailsModal('premium-royal-suite')">
-                  View Room Details
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
-                <button class="btn btn-navy btn-sm" onclick="openBookingModal({ roomType: 'premium-royal-suite' })">
-                  Book Now
-                </button>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div style="text-align: center; margin-top: 50px;">
-          <a href="rooms.html" class="btn btn-navy btn-lg">
-            Explore All 6 Rooms & Suites
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         4. ROYAL RED CARPET WELCOME RUNWAY (Scroll-Driven VIP Arrival)
-         "Welcome to Wallflower - Red Carpet Experience"
-         ========================================================================== -->
-    <section class="red-carpet-section" id="red-carpet-welcome">
-      <!-- Ambient Spotlights -->
-      <div class="red-carpet-spotlights">
-        <div class="spotlight-beam-left"></div>
-        <div class="spotlight-beam-right"></div>
-      </div>
-
-      <div class="container">
-        <!-- Section Header -->
-        <div class="red-carpet-header">
-          <div class="red-carpet-crown-crest">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          </div>
-          <span class="section-label" style="background: rgba(255, 255, 255, 0.12); color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.3);">
-            ★ EXCLUSIVE GUEST ARRIVAL ★
-          </span>
-          <h2 class="section-title" style="color: #FFFFFF; margin-top: 14px;">
-            The Royal Red Carpet Experience
-          </h2>
-          <p style="color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; max-width: 650px; margin: 0 auto;">
-            Step onto our ceremonial crimson runner. As you descend into Hotel Wallflower, Kota's finest hospitality unfolds with royal warmth and bespoke luxury.
-          </p>
-        </div>
-
-        <!-- The Red Carpet Runway -->
-        <div class="red-carpet-runway" id="red-carpet-runway">
-          <div class="red-carpet-stanchions">
-            <div class="stanchion-rope-left"></div>
-            <div class="stanchion-rope-right"></div>
-          </div>
-
-          <div class="red-carpet-mat" id="red-carpet-mat">
-            <!-- Scroll Illuminated WELCOME Letters -->
-            <div class="carpet-welcome-letters-wrap" id="carpet-welcome-letters">
-              <span class="carpet-letter" data-letter="0">W</span>
-              <span class="carpet-letter" data-letter="1">E</span>
-              <span class="carpet-letter" data-letter="2">L</span>
-              <span class="carpet-letter" data-letter="3">C</span>
-              <span class="carpet-letter" data-letter="4">O</span>
-              <span class="carpet-letter" data-letter="5">M</span>
-              <span class="carpet-letter" data-letter="6">E</span>
-            </div>
-
-            <div class="carpet-tagline">
-              TO HOTEL WALLFLOWER · KOTA
-            </div>
-
-            <!-- VIP Arrival Amenities Cards -->
-            <div class="carpet-perks-grid">
-              <div class="carpet-perk-card">
-                <div class="carpet-perk-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                </div>
-                <div class="carpet-perk-text">
-                  <h4>Valet & Chauffeur Greeting</h4>
-                  <p>Curbside luggage handling & private parking assistance</p>
-                </div>
-              </div>
-
-              <div class="carpet-perk-card">
-                <div class="carpet-perk-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
-                </div>
-                <div class="carpet-perk-text">
-                  <h4>Signature Welcome Elixir</h4>
-                  <p>Artisanal spiced saffron brew & chilled towel reception</p>
-                </div>
-              </div>
-
-              <div class="carpet-perk-card">
-                <div class="carpet-perk-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <div class="carpet-perk-text">
-                  <h4>Express In-Room Check-In</h4>
-                  <p>Direct escort to your suite with zero lobby waiting</p>
-                </div>
-              </div>
-
-              <div class="carpet-perk-card">
-                <div class="carpet-perk-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-                </div>
-                <div class="carpet-perk-text">
-                  <h4>24/7 Dedicated Concierge</h4>
-                  <p>Kota city tour curation, Allen coaching transport & dining</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- CTA -->
-            <div class="carpet-cta-wrap">
-              <button class="btn btn-outline-white btn-lg" onclick="openBookingModal()" style="border-color: #FFFFFF; color: #FFFFFF; font-weight: 700; box-shadow: 0 0 25px rgba(255, 255, 255, 0.35);">
-                Reserve Your VIP Experience
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         5. HOTEL EXPERIENCES (4 Cards: Dining · Bar · Fitness · Pool Table & Lounge)
-         ========================================================================== -->
-    <section class="section" id="experiences">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Unforgettable Stays</span>
-          <h2 class="section-title">Curated Hotel Experiences</h2>
-          <p class="section-subtitle">
-            Tailored specifically for our boutique hotel. Indulge in fine bistro gastronomy, sip craft cocktails, maintain your fitness regimen, and challenge friends to billiards.
-          </p>
-        </div>
-
-        <div class="experiences-grid">
-          <!-- Experience 1: The Wallflower Bistro -->
-          <div class="experience-card" onclick="window.location.href='dining.html'">
-            <img src="assets/images/hotel-dining.jpg" alt="The Wallflower Bistro Restaurant Kota">
-            <div class="experience-gradient"></div>
-            <div class="experience-content">
-              <span class="experience-tag">Gastronomy</span>
-              <h3 class="experience-title">The Wallflower Bistro</h3>
-              <p class="experience-desc">
-                Authentic Rajasthani delicacies, rich North Indian curries, and Continental gourmet dining.
-              </p>
-              <span class="experience-link">
-                Explore Dining & Menu →
-              </span>
-            </div>
-          </div>
-
-          <!-- Experience 2: The Velvet Lounge & Bar -->
-          <div class="experience-card" onclick="window.location.href='dining.html#velvet-bar'">
-            <img src="assets/images/hotel-bar.jpg" alt="The Velvet Lounge Bar Hotel Wallflower Kota">
-            <div class="experience-gradient"></div>
-            <div class="experience-content">
-              <span class="experience-tag">Mixology & Spirits</span>
-              <h3 class="experience-title">The Velvet Lounge</h3>
-              <p class="experience-desc">
-                Artisanal cocktails, premium spirits, craft mocktails, and intimate acoustic evenings.
-              </p>
-              <span class="experience-link">
-                View Lounge & Bar →
-              </span>
-            </div>
-          </div>
-
-          <!-- Experience 3: Fitness Center -->
-          <div class="experience-card" onclick="window.location.href='amenities.html#fitness'">
-            <img src="assets/images/hotel-fitness.jpg" alt="Modern Fitness Center Hotel Wallflower">
-            <div class="experience-gradient"></div>
-            <div class="experience-content">
-              <span class="experience-tag">Wellness</span>
-              <h3 class="experience-title">Fitness Centre</h3>
-              <p class="experience-desc">
-                High-end cardio treadmills, ellipticals, free weights, and refreshing wellness amenities.
-              </p>
-              <span class="experience-link">
-                Discover Wellness →
-              </span>
-            </div>
-          </div>
-
-          <!-- Experience 4: Pool Table & Lounge -->
-          <div class="experience-card" onclick="window.location.href='amenities.html#pool-table'">
-            <img src="assets/images/hotel-lounge-pool.jpg" alt="Billiards Pool Table and Lounge Wallflower">
-            <div class="experience-gradient"></div>
-            <div class="experience-content">
-              <span class="experience-tag">Recreation</span>
-              <h3 class="experience-title">Pool Table & Lounge</h3>
-              <p class="experience-desc">
-                Championship billiards table, Chesterfield sofas, and board games for effortless socializing.
-              </p>
-              <span class="experience-link">
-                View Recreation →
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         6. WHY CHOOSE US ("Wallflower Advantage") + GUEST REVIEW SLIDER
-         ========================================================================== -->
-    <section class="section advantage-section" id="advantage">
-      <div class="container">
-        <div class="advantage-grid">
-          <!-- Left: Wallflower Advantage -->
-          <div class="advantage-content">
-            <span class="section-label">The Wallflower Difference</span>
-            <h2 class="section-title">Why Discerning Guests Choose Wallflower Kota</h2>
-            <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7;">
-              In a city defined by hard work and high aspirations, we provide an oasis of calm, warm personalized service, and uncompromising cleanliness.
+            <p class="story-intro-para story-anim-item">
+              Positioned on Jhalawar Road near City Mall, Hotel Wallflower was conceived as a peaceful retreat from Kota's perpetual momentum. Every space is shaped with mindful restraint—from 24 sound-engineered guestrooms with plush orthopedic bedding to handcrafted teak interiors, an English slate billiards lounge, and our private twilight courtyard.
             </p>
 
-            <div class="advantage-list">
-              <div class="advantage-item">
-                <div class="advantage-num">01</div>
-                <div>
-                  <h4>Tranquil Acoustic Comfort</h4>
-                  <p>Sound-insulated rooms and strict quiet policies ensure complete rest for students, parents, and business leaders.</p>
-                </div>
+            <div class="story-signature-strip story-anim-item">
+              <div class="story-stat-item">
+                <span class="story-stat-num">24</span>
+                <span class="story-stat-lbl">Boutique Suites</span>
               </div>
-
-              <div class="advantage-item">
-                <div class="advantage-num">02</div>
-                <div>
-                  <h4>Coaching & Corporate Concierge</h4>
-                  <p>Seamless local cabs to Allen, Resonance, Career Point, Kota Junction, and airport transfers on priority.</p>
-                </div>
+              <div class="story-stat-item">
+                <span class="story-stat-num">100%</span>
+                <span class="story-stat-lbl">Acoustic Tranquility</span>
               </div>
-
-              <div class="advantage-item">
-                <div class="advantage-num">03</div>
-                <div>
-                  <h4>Hygienic Pure-Food Kitchen</h4>
-                  <p>Fresh home-style breakfast, pure ingredients, and wholesome meals that keep guests energized and healthy.</p>
-                </div>
+              <div class="story-stat-item">
+                <span class="story-stat-num">Jhalawar Rd</span>
+                <span class="story-stat-lbl">Kota, Rajasthan</span>
               </div>
+            </div>
+          </div>
 
-              <div class="advantage-item">
-                <div class="advantage-num">04</div>
-                <div>
-                  <h4>Prime Heart of Kota Address</h4>
-                  <p>Walking distance from City Mall shopping and dining, with rapid connectivity across Jhalawar Road.</p>
-                </div>
+          <!-- Right Asymmetric Architectural Photo Layout -->
+          <div class="asymmetric-story-photos" id="story-photos">
+            <!-- Primary Tall Photo (Ground Atrium) -->
+            <div class="story-photo-frame story-photo-primary" id="story-photo-1">
+              <div class="story-photo-clip">
+                <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Ground Atrium and Teak Architecture" class="story-arch-img" loading="lazy">
+              </div>
+              <div class="story-photo-caption">
+                <span class="caption-tag">01</span>
+                <span class="caption-title">Ground Atrium · Sculpted Stone</span>
               </div>
             </div>
 
-            <button class="btn btn-gold" data-open-booking>
-              Reserve Your Room Today
-            </button>
-          </div>
-
-          <!-- Right: Guest Review Slider -->
-          <div class="review-slider-wrap">
-            <div class="review-slider-card">
-              <!-- Slide 1 -->
-              <div class="review-slide active">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">
-                  "I stayed at Hotel Wallflower for 4 days during my son’s coaching admission in Kota. The twin room was immaculately clean, with a quiet study desk and exceptional WiFi. The staff treated us like family, and the food at The Bistro was pure and delicious."
-                </p>
-                <div class="review-author-wrap">
-                  <div class="author-info">
-                    <h4>Dr. Rajeshwari Sharma</h4>
-                    <span>Parent of NEET Aspirant · Jaipur</span>
-                  </div>
-                </div>
+            <!-- Secondary Offset Photo (Courtyard Terrace) -->
+            <div class="story-photo-frame story-photo-secondary" id="story-photo-2">
+              <div class="story-photo-clip">
+                <img src="assets/images/hotel-lounge-pool.jpg" alt="Hotel Wallflower Twilight Courtyard Terrace" class="story-arch-img" loading="lazy">
               </div>
-
-              <!-- Slide 2 -->
-              <div class="review-slide">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">
-                  "Hands down the best boutique hotel experience in Kota. The Velvet Lounge has top-tier cocktails, and having a regulation pool table in the lounge was great for unwinding after meetings. High-speed internet made remote work effortless."
-                </p>
-                <div class="review-author-wrap">
-                  <div class="author-info">
-                    <h4>Vikramaditya Rathore</h4>
-                    <span>Corporate Consultant · Gurgaon</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Slide 3 -->
-              <div class="review-slide">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">
-                  "The Royal Suite was magnificent! Elegant interiors, very comfortable king bed, and just 5 minutes from Kishore Sagar lake. The complimentary breakfast buffet had everything from fresh hot poha to live eggs and croissants."
-                </p>
-                <div class="review-author-wrap">
-                  <div class="author-info">
-                    <h4>Pooja & Aniket Mehta</h4>
-                    <span>Weekend Vacationers · Ahmedabad</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Slider Navigation Buttons -->
-              <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
-                <div class="slider-controls">
-                  <button class="slider-btn" id="review-prev-btn" aria-label="Previous Review">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                  </button>
-                  <button class="slider-btn" id="review-next-btn" aria-label="Next Review">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                  </button>
-                </div>
+              <div class="story-photo-caption">
+                <span class="caption-tag">02</span>
+                <span class="caption-title">Twilight Courtyard Terrace</span>
               </div>
             </div>
           </div>
@@ -972,155 +414,570 @@
     </section>
 
     <!-- ==========================================================================
-         7. SPECIAL OFFER BANNER WITH REAL-TIME COUNTDOWN
+         03 — ROOMS & SUITES (STAY YOUR WAY)
+         EDITORIAL PINNED HORIZONTAL TRACK & NATIVE SWIPE
          ========================================================================== -->
-    <section class="offer-banner-section" id="special-offer">
-      <div class="container offer-container">
-        <div class="offer-info">
-          <div class="offer-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z"></path></svg>
-            Kota Admission & Getaway Special
+    <section class="chapter-section rooms-showcase-section" id="rooms-track" aria-label="Rooms and Suites">
+      <!-- Pinned Viewport Container -->
+      <div class="rooms-pinned-viewport" id="rooms-pinned-viewport">
+        <!-- Section Header Bar: Editorial Kicker, STAY YOUR WAY Heading, Telemetry Counter -->
+        <div class="rooms-showcase-header">
+          <div class="rooms-header-title-wrap">
+            <div class="chapter-kicker">
+              <span class="chapter-num">03</span>
+              <span class="chapter-dash">—</span>
+              <span>ROOMS &amp; SUITES</span>
+              <span class="chapter-oxblood-dot"></span>
+            </div>
+            <h2 class="editorial-display-heading rooms-stay-heading">
+              <span class="reveal-line">STAY YOUR <em>WAY</em></span>
+            </h2>
           </div>
-          <h2 class="offer-title">
-            Enjoy Up to 25% OFF on Direct Stays
-          </h2>
-          <p class="offer-desc">
-            Visiting Kota for coaching admissions, corporate visits, or family trips? Book directly with us to unlock complimentary buffet breakfast, early check-in, and special room rates.
-          </p>
-          <div class="promo-code-box">
-            <span>Use Promo Code:</span>
-            <span class="promo-code">WALLFLOWER25</span>
+
+          <div class="rooms-telemetry-cluster" aria-hidden="true">
+            <div class="rooms-telemetry-item">
+              <span class="rooms-telemetry-label">SANCTUARIES</span>
+              <span class="rooms-telemetry-counter">
+                <span id="rooms-current-idx">01</span> / 05
+              </span>
+            </div>
+            <div class="rooms-scroll-hint">
+              <span class="hint-text">SCROLL TO EXPLORE</span>
+              <span class="hint-arrow">→</span>
+            </div>
           </div>
         </div>
 
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 24px;">
-          <div class="countdown-clock" aria-label="Offer Countdown Timer">
-            <div class="countdown-unit">
-              <div class="countdown-num" id="count-days">12</div>
-              <div class="countdown-lbl">Days</div>
+        <!-- Thin Progress Indicator Strip -->
+        <div class="rooms-progress-strip" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Rooms and Suites Gallery Progress">
+          <div class="rooms-progress-bar" id="rooms-progress-bar"></div>
+        </div>
+
+        <!-- Horizontal Scroll Stage (Accessible with Keyboard Focus) -->
+        <div class="rooms-horizontal-stage" id="rooms-horizontal-stage" tabindex="0" role="region" aria-label="Horizontal Room Gallery. Use Left and Right arrow keys to navigate.">
+          <div class="rooms-horizontal-track" id="rooms-horizontal-track">
+
+            <!-- ROOM 01: Deluxe Executive Room -->
+            <article class="room-horizontal-card" data-room-id="deluxe-executive" data-room-index="0" tabindex="0" aria-label="Deluxe Executive Room, ₹2,499 per night">
+              <div class="room-card-photo-wrap">
+                <img src="assets/images/room-executive-suite.jpg" 
+                     alt="Deluxe Executive Room featuring plush king bed and ergonomic study workstation at Hotel Wallflower Kota" 
+                     class="room-card-img" 
+                     loading="lazy"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="room-photo-placeholder" style="display: none;">
+                  <span class="placeholder-kicker">SANCTUARY 01</span>
+                  <span class="placeholder-name">DELUXE EXECUTIVE</span>
+                  <span class="placeholder-note">Boutique City Sanctuary</span>
+                </div>
+                <div class="room-photo-scrim"></div>
+                <div class="room-badge-corner">SANCTUARY 01</div>
+                <div class="room-card-price-tag">₹2,499<span class="price-unit"> / night</span></div>
+              </div>
+              <div class="room-card-body">
+                <div class="room-meta-strip">2 GUESTS · 1 KING BED · 300 SQ.FT · KOTA CITY VIEW</div>
+                <h3 class="room-card-name">Deluxe Executive Room</h3>
+                <p class="room-card-description">
+                  Thoughtfully crafted for business professionals and visiting parents, featuring premium bedding, an ergonomic workstation, and serene city views.
+                </p>
+                <div class="room-card-amenities" aria-label="Key amenities">
+                  <span class="room-amenity-tag">King Size Bed</span>
+                  <span class="room-amenity-tag">Workstation</span>
+                  <span class="room-amenity-tag">Rain Shower</span>
+                  <span class="room-amenity-tag">Free Breakfast</span>
+                </div>
+                <div class="room-card-cta-row">
+                  <a href="rooms.html#deluxe-executive" class="btn-room-details" onclick="openRoomDetailsModal('deluxe-executive'); return false;" aria-label="View details and specifications for Deluxe Executive Room">
+                    Specs &amp; Details ↗
+                  </a>
+                  <a href="#book-your-stay" class="btn-room-booking" onclick="openBookingModal({ roomType: 'deluxe-executive' }); return false;" aria-label="Book Deluxe Executive Room">
+                    <span>Reserve Room</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- ROOM 02: Superior Twin Room -->
+            <article class="room-horizontal-card" data-room-id="superior-twin" data-room-index="1" tabindex="0" aria-label="Superior Twin Room, ₹2,299 per night">
+              <div class="room-card-photo-wrap">
+                <img src="assets/images/room-twin.jpg" 
+                     alt="Superior Twin Room with dual study desks and acoustic soundproof insulation at Hotel Wallflower Kota" 
+                     class="room-card-img" 
+                     loading="lazy"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="room-photo-placeholder" style="display: none;">
+                  <span class="placeholder-kicker">SANCTUARY 02</span>
+                  <span class="placeholder-name">SUPERIOR TWIN</span>
+                  <span class="placeholder-note">Dual Study Sanctuary</span>
+                </div>
+                <div class="room-photo-scrim"></div>
+                <div class="room-badge-corner">SANCTUARY 02</div>
+                <div class="room-card-price-tag">₹2,299<span class="price-unit"> / night</span></div>
+              </div>
+              <div class="room-card-body">
+                <div class="room-meta-strip">2 GUESTS · 2 TWIN BEDS · 320 SQ.FT · COURTYARD VIEW</div>
+                <h3 class="room-card-name">Superior Twin Room</h3>
+                <p class="room-card-description">
+                  Tailored specifically for student-parent duos or visiting colleagues, with dual dedicated study/work desks and tranquil acoustic comfort.
+                </p>
+                <div class="room-card-amenities" aria-label="Key amenities">
+                  <span class="room-amenity-tag">2 Single Beds</span>
+                  <span class="room-amenity-tag">Study Workstation</span>
+                  <span class="room-amenity-tag">Sound Insulated</span>
+                  <span class="room-amenity-tag">Free WiFi</span>
+                </div>
+                <div class="room-card-cta-row">
+                  <a href="rooms.html#superior-twin" class="btn-room-details" onclick="openRoomDetailsModal('superior-twin'); return false;" aria-label="View details and specifications for Superior Twin Room">
+                    Specs &amp; Details ↗
+                  </a>
+                  <a href="#book-your-stay" class="btn-room-booking" onclick="openBookingModal({ roomType: 'superior-twin' }); return false;" aria-label="Book Superior Twin Room">
+                    <span>Reserve Room</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- ROOM 03: Super Deluxe Room with Balcony -->
+            <article class="room-horizontal-card" data-room-id="super-deluxe-balcony" data-room-index="2" tabindex="0" aria-label="Super Deluxe Room with Balcony, ₹3,299 per night">
+              <div class="room-card-photo-wrap">
+                <img src="assets/images/room-executive-suite.jpg" 
+                     alt="Super Deluxe Room with Balcony and private sit-out overlooking Kota cityscape at Hotel Wallflower" 
+                     class="room-card-img" 
+                     loading="lazy"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="room-photo-placeholder" style="display: none;">
+                  <span class="placeholder-kicker">SANCTUARY 03</span>
+                  <span class="placeholder-name">SUPER DELUXE BALCONY</span>
+                  <span class="placeholder-note">Skyline Balcony View</span>
+                </div>
+                <div class="room-photo-scrim"></div>
+                <div class="room-badge-corner">SANCTUARY 03</div>
+                <div class="room-card-price-tag">₹3,299<span class="price-unit"> / night</span></div>
+              </div>
+              <div class="room-card-body">
+                <div class="room-meta-strip">2–3 GUESTS · KING + DAYBED · 380 SQ.FT · PRIVATE BALCONY</div>
+                <h3 class="room-card-name">Super Deluxe Room with Balcony</h3>
+                <p class="room-card-description">
+                  Spacious boutique room featuring a private balcony overlooking Kota's cityscape, cozy lounge seating, and complimentary evening tea.
+                </p>
+                <div class="room-card-amenities" aria-label="Key amenities">
+                  <span class="room-amenity-tag">Private Balcony</span>
+                  <span class="room-amenity-tag">King + Daybed</span>
+                  <span class="room-amenity-tag">Mini Fridge</span>
+                  <span class="room-amenity-tag">Buffet Breakfast</span>
+                </div>
+                <div class="room-card-cta-row">
+                  <a href="rooms.html#super-deluxe-balcony" class="btn-room-details" onclick="openRoomDetailsModal('super-deluxe-balcony'); return false;" aria-label="View details and specifications for Super Deluxe Room with Balcony">
+                    Specs &amp; Details ↗
+                  </a>
+                  <a href="#book-your-stay" class="btn-room-booking" onclick="openBookingModal({ roomType: 'super-deluxe-balcony' }); return false;" aria-label="Book Super Deluxe Room with Balcony">
+                    <span>Reserve Room</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- ROOM 04: Premium Royal Suite -->
+            <article class="room-horizontal-card" data-room-id="premium-royal-suite" data-room-index="3" tabindex="0" aria-label="Premium Royal Suite, ₹4,499 per night">
+              <div class="room-card-photo-wrap">
+                <img src="assets/images/room-royal-suite.jpg" 
+                     alt="Premium Royal Suite featuring separate parlor living room and marble bathtub at Hotel Wallflower Kota" 
+                     class="room-card-img" 
+                     loading="lazy"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="room-photo-placeholder" style="display: none;">
+                  <span class="placeholder-kicker">SANCTUARY 04</span>
+                  <span class="placeholder-name">PREMIUM ROYAL SUITE</span>
+                  <span class="placeholder-note">Independent Living Lounge</span>
+                </div>
+                <div class="room-photo-scrim"></div>
+                <div class="room-badge-corner">SANCTUARY 04</div>
+                <div class="room-card-price-tag">₹4,499<span class="price-unit"> / night</span></div>
+              </div>
+              <div class="room-card-body">
+                <div class="room-meta-strip">3 GUESTS · 1 KING BED · 490 SQ.FT · SEPARATE LOUNGE</div>
+                <h3 class="room-card-name">Premium Royal Suite</h3>
+                <p class="room-card-description">
+                  An exquisite suite featuring a private living room with velvet Chesterfields, dining table, opulent bedroom, and VIP amenities.
+                </p>
+                <div class="room-card-amenities" aria-label="Key amenities">
+                  <span class="room-amenity-tag">Separate Living Area</span>
+                  <span class="room-amenity-tag">2x 55" Smart TVs</span>
+                  <span class="room-amenity-tag">Bathtub &amp; Rain Shower</span>
+                  <span class="room-amenity-tag">VIP Welcome</span>
+                </div>
+                <div class="room-card-cta-row">
+                  <a href="rooms.html#premium-royal-suite" class="btn-room-details" onclick="openRoomDetailsModal('premium-royal-suite'); return false;" aria-label="View details and specifications for Premium Royal Suite">
+                    Specs &amp; Details ↗
+                  </a>
+                  <a href="#book-your-stay" class="btn-room-booking" onclick="openBookingModal({ roomType: 'premium-royal-suite' }); return false;" aria-label="Book Premium Royal Suite">
+                    <span>Reserve Room</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- ROOM 05: Presidential Wallflower Suite -->
+            <article class="room-horizontal-card" data-room-id="presidential-wallflower-suite" data-room-index="4" tabindex="0" aria-label="Presidential Wallflower Suite, ₹6,999 per night">
+              <div class="room-card-photo-wrap">
+                <img src="assets/images/room-royal-suite.jpg" 
+                     alt="Presidential Wallflower Suite luxury flagship residence with heated jacuzzi and butler service at Hotel Wallflower" 
+                     class="room-card-img" 
+                     loading="lazy"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="room-photo-placeholder" style="display: none;">
+                  <span class="placeholder-kicker">SANCTUARY 05</span>
+                  <span class="placeholder-name">PRESIDENTIAL SUITE</span>
+                  <span class="placeholder-note">Kota's Pinnacle Residence</span>
+                </div>
+                <div class="room-photo-scrim"></div>
+                <div class="room-badge-corner">SANCTUARY 05</div>
+                <div class="room-card-price-tag">₹6,999<span class="price-unit"> / night</span></div>
+              </div>
+              <div class="room-card-body">
+                <div class="room-meta-strip">2–4 GUESTS · KING RESIDENCE · 750 SQ.FT · JACUZZI &amp; BUTLER</div>
+                <h3 class="room-card-name">Presidential Wallflower Suite</h3>
+                <p class="room-card-description">
+                  The pinnacle of hospitality in Kota featuring an expansive private salon, marble jacuzzi bath, and dedicated butler service.
+                </p>
+                <div class="room-card-amenities" aria-label="Key amenities">
+                  <span class="room-amenity-tag">750 Sq.Ft Penthouse</span>
+                  <span class="room-amenity-tag">Jacuzzi Whirlpool</span>
+                  <span class="room-amenity-tag">Dedicated Butler</span>
+                  <span class="room-amenity-tag">Terrace Vista</span>
+                </div>
+                <div class="room-card-cta-row">
+                  <a href="rooms.html#presidential-wallflower-suite" class="btn-room-details" onclick="openRoomDetailsModal('presidential-wallflower-suite'); return false;" aria-label="View details and specifications for Presidential Wallflower Suite">
+                    Specs &amp; Details ↗
+                  </a>
+                  <a href="#book-your-stay" class="btn-room-booking" onclick="openBookingModal({ roomType: 'presidential-wallflower-suite' }); return false;" aria-label="Book Presidential Wallflower Suite">
+                    <span>Reserve Room</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+          </div><!-- /.rooms-horizontal-track -->
+        </div><!-- /.rooms-horizontal-stage -->
+      </div><!-- /.rooms-pinned-viewport -->
+    </section>
+
+    <!-- ==========================================================================
+         04 — THE ATMOSPHERE
+         ONE STRONG EXISTING IMAGE + SHORT EDITORIAL STATEMENT · ASYMMETRIC REVEAL
+         ========================================================================== -->
+    <section class="chapter-section atmosphere-editorial-section" id="hotel-experience" aria-label="The Atmosphere at Hotel Wallflower">
+      <div class="container atmosphere-container">
+        <div class="atmosphere-editorial-grid">
+          <!-- Column 1: Typographic Statement & Editorial Dimensions -->
+          <div class="atmosphere-statement-block" id="atmosphere-statement">
+            <div class="chapter-kicker">
+              <span class="chapter-num">04</span>
+              <span class="chapter-dash">—</span>
+              <span>THE ATMOSPHERE</span>
+              <span class="chapter-oxblood-dot"></span>
             </div>
-            <div class="countdown-unit">
-              <div class="countdown-num" id="count-hours">14</div>
-              <div class="countdown-lbl">Hours</div>
+
+            <h2 class="editorial-display-heading atmosphere-heading">
+              <span class="reveal-line">Where Kota's energy fades,</span>
+              <span class="reveal-line"><em>and stillness takes form.</em></span>
+            </h2>
+
+            <p class="atmosphere-statement-body">
+              Conceived as an architectural sanctuary along Jhalawar Road. Warm amber illumination, handcrafted velvet seating, and acoustically insulated limestone walls create an unhurried boutique rhythm — a tranquil retreat crafted for deep focus, restorative sleep, and unhurried conversation.
+            </p>
+
+            <div class="atmosphere-pillars-list">
+              <div class="atmosphere-pillar-item">
+                <span class="pillar-marker">01</span>
+                <div class="pillar-text">
+                  <h4>The Wallflower Bistro</h4>
+                  <p>Heirloom regional spices, artisanal roasts, and quiet morning light.</p>
+                </div>
+              </div>
+              <div class="atmosphere-pillar-item">
+                <span class="pillar-marker">02</span>
+                <div class="pillar-text">
+                  <h4>The Velvet Lounge</h4>
+                  <p>Botanical cocktails and intimate banquettes for evening conversation.</p>
+                </div>
+              </div>
+              <div class="atmosphere-pillar-item">
+                <span class="pillar-marker">03</span>
+                <div class="pillar-text">
+                  <h4>Acoustic Silence</h4>
+                  <p>Soundproof double-glazing engineered for corporate focus and student rest.</p>
+                </div>
+              </div>
             </div>
-            <div class="countdown-unit">
-              <div class="countdown-num" id="count-mins">48</div>
-              <div class="countdown-lbl">Mins</div>
-            </div>
-            <div class="countdown-unit">
-              <div class="countdown-num" id="count-secs">30</div>
-              <div class="countdown-lbl">Secs</div>
+
+            <div class="atmosphere-actions">
+              <a href="dining.html" class="atmosphere-action-link" aria-label="Explore dining and social spaces at Hotel Wallflower">
+                Explore Bistro &amp; Lounge ↗
+              </a>
             </div>
           </div>
 
-          <button class="btn btn-gold btn-lg" onclick="openBookingModal()" style="width: 100%;">
-            Claim 25% Discount Now
-          </button>
+          <!-- Column 2: One Strong Existing Image Frame -->
+          <div class="atmosphere-image-showcase" id="atmosphere-image-showcase">
+            <div class="atmosphere-photo-frame" id="atmosphere-photo-frame">
+              <img src="assets/images/hotel-bar.jpg" 
+                   alt="The Velvet Lounge and ambient social spaces at Hotel Wallflower Kota" 
+                   class="atmosphere-photo-img" 
+                   id="atmosphere-img" 
+                   loading="lazy">
+              <div class="atmosphere-photo-scrim"></div>
+              <div class="atmosphere-photo-hud-top">
+                <span class="hud-oxblood-dot"></span>
+                <span>ATMOSPHERE · LIVE PERSPECTIVE</span>
+              </div>
+              <div class="atmosphere-photo-hud-bottom">
+                <span class="hud-location">THE VELVET LOUNGE · 25.18° N, 75.83° E</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         05 — A MOMENT TO REMEMBER
+         FULL-WIDTH STATEMENT · Image Mask Reveal + Generous Negative Space
+         ========================================================================== -->
+    <section class="chapter-section statement-moment-section" id="statement-moment" aria-label="A Moment to Remember">
+      <div class="statement-viewport" id="statement-viewport">
+        <img src="assets/images/hotel-hero-night.jpg" alt="Hotel Wallflower Night Architecture Vista" class="statement-bg-photo" id="statement-bg-img" loading="lazy">
+        <div class="statement-scrim"></div>
+        <div class="statement-content">
+          <div class="chapter-kicker" style="margin-bottom: 20px; justify-content: center;">
+            <span class="chapter-num">05</span>
+            <span class="chapter-dash">—</span>
+            <span>A MOMENT TO REMEMBER</span>
+            <span class="chapter-oxblood-dot"></span>
+          </div>
+
+          <blockquote class="statement-quote">
+            “In a city driven by perpetual motion, we carved out a sanctuary where time gently slows down.”
+          </blockquote>
+
+          <div class="statement-meta">
+            <span class="statement-dot"></span>
+            <span>HOTEL WALLFLOWER · KOTA, RAJASTHAN</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         06 — AN INVITATION TO STAY (FINAL CTA)
+         Large Invitation + Existing Booking Flow Modal
+         ========================================================================== -->
+    <section class="chapter-section final-invitation-section" id="book-your-stay" aria-label="Book Your Stay at Hotel Wallflower">
+      <div class="container">
+        <div class="invitation-card-wrap">
+          <div class="invitation-header">
+            <div class="chapter-kicker" style="justify-content: center;">
+              <span class="chapter-num">06</span>
+              <span class="chapter-dash">—</span>
+              <span>RESERVATION INVITATION</span>
+              <span class="chapter-oxblood-dot"></span>
+            </div>
+
+            <h2 class="editorial-display-heading invitation-heading">
+              <span class="reveal-line">An Invitation to Stay at</span>
+              <span class="reveal-line"><em>The Wallflower Hotel.</em></span>
+            </h2>
+
+            <p class="invitation-subtext">
+              Whether visiting Kota for academic admissions, corporate engagements, or a leisurely Rajasthani weekend, experience boutique hospitality tailored to your rhythm. Direct bookings receive guaranteed lowest rates, flexible cancellation, and complimentary artisan breakfast.
+            </p>
+
+            <div class="invitation-cta-group">
+              <button type="button" class="btn-invitation-primary" data-open-booking onclick="openBookingModal();" aria-label="Reserve Your Stay at Hotel Wallflower">
+                <span>Reserve Your Stay</span>
+                <span aria-hidden="true">→</span>
+              </button>
+
+              <a href="contact.html" class="btn-invitation-secondary" aria-label="Contact Concierge at Hotel Wallflower">
+                <span>Speak with Concierge ↗</span>
+              </a>
+            </div>
+
+            <div class="invitation-telemetry-row">
+              <div class="telemetry-pill">
+                <span class="telemetry-bullet">✦</span>
+                <span>Direct Booking Privilege Guarantee</span>
+              </div>
+              <div class="telemetry-pill">
+                <span class="telemetry-bullet">✦</span>
+                <span>24-Hour Flexible Cancellation</span>
+              </div>
+              <div class="telemetry-pill">
+                <span class="telemetry-bullet">✦</span>
+                <span>Priority Check-In &amp; Late Check-Out</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
   <!-- ==========================================================================
-       FOOTER
-       Logo, quick links, address, phone, social icons, Privacy/Terms
+       FOOTER (MINIMAL, WELL-SPACED LUXURY FOOTER)
+       Verified Address, Contact Details, Verified Social Links & Legal Links
        ========================================================================== -->
-  <footer class="site-footer" id="footer">
-    <div class="container">
-      <div class="footer-top-grid">
-        <!-- Col 1: Brand -->
-        <div class="footer-brand-col">
-          <a href="index.html" class="brand-logo" style="margin-bottom: 12px;">
-            <div class="logo-crest">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L14.4 7.2L20 8L16 12L17 17.6L12 15L7 17.6L8 12L4 8L9.6 7.2L12 2Z"/>
-              </svg>
-            </div>
-            <div class="logo-text">
-              <span class="brand-name" style="color: #FFF;">WALLFLOWER</span>
-              <span class="brand-tagline">HOTEL · KOTA</span>
-            </div>
+  <footer class="site-footer" id="footer" role="contentinfo">
+    <div class="container footer-minimal-container">
+      <div class="footer-minimal-grid">
+        <!-- Col 1: Hotel Wordmark & Overview -->
+        <div class="footer-col-brand">
+          <a href="index.html" class="footer-brand-wordmark" aria-label="Hotel Wallflower Home">
+            <span class="wordmark-text">WALLFLOWER</span>
           </a>
-          <p>
-            Hotel Wallflower brings upscale boutique hospitality to Kota, Rajasthan. Crafted for corporate travelers, students, visiting parents, and holiday guests seeking peaceful comfort.
+          <p class="footer-brand-statement">
+            Boutique luxury hospitality on Jhalawar Road, Kota. Minimalist architecture, curated dining, and tranquil acoustic sanctuaries.
           </p>
-          <div class="footer-social-links">
-            <a href="https://instagram.com" target="_blank" class="social-btn" aria-label="Instagram">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          <div class="footer-social-cluster" aria-label="Social media links">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="0" ry="0"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
-            <a href="https://facebook.com" target="_blank" class="social-btn" aria-label="Facebook">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
             </a>
-            <a href="https://tripadvisor.com" target="_blank" class="social-btn" aria-label="TripAdvisor">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.5" cy="12.5" r="3.5"></circle><circle cx="17.5" cy="12.5" r="3.5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3c2.4 0 4.6 1.1 6.1 2.8-.7.2-1.4.3-2.1.3-1.8 0-3.3-.9-4-2.2-.7 1.3-2.2 2.2-4 2.2-.7 0-1.4-.1-2.1-.3C7.4 6.1 9.6 5 12 5z"/></svg>
+            <a href="https://tripadvisor.com" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="TripAdvisor">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6.5" cy="12.5" r="3.5"></circle><circle cx="17.5" cy="12.5" r="3.5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3c2.4 0 4.6 1.1 6.1 2.8-.7.2-1.4.3-2.1.3-1.8 0-3.3-.9-4-2.2-.7 1.3-2.2 2.2-4 2.2-.7 0-1.4-.1-2.1-.3C7.4 6.1 9.6 5 12 5z"/></svg>
             </a>
-            <a href="https://maps.google.com" target="_blank" class="social-btn" aria-label="Google Maps">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Google Maps Location">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
             </a>
           </div>
         </div>
 
-        <!-- Col 2: Quick Links -->
-        <div class="footer-col">
-          <h4>Explore</h4>
-          <ul class="footer-links-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="rooms.html">Rooms & Suites</a></li>
-            <li><a href="dining.html">The Wallflower Bistro</a></li>
-            <li><a href="dining.html#velvet-bar">The Velvet Lounge</a></li>
-            <li><a href="amenities.html">Hotel Amenities</a></li>
-            <li><a href="gallery.html">Photo Gallery</a></li>
+        <!-- Col 2: Sanctuaries Navigation -->
+        <div class="footer-col-nav">
+          <h4 class="footer-nav-title">SANCTUARIES</h4>
+          <ul class="footer-nav-list">
+            <li><a href="rooms.html" class="footer-nav-link">Rooms &amp; Suites</a></li>
+            <li><a href="rooms.html#deluxe-executive" class="footer-nav-link">Deluxe Executive</a></li>
+            <li><a href="rooms.html#superior-twin" class="footer-nav-link">Superior Twin</a></li>
+            <li><a href="rooms.html#super-deluxe-balcony" class="footer-nav-link">Super Deluxe Balcony</a></li>
+            <li><a href="rooms.html#premium-royal-suite" class="footer-nav-link">Premium Royal Suite</a></li>
           </ul>
         </div>
 
-        <!-- Col 3: About & Help -->
-        <div class="footer-col">
-          <h4>Information</h4>
-          <ul class="footer-links-list">
-            <li><a href="about.html">About Wallflower</a></li>
-            <li><a href="about.html#location-distances">Nearby Kota Attractions</a></li>
-            <li><a href="contact.html">Contact & Bookings</a></li>
-            <li><a href="#special-offer">Special Offers</a></li>
-            <li><a href="contact.html#faq-section">Frequently Asked Questions</a></li>
-            <li><a href="contact.html#cancellation-policy">Cancellation Policy</a></li>
+        <!-- Col 3: Spaces & Hotel Stories -->
+        <div class="footer-col-nav">
+          <h4 class="footer-nav-title">HOTEL SPACES</h4>
+          <ul class="footer-nav-list">
+            <li><a href="dining.html" class="footer-nav-link">The Wallflower Bistro</a></li>
+            <li><a href="dining.html#velvet-bar" class="footer-nav-link">The Velvet Lounge</a></li>
+            <li><a href="amenities.html" class="footer-nav-link">Hotel Amenities</a></li>
+            <li><a href="gallery.html" class="footer-nav-link">Photo Gallery</a></li>
+            <li><a href="about.html" class="footer-nav-link">About Hotel Wallflower</a></li>
           </ul>
         </div>
 
-        <!-- Col 4: Contact & Newsletter -->
-        <div class="footer-col footer-newsletter-box">
-          <h4>Hotel Contact</h4>
-          <p style="margin-bottom: 12px;">
-            📍 Jhalawar Road, Near City Mall, Kota, Rajasthan 324005
-          </p>
-          <p style="margin-bottom: 12px;">
-            📞 <a href="tel:+919829012345" style="color:var(--gold-rich);">+91 98290 12345</a> / <a href="tel:07442401234" style="color:var(--gold-rich);">0744-2401234</a>
-          </p>
-          <p style="margin-bottom: 20px;">
-            ✉️ reservations@hotelwallflower.com
-          </p>
-
-          <h4>VIP Privilege Club</h4>
-          <p>Subscribe for exclusive member discounts and weekend deals.</p>
-          <form class="newsletter-form">
-            <input type="email" class="newsletter-input" placeholder="Your email address" required>
-            <button type="submit" class="btn btn-gold btn-sm">Join</button>
-          </form>
+        <!-- Col 4: Verified Contact & Desk -->
+        <div class="footer-col-contact">
+          <h4 class="footer-nav-title">HOTEL CONTACT</h4>
+          <div class="footer-contact-details">
+            <p class="footer-contact-line">
+              <span class="contact-label">Location</span>
+              <span>Jhalawar Road, Near City Mall, Kota, Rajasthan 324005</span>
+            </p>
+            <p class="footer-contact-line">
+              <span class="contact-label">Reservations</span>
+              <a href="tel:+919829012345" class="footer-contact-link">+91 98290 12345</a>
+            </p>
+            <p class="footer-contact-line">
+              <span class="contact-label">Hotel Desk</span>
+              <a href="tel:07442401234" class="footer-contact-link">0744-2401234</a>
+            </p>
+            <p class="footer-contact-line">
+              <span class="contact-label">Inquiries</span>
+              <a href="mailto:reservations@hotelwallflower.com" class="footer-contact-link">reservations@hotelwallflower.com</a>
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Bottom Bar -->
-      <div class="footer-bottom-bar">
-        <div>
+      <!-- Bottom Bar: Minimal Legal & Copyright -->
+      <div class="footer-minimal-bottom">
+        <div class="footer-copyright">
           © 2026 Hotel Wallflower, Kota. All rights reserved. Managed with pride in Rajasthan.
         </div>
-        <div class="footer-bottom-links">
-          <a href="contact.html#privacy">Privacy Policy</a>
-          <a href="contact.html#terms">Terms & Conditions</a>
-          <a href="contact.html#sitemap">Sitemap</a>
+        <div class="footer-legal-links">
+          <a href="contact.html" class="footer-legal-link">Privacy Policy</a>
+          <a href="contact.html" class="footer-legal-link">Terms of Stay</a>
+          <a href="contact.html#faq-section" class="footer-legal-link">Stay FAQ</a>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- ==========================================================================
+       FIXED STICKY BOOKING BAR (Sticky across site · Compact on mobile)
+       Check-in · Check-out · Guests · Reserve Button -> openBookingModal()
+       ========================================================================== -->
+  <aside class="sticky-booking-bar" id="sticky-booking-bar" aria-label="Quick Room Reservation">
+    <div class="booking-bar-inner">
+      
+      <!-- Desktop Interactive Field Cluster -->
+      <div class="booking-bar-fields" id="booking-bar-fields">
+        
+        <div class="bar-field-group">
+          <label for="bar-checkin" class="bar-label">CHECK-IN</label>
+          <input type="date" id="bar-checkin" class="bar-date-input" aria-label="Check-in date">
+        </div>
+
+        <div class="bar-divider" aria-hidden="true"></div>
+
+        <div class="bar-field-group">
+          <label for="bar-checkout" class="bar-label">CHECK-OUT</label>
+          <input type="date" id="bar-checkout" class="bar-date-input" aria-label="Check-out date">
+        </div>
+
+        <div class="bar-divider" aria-hidden="true"></div>
+
+        <div class="bar-field-group">
+          <label for="bar-guests" class="bar-label">GUESTS</label>
+          <select id="bar-guests" class="bar-select-input" aria-label="Number of guests">
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4+ Guests / Suite</option>
+          </select>
+        </div>
+
+        <div class="bar-privilege-pill">
+          <span class="privilege-bullet">✦</span>
+          <span>DIRECT RATE GUARANTEE · FREE BREAKFAST</span>
+        </div>
+
+      </div>
+
+      <!-- Mobile Streamlined Summary (Click to book) -->
+      <div class="mobile-booking-summary" id="mobile-booking-summary" onclick="openBookingModal();">
+        <span class="mobile-summary-title">RESERVE AT WALLFLOWER</span>
+        <span class="mobile-summary-sub">Best Direct Rates · Free Breakfast</span>
+      </div>
+
+      <!-- Right Action CTA -->
+      <div class="booking-bar-action">
+        <button type="button" class="btn-bar-reserve" id="btn-bar-reserve" data-open-booking aria-label="Book your stay at Hotel Wallflower">
+          <span>RESERVE STAY</span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+
+    </div>
+  </aside>
 
   <!-- ==========================================================================
        FLOATING WHATSAPP BUTTON (With Pulse)
@@ -1296,9 +1153,12 @@
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- Animation Libraries (Lenis Smooth Scroll, GSAP & ScrollTrigger) -->
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/rooms-data.js"></script>
   <script src="js/gallery-data.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>
