@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hotel Wallflower | Boutique Luxury Hotel in Kota, Rajasthan</title>
   <meta name="description" content="Experience refined boutique hospitality at Hotel Wallflower, Kota. Luxury rooms, The Wallflower Bistro, Velvet Lounge, pool table, fitness center, near City Mall on Jhalawar Road.">
-  <link rel="stylesheet" href="css/style.css?v=flight10">
+  <link rel="stylesheet" href="css/style.css?v=flight11">
 </head>
 <body>
 
@@ -424,79 +424,135 @@
     </section>
 
     <!-- ==========================================================================
-         02 — A DIFFERENT KIND OF STAY (BRAND STORY)
-         Charcoal Background · Thin Divider · Editorial Headline with One Italic Phrase
-         Verified Content Paragraph · Two Asymmetric Photos with Clip-Path Reveal
+         02 — FLOATING PERSPECTIVES (SCROLL-DRIVEN AESTHETIC MOTION SHOWCASE)
+         Theme: Obsidian & Charcoal (#0B0B0B) · Pinned Stage
+         Animation: Floating image enters from Left and glides across to Right as user scrolls,
+         with continuously evolving motion effects (tilt, 3D gyroscopic roll, S-wave, scale).
          ========================================================================== -->
-    <section class="chapter-section brand-story-section" id="brand-story" aria-label="About Hotel Wallflower">
-      <div class="container story-container">
-        <!-- Top Small Uppercase Label & Thin Divider -->
-        <div class="story-header-block story-anim-item">
-          <div class="story-kicker-row">
-            <span class="story-kicker-label">02 — A DIFFERENT KIND OF STAY</span>
-            <span class="story-kicker-geo">25.18° N, 75.83° E · JHALAWAR ROAD, KOTA</span>
-          </div>
-          <div class="story-divider-line" aria-hidden="true"></div>
+    <section class="chapter-section floating-perspective-section" id="brand-story" aria-label="Aesthetic Floating Image Motion Showcase">
+      <div class="floating-perspective-stage" id="floating-perspective-stage">
+        
+        <!-- Ambient Radial Stage Vignette -->
+        <div class="perspective-stage-ambient"></div>
+
+        <!-- Background Kinetic Marquee Watermark -->
+        <div class="perspective-watermark-strip" aria-hidden="true">
+          <span class="perspective-watermark-text" id="perspective-watermark-text">
+            WALLFLOWER · AESTHETIC PERSPECTIVE · SCULPTED TRANQUILITY · KOTA LUXURY · MINDFUL SILENCE · 
+          </span>
         </div>
 
-        <div class="brand-story-grid">
-          <!-- Left Editorial Copy -->
-          <div class="story-lead-block">
-            <h2 class="story-editorial-headline story-anim-item">
-              Where architectural silence <em>meets sculpted boutique luxury.</em>
-            </h2>
+        <!-- Top Header: Minimalist Editorial Indicator & Live Motion Phase -->
+        <div class="container perspective-header-container">
+          <div class="perspective-header-bar">
+            <div class="perspective-kicker-group">
+              <span class="perspective-badge-pill">02 — FLOATING PERSPECTIVES</span>
+              <span class="perspective-stage-telemetry" id="motion-telemetry-badge">PHASE 01 · LEFT INCOMING DRIFT</span>
+            </div>
+            <div class="perspective-header-meta">
+              <span class="perspective-meta-coord">25.18° N, 75.83° E</span>
+              <span class="perspective-meta-dot">✦</span>
+              <span class="perspective-meta-loc">JHALAWAR ROAD, KOTA</span>
+            </div>
+          </div>
+          <div class="perspective-divider-line" aria-hidden="true"></div>
+        </div>
 
-            <p class="story-intro-para story-anim-item">
-              Positioned on Jhalawar Road near City Mall, Hotel Wallflower was conceived as a peaceful retreat from Kota's perpetual momentum. Every space is shaped with mindful restraint—from 24 sound-engineered guestrooms with plush orthopedic bedding to handcrafted teak interiors, an English slate billiards lounge, and our private twilight courtyard.
+        <!-- Central Floating Track & Canvas -->
+        <div class="floating-motion-canvas" id="floating-motion-canvas">
+          
+          <!-- Atmospheric Halo Glow -->
+          <div class="motion-ambient-glow" id="motion-ambient-glow"></div>
+
+          <!-- The Hero Floating Image Cluster (Scrolls from Left to Right) -->
+          <div class="floating-hero-cluster" id="floating-hero-cluster">
+            
+            <!-- Secondary Companion Shadow Card (Float behind with counter-drift) -->
+            <div class="floating-companion-card" id="floating-companion-card">
+              <div class="companion-levitation-wrap">
+                <div class="companion-inner-frame">
+                  <picture>
+                    <source srcset="assets/images/hotel-bar.webp" type="image/webp">
+                    <img src="assets/images/hotel-bar.jpg" alt="Velvet Lounge Atmosphere" class="companion-photo" loading="lazy">
+                  </picture>
+                  <div class="companion-card-scrim"></div>
+                  <div class="companion-tag">THE VELVET LOUNGE</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Primary Hero Aesthetic Floating Card (Autonomous Levitation + Changing Motion) -->
+            <div class="floating-main-card" id="floating-main-card">
+              <!-- Inner wrapper for continuous autonomous organic levitation physics -->
+              <div class="floating-levitation-wrap" id="floating-card-levitator">
+                <div class="floating-main-frame">
+                  
+                  <!-- Photo Layer 1: Ground Atrium (Phase 1) -->
+                  <div class="motion-photo-layer layer-active" id="motion-photo-1">
+                    <picture>
+                      <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
+                      <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Ground Atrium" class="motion-photo-img" loading="lazy">
+                    </picture>
+                  </div>
+
+                  <!-- Photo Layer 2: Royal Sanctuary Suite (Phase 2) -->
+                  <div class="motion-photo-layer" id="motion-photo-2">
+                    <picture>
+                      <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
+                      <img src="assets/images/room-royal-suite.jpg" alt="Royal Sanctuary Suite" class="motion-photo-img" loading="lazy">
+                    </picture>
+                  </div>
+
+                  <!-- Photo Layer 3: Twilight Courtyard & Pool (Phase 3) -->
+                  <div class="motion-photo-layer" id="motion-photo-3">
+                    <picture>
+                      <source srcset="assets/images/hotel-lounge-pool.webp" type="image/webp">
+                      <img src="assets/images/hotel-lounge-pool.jpg" alt="Twilight Courtyard" class="motion-photo-img" loading="lazy">
+                    </picture>
+                  </div>
+
+                  <!-- Glass Light Shimmer Beam & Crisp Razor Border -->
+                  <div class="motion-glass-glare"></div>
+                  <div class="motion-card-border"></div>
+
+                  <!-- Floating Floating Badge on Card -->
+                  <div class="motion-card-floating-badge" id="motion-card-badge">
+                    <span class="card-badge-num">01</span>
+                    <span class="card-badge-title" id="motion-card-title">Ground Atrium · Sculpted Limestone</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Third Companion Floating Spec Card (Travels alongside with float drift) -->
+            <div class="floating-tertiary-card" id="floating-tertiary-card">
+              <div class="tertiary-levitation-wrap">
+                <div class="tertiary-inner-frame">
+                  <picture>
+                    <source srcset="assets/images/hotel-dining.webp" type="image/webp">
+                    <img src="assets/images/hotel-dining.jpg" alt="Wallflower Bistro" class="tertiary-photo" loading="lazy">
+                  </picture>
+                  <div class="tertiary-card-scrim"></div>
+                  <div class="tertiary-tag">WALLFLOWER BISTRO</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Editorial Floating Caption Strip (Follows Scroll Journey) -->
+          <div class="motion-bottom-caption" id="motion-bottom-caption">
+            <h3 class="motion-caption-headline" id="motion-caption-headline">
+              Where architectural silence <em>glides through mindful space.</em>
+            </h3>
+            <p class="motion-caption-sub" id="motion-caption-sub">
+              Scroll to explore perspective · Handcrafted Kota limestone and acoustic stillness in dynamic motion.
             </p>
-
-            <div class="story-signature-strip story-anim-item">
-              <div class="story-stat-item">
-                <span class="story-stat-num">24</span>
-                <span class="story-stat-lbl">Boutique Suites</span>
-              </div>
-              <div class="story-stat-item">
-                <span class="story-stat-num">100%</span>
-                <span class="story-stat-lbl">Acoustic Tranquility</span>
-              </div>
-              <div class="story-stat-item">
-                <span class="story-stat-num">Jhalawar Rd</span>
-                <span class="story-stat-lbl">Kota, Rajasthan</span>
-              </div>
-            </div>
           </div>
 
-          <!-- Right Asymmetric Architectural Photo Layout -->
-          <div class="asymmetric-story-photos" id="story-photos">
-            <!-- Primary Tall Photo (Ground Atrium) -->
-            <div class="story-photo-frame story-photo-primary" id="story-photo-1">
-              <div class="story-photo-clip">
-                <picture>
-                  <source srcset="assets/images/hotel-lobby.webp" type="image/webp">
-                  <img src="assets/images/hotel-lobby.jpg" alt="Hotel Wallflower Ground Atrium and Teak Architecture" class="story-arch-img" loading="lazy">
-                </picture>
-              </div>
-              <div class="story-photo-caption">
-                <span class="caption-tag">01</span>
-                <span class="caption-title">Ground Atrium · Sculpted Stone</span>
-              </div>
-            </div>
-
-            <!-- Secondary Offset Photo (Courtyard Terrace) -->
-            <div class="story-photo-frame story-photo-secondary" id="story-photo-2">
-              <div class="story-photo-clip">
-                <picture>
-                  <source srcset="assets/images/hotel-lounge-pool.webp" type="image/webp">
-                  <img src="assets/images/hotel-lounge-pool.jpg" alt="Hotel Wallflower Twilight Courtyard Terrace" class="story-arch-img" loading="lazy">
-                </picture>
-              </div>
-              <div class="story-photo-caption">
-                <span class="caption-tag">02</span>
-                <span class="caption-title">Twilight Courtyard Terrace</span>
-              </div>
-            </div>
-          </div>
         </div>
+
       </div>
     </section>
 

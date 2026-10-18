@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initToast();
   initScrollDrivenHero();
   initPinnedStorytellingSection();
-  initBrandStoryParallax();
+  initFloatingPerspectiveShowcase();
   initRoomsHorizontalTrack();
   initAtmosphereReveal();
   initStatementMaskReveal();
@@ -1769,63 +1769,300 @@ function initPinnedStorytellingSection() {
 }
 
 /* ==========================================================================
-   02 — BRAND STORY: SPLIT TEXT REVEAL & ASYMMETRIC ARCHITECTURAL PARALLAX
+   02 — FLOATING PERSPECTIVES (SCROLL-DRIVEN AESTHETIC MOTION SHOWCASE)
+   - Image cluster enters from Left and glides across to Right as user scrolls
+   - Motion effect dynamically evolves/changes at each stage:
+     * Phase 1 (Left): Ascending levitation arc, -18deg tilt, 3D yaw 28deg
+     * Phase 2 (Center): 3D gyroscopic roll, wave dip, scale surge to 1.2, photo crossfade
+     * Phase 3 (Right): Horizon glide departure, +18deg tilt, 3D yaw -30deg, photo crossfade
+   - Autonomous floating levitation continues even when scroll stops
    ========================================================================== */
-function initBrandStoryParallax() {
-  const storySection = document.getElementById('brand-story');
-  if (!storySection) return;
+function initFloatingPerspectiveShowcase() {
+  const section = document.getElementById('brand-story');
+  const stage = document.getElementById('floating-perspective-stage');
+  const cluster = document.getElementById('floating-hero-cluster');
+  const mainCard = document.getElementById('floating-main-card');
+  const companionCard = document.getElementById('floating-companion-card');
+  const tertiaryCard = document.getElementById('floating-tertiary-card');
+  const watermark = document.getElementById('perspective-watermark-text');
+  const telemetryBadge = document.getElementById('motion-telemetry-badge');
+  const cardTitle = document.getElementById('motion-card-title');
+  const photo1 = document.getElementById('motion-photo-1');
+  const photo2 = document.getElementById('motion-photo-2');
+  const photo3 = document.getElementById('motion-photo-3');
+  const captionHeadline = document.getElementById('motion-caption-headline');
+  const captionSub = document.getElementById('motion-caption-sub');
+
+  if (!section || !stage || !cluster || !mainCard) return;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const animItems = storySection.querySelectorAll('.story-anim-item');
-  const photoClips = storySection.querySelectorAll('.story-photo-clip');
-
-  // If reduced motion is preferred, show everything immediately
   if (prefersReducedMotion) {
-    animItems.forEach(el => el.classList.add('in-view'));
-    photoClips.forEach(el => el.classList.add('in-view'));
+    cluster.style.transform = 'none';
+    mainCard.style.transform = 'none';
+    if (companionCard) companionCard.style.transform = 'none';
+    if (tertiaryCard) tertiaryCard.style.transform = 'none';
+    if (photo1) photo1.classList.add('layer-active');
     return;
   }
 
-  // 1. Text & Headline Upward Fade with Reading Stagger
-  if ('IntersectionObserver' in window) {
-    const textObserver = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-    animItems.forEach(el => textObserver.observe(el));
-
-    // 2. Photographs Clip-Path Mask Reveal
-    const photoObserver = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
-
-    photoClips.forEach(clip => photoObserver.observe(clip));
-  } else {
-    animItems.forEach(el => el.classList.add('in-view'));
-    photoClips.forEach(clip => clip.classList.add('in-view'));
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    cluster.style.transform = 'none';
+    mainCard.style.transform = 'none';
+    if (photo1) photo1.classList.add('layer-active');
+    return;
   }
 
-  // 3. Optional GSAP ScrollTrigger Integration if present
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    ScrollTrigger.create({
-      trigger: storySection,
-      start: 'top 85%',
-      once: true,
-      onEnter: () => {
-        animItems.forEach(el => el.classList.add('in-view'));
-        photoClips.forEach(clip => clip.classList.add('in-view'));
-      }
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Kill existing trigger if reinitialized
+  const oldTrigger = ScrollTrigger.getById('floating-perspective-trigger');
+  if (oldTrigger) oldTrigger.kill();
+
+  const getSweepDistance = () => {
+    return Math.max(window.innerWidth * 0.62, 550);
+  };
+
+  // 1. Initial State: Cluster starts positioned on the LEFT side of viewport
+  gsap.set(cluster, {
+    x: () => -getSweepDistance(),
+    y: 0,
+    force3D: true
+  });
+
+  gsap.set(mainCard, {
+    rotation: -18,
+    rotationY: 28,
+    rotationX: 8,
+    y: 70,
+    scale: 0.8,
+    opacity: 0.7,
+    force3D: true,
+    transformPerspective: 1200
+  });
+
+  if (companionCard) {
+    gsap.set(companionCard, {
+      x: -60,
+      y: -40,
+      scale: 0.72,
+      rotation: -12,
+      opacity: 0.65,
+      force3D: true
     });
+  }
+
+  if (tertiaryCard) {
+    gsap.set(tertiaryCard, {
+      x: 50,
+      y: 60,
+      scale: 0.68,
+      rotation: 14,
+      opacity: 0.6,
+      force3D: true
+    });
+  }
+
+  if (watermark) {
+    gsap.set(watermark, { x: 0 });
+  }
+
+  // 2. Main Scroll-driven Timeline (pin stage for 240vh)
+  const motionTimeline = gsap.timeline({
+    scrollTrigger: {
+      id: 'floating-perspective-trigger',
+      trigger: section,
+      pin: stage,
+      start: 'top top',
+      end: '+=240%',
+      scrub: 0.7, // Silky smooth organic scrub
+      pinSpacing: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const p = self.progress;
+
+        // Dynamically update telemetry and caption state as motion evolves
+        if (p < 0.38) {
+          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 01 · LEFT INCOMING DRIFT') {
+            telemetryBadge.textContent = 'PHASE 01 · LEFT INCOMING DRIFT';
+          }
+          if (cardTitle && cardTitle.textContent !== 'Ground Atrium · Sculpted Limestone') {
+            cardTitle.textContent = 'Ground Atrium · Sculpted Limestone';
+          }
+          if (photo1 && !photo1.classList.contains('layer-active')) {
+            photo1.classList.add('layer-active');
+            if (photo2) photo2.classList.remove('layer-active');
+            if (photo3) photo3.classList.remove('layer-active');
+          }
+          if (captionHeadline) {
+            captionHeadline.innerHTML = 'Where architectural silence <em>glides through mindful space.</em>';
+          }
+          if (captionSub) {
+            captionSub.textContent = 'Scroll to explore perspective · Handcrafted Kota limestone and acoustic stillness in dynamic motion.';
+          }
+        } else if (p >= 0.38 && p < 0.72) {
+          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 02 · 3D GYROSCOPIC TILT') {
+            telemetryBadge.textContent = 'PHASE 02 · 3D GYROSCOPIC TILT';
+          }
+          if (cardTitle && cardTitle.textContent !== 'Royal Sanctuary Suite · Acoustic Isolation') {
+            cardTitle.textContent = 'Royal Sanctuary Suite · Acoustic Isolation';
+          }
+          if (photo2 && !photo2.classList.contains('layer-active')) {
+            photo2.classList.add('layer-active');
+            if (photo1) photo1.classList.remove('layer-active');
+            if (photo3) photo3.classList.remove('layer-active');
+          }
+          if (captionHeadline) {
+            captionHeadline.innerHTML = 'Sculpted stone and teak <em>in harmonic zero-gravity balance.</em>';
+          }
+          if (captionSub) {
+            captionSub.textContent = 'Full 3D gyroscopic roll · Orthopedic serenity and sound-engineered luxury on Jhalawar Road.';
+          }
+        } else {
+          if (telemetryBadge && telemetryBadge.textContent !== 'PHASE 03 · HORIZON DEPARTURE GLIDE') {
+            telemetryBadge.textContent = 'PHASE 03 · HORIZON DEPARTURE GLIDE';
+          }
+          if (cardTitle && cardTitle.textContent !== 'Twilight Courtyard · Amber Reflections') {
+            cardTitle.textContent = 'Twilight Courtyard · Amber Reflections';
+          }
+          if (photo3 && !photo3.classList.contains('layer-active')) {
+            photo3.classList.add('layer-active');
+            if (photo1) photo1.classList.remove('layer-active');
+            if (photo2) photo2.classList.remove('layer-active');
+          }
+          if (captionHeadline) {
+            captionHeadline.innerHTML = 'Restorative twilight horizons <em>unfolding into the Kota night.</em>';
+          }
+          if (captionSub) {
+            captionSub.textContent = 'Kinetic perspective exit · Private courtyards and bespoke cocktails stirred under the stars.';
+          }
+        }
+      }
+    }
+  });
+
+  // --- HORIZONTAL JOURNEY (Sweep from Left -sweepDistance to Right +sweepDistance) ---
+  motionTimeline.to(cluster, {
+    x: () => getSweepDistance(),
+    duration: 1.0,
+    ease: 'none'
+  }, 0.0);
+
+  // Background watermark subtle counter-drift
+  if (watermark) {
+    motionTimeline.to(watermark, {
+      x: () => -window.innerWidth * 0.25,
+      duration: 1.0,
+      ease: 'none'
+    }, 0.0);
+  }
+
+  // --- MOTION EFFECT PHASE 1: Left Entrance to Center-Left (0.00 -> 0.38) ---
+  // Rises up along an ascending levitation curve, rotation eases, scale expands
+  motionTimeline.to(mainCard, {
+    y: -35,
+    rotation: -4,
+    rotationY: 10,
+    rotationX: 4,
+    scale: 1.05,
+    opacity: 1,
+    duration: 0.38,
+    ease: 'power2.out'
+  }, 0.0);
+
+  if (companionCard) {
+    motionTimeline.to(companionCard, {
+      x: -40,
+      y: 20,
+      scale: 0.88,
+      rotation: 6,
+      opacity: 0.85,
+      duration: 0.38,
+      ease: 'power2.out'
+    }, 0.0);
+  }
+
+  if (tertiaryCard) {
+    motionTimeline.to(tertiaryCard, {
+      x: 30,
+      y: -25,
+      scale: 0.82,
+      rotation: -8,
+      opacity: 0.85,
+      duration: 0.38,
+      ease: 'power2.out'
+    }, 0.0);
+  }
+
+  // --- MOTION EFFECT PHASE 2: Center-Stage 3D Gyroscopic Roll & Wave Dip (0.38 -> 0.70) ---
+  // Motion effect flips: dips into S-wave, rotation inverts to +6deg, rotateY inverts to -14deg, scale surges to 1.2
+  motionTimeline.to(mainCard, {
+    y: 15,
+    rotation: 6,
+    rotationY: -14,
+    rotationX: -6,
+    scale: 1.2,
+    duration: 0.32,
+    ease: 'sine.inOut'
+  }, 0.38);
+
+  if (companionCard) {
+    motionTimeline.to(companionCard, {
+      x: -110,
+      y: -45,
+      scale: 0.78,
+      rotation: -14,
+      duration: 0.32,
+      ease: 'sine.inOut'
+    }, 0.38);
+  }
+
+  if (tertiaryCard) {
+    motionTimeline.to(tertiaryCard, {
+      x: 100,
+      y: 55,
+      scale: 0.75,
+      rotation: 12,
+      duration: 0.32,
+      ease: 'sine.inOut'
+    }, 0.38);
+  }
+
+  // --- MOTION EFFECT PHASE 3: Center-Right to Far Right Departure (0.70 -> 1.00) ---
+  // Motion changes again: banks upward then departs smoothly into right edge with +18deg angle
+  motionTimeline.to(mainCard, {
+    y: 50,
+    rotation: 18,
+    rotationY: -30,
+    rotationX: 8,
+    scale: 0.82,
+    opacity: 0.75,
+    duration: 0.30,
+    ease: 'power2.in'
+  }, 0.70);
+
+  if (companionCard) {
+    motionTimeline.to(companionCard, {
+      x: 30,
+      y: 60,
+      scale: 0.65,
+      rotation: 16,
+      opacity: 0.5,
+      duration: 0.30,
+      ease: 'power2.in'
+    }, 0.70);
+  }
+
+  if (tertiaryCard) {
+    motionTimeline.to(tertiaryCard, {
+      x: -20,
+      y: -50,
+      scale: 0.65,
+      rotation: -14,
+      opacity: 0.5,
+      duration: 0.30,
+      ease: 'power2.in'
+    }, 0.70);
   }
 }
 
