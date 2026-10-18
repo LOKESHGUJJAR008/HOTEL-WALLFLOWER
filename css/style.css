@@ -536,6 +536,10 @@ h1, h2, h3, h4, h5, h6 {
     width: auto;
     max-width: 94vw;
   }
+
+  body:has(.sticky-booking-bar) .floating-glass-dock {
+    bottom: 60px;
+  }
   
   .dock-divider {
     width: 1px;
@@ -1641,7 +1645,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.7rem;
   }
   .floating-whatsapp-btn {
-    bottom: 70px !important;
+    bottom: 122px !important;
     right: 14px !important;
   }
   .site-footer {
