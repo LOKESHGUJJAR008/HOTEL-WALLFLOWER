@@ -1,0 +1,12 @@
+{
+  "name": "hotel-wallflower",
+  "version": "1.0.0",
+  "description": "Hotel Wallflower - Luxury Boutique Hotel in Kota, Rajasthan",
+  "scripts": {
+    "dev": "python -m http.server 3000",
+    "start": "python -m http.server 3000"
+  },
+  "keywords": ["hotel", "wallflower", "luxury", "kota"],
+  "author": "Hotel Wallflower",
+  "license": "ISC"
+}

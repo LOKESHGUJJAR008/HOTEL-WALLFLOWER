@@ -735,12 +735,26 @@ h1, h2, h3, h4, h5, h6 {
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.28);
   text-stroke: 1.5px rgba(255, 255, 255, 0.28);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.02) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.02) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.12));
+  filter: drop-shadow(0 0 45px rgba(255, 255, 255, 0.15));
   will-change: transform;
+  transform-origin: center center;
+  animation: fishGlideAmbient 6s ease-in-out infinite alternate;
   transition: transform 0.08s ease-out;
+}
+
+@keyframes fishGlideAmbient {
+  0% {
+    transform: translate3d(0, -10px, 0) rotate(-1.5deg) skewY(-0.8deg);
+  }
+  50% {
+    transform: translate3d(12px, 12px, 0) rotate(1.4deg) skewY(0.8deg);
+  }
+  100% {
+    transform: translate3d(-10px, -6px, 0) rotate(-1.2deg) skewY(-0.6deg);
+  }
 }
 
 .hero-content {
@@ -953,416 +967,200 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   KINETIC ROOM ACCELERATOR (Motion Graphics Showcase)
+   3D MOTIONFRAME ROOMS SLIDER (Cinematic Perspective Carousel)
    ========================================================================== */
-.room-accelerator-wrapper {
-  position: relative;
-  margin-bottom: 45px;
-}
-
-/* Accelerator Cockpit & Telemetry HUD */
-.accelerator-hud-panel {
-  background: rgba(12, 12, 12, 0.88);
-  backdrop-filter: var(--glass-blur-lg);
-  -webkit-backdrop-filter: var(--glass-blur-lg);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: var(--radius-xl);
-  padding: 22px 28px;
-  margin-bottom: 25px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(255, 255, 255, 0.25);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  position: relative;
-}
-
-.accelerator-hud-panel::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 12%;
-  right: 12%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-}
-
-/* Speedometer & Tachometer */
-.hud-speedometer {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.hud-speed-gauge {
-  display: flex;
-  flex-direction: column;
-}
-
-.hud-speed-label {
-  font-family: var(--font-accent);
-  font-size: 0.72rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #A1A1AA;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.hud-speed-label::before {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  box-shadow: 0 0 8px #FFFFFF;
-  animation: pulseWhite 1.5s infinite;
-}
-
-@keyframes pulseWhite {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
-.hud-speed-number {
-  font-family: var(--font-accent);
-  font-size: 2.8rem;
-  font-weight: 800;
-  line-height: 1;
-  color: #FFFFFF;
-  letter-spacing: -0.04em;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.hud-speed-number span {
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #A1A1AA;
-}
-
-/* Dynamic LED Speed Bar */
-.hud-led-bar {
-  display: flex;
-  gap: 3px;
-  margin-top: 6px;
-}
-
-.hud-led-segment {
-  width: 6px;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 2px;
-  transform: skewX(-15deg);
-  transition: all 0.12s ease;
-}
-
-.hud-led-segment.active {
-  background: #FFFFFF;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-}
-
-/* Accelerator Controls */
-.hud-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.accel-gear-btn {
-  font-family: var(--font-accent);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 9px 16px;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #A1A1AA;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.accel-gear-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-.accel-gear-btn.active {
-  background: #FFFFFF;
-  color: #000000;
-  border-color: #FFFFFF;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-}
-
-/* Push Accelerator Pedal Button */
-.accel-pedal-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #FFFFFF;
-  color: #000000;
-  font-family: var(--font-accent);
-  font-size: 0.88rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  padding: 11px 22px;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  border: 1px solid #FFFFFF;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.45), inset 0 1px 1px #FFFFFF;
-  transition: all 0.15s ease;
-  user-select: none;
-}
-
-.accel-pedal-btn:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 0 35px rgba(255, 255, 255, 0.75);
-}
-
-.accel-pedal-btn:active,
-.accel-pedal-btn.accelerating {
-  transform: translateY(2px) scale(0.96);
-  background: #FFFFFF;
-  box-shadow: 0 0 50px rgba(255, 255, 255, 1);
-}
-
-.accel-brake-btn {
-  font-family: var(--font-accent);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 9px 16px;
-  border-radius: var(--radius-full);
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #FFFFFF;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.accel-brake-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: #FFFFFF;
-}
-
-/* Telemetry Readouts */
-.hud-telemetry {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-family: monospace;
-  font-size: 0.75rem;
-  color: #A1A1AA;
-  text-align: right;
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
-  padding-left: 18px;
-}
-
-.hud-telemetry span {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-/* The Viewport and Infinite Kinetic Track */
-.room-accelerator-viewport {
+.motionframe-stage-wrapper {
   position: relative;
   width: 100%;
+  padding: 20px 0 30px;
   overflow: hidden;
-  padding: 15px 0 25px;
-  cursor: grab;
-  user-select: none;
-  touch-action: pan-y;
+  perspective: 1400px;
 }
 
-.room-accelerator-viewport:active {
-  cursor: grabbing;
-}
-
-/* Vignette Fade Edges */
-.room-accelerator-viewport::before,
-.room-accelerator-viewport::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 80px;
-  z-index: 5;
-  pointer-events: none;
-}
-
-.room-accelerator-viewport::before {
-  left: 0;
-  background: linear-gradient(90deg, #000000 0%, transparent 100%);
-}
-
-.room-accelerator-viewport::after {
-  right: 0;
-  background: linear-gradient(270deg, #000000 0%, transparent 100%);
-}
-
-.room-accelerator-track {
+/* Motionframe HUD Header */
+.motionframe-hud-bar {
   display: flex;
-  gap: 24px;
-  width: max-content;
-  will-change: transform;
-}
-
-/* The Kinetic Room Card with Motion Graphics */
-.accel-card {
-  width: 360px;
-  flex-shrink: 0;
-  background: rgba(14, 14, 14, 0.88);
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(14, 14, 14, 0.85);
   backdrop-filter: var(--glass-blur-md);
   -webkit-backdrop-filter: var(--glass-blur-md);
-  border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(255, 255, 255, 0.22);
-  overflow: hidden;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  border-radius: var(--radius-full);
+  padding: 10px 24px;
+  max-width: 680px;
+  margin: 0 auto 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.motionframe-indicator {
+  font-family: monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.15em;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.motionframe-indicator .frame-active-num {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #FFFFFF;
+}
+
+.motionframe-hud-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.motionframe-arrow-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.motionframe-arrow-btn:hover {
+  background: #FFFFFF;
+  color: #000000;
+  transform: scale(1.08);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* 3D Motionframe Carousel Track */
+.motionframe-track-container {
   position: relative;
+  width: 100%;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+/* 3D Motionframe Card */
+.motionframe-card {
+  position: absolute;
+  width: 380px;
+  height: 500px;
+  background: rgba(16, 16, 16, 0.92);
+  backdrop-filter: var(--glass-blur-lg);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+              opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+              filter 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.4s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  will-change: transform, opacity;
 }
 
-.accel-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: rgba(255, 255, 255, 0.65);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 255, 255, 0.25);
+/* Motionframe Framing Elements */
+.motionframe-bracket-tl,
+.motionframe-bracket-tr,
+.motionframe-bracket-bl,
+.motionframe-bracket-br {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(255, 255, 255, 0.75);
+  pointer-events: none;
+  z-index: 5;
+}
+.motionframe-bracket-tl { top: 12px; left: 12px; border-top: 2px solid; border-left: 2px solid; }
+.motionframe-bracket-tr { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
+.motionframe-bracket-bl { bottom: 12px; left: 12px; border-bottom: 2px solid; border-left: 2px solid; }
+.motionframe-bracket-br { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.motionframe-tag {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-family: monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: #FFFFFF;
+  z-index: 4;
 }
 
-/* Motion Graphic Media */
-.accel-card-media {
+.motionframe-price {
+  position: absolute;
+  bottom: 16px;
+  right: 18px;
+  background: #FFFFFF;
+  color: #000000;
+  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  font-family: var(--font-accent);
+  font-weight: 800;
+  font-size: 1rem;
+  z-index: 4;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.motionframe-media {
   position: relative;
-  height: 240px;
+  height: 250px;
   overflow: hidden;
   background: #000;
 }
 
-.accel-card-media img {
+.motionframe-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease, filter 0.2s ease;
-  filter: contrast(1.1) brightness(0.92);
+  transition: transform 0.5s ease;
 }
 
-.accel-card:hover .accel-card-media img {
-  transform: scale(1.08);
+.motionframe-card:hover .motionframe-media img {
+  transform: scale(1.06);
 }
 
-/* Scanning Laser Line */
-.accel-scanline {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #FFFFFF, transparent);
-  box-shadow: 0 0 10px #FFFFFF;
-  opacity: 0;
-  pointer-events: none;
-  animation: scanLaser 3s infinite;
-}
-
-@keyframes scanLaser {
-  0% { top: 0%; opacity: 0; }
-  15% { opacity: 0.9; }
-  85% { opacity: 0.9; }
-  100% { top: 100%; opacity: 0; }
-}
-
-/* Corner Reticles */
-.accel-reticle-tl,
-.accel-reticle-tr,
-.accel-reticle-bl,
-.accel-reticle-br {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-color: rgba(255, 255, 255, 0.7);
-  pointer-events: none;
-  z-index: 3;
-}
-.accel-reticle-tl { top: 10px; left: 10px; border-top: 2px solid; border-left: 2px solid; }
-.accel-reticle-tr { top: 10px; right: 10px; border-top: 2px solid; border-right: 2px solid; }
-.accel-reticle-bl { bottom: 10px; left: 10px; border-bottom: 2px solid; border-left: 2px solid; }
-.accel-reticle-br { bottom: 10px; right: 10px; border-bottom: 2px solid; border-right: 2px solid; }
-
-/* HUD Badges on Card */
-.accel-hud-tag {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: var(--radius-full);
-  padding: 4px 12px;
-  font-family: monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  color: #FFFFFF;
-  z-index: 3;
-}
-
-.accel-hud-price {
-  position: absolute;
-  bottom: 14px;
-  right: 14px;
-  background: #FFFFFF;
-  color: #000000;
-  border-radius: var(--radius-full);
-  padding: 6px 14px;
-  font-family: var(--font-accent);
-  font-weight: 800;
-  font-size: 0.95rem;
-  z-index: 3;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-}
-
-.accel-card-body {
-  padding: 22px;
+.motionframe-body {
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   flex: 1;
 }
 
-.accel-specs-row {
+.motionframe-meta {
   display: flex;
   gap: 12px;
   font-family: monospace;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   color: #A1A1AA;
 }
 
-.accel-specs-row span {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.accel-card-title {
+.motionframe-title {
   font-family: var(--font-serif);
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: #FFFFFF;
   line-height: 1.25;
 }
 
-.accel-card-desc {
+.motionframe-desc {
   font-size: 0.86rem;
   color: #A1A1AA;
   line-height: 1.55;
@@ -1372,26 +1170,25 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
-.accel-features-row {
+.motionframe-pills {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 4px;
 }
 
-.accel-feature-pill {
+.motionframe-pill {
   font-family: var(--font-accent);
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
   color: #FFFFFF;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-full);
   padding: 4px 10px;
 }
 
-.accel-card-footer {
+.motionframe-footer {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1400,17 +1197,82 @@ h1, h2, h3, h4, h5, h6 {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.accel-card-footer .btn-room-details {
+.motionframe-footer .btn-room-details {
   flex: 1;
 }
 
-/* Accelerator Toggle View Bar */
-.accelerator-view-toggle {
+/* 3D Motionframe Positioning States */
+.motionframe-card.active {
+  transform: translate3d(0, 0, 80px) rotateY(0deg) scale(1.05);
+  opacity: 1;
+  filter: none;
+  z-index: 10;
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 255, 255, 0.25);
+  cursor: default;
+}
+
+.motionframe-card.prev {
+  transform: translate3d(-330px, 0, -80px) rotateY(24deg) scale(0.9);
+  opacity: 0.72;
+  filter: brightness(0.7) blur(0.5px);
+  z-index: 5;
+}
+
+.motionframe-card.next {
+  transform: translate3d(330px, 0, -80px) rotateY(-24deg) scale(0.9);
+  opacity: 0.72;
+  filter: brightness(0.7) blur(0.5px);
+  z-index: 5;
+}
+
+.motionframe-card.far-prev {
+  transform: translate3d(-580px, 0, -180px) rotateY(38deg) scale(0.78);
+  opacity: 0.35;
+  filter: brightness(0.4) blur(2px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.motionframe-card.far-next {
+  transform: translate3d(580px, 0, -180px) rotateY(-38deg) scale(0.78);
+  opacity: 0.35;
+  filter: brightness(0.4) blur(2px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.motionframe-card.hidden {
+  transform: translate3d(0, 0, -300px) scale(0.6);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Motionframe Pagination Dots */
+.motionframe-dots {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 8px;
   margin-top: 20px;
+}
+
+.motionframe-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.motionframe-dot.active {
+  background: #FFFFFF;
+  box-shadow: 0 0 10px #FFFFFF;
+  width: 28px;
+  border-radius: var(--radius-full);
 }
 
 /* ==========================================================================
@@ -1599,132 +1461,233 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   KOTA CITY SHOWCASE BLOCK (Glass Frame)
+   VIP ROYAL RED CARPET WELCOME RUNWAY (Scroll-Driven Welcome Animation)
    ========================================================================== */
-.kota-showcase-section {
+.red-carpet-section {
   position: relative;
-  background: transparent;
-  color: var(--text-white);
-  padding: 100px 0;
+  background: #000000;
+  padding: 110px 0 130px;
   overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.kota-showcase-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.showcase-media-wrap {
-  position: relative;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
-  border: 1px solid var(--glass-border-gold);
-}
-
-.showcase-media-wrap img {
+/* Ambient Spotlights */
+.red-carpet-spotlights {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 480px;
-  object-fit: cover;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.showcase-play-badge {
+.spotlight-beam-left {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 76px;
-  height: 76px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: var(--glass-blur-sm);
+  top: -15%;
+  left: 5%;
+  width: 420px;
+  height: 120%;
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.14) 0%, transparent 65%);
+  transform: rotate(22deg);
+  filter: blur(35px);
+}
+
+.spotlight-beam-right {
+  position: absolute;
+  top: -15%;
+  right: 5%;
+  width: 420px;
+  height: 120%;
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.14) 0%, transparent 65%);
+  transform: rotate(-22deg);
+  filter: blur(35px);
+}
+
+/* Runway Header */
+.red-carpet-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 55px;
+  position: relative;
+  z-index: 3;
+}
+
+.red-carpet-crown-crest {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+/* The Runway Container */
+.red-carpet-runway {
+  position: relative;
+  max-width: 950px;
+  margin: 0 auto;
+  z-index: 2;
+  perspective: 1200px;
+}
+
+/* The Grand Velvet Red Carpet Runner */
+.red-carpet-mat {
+  position: relative;
+  margin: 0 auto;
+  width: clamp(300px, 80%, 720px);
+  min-height: 650px;
+  background: linear-gradient(180deg, 
+    #730010 0%, 
+    #990016 30%, 
+    #BA102C 65%, 
+    #800012 100%
+  );
+  border-left: 5px solid #FFFFFF;
+  border-right: 5px solid #FFFFFF;
+  box-shadow: 
+    0 0 70px rgba(186, 16, 44, 0.45),
+    inset 0 0 35px rgba(0, 0, 0, 0.65),
+    inset 4px 0 0 rgba(255, 255, 255, 0.35),
+    inset -4px 0 0 rgba(255, 255, 255, 0.35);
+  border-radius: 16px 16px 0 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  color: #0A1422;
-  box-shadow: 0 0 35px rgba(255, 255, 255, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-  transition: all var(--transition-normal);
+  justify-content: space-between;
+  padding: 50px 30px 40px;
+  transform-origin: top center;
+  transition: transform 0.4s ease-out;
 }
 
-.showcase-play-badge:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  background: #FFFFFF;
-}
-
-.showcase-floating-stat {
+/* VIP Stanchions on Runway Borders */
+.red-carpet-stanchions {
   position: absolute;
-  bottom: 24px;
-  left: 24px;
-  background: rgba(8, 18, 32, 0.85);
-  backdrop-filter: var(--glass-blur-md);
-  -webkit-backdrop-filter: var(--glass-blur-md);
-  padding: 14px 22px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--glass-border-gold);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
 }
 
-.stat-icon {
-  width: 40px;
-  height: 40px;
-  background: var(--gold-gradient);
-  border-radius: 10px;
+.stanchion-rope-left,
+.stanchion-rope-right {
+  position: absolute;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0, rgba(255, 255, 255, 0.6) 14px, transparent 14px, transparent 24px);
+}
+.stanchion-rope-left { left: calc(50% - 390px); }
+.stanchion-rope-right { right: calc(50% - 390px); }
+
+/* The Giant Royal WELCOME Letters */
+.carpet-welcome-letters-wrap {
+  display: flex;
+  justify-content: center;
+  gap: clamp(8px, 2.8vw, 26px);
+  margin: 25px 0 15px;
+}
+
+.carpet-letter {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.18);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateY(24px) scale(0.9);
+  display: inline-block;
+  user-select: none;
+}
+
+.carpet-letter.illuminated {
+  color: #FFFFFF;
+  transform: translateY(0) scale(1.08);
+  text-shadow: 
+    0 0 25px rgba(255, 255, 255, 0.95),
+    0 0 50px rgba(255, 255, 255, 0.6),
+    0 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Welcome Subtitle & Royal Tagline */
+.carpet-tagline {
+  font-family: var(--font-accent);
+  font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: 10px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  opacity: 0.95;
+}
+
+.carpet-perks-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  margin: 35px auto 25px;
+}
+
+.carpet-perk-card {
+  background: rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.carpet-perk-card:hover {
+  transform: translateY(-3px);
+  border-color: #FFFFFF;
+}
+
+.carpet-perk-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0A1422;
-  box-shadow: var(--shadow-gold);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
-.stat-text h4 {
+.carpet-perk-text h4 {
   font-family: var(--font-accent);
-  font-size: 1.15rem;
-  color: var(--text-white);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #FFFFFF;
   margin-bottom: 2px;
 }
 
-.stat-text p {
-  font-size: 0.78rem;
-  color: var(--gold-light);
+.carpet-perk-text p {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.78);
 }
 
-.showcase-content p {
-  color: rgba(241, 245, 249, 0.85);
-  font-size: 1.05rem;
-  line-height: 1.75;
-  margin-bottom: 28px;
-}
-
-.showcase-landmarks-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 36px;
-}
-
-.landmark-pill {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: var(--glass-blur-sm);
-  border: 1px solid var(--glass-border);
-  padding: 12px 18px;
-  border-radius: var(--radius-sm);
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.95);
-  box-shadow: var(--shadow-glass);
-}
-
-.landmark-pill svg {
-  color: var(--gold-rich);
+.carpet-cta-wrap {
+  text-align: center;
+  margin-top: 15px;
 }
 
 /* ==========================================================================

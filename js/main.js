@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initGalleryLightbox();
   initToast();
   initHeroScrollChoreography();
-  initRoomAccelerator();
+  initRooms3DMotionframeSlider();
+  initRedCarpetWelcomeAnimation();
 });
 
 /* ==========================================================================
@@ -726,13 +727,15 @@ function initHeroScrollChoreography() {
     heroImg.style.transform = `scale(${currentScale.toFixed(4)})`;
     heroImg.style.filter = `brightness(${brightness.toFixed(3)}) contrast(1.1) grayscale(0.12)`;
 
-    // 2. Bold italic transparent watermark text slides horizontally across the screen
+    // 2. Bold italic transparent watermark text glides like a fish across the screen
+    // Combines horizontal glide, undulating vertical sine-wave, and subtle swimming yaw tilt
     if (watermarkText) {
-      const slideX = progress * 320; // slides right-to-left
-      const slideY = progress * 40;
-      const textScale = 1 + progress * 0.08;
-      watermarkText.style.transform = `translate3d(${-slideX.toFixed(1)}px, ${slideY.toFixed(1)}px, 0) scale(${textScale.toFixed(3)})`;
-      watermarkText.style.opacity = Math.max(0.10, 1 - progress * 0.75);
+      const slideX = -progress * 420; // Glides horizontally
+      const waveY = Math.sin(progress * Math.PI * 3.5) * 48; // Undulating vertical swimming wave
+      const swimTilt = Math.cos(progress * Math.PI * 3.5) * 5.4; // Fin and tail swimming yaw tilt
+      const textScale = 1 + Math.sin(progress * Math.PI * 2) * 0.04 + progress * 0.05;
+      watermarkText.style.transform = `translate3d(${slideX.toFixed(1)}px, ${waveY.toFixed(1)}px, 0) rotate(${swimTilt.toFixed(2)}deg) scale(${textScale.toFixed(3)})`;
+      watermarkText.style.opacity = Math.max(0.12, 1 - progress * 0.70);
     }
 
     // 3. Foreground title & booking bar slide up and fade out in the latter half of the zoom-out
@@ -775,266 +778,184 @@ function initHeroScrollChoreography() {
 }
 
 /* ==========================================================================
-   KINETIC ROOM ACCELERATOR (Motion Graphics Carousel & Speedometer Telemetry)
+   3D MOTIONFRAME ROOM SLIDER (Cinematic Perspective Depth & HUD Telemetry)
    ========================================================================== */
-function initRoomAccelerator() {
-  const viewport = document.getElementById('room-accelerator-viewport');
-  const track = document.getElementById('room-accelerator-track');
-  const speedValEl = document.getElementById('accel-speed-val');
-  const statusTextEl = document.getElementById('accel-status-text');
-  const ledBar = document.getElementById('accel-led-bar');
-  const pedalBtn = document.getElementById('accel-pedal');
-  const brakeBtn = document.getElementById('accel-brake');
-  const gearBtns = document.querySelectorAll('.accel-gear-btn');
-  const toggleViewBtn = document.getElementById('toggle-rooms-view-btn');
-  const staticGrid = document.getElementById('static-rooms-grid');
+function initRooms3DMotionframeSlider() {
+  const stage = document.getElementById('motionframe-rooms-stage');
+  const cards = Array.from(document.querySelectorAll('.motionframe-card'));
+  const prevBtn = document.getElementById('motionframe-prev-btn');
+  const nextBtn = document.getElementById('motionframe-next-btn');
+  const frameNumEl = document.getElementById('current-frame-num');
+  const dots = Array.from(document.querySelectorAll('.motionframe-dot'));
 
-  if (!viewport || !track) return;
+  if (!stage || !cards.length) return;
 
-  // Duplicate cards inside track to achieve infinite seamless loop
-  const initialCards = Array.from(track.children);
-  initialCards.forEach(card => {
-    const clone = card.cloneNode(true);
-    track.appendChild(clone);
-  });
+  const totalCards = cards.length;
+  let activeIndex = 0;
 
-  let currentSpeed = 80; // Starting speed (KM/H)
-  let targetSpeed = 80;
-  let baseGearSpeed = 80;
-  let offset = 0;
-  let isBraking = false;
-  let isPedalHeld = false;
-  let isDragging = false;
-  let dragStartX = 0;
-  let dragStartOffset = 0;
-  let lastDragTime = 0;
-  let lastDragX = 0;
-  let dragVelocity = 0;
-  let isHovered = false;
+  const updateCardClasses = () => {
+    cards.forEach((card, i) => {
+      card.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next', 'hidden');
 
-  const ledSegments = ledBar ? Array.from(ledBar.querySelectorAll('.hud-led-segment')) : [];
+      const diff = (i - activeIndex + totalCards) % totalCards;
 
-  // Update LED segments based on current speed (0 - 260)
-  const updateLEDs = (speed) => {
-    if (!ledSegments.length) return;
-    const activeCount = Math.min(ledSegments.length, Math.round((speed / 240) * ledSegments.length));
-    ledSegments.forEach((seg, i) => {
-      if (i < activeCount) {
-        seg.classList.add('active');
+      if (diff === 0) {
+        card.classList.add('active');
+      } else if (diff === 1) {
+        card.classList.add('next');
+      } else if (diff === 2) {
+        card.classList.add('far-next');
+      } else if (diff === totalCards - 1) {
+        card.classList.add('prev');
+      } else if (diff === totalCards - 2) {
+        card.classList.add('far-prev');
       } else {
-        seg.classList.remove('active');
+        card.classList.add('hidden');
       }
+    });
+
+    // Update HUD frame number
+    if (frameNumEl) {
+      frameNumEl.textContent = String(activeIndex + 1).padStart(2, '0');
+    }
+
+    // Update dots
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === activeIndex);
     });
   };
 
-  // Gear Button Clicks
-  gearBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      gearBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const speed = parseInt(btn.dataset.speed, 10) || 80;
-      baseGearSpeed = speed;
-      targetSpeed = speed;
-      isBraking = false;
-      if (brakeBtn) brakeBtn.textContent = '⏸ BRAKE';
-      if (statusTextEl) {
-        statusTextEl.textContent = btn.textContent.toUpperCase();
-      }
-    });
-  });
-
-  // Accelerator Pedal (Push / Rev to Nitro Speed)
-  const pressPedal = (e) => {
-    if (e && e.type === 'touchstart') e.preventDefault();
-    isPedalHeld = true;
-    targetSpeed = 240;
-    isBraking = false;
-    if (pedalBtn) pedalBtn.classList.add('accelerating');
-    if (brakeBtn) brakeBtn.textContent = '⏸ BRAKE';
-    if (statusTextEl) statusTextEl.textContent = '⚡ NITRO BOOST (240 KM/H)';
+  const goToFrame = (index) => {
+    activeIndex = (index + totalCards) % totalCards;
+    updateCardClasses();
   };
 
-  const releasePedal = () => {
-    if (!isPedalHeld) return;
-    isPedalHeld = false;
-    targetSpeed = baseGearSpeed;
-    if (pedalBtn) pedalBtn.classList.remove('accelerating');
-    if (statusTextEl) statusTextEl.textContent = 'CRUISING SYNCED';
-  };
-
-  if (pedalBtn) {
-    pedalBtn.addEventListener('mousedown', pressPedal);
-    window.addEventListener('mouseup', releasePedal);
-    pedalBtn.addEventListener('touchstart', pressPedal, { passive: false });
-    window.addEventListener('touchend', releasePedal);
-
-    // Click toggle fallback for desktop click or tap
-    pedalBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      pressPedal();
-      setTimeout(releasePedal, 2200);
+  // Nav buttons
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToFrame(activeIndex - 1);
     });
   }
 
-  // Brake / Pause Button
-  if (brakeBtn) {
-    brakeBtn.addEventListener('click', () => {
-      if (!isBraking) {
-        isBraking = true;
-        targetSpeed = 0;
-        brakeBtn.textContent = '▶ RESUME';
-        if (statusTextEl) statusTextEl.textContent = 'BRAKE ENGAGED (0 KM/H)';
-      } else {
-        isBraking = false;
-        targetSpeed = baseGearSpeed;
-        brakeBtn.textContent = '⏸ BRAKE';
-        if (statusTextEl) statusTextEl.textContent = 'CRUISING SYNCED';
-      }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToFrame(activeIndex + 1);
     });
   }
 
-  // Hover over cards slows down for inspection
-  track.addEventListener('mouseenter', () => {
-    isHovered = true;
-    if (!isPedalHeld && !isBraking) {
-      targetSpeed = 25; // Gentle crawl for viewing
-      if (statusTextEl) statusTextEl.textContent = 'INSPECTION CRAWL (25 KM/H)';
-    }
-  });
-
-  track.addEventListener('mouseleave', () => {
-    isHovered = false;
-    if (!isPedalHeld && !isBraking) {
-      targetSpeed = baseGearSpeed;
-      if (statusTextEl) statusTextEl.textContent = 'CRUISING SYNCED';
-    }
-  });
-
-  // Mouse / Touch Drag Support
-  const onPointerDown = (e) => {
-    isDragging = true;
-    dragStartX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-    dragStartOffset = offset;
-    lastDragX = dragStartX;
-    lastDragTime = performance.now();
-    dragVelocity = 0;
-  };
-
-  const onPointerMove = (e) => {
-    if (!isDragging) return;
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-    const deltaX = clientX - dragStartX;
-    offset = dragStartOffset - deltaX;
-
-    const now = performance.now();
-    const dt = now - lastDragTime;
-    if (dt > 0) {
-      dragVelocity = (lastDragX - clientX) / dt;
-    }
-    lastDragX = clientX;
-    lastDragTime = now;
-  };
-
-  const onPointerUp = () => {
-    if (!isDragging) return;
-    isDragging = false;
-    // Impart flick velocity to current speed temporarily
-    if (Math.abs(dragVelocity) > 0.5) {
-      targetSpeed = Math.min(240, Math.max(30, Math.abs(dragVelocity) * 100));
-      setTimeout(() => {
-        if (!isPedalHeld && !isBraking) targetSpeed = baseGearSpeed;
-      }, 1200);
-    }
-  };
-
-  viewport.addEventListener('mousedown', onPointerDown);
-  window.addEventListener('mousemove', onPointerMove);
-  window.addEventListener('mouseup', onPointerUp);
-
-  viewport.addEventListener('touchstart', onPointerDown, { passive: true });
-  window.addEventListener('touchmove', onPointerMove, { passive: true });
-  window.addEventListener('touchend', onPointerUp);
-
-  // Mouse Wheel Accelerator Scrub
-  viewport.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    const delta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
-    offset += delta * 0.8;
-    // Temporarily increase speed response
-    targetSpeed = Math.min(240, targetSpeed + Math.abs(delta) * 0.2);
-    clearTimeout(viewport._wheelTimer);
-    viewport._wheelTimer = setTimeout(() => {
-      if (!isPedalHeld && !isBraking) targetSpeed = baseGearSpeed;
-    }, 400);
-  }, { passive: false });
-
-  // Main Accelerator Animation Loop
-  let lastTimestamp = performance.now();
-
-  const animateAccelerator = (timestamp) => {
-    const deltaTime = Math.min(60, timestamp - lastTimestamp);
-    lastTimestamp = timestamp;
-
-    // Smooth lerp speed
-    currentSpeed += (targetSpeed - currentSpeed) * 0.08;
-
-    // Update speedometer readout
-    if (speedValEl) {
-      speedValEl.textContent = Math.round(currentSpeed);
-    }
-    updateLEDs(currentSpeed);
-
-    // Advance offset
-    if (!isDragging) {
-      offset += (currentSpeed * 0.025) * (deltaTime / 16.6);
-    }
-
-    // Measure total loop width
-    const totalWidth = track.scrollWidth;
-    const halfWidth = totalWidth / 2;
-
-    if (halfWidth > 0) {
-      if (offset >= halfWidth) {
-        offset = offset % halfWidth;
-      } else if (offset < 0) {
-        offset = halfWidth + (offset % halfWidth);
-      }
-    }
-
-    track.style.transform = `translate3d(${-offset.toFixed(2)}px, 0, 0)`;
-
-    // Apply kinetic scanline & motion blur if revving high
-    if (currentSpeed > 150) {
-      const blurAmount = ((currentSpeed - 150) * 0.012).toFixed(1);
-      track.style.filter = `blur(${blurAmount}px)`;
-    } else {
-      track.style.filter = 'none';
-    }
-
-    requestAnimationFrame(animateAccelerator);
-  };
-
-  requestAnimationFrame(animateAccelerator);
-
-  // Toggle View Button (Accelerator Track vs Static Grid)
-  if (toggleViewBtn && staticGrid) {
-    toggleViewBtn.addEventListener('click', () => {
-      const isGridVisible = staticGrid.style.display !== 'none';
-      if (isGridVisible) {
-        staticGrid.style.display = 'none';
-        viewport.style.display = 'block';
-        toggleViewBtn.innerHTML = `
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-          <span>Switch to Static Grid View</span>
-        `;
-      } else {
-        staticGrid.style.display = 'grid';
-        viewport.style.display = 'none';
-        toggleViewBtn.innerHTML = `
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-          <span>Return to Kinetic Accelerator Track</span>
-        `;
+  // Click card to make it active
+  cards.forEach((card, index) => {
+    card.addEventListener('click', (e) => {
+      // Don't hijack if clicking booking/details buttons
+      if (e.target.closest('button') || e.target.closest('a')) return;
+      if (index !== activeIndex) {
+        e.preventDefault();
+        goToFrame(index);
       }
     });
-  }
+  });
+
+  // Dots click
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      goToFrame(index);
+    });
+  });
+
+  // Keyboard navigation when user is focused on slider
+  window.addEventListener('keydown', (e) => {
+    const stageRect = stage.getBoundingClientRect();
+    const inView = stageRect.top < window.innerHeight && stageRect.bottom > 0;
+    if (!inView) return;
+
+    if (e.key === 'ArrowLeft') {
+      goToFrame(activeIndex - 1);
+    } else if (e.key === 'ArrowRight') {
+      goToFrame(activeIndex + 1);
+    }
+  });
+
+  // Touch and drag swipe
+  let startX = 0;
+  let isSwiping = false;
+
+  stage.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isSwiping = true;
+  }, { passive: true });
+
+  stage.addEventListener('touchend', (e) => {
+    if (!isSwiping) return;
+    isSwiping = false;
+    const endX = e.changedTouches[0].clientX;
+    const diff = endX - startX;
+    if (diff > 50) {
+      goToFrame(activeIndex - 1);
+    } else if (diff < -50) {
+      goToFrame(activeIndex + 1);
+    }
+  });
+
+  // Initialize state
+  updateCardClasses();
+}
+
+/* ==========================================================================
+   VIP ROYAL RED CARPET WELCOME RUNWAY (Scroll-Driven Welcome Animation)
+   ========================================================================== */
+function initRedCarpetWelcomeAnimation() {
+  const section = document.getElementById('red-carpet-welcome');
+  const mat = document.getElementById('red-carpet-mat');
+  const letters = Array.from(document.querySelectorAll('.carpet-letter'));
+
+  if (!section || !letters.length) return;
+
+  let ticking = false;
+
+  const onScroll = () => {
+    const rect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // Calculate progress as section scrolls into viewport
+    const sectionHeight = section.offsetHeight;
+    const totalDistance = windowHeight + sectionHeight;
+    const currentPos = windowHeight - rect.top;
+    const progress = Math.min(1.0, Math.max(0, currentPos / totalDistance));
+
+    // Dynamic unroll effect on the velvet carpet runner
+    if (mat) {
+      const carpetProgress = Math.min(1.0, Math.max(0, (progress - 0.12) / 0.68));
+      const rotateX = (1 - carpetProgress) * 10;
+      const scaleX = 0.95 + carpetProgress * 0.05;
+      mat.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(2)}deg) scaleX(${scaleX.toFixed(3)})`;
+    }
+
+    // Sequentially illuminate W · E · L · C · O · M · E letters
+    const startProgress = 0.22;
+    const endProgress = 0.72;
+    const step = (endProgress - startProgress) / letters.length;
+
+    letters.forEach((letter, idx) => {
+      const threshold = startProgress + idx * step;
+      if (progress >= threshold) {
+        letter.classList.add('illuminated');
+      } else {
+        letter.classList.remove('illuminated');
+      }
+    });
+
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Initial check
+  onScroll();
 }
