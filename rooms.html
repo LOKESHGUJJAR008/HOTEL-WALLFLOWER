@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rooms & Suites | Hotel Wallflower Kota</title>
   <meta name="description" content="Explore luxury rooms and executive suites at Hotel Wallflower, Kota. Tailored for corporate travelers, students, visiting parents, and family getaways.">
-  <link rel="stylesheet" href="css/style.css?v=mobile1">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div class="rotate-hint" role="alert" aria-live="polite">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="7" y="2" width="10" height="20" rx="2"/>
+      <line x1="11" y1="18.5" x2="13" y2="18.5"/>
+    </svg>
+    <span class="rotate-hint__brand">WALLFLOWER</span>
+    <p class="rotate-hint__title">Please rotate your mobile</p>
+    <p class="rotate-hint__sub">Best experience ke liye phone ko landscape mode mein ghumaiye</p>
+  </div>
 
   <!-- Floating Transparent Glass Dock Navbar (Left-Side Floating Dock, 5 Page Logos) -->
   <nav class="floating-glass-dock" id="floating-dock" aria-label="Quick Dock Navigation">
@@ -449,10 +458,7 @@
           card.id = room.id;
           card.innerHTML = `
             <div class="room-media">
-              <picture>
-                <source srcset="${room.coverImage.replace(/\.(jpg|png)$/, '.webp')}" type="image/webp">
-                <img src="${room.coverImage}" alt="${room.name}" width="600" height="400" loading="lazy" decoding="async">
-              </picture>
+              <img src="${room.coverImage}" alt="${room.name}">
               <span class="room-badge">${room.discount}</span>
               <div class="room-price-tag">
                 <span class="price-val">₹${room.price.toLocaleString('en-IN')}</span>
