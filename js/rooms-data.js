@@ -21,11 +21,11 @@ const ROOMS_DATA = [
     rating: 4.8,
     reviewsCount: 142,
     featured: true,
-    coverImage: "assets/images/room-executive-suite.jpg",
+    coverImage: "assets/images/room-executive-suite.webp",
     gallery: [
-      "assets/images/room-executive-suite.jpg",
-      "assets/images/room-bathroom.jpg",
-      "assets/images/hotel-lobby.jpg"
+      "assets/images/room-executive-suite.webp",
+      "assets/images/room-bathroom.webp",
+      "assets/images/hotel-lobby.webp"
     ],
     shortDesc: "Thoughtfully crafted for business professionals and visiting parents, featuring premium bedding, an ergonomic workstation, and serene city views.",
     description: "The Deluxe Executive Room at Hotel Wallflower offers a serene sanctuary in the heart of Kota. Designed with muted tones, warm wood accents, and natural sunlight, this room features an ultra-comfortable king-sized bed with 400-thread-count linens, a dedicated work desk with high-speed fiber internet, and an ensuite Italian-tiled bathroom with a rainforest shower.",
@@ -58,11 +58,11 @@ const ROOMS_DATA = [
     rating: 4.9,
     reviewsCount: 198,
     featured: true,
-    coverImage: "assets/images/room-twin.jpg",
+    coverImage: "assets/images/room-twin.webp",
     gallery: [
-      "assets/images/room-twin.jpg",
-      "assets/images/room-bathroom.jpg",
-      "assets/images/hotel-breakfast.jpg"
+      "assets/images/room-twin.webp",
+      "assets/images/room-bathroom.webp",
+      "assets/images/hotel-breakfast.webp"
     ],
     shortDesc: "Tailored specifically for student-parent duos or visiting colleagues, with dual dedicated study/work desks and tranquil acoustic comfort.",
     description: "Kota is renowned for academic focus and coaching excellence. Our Superior Twin Room has been purposefully engineered for visiting parents with students, or corporate pairs. Equipped with two plush independent single beds, individual reading lights, a spacious study desk, and sound-insulated double-glazed windows to ensure total tranquility.",
@@ -95,11 +95,11 @@ const ROOMS_DATA = [
     rating: 4.9,
     reviewsCount: 164,
     featured: true,
-    coverImage: "assets/images/room-executive-suite.jpg",
+    coverImage: "assets/images/room-executive-suite.webp",
     gallery: [
-      "assets/images/room-executive-suite.jpg",
-      "assets/images/room-bathroom.jpg",
-      "assets/images/hotel-dining.jpg"
+      "assets/images/room-executive-suite.webp",
+      "assets/images/room-bathroom.webp",
+      "assets/images/hotel-dining.webp"
     ],
     shortDesc: "Spacious boutique room featuring a private balcony overlooking Kota's cityscape, cozy lounge seating, and complimentary evening tea.",
     description: "Indulge in extra space and fresh evening breezes in our Super Deluxe Balcony Room. Step onto your private balcony with morning coffee as Kota awakens. Inside, enjoy a plush king bed, a comfortable daybed suitable for an extra guest or child, a mini-refrigerator, and designer ambient illumination.",
@@ -132,11 +132,11 @@ const ROOMS_DATA = [
     rating: 5.0,
     reviewsCount: 112,
     featured: true,
-    coverImage: "assets/images/room-royal-suite.jpg",
+    coverImage: "assets/images/room-royal-suite.webp",
     gallery: [
-      "assets/images/room-royal-suite.jpg",
-      "assets/images/room-bathroom.jpg",
-      "assets/images/hotel-lounge-pool.jpg"
+      "assets/images/room-royal-suite.webp",
+      "assets/images/room-bathroom.webp",
+      "assets/images/hotel-lounge-pool.webp"
     ],
     shortDesc: "An exquisite suite featuring a private living room with velvet Chesterfields, dining table, opulent bedroom, and VIP amenities.",
     description: "Designed for distinguished travelers and families who value refined living. The Premium Royal Suite showcases a separate parlor living room outfitted with velvet Chesterfield seating, a marble coffee table, a 4-seater dining arrangement, and an independent master bedroom with a grand king-sized bed and walk-in wardrobe.",
@@ -169,11 +169,11 @@ const ROOMS_DATA = [
     rating: 4.9,
     reviewsCount: 88,
     featured: false,
-    coverImage: "assets/images/room-royal-suite.jpg",
+    coverImage: "assets/images/room-royal-suite.webp",
     gallery: [
-      "assets/images/room-royal-suite.jpg",
-      "assets/images/room-twin.jpg",
-      "assets/images/room-bathroom.jpg"
+      "assets/images/room-royal-suite.webp",
+      "assets/images/room-twin.webp",
+      "assets/images/room-bathroom.webp"
     ],
     shortDesc: "Spacious dual-bedroom layout engineered for family vacations or extended stays during Kota coaching admissions and visits.",
     description: "Traveling with family has never been more comfortable. Our Family Luxury Suite provides generous space with two plush king beds, two separate ensuite bathrooms, and an open lounge area so everyone has their own space while staying together in luxury.",
@@ -206,11 +206,11 @@ const ROOMS_DATA = [
     rating: 5.0,
     reviewsCount: 54,
     featured: false,
-    coverImage: "assets/images/room-royal-suite.jpg",
+    coverImage: "assets/images/room-royal-suite.webp",
     gallery: [
-      "assets/images/room-royal-suite.jpg",
-      "assets/images/room-bathroom.jpg",
-      "assets/images/hotel-bar.jpg"
+      "assets/images/room-royal-suite.webp",
+      "assets/images/room-bathroom.webp",
+      "assets/images/hotel-bar.webp"
     ],
     shortDesc: "Our crown jewel. A sprawling penthouse-style suite featuring a private bar counter, deep soaking jacuzzi tub, and bespoke butler service.",
     description: "The Presidential Wallflower Suite is Kota's most prestigious accommodation. From the grand entrance foyer to the wraparound glass walls with golden sunset views, this suite redefines luxury hospitality in Rajasthan. Features a master bedroom, opulent living salon, personal dining area, walk-in dressing room, and a spa-grade bathroom with jacuzzi.",

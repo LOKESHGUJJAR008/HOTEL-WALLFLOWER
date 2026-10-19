@@ -24,9 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initHomepageQuickBookForm();
   initRooms3DMotionframeSlider();
   initRedCarpetWelcomeAnimation();
+  initMobileMotionSuite();
 });
 
-// Refresh ScrollTrigger when window loads and web fonts are fully rendered
+// Refresh ScrollTrigger when window loads, after images load, and on orientationchange
 window.addEventListener('load', () => {
   if (typeof ScrollTrigger !== 'undefined') {
     if (document.fonts && document.fonts.ready) {
@@ -37,34 +38,29 @@ window.addEventListener('load', () => {
       ScrollTrigger.refresh();
     }
   }
+
+  // Requirement 7: Call ScrollTrigger.refresh() after images load
+  const allImages = document.querySelectorAll('img');
+  allImages.forEach(img => {
+    if (img.complete) return;
+    img.addEventListener('load', () => {
+      if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+      }
+    }, { once: true });
+  });
 });
 
-/* ==========================================================================
-   LENIS SMOOTH SCROLL INTEGRATION
-   ========================================================================== */
-function initLenisSmoothScroll() {
-  if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      smoothTouch: false
-    });
-
-    lenis.on('scroll', () => {
-      if (typeof ScrollTrigger !== 'undefined') {
-        ScrollTrigger.update();
-      }
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+// Requirement 7: Call ScrollTrigger.refresh() on orientationchange
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => {
+    if (typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.refresh();
     }
-    requestAnimationFrame(raf);
-    window.lenis = lenis;
-  }
-}
+  }, 250);
+});
+
+/* (Lenis smooth scroll initialized conditionally below) */
 
 /* ==========================================================================
    MINIMAL LUXURY NAVIGATION & KEYBOARD-ACCESSIBLE MOBILE MENU
@@ -584,6 +580,26 @@ window.openRoomDetailsModal = function(roomId) {
     };
   }
 
+  // Swipeable image slider on mobile/touch
+  const carousel = modal.querySelector('.modal-room-carousel');
+  if (carousel && !carousel._hasSwipe) {
+    carousel._hasSwipe = true;
+    let tStartX = 0;
+    let tStartY = 0;
+    carousel.addEventListener('touchstart', (e) => {
+      tStartX = e.changedTouches[0].clientX;
+      tStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+    carousel.addEventListener('touchend', (e) => {
+      const diffX = tStartX - e.changedTouches[0].clientX;
+      const diffY = tStartY - e.changedTouches[0].clientY;
+      if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) stepRoomGallery(1);
+        else stepRoomGallery(-1);
+      }
+    }, { passive: true });
+  }
+
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 };
@@ -712,7 +728,7 @@ function initGalleryLightbox() {
       const card = document.createElement('div');
       card.className = 'gallery-item';
       card.innerHTML = `
-        <img src="${item.src}" alt="${item.title}" loading="lazy">
+        <img src="${item.src}" alt="${item.title}" width="600" height="400" loading="lazy" decoding="async">
         <div class="gallery-hover-overlay">
           <span class="gallery-item-cat">${item.categoryLabel}</span>
           <h4 class="gallery-item-title">${item.title}</h4>
@@ -749,6 +765,23 @@ function initGalleryLightbox() {
     lightboxModal.addEventListener('click', (e) => {
       if (e.target === lightboxModal) closeLightbox();
     });
+
+    // Touch swipe left/right in Lightbox
+    let lbStartX = 0;
+    let lbStartY = 0;
+    lightboxModal.addEventListener('touchstart', (e) => {
+      lbStartX = e.changedTouches[0].clientX;
+      lbStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    lightboxModal.addEventListener('touchend', (e) => {
+      const diffX = lbStartX - e.changedTouches[0].clientX;
+      const diffY = lbStartY - e.changedTouches[0].clientY;
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) stepLightbox(1);
+        else stepLightbox(-1);
+      }
+    }, { passive: true });
   }
 
   // Keyboard navigation
@@ -840,7 +873,17 @@ let lenisInstance = null;
 
 function initLenisSmoothScroll() {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion || typeof Lenis === 'undefined') return;
+  const isTouchDevice = window.innerWidth <= 1024 || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+  // Requirement 7: on touch devices use native scroll (disable smooth wheel hijacking on mobile), and respect prefers-reduced-motion
+  if (prefersReducedMotion || isTouchDevice || typeof Lenis === 'undefined') {
+    if (lenisInstance) {
+      lenisInstance.destroy();
+      lenisInstance = null;
+    }
+    window.lenis = null;
+    return;
+  }
 
   lenisInstance = new Lenis({
     lerp: 0.1,
@@ -848,19 +891,23 @@ function initLenisSmoothScroll() {
     syncTouch: false
   });
 
+  window.lenis = lenisInstance;
+
   if (typeof ScrollTrigger !== 'undefined') {
     lenisInstance.on('scroll', ScrollTrigger.update);
   }
 
   if (typeof gsap !== 'undefined') {
     gsap.ticker.add((time) => {
-      lenisInstance.raf(time * 1000);
+      if (lenisInstance) lenisInstance.raf(time * 1000);
     });
     gsap.ticker.lagSmoothing(0);
   } else {
     function raf(time) {
-      lenisInstance.raf(time);
-      requestAnimationFrame(raf);
+      if (lenisInstance) {
+        lenisInstance.raf(time);
+        requestAnimationFrame(raf);
+      }
     }
     requestAnimationFrame(raf);
   }
@@ -868,14 +915,8 @@ function initLenisSmoothScroll() {
 
 /* ==========================================================================
    SCROLL-DRIVEN HERO PIN & SHRINK (GSAP + ScrollTrigger, scrub: true)
-   - Pins hero at top
-   - Height shrinks 100vh -> 28vh (35svh on mobile)
-   - 3 Images crossfade: 0-33%, 33-66%, 66-100% with scale 1.15 -> 1.0 parallax
-   - Logo centers then shifts to bottom-center of the 28vh strip, shrinks
-   - "HOTEL" subtext fades in under the logo
-   - Incoming content (tagline + carousel) slides up in normal flow
-   - Top nav fades in after 10% scroll progress (transparent -> blur background)
-   - Bypassed under prefers-reduced-motion
+   - Desktop (min-width: 1025px): Pins hero at top, shrinks 100vh -> 28vh, 3 images crossfade
+   - Mobile (max-width: 1024px): Lightweight 100dvh flow, subtle hero text fade-up on load
    ========================================================================== */
 function initScrollDrivenHero() {
   const track = document.getElementById('hero-scroll-track');
@@ -899,117 +940,133 @@ function initScrollDrivenHero() {
     return;
   }
 
-  const isMobile = () => window.innerWidth <= 768;
-
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Clean up any existing trigger
-    const existing = ScrollTrigger.getById('hero-shrink-trigger');
-    if (existing) existing.kill();
+    const mm = gsap.matchMedia();
 
-    const heroTimeline = gsap.timeline({
-      scrollTrigger: {
-        id: 'hero-shrink-trigger',
-        trigger: track,
-        pin: stickyStage,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.3,
-        pinSpacing: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          // Top navigation fades in after 10% scroll progress
-          if (header) {
-            if (self.progress > 0.10) {
-              header.classList.add('header-visible');
-            } else {
-              header.classList.remove('header-visible');
+    // DESKTOP CONTEXT: (min-width: 1025px) - Untouched original pinned shrink timeline
+    mm.add("(min-width: 1025px)", () => {
+      const heroTimeline = gsap.timeline({
+        scrollTrigger: {
+          id: 'hero-shrink-trigger',
+          trigger: track,
+          pin: stickyStage,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.3,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            if (header) {
+              if (self.progress > 0.10) {
+                header.classList.add('header-visible');
+              } else {
+                header.classList.remove('header-visible');
+              }
             }
           }
         }
+      });
+
+      // 1. Incoming Luxury Stage slides up via pure GPU transform: translateY (100% -> 0%)
+      if (incomingStage) {
+        heroTimeline.fromTo(incomingStage, 
+          { yPercent: 100 }, 
+          { yPercent: 0, ease: 'none', duration: 1.0 }, 
+          0
+        );
+      }
+
+      // 2. Initial Scroll Cue fades out early (0.0 -> 0.12)
+      if (scrollCue) {
+        heroTimeline.to(scrollCue, {
+          opacity: 0,
+          y: -12,
+          ease: 'power1.out',
+          duration: 0.12
+        }, 0);
+      }
+
+      // 3. Slide 1 (0.0 -> 0.33): scale 1.15 -> 1.0, crossfade out 0.22 -> 0.33
+      const photo1 = slide1 ? slide1.querySelector('.hero-slide-photo') : null;
+      if (photo1) {
+        heroTimeline.fromTo(photo1, { scale: 1.15 }, { scale: 1.0, ease: 'none', duration: 0.33 }, 0);
+      }
+      if (slide1) {
+        heroTimeline.to(slide1, { opacity: 0, ease: 'power1.inOut', duration: 0.11 }, 0.22);
+      }
+
+      // 4. Slide 2 (0.33 -> 0.66): crossfade in 0.22 -> 0.33, scale 1.15 -> 1.0, crossfade out 0.55 -> 0.66
+      const photo2 = slide2 ? slide2.querySelector('.hero-slide-photo') : null;
+      if (slide2) {
+        heroTimeline.fromTo(slide2, { opacity: 0 }, { opacity: 1, ease: 'power1.inOut', duration: 0.11 }, 0.22);
+      }
+      if (photo2) {
+        heroTimeline.fromTo(photo2, { scale: 1.15 }, { scale: 1.0, ease: 'none', duration: 0.33 }, 0.33);
+      }
+      if (slide2) {
+        heroTimeline.to(slide2, { opacity: 0, ease: 'power1.inOut', duration: 0.11 }, 0.55);
+      }
+
+      // 5. Slide 3 (0.66 -> 1.0): crossfade in 0.55 -> 0.66, scale 1.15 -> 1.0
+      const photo3 = slide3 ? slide3.querySelector('.hero-slide-photo') : null;
+      if (slide3) {
+        heroTimeline.fromTo(slide3, { opacity: 0 }, { opacity: 1, ease: 'power1.inOut', duration: 0.11 }, 0.55);
+      }
+      if (photo3) {
+        heroTimeline.fromTo(photo3, { scale: 1.15 }, { scale: 1.0, ease: 'none', duration: 0.34 }, 0.66);
+      }
+
+      // 6. Wordmark: scales down and shifts to bottom-center of the 28vh strip (pure transform)
+      if (wordmark) {
+        heroTimeline.to(wordmark, {
+          scale: 0.40,
+          y: 16,
+          ease: 'power1.out',
+          duration: 1.0
+        }, 0);
+      }
+
+      // 7. Subtext "HOTEL" badge: fades in under the wordmark (0.65 -> 1.0)
+      if (subtextBadge) {
+        heroTimeline.fromTo(subtextBadge, 
+          { opacity: 0, y: 10 }, 
+          { opacity: 1, y: 0, ease: 'power1.out', duration: 0.35 }, 
+          0.65
+        );
+      }
+
+      // 8. Horizontal Carousel Track subtle travel during slide-up (0.60 -> 1.0)
+      if (carouselTrack) {
+        heroTimeline.fromTo(carouselTrack,
+          { x: 20 },
+          { x: -40, ease: 'none', duration: 0.4 },
+          0.60
+        );
       }
     });
 
-    // 1. Incoming Luxury Stage slides up via pure GPU transform: translateY (100% -> 0%)
-    if (incomingStage) {
-      heroTimeline.fromTo(incomingStage, 
-        { yPercent: 100 }, 
-        { yPercent: 0, ease: 'none', duration: 1.0 }, 
-        0
-      );
-    }
+    // MOBILE CONTEXT: (max-width: 1024px) - Lightweight animations (no pin, no long scrub)
+    mm.add("(max-width: 1024px)", () => {
+      if (header) header.classList.add('header-visible');
+      gsap.set(stickyStage, { clearProps: 'all' });
+      gsap.set(bannerStrip, { clearProps: 'all' });
+      if (incomingStage) gsap.set(incomingStage, { clearProps: 'all' });
+      if (wordmark) gsap.set(wordmark, { clearProps: 'all' });
+      if (subtextBadge) gsap.set(subtextBadge, { opacity: 1, y: 0 });
+      if (slide1) gsap.set(slide1, { opacity: 1 });
 
-    // 2. Initial Scroll Cue fades out early (0.0 -> 0.12)
-    if (scrollCue) {
-      heroTimeline.to(scrollCue, {
-        opacity: 0,
-        y: -12,
-        ease: 'power1.out',
-        duration: 0.12
-      }, 0);
-    }
-
-    // 3. Slide 1 (0.0 -> 0.33): scale 1.15 -> 1.0, crossfade out 0.22 -> 0.33
-    const photo1 = slide1 ? slide1.querySelector('.hero-slide-photo') : null;
-    if (photo1) {
-      heroTimeline.fromTo(photo1, { scale: 1.15 }, { scale: 1.0, ease: 'none', duration: 0.33 }, 0);
-    }
-    if (slide1) {
-      heroTimeline.to(slide1, { opacity: 0, ease: 'power1.inOut', duration: 0.11 }, 0.22);
-    }
-
-    // 4. Slide 2 (0.33 -> 0.66): crossfade in 0.22 -> 0.33, scale 1.15 -> 1.0, crossfade out 0.55 -> 0.66
-    const photo2 = slide2 ? slide2.querySelector('.hero-slide-photo') : null;
-    if (slide2) {
-      heroTimeline.fromTo(slide2, { opacity: 0 }, { opacity: 1, ease: 'power1.inOut', duration: 0.11 }, 0.22);
-    }
-    if (photo2) {
-      heroTimeline.fromTo(photo2, { scale: 1.15 }, { scale: 1.0, ease: 'none', duration: 0.33 }, 0.33);
-    }
-    if (slide2) {
-      heroTimeline.to(slide2, { opacity: 0, ease: 'power1.inOut', duration: 0.11 }, 0.55);
-    }
-
-    // 5. Slide 3 (0.66 -> 1.0): crossfade in 0.55 -> 0.66, scale 1.15 -> 1.0
-    const photo3 = slide3 ? slide3.querySelector('.hero-slide-photo') : null;
-    if (slide3) {
-      heroTimeline.fromTo(slide3, { opacity: 0 }, { opacity: 1, ease: 'power1.inOut', duration: 0.11 }, 0.55);
-    }
-    if (photo3) {
-      heroTimeline.fromTo(photo3, { scale: 1.15 }, { scale: 1.0, ease: 'none', duration: 0.34 }, 0.66);
-    }
-
-    // 6. Wordmark: scales down and shifts to bottom-center of the 28vh strip (pure transform)
-    if (wordmark) {
-      const targetScale = isMobile() ? 0.44 : 0.40;
-      const targetY = isMobile() ? 12 : 16;
-      heroTimeline.to(wordmark, {
-        scale: targetScale,
-        y: targetY,
-        ease: 'power1.out',
-        duration: 1.0
-      }, 0);
-    }
-
-    // 7. Subtext "HOTEL" badge: fades in under the wordmark (0.65 -> 1.0)
-    if (subtextBadge) {
-      heroTimeline.fromTo(subtextBadge, 
-        { opacity: 0, y: 10 }, 
-        { opacity: 1, y: 0, ease: 'power1.out', duration: 0.35 }, 
-        0.65
-      );
-    }
-
-    // 8. Horizontal Carousel Track subtle travel during slide-up (0.60 -> 1.0)
-    if (carouselTrack && !isMobile()) {
-      heroTimeline.fromTo(carouselTrack,
-        { x: 20 },
-        { x: -40, ease: 'none', duration: 0.4 },
-        0.60
-      );
-    }
+      // Requirement 6: hero text fade-up on load
+      const heroTextElements = [wordmark, subtextBadge, incomingStage].filter(Boolean);
+      if (heroTextElements.length) {
+        gsap.fromTo(heroTextElements,
+          { opacity: 0, y: 32 },
+          { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 }
+        );
+      }
+    });
 
     // Clean up on page unmount
     window.addEventListener('beforeunload', () => {
@@ -1463,9 +1520,10 @@ function initPinnedStorytellingSection() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Clean up previous trigger if reinitialized
-  const existingTrigger = ScrollTrigger.getById('storytelling-pinned-trigger');
-  if (existingTrigger) existingTrigger.kill();
+  const mm = gsap.matchMedia();
+
+  // DESKTOP CONTEXT: (min-width: 1025px) - Untouched original 520% pinned storytelling timeline
+  mm.add("(min-width: 1025px)", () => {
 
   // Dynamic distance calculation for cluster slide (from right column to left column)
   const getClusterSlideDistance = () => {
@@ -1791,8 +1849,70 @@ function initPinnedStorytellingSection() {
     }, 0.79);
   }
 
-  // Hold centered climax heading for the final ~12% of scroll before releasing pin
-  storyTimeline.to({}, { duration: 0.12 }, 0.88);
+    // Hold centered climax heading for the final ~12% of scroll before releasing pin
+    storyTimeline.to({}, { duration: 0.12 }, 0.88);
+  });
+
+  // MOBILE CONTEXT: (max-width: 1024px) - Lightweight unpinned animations & gentle parallax
+  mm.add("(max-width: 1024px)", () => {
+    // 1. Reveal kinetic words and reset layout props
+    allWords.forEach(w => {
+      w.style.opacity = '1';
+      w.style.transform = 'none';
+      w.style.filter = 'none';
+    });
+    if (card1) gsap.set(card1, { clearProps: 'all', opacity: 1 });
+    if (card2) gsap.set(card2, { display: 'none' });
+    if (img1C) gsap.set(img1C, { opacity: 0, display: 'none' });
+    if (img2D) gsap.set(img2D, { opacity: 0, display: 'none' });
+    if (step1Content) gsap.set(step1Content, { clearProps: 'all', opacity: 1, pointerEvents: 'auto' });
+    if (step3Content) gsap.set(step3Content, { clearProps: 'all', opacity: 1, pointerEvents: 'auto' });
+    if (climaxBlock) gsap.set(climaxBlock, { clearProps: 'all', opacity: 1, pointerEvents: 'auto' });
+    if (exploreBtn1) gsap.set(exploreBtn1, { clearProps: 'all', opacity: 1, y: 0 });
+    if (exploreBtn2) gsap.set(exploreBtn2, { clearProps: 'all', opacity: 1, y: 0 });
+    if (stickyStage) gsap.set(stickyStage, { clearProps: 'all' });
+
+    // 2. Requirement 4: Gentle parallax on About image (y: -30 to 30, scrub: true)
+    if (card1) {
+      gsap.fromTo(card1,
+        { y: -30 },
+        {
+          y: 30,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: card1,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true
+          }
+        }
+      );
+    }
+
+    // 3. Requirement 3: Animate in with ScrollTrigger (trigger: element, start: "top 85%", once: true):
+    // fade + translateY(40px to 0), duration 0.9, ease "power3.out", stagger 0.12 for children
+    const mobileBlocks = [step1Content, step3Content, climaxBlock].filter(Boolean);
+    mobileBlocks.forEach(block => {
+      const children = Array.from(block.children).filter(el => !el.classList.contains('climax-accent-line'));
+      if (children.length) {
+        gsap.fromTo(children,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: 'power3.out',
+            stagger: 0.12,
+            scrollTrigger: {
+              trigger: block,
+              start: 'top 85%',
+              once: true
+            }
+          }
+        );
+      }
+    });
+  });
 }
 
 /* ==========================================================================
@@ -1895,6 +2015,11 @@ function initFloatingPerspectiveShowcase() {
       scrubFill.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
     }
   };
+
+  const mm = gsap.matchMedia();
+
+  // DESKTOP CONTEXT: (min-width: 1025px) - Untouched original 3D continuous stack & pinned timeline
+  mm.add("(min-width: 1025px)", () => {
 
   // ==========================================================================
   // CONTINUOUS 3D DEPTH & STACK RENDERER
@@ -2193,6 +2318,190 @@ function initFloatingPerspectiveShowcase() {
 
   // Initial update
   updateUI(0, 0);
+  });
+
+  // MOBILE CONTEXT: (max-width: 1024px) - Lightweight touch swipe Lookbook
+  mm.add("(max-width: 1024px)", () => {
+    gsap.set(section, { clearProps: 'all' });
+    gsap.set(stage, { clearProps: 'all' });
+
+    let mobileActiveIdx = 0;
+
+    const renderMobileCards = (targetIdx, immediate = false) => {
+      mobileActiveIdx = Math.max(0, Math.min(totalPages - 1, targetIdx));
+      updateUI(mobileActiveIdx, mobileActiveIdx / (totalPages - 1));
+
+      cards.forEach((card, idx) => {
+        const diff = idx - mobileActiveIdx;
+
+        if (diff === 0) {
+          // One large centered card with 3D tilt reduced (rotateX 6deg max)
+          card.style.display = 'block';
+          card.style.zIndex = '10';
+          card.classList.add('active', 'is-visible');
+
+          if (immediate) {
+            gsap.set(card, {
+              x: 0,
+              y: 0,
+              scale: 1.0,
+              rotateX: 6,
+              rotateY: 0,
+              rotateZ: 0,
+              opacity: 1,
+              filter: 'none'
+            });
+          } else {
+            gsap.to(card, {
+              x: 0,
+              y: 0,
+              scale: 1.0,
+              rotateX: 6,
+              rotateY: 0,
+              rotateZ: 0,
+              opacity: 1,
+              filter: 'none',
+              duration: 0.6,
+              ease: 'power3.out'
+            });
+          }
+        } else if (diff === 1 || (mobileActiveIdx === totalPages - 1 && idx === 0)) {
+          // Next card peeking behind it
+          card.style.display = 'block';
+          card.style.zIndex = '5';
+          card.classList.remove('active');
+          card.classList.add('is-visible');
+
+          if (immediate) {
+            gsap.set(card, {
+              x: 28,
+              y: 0,
+              scale: 0.92,
+              rotateX: 8,
+              rotateY: 0,
+              rotateZ: 0,
+              opacity: 0.45,
+              filter: 'none'
+            });
+          } else {
+            gsap.to(card, {
+              x: 28,
+              y: 0,
+              scale: 0.92,
+              rotateX: 8,
+              rotateY: 0,
+              rotateZ: 0,
+              opacity: 0.45,
+              filter: 'none',
+              duration: 0.6,
+              ease: 'power3.out'
+            });
+          }
+        } else {
+          card.classList.remove('active', 'is-visible');
+          if (immediate) {
+            card.style.display = 'none';
+            gsap.set(card, { opacity: 0 });
+          } else {
+            gsap.to(card, {
+              opacity: 0,
+              duration: 0.35,
+              ease: 'power2.in',
+              onComplete: () => {
+                const currentDiff = idx - mobileActiveIdx;
+                if (currentDiff !== 0 && currentDiff !== 1 && !(mobileActiveIdx === totalPages - 1 && idx === 0)) {
+                  card.style.display = 'none';
+                }
+              }
+            });
+          }
+        }
+      });
+    };
+
+    renderMobileCards(0, true);
+
+    // Touch swipe left/right to change cards
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const motionCanvas = document.getElementById('floating-motion-canvas') || stage;
+
+    const onTouchStart = (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+    };
+
+    const onTouchEnd = (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchStartX - touchEndX;
+      const diffY = touchStartY - touchEndY;
+      if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          renderMobileCards(mobileActiveIdx < totalPages - 1 ? mobileActiveIdx + 1 : 0);
+        } else {
+          renderMobileCards(mobileActiveIdx > 0 ? mobileActiveIdx - 1 : totalPages - 1);
+        }
+      }
+    };
+
+    motionCanvas.addEventListener('touchstart', onTouchStart, { passive: true });
+    motionCanvas.addEventListener('touchend', onTouchEnd, { passive: true });
+
+    if (prevBtn) {
+      prevBtn.onclick = (e) => {
+        e.preventDefault();
+        renderMobileCards(mobileActiveIdx > 0 ? mobileActiveIdx - 1 : totalPages - 1);
+      };
+    }
+
+    if (nextBtn) {
+      nextBtn.onclick = (e) => {
+        e.preventDefault();
+        renderMobileCards(mobileActiveIdx < totalPages - 1 ? mobileActiveIdx + 1 : 0);
+      };
+    }
+
+    scrubTicks.forEach((tick, idx) => {
+      tick.onclick = (e) => {
+        e.preventDefault();
+        renderMobileCards(idx);
+      };
+    });
+
+    if (scrubBar) {
+      scrubBar.onclick = (e) => {
+        if (e.target.classList.contains('scrub-tick')) return;
+        const rect = scrubBar.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const p = Math.max(0, Math.min(1, clickX / rect.width));
+        renderMobileCards(Math.floor(p * totalPages));
+      };
+    }
+
+    cards.forEach((card, idx) => {
+      card.onclick = () => {
+        if (idx === mobileActiveIdx) {
+          renderMobileCards(mobileActiveIdx < totalPages - 1 ? mobileActiveIdx + 1 : 0);
+        } else {
+          renderMobileCards(idx);
+        }
+      };
+    });
+
+    // Reveal animation on scroll (fade + translateY)
+    gsap.from(stage, {
+      opacity: 0,
+      y: 40,
+      duration: 0.9,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 85%',
+        once: true
+      }
+    });
+  });
 }
 
 /* ==========================================================================
@@ -2422,6 +2731,9 @@ function initRoomsGliderShowcase() {
 
     // 3. Tab Pill & Progress
     updateTabPill(idx);
+    if (tabs[idx] && window.innerWidth <= 768) {
+      tabs[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
     const progressFrac = (idx + 1) / ROOMS.length;
     if (progressBar) {
       progressBar.style.transform = `scaleX(${progressFrac})`;
@@ -2509,44 +2821,58 @@ function initRoomsGliderShowcase() {
     }, { passive: true });
   }
 
-  // Setup GSAP Desktop Pinned ScrollTrigger
+  // Setup GSAP Desktop Pinned ScrollTrigger with gsap.matchMedia
   const setupDesktopPinnedScroll = () => {
     if (scrollTriggerInstance) {
       scrollTriggerInstance.kill();
       scrollTriggerInstance = null;
     }
 
-    if (!isDesktop()) {
-      if (typeof gsap !== 'undefined') {
-        gsap.set(viewport, { clearProps: 'all' });
-        gsap.set(section, { clearProps: 'all' });
-      }
-      return;
-    }
-
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Pin the section for 2.2 screens of scroll distance
-      const scrollDistance = window.innerHeight * 2.2;
+      const mm = gsap.matchMedia();
 
-      scrollTriggerInstance = ScrollTrigger.create({
-        id: 'rooms-glider-pin',
-        trigger: section,
-        pin: viewport,
-        start: 'top top',
-        end: () => `+=${scrollDistance}`,
-        scrub: 0.35,
-        pinSpacing: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const targetIdx = Math.min(ROOMS.length - 1, Math.floor(progress * ROOMS.length));
-          if (targetIdx !== currentIdx) {
-            glideTo(targetIdx, false);
+      // DESKTOP CONTEXT: (min-width: 1025px) - Untouched original pinned glider track
+      mm.add("(min-width: 1025px)", () => {
+        const scrollDistance = window.innerHeight * 2.2;
+
+        scrollTriggerInstance = ScrollTrigger.create({
+          id: 'rooms-glider-pin',
+          trigger: section,
+          pin: viewport,
+          start: 'top top',
+          end: () => `+=${scrollDistance}`,
+          scrub: 0.35,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const targetIdx = Math.min(ROOMS.length - 1, Math.floor(progress * ROOMS.length));
+            if (targetIdx !== currentIdx) {
+              glideTo(targetIdx, false);
+            }
           }
-        }
+        });
+      });
+
+      // MOBILE CONTEXT: (max-width: 1024px) - Unpinned lightweight stage reveal
+      mm.add("(max-width: 1024px)", () => {
+        gsap.set(viewport, { clearProps: 'all' });
+        gsap.set(section, { clearProps: 'all' });
+
+        gsap.from(stage, {
+          opacity: 0,
+          y: 40,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            once: true
+          }
+        });
       });
     }
   };
@@ -2666,6 +2992,11 @@ function initStatementMaskReveal() {
 
   if (!section || !viewport) return;
 
+  if (window.innerWidth <= 1024) {
+    viewport.style.clipPath = 'none';
+    return;
+  }
+
   let ticking = false;
 
   const onScroll = () => {
@@ -2752,6 +3083,109 @@ function initHomepageQuickBookForm() {
     if (typeof window.openBookingModal === 'function') {
       window.openBookingModal({ checkin, checkout, guests, roomType });
     }
+  });
+}
+
+/* ==========================================================================
+   07 — MOBILE MOTION SUITE (GSAP + ScrollTrigger for max-width: 1024px)
+   - Hero text fade-up on load (handled in initScrollDrivenHero)
+   - Section labels slide in (x: -30 to 0, opacity: 0 to 1)
+   - Images scale from 1.08 to 1 on reveal
+   - Gold lines draw in (scaleX: 0 to 1)
+   - Content blocks animate with fade + translateY(40px to 0), stagger 0.12 for children
+   - Pure transform and opacity only
+   ========================================================================== */
+function initMobileMotionSuite() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  const mm = gsap.matchMedia();
+
+  mm.add("(max-width: 1024px)", () => {
+    // 1. Section labels slide in (x: -30 to 0, opacity: 0 to 1)
+    const labels = document.querySelectorAll('.chapter-kicker, .story-kicker-badge, .perspective-badge-pill');
+    labels.forEach(label => {
+      gsap.fromTo(label,
+        { opacity: 0, x: -30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: label,
+            start: 'top 85%',
+            once: true
+          }
+        }
+      );
+    });
+
+    // 2. Images scale from 1.08 to 1 on reveal
+    const imagesToScale = document.querySelectorAll(
+      '#atmosphere-img, .page-card-photo, .glider-scenic-slide.active img, #statement-bg-img'
+    );
+    imagesToScale.forEach(img => {
+      gsap.fromTo(img,
+        { scale: 1.08 },
+        {
+          scale: 1.0,
+          duration: 1.0,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: img.closest('section') || img,
+            start: 'top 85%',
+            once: true
+          }
+        }
+      );
+    });
+
+    // 3. Gold lines draw in (scaleX: 0 to 1)
+    const lines = document.querySelectorAll('.perspective-divider-line, .climax-accent-line');
+    lines.forEach(line => {
+      gsap.fromTo(line,
+        { scaleX: 0, transformOrigin: 'left center' },
+        {
+          scaleX: 1,
+          duration: 0.85,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: line,
+            start: 'top 85%',
+            once: true
+          }
+        }
+      );
+    });
+
+    // 4. Atmosphere, Statement & Reservation Invitation content blocks:
+    // fade + translateY(40px to 0), duration 0.9, ease power3.out, stagger 0.12 for children
+    const sectionsToAnimate = [
+      document.getElementById('atmosphere-statement'),
+      document.querySelector('.statement-content'),
+      document.querySelector('.invitation-header')
+    ].filter(Boolean);
+
+    sectionsToAnimate.forEach(sectionEl => {
+      const children = Array.from(sectionEl.children);
+      if (children.length) {
+        gsap.fromTo(children,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: 'power3.out',
+            stagger: 0.12,
+            scrollTrigger: {
+              trigger: sectionEl,
+              start: 'top 85%',
+              once: true
+            }
+          }
+        );
+      }
+    });
   });
 }
 

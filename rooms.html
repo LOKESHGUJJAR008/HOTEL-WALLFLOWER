@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Rooms & Suites | Hotel Wallflower Kota</title>
   <meta name="description" content="Explore luxury rooms and executive suites at Hotel Wallflower, Kota. Tailored for corporate travelers, students, visiting parents, and family getaways.">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=mobile1">
 </head>
 <body>
 
@@ -449,7 +449,10 @@
           card.id = room.id;
           card.innerHTML = `
             <div class="room-media">
-              <img src="${room.coverImage}" alt="${room.name}">
+              <picture>
+                <source srcset="${room.coverImage.replace(/\.(jpg|png)$/, '.webp')}" type="image/webp">
+                <img src="${room.coverImage}" alt="${room.name}" width="600" height="400" loading="lazy" decoding="async">
+              </picture>
               <span class="room-badge">${room.discount}</span>
               <div class="room-price-tag">
                 <span class="price-val">₹${room.price.toLocaleString('en-IN')}</span>
