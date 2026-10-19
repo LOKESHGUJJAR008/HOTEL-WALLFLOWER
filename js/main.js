@@ -2812,10 +2812,13 @@ function initOrientationWatcher() {
   let isDispatchingInternalResize = false;
 
   const recalculateAllComponents = () => {
-    // 1. Reset any horizontal scroll offset
+    // 1. Reset any horizontal scroll offset & close any lingering modals
     document.documentElement.scrollLeft = 0;
     document.body.scrollLeft = 0;
     window.scrollTo(0, 0);
+    if (typeof closeAllModals === 'function') {
+      closeAllModals();
+    }
 
     // 2. Recalculate rooms glider (slide width, translateX for active slide, tab pill indicator position)
     if (typeof window.recalculateRoomsGlider === 'function') {
