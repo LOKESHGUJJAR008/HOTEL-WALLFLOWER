@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollDrivenHero();
   initPinnedStorytellingSection();
   initFloatingPerspectiveShowcase();
-  initRoomsHorizontalTrack();
+  initRoomsGliderShowcase();
   initAtmosphereReveal();
   initStatementMaskReveal();
   initHomepageQuickBookForm();
@@ -1863,10 +1863,10 @@ function initFloatingPerspectiveShowcase() {
   const isMobile = () => window.innerWidth <= 768;
 
   // Geometry configuration for book page switch trajectory
-  const getRightX = () => (isMobile() ? window.innerWidth * 0.36 : Math.max(260, window.innerWidth * 0.23));
-  const getRightY = () => (isMobile() ? -55 : -85);
-  const getLeftX = () => (isMobile() ? -window.innerWidth * 0.36 : -Math.max(250, window.innerWidth * 0.22));
-  const getLeftY = () => (isMobile() ? 35 : 50);
+  const getRightX = () => (isMobile() ? window.innerWidth * 0.32 : Math.max(260, window.innerWidth * 0.22));
+  const getRightY = () => (isMobile() ? -45 : -60);
+  const getLeftX = () => (isMobile() ? -window.innerWidth * 0.32 : -Math.max(260, window.innerWidth * 0.22));
+  const getLeftY = () => (isMobile() ? 35 : 45);
 
   let activeIndex = 0;
 
@@ -1896,133 +1896,146 @@ function initFloatingPerspectiveShowcase() {
     }
   };
 
-  // Set initial 3D positions for all 18 cards
-  // Card 0 starts center-stage, remaining cards stacked on upper right waiting to flip
-  cards.forEach((card, idx) => {
-    if (idx === 0) {
-      gsap.set(card, {
-        x: 0,
-        y: 0,
-        z: 30,
-        rotationY: 0,
-        rotationZ: 0,
-        rotationX: 0,
-        scale: 1,
-        opacity: 1,
-        force3D: true,
-        transformPerspective: 1800
-      });
-      card.classList.add('active', 'is-visible');
-    } else {
-      const staggerZ = -idx * 8;
-      const staggerX = getRightX() + Math.min(idx * 2, 20);
-      const staggerY = getRightY() - Math.min(idx * 1.5, 15);
-      gsap.set(card, {
-        x: staggerX,
-        y: staggerY,
-        z: staggerZ,
-        rotationY: -42,
-        rotationZ: 8,
-        rotationX: 6,
-        scale: Math.max(0.78, 0.88 - idx * 0.006),
-        opacity: idx <= 4 ? 0.95 : 0, // Keep first few visible for depth stacking
-        force3D: true,
-        transformPerspective: 1800
-      });
-      card.classList.remove('active');
-    }
-  });
+  // ==========================================================================
+  // CONTINUOUS 3D DEPTH & STACK RENDERER
+  // Active Card: 1.30x larger, sharp (0px blur), bright (1.0)
+  // Behind Cards (Right Stack): 3 to 4 visible stacked cards, smaller, blurred, darker
+  // ==========================================================================
+  function renderCardPositions(floatIdx) {
+    const rX = getRightX();
+    const rY = getRightY();
+    const lX = getLeftX();
+    const lY = getLeftY();
 
-  // Construct master timeline for the 18-page rapid flip
-  // Total timeline duration is normalized to 1.0
-  const flipTimeline = gsap.timeline({
-    paused: true
-  });
+    cards.forEach((card, idx) => {
+      const diff = idx - floatIdx;
 
-  const stepDuration = 1 / totalPages;
+      // Cull cards outside visible sliding window (-2.2 to +4.5)
+      if (diff < -2.2 || diff > 4.6) {
+        if (card.style.display !== 'none') {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+          card.classList.remove('active', 'is-visible');
+        }
+        return;
+      }
 
-  // Background watermark subtle counter-drift across duration
-  if (watermark) {
-    flipTimeline.to(watermark, {
-      x: () => -window.innerWidth * 0.28,
-      duration: 1.0,
-      ease: 'none'
-    }, 0);
+      if (card.style.display === 'none') {
+        card.style.display = 'block';
+      }
+
+      let x, y, z, rotX, rotY, rotZ, scale, blur, brightness, opacity, zIndex;
+
+      if (diff >= 0) {
+        // Active card and cards waiting on the right stack (0 to 4 cards)
+        if (diff <= 1) {
+          // Active card (diff=0, scale 1.30) to Card +1 (diff=1, scale 0.88)
+          const t = diff;
+          x = t * rX;
+          y = t * rY;
+          z = (1 - t) * 75 + t * 12;
+          rotX = t * 5;
+          rotY = t * -36;
+          rotZ = t * 6;
+          scale = 1.30 * (1 - t) + 0.88 * t;
+          blur = t * 0.6;
+          brightness = 1.0 * (1 - t) + 0.78 * t;
+          opacity = 1.0 * (1 - t) + 0.95 * t;
+          zIndex = Math.round(50 - t * 10);
+        } else if (diff <= 2) {
+          // Card +1 (scale 0.88) to Card +2 (scale 0.80)
+          const t = diff - 1;
+          x = rX + t * 38;
+          y = rY - t * 22;
+          z = 12 - t * 36;
+          rotX = 5 + t * 1;
+          rotY = -36 - t * 3;
+          rotZ = 6 + t * 2;
+          scale = 0.88 * (1 - t) + 0.80 * t;
+          blur = 0.6 * (1 - t) + 1.8 * t;
+          brightness = 0.78 * (1 - t) + 0.60 * t;
+          opacity = 0.95 * (1 - t) + 0.82 * t;
+          zIndex = Math.round(40 - t * 10);
+        } else if (diff <= 3) {
+          // Card +2 (scale 0.80) to Card +3 (scale 0.72)
+          const t = diff - 2;
+          x = rX + 38 + t * 36;
+          y = rY - 22 - t * 20;
+          z = -24 - t * 32;
+          rotX = 6 + t * 1;
+          rotY = -39 - t * 3;
+          rotZ = 8 + t * 2;
+          scale = 0.80 * (1 - t) + 0.72 * t;
+          blur = 1.8 * (1 - t) + 3.0 * t;
+          brightness = 0.60 * (1 - t) + 0.45 * t;
+          opacity = 0.82 * (1 - t) + 0.68 * t;
+          zIndex = Math.round(30 - t * 10);
+        } else {
+          // Card +3 (scale 0.72) to Card +4 (scale 0.65, dark & blurred deep stack)
+          const t = Math.min(1.5, diff - 3) / 1.5;
+          x = rX + 74 + t * 34;
+          y = rY - 42 - t * 18;
+          z = -56 - t * 30;
+          rotX = 7 + t * 1;
+          rotY = -42 - t * 3;
+          rotZ = 10 + t * 2;
+          scale = 0.72 * (1 - t) + 0.65 * t;
+          blur = 3.0 * (1 - t) + 4.5 * t;
+          brightness = 0.45 * (1 - t) + 0.30 * t;
+          opacity = 0.68 * (1 - t);
+          zIndex = 15;
+        }
+      } else {
+        // Turned cards on the left stack (diff < 0)
+        const neg = -diff;
+        if (neg <= 1) {
+          const t = neg;
+          x = t * lX;
+          y = t * lY;
+          z = (1 - t) * 75 - t * 30;
+          rotX = t * -4;
+          rotY = t * 55;
+          rotZ = t * -8;
+          scale = 1.30 * (1 - t) + 0.82 * t;
+          blur = t * 2.0;
+          brightness = 1.0 * (1 - t) + 0.55 * t;
+          opacity = 1.0 * (1 - t) + 0.65 * t;
+          zIndex = Math.round(45 - t * 15);
+        } else {
+          const t = Math.min(1.2, neg - 1) / 1.2;
+          x = lX - t * 35;
+          y = lY + t * 18;
+          z = -30 - t * 40;
+          rotX = -4 - t * 1;
+          rotY = 55 + t * 3;
+          rotZ = -8 - t * 2;
+          scale = 0.82 * (1 - t) + 0.75 * t;
+          blur = 2.0 * (1 - t) + 3.8 * t;
+          brightness = 0.55 * (1 - t) + 0.30 * t;
+          opacity = 0.65 * (1 - t);
+          zIndex = 10;
+        }
+      }
+
+      const isActive = Math.abs(diff) < 0.45;
+      if (isActive) {
+        card.classList.add('active');
+      } else {
+        card.classList.remove('active');
+      }
+
+      card.classList.add('is-visible');
+      card.style.zIndex = zIndex;
+      card.style.opacity = opacity.toFixed(3);
+      card.style.filter = `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
+      card.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg) rotateZ(${rotZ.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+    });
   }
 
-  // Build each page's dynamic flip transition:
-  // For page i: flips from right-top -> center -> left
-  cards.forEach((card, i) => {
-    const cardStart = i * stepDuration;
-    const cardMid = cardStart + stepDuration * 0.48;
-    const cardEnd = (i + 1) * stepDuration;
+  // Initial render at page 0
+  renderCardPositions(0);
 
-    // Inner photo and sheen for page turn light sweep
-    const sheen = card.querySelector('.page-card-sheen');
-    const shadow = card.querySelector('.page-card-shadow');
-
-    if (i === 0) {
-      // First card only moves from center to left
-      flipTimeline.to(card, {
-        x: () => getLeftX(),
-        y: () => getLeftY(),
-        z: -140,
-        rotationY: 60,
-        rotationZ: -9,
-        rotationX: -4,
-        scale: 0.84,
-        opacity: 0.6,
-        duration: cardEnd - cardStart,
-        ease: 'power2.inOut'
-      }, cardStart);
-
-      if (sheen) {
-        flipTimeline.fromTo(sheen, { opacity: 0.1 }, { opacity: 0.5, duration: (cardEnd - cardStart) * 0.5, ease: 'sine.out' }, cardStart)
-                    .to(sheen, { opacity: 0, duration: (cardEnd - cardStart) * 0.5, ease: 'sine.in' }, cardStart + (cardEnd - cardStart) * 0.5);
-      }
-    } else {
-      // Cards 1..17:
-      // Phase 1: incoming from upper-right to center
-      flipTimeline.to(card, {
-        x: 0,
-        y: -10,
-        z: 40,
-        rotationY: 0,
-        rotationZ: 0,
-        rotationX: 0,
-        scale: 1.04,
-        opacity: 1,
-        duration: cardMid - cardStart,
-        ease: 'power2.out'
-      }, cardStart);
-
-      // Phase 2: center to left stack
-      flipTimeline.to(card, {
-        x: () => getLeftX(),
-        y: () => getLeftY(),
-        z: -(totalPages - i) * 8 - 20,
-        rotationY: 58,
-        rotationZ: -8,
-        rotationX: -4,
-        scale: 0.85,
-        opacity: i === totalPages - 1 ? 1 : 0.65,
-        duration: cardEnd - cardMid,
-        ease: 'power2.in'
-      }, cardMid);
-
-      if (sheen) {
-        flipTimeline.fromTo(sheen, { opacity: 0.05 }, { opacity: 0.55, duration: (cardMid - cardStart), ease: 'sine.out' }, cardStart)
-                    .to(sheen, { opacity: 0.08, duration: (cardEnd - cardMid), ease: 'sine.in' }, cardMid);
-      }
-
-      if (shadow) {
-        flipTimeline.fromTo(shadow, { opacity: 0.5 }, { opacity: 0.1, duration: (cardMid - cardStart) }, cardStart)
-                    .to(shadow, { opacity: 0.45, duration: (cardEnd - cardMid) }, cardMid);
-      }
-    }
-  });
-
-  // Main ScrollTrigger: pins stage and scrubs flipbook timeline
+  // Main ScrollTrigger: pins stage and smoothly scrubs 3D stack positions
   const scrollTriggerInstance = ScrollTrigger.create({
     id: 'floating-perspective-trigger',
     trigger: section,
@@ -2035,26 +2048,11 @@ function initFloatingPerspectiveShowcase() {
     invalidateOnRefresh: true,
     onUpdate: (self) => {
       const p = self.progress;
-      flipTimeline.progress(p);
+      const floatIdx = p * (totalPages - 1);
+      const targetIdx = Math.min(totalPages - 1, Math.round(floatIdx));
 
-      const targetIdx = Math.min(totalPages - 1, Math.floor(p * totalPages));
+      renderCardPositions(floatIdx);
       updateUI(targetIdx, p);
-
-      // Manage active and visibility classes for clean stacking and performance
-      cards.forEach((card, idx) => {
-        if (idx === targetIdx) {
-          card.classList.add('active');
-        } else {
-          card.classList.remove('active');
-        }
-
-        // Show cards within active sliding window
-        if (Math.abs(idx - targetIdx) <= 3) {
-          card.classList.add('is-visible');
-        } else {
-          card.classList.remove('is-visible');
-        }
-      });
     }
   });
 
@@ -2130,7 +2128,7 @@ function initFloatingPerspectiveShowcase() {
   const navigateToPage = (targetIdx) => {
     stopSpeedFlip();
     const clamped = Math.max(0, Math.min(totalPages - 1, targetIdx));
-    const targetProgress = (clamped + 0.35) / totalPages;
+    const targetProgress = clamped / (totalPages - 1);
     const stStart = scrollTriggerInstance.start;
     const stEnd = scrollTriggerInstance.end;
     const targetScroll = stStart + targetProgress * (stEnd - stStart);
@@ -2207,133 +2205,367 @@ function initFloatingPerspectiveShowcase() {
    - Page itself never scrolls horizontally
    - Keyboard arrow access and prefers-reduced-motion respect
    ========================================================================== */
-function initRoomsHorizontalTrack() {
+/* ==========================================================================
+   03 — ROOMS & SUITES: CINEMATIC GLIDER SHOWCASE WITH ATTACHED GLIDING SEMI-MENU
+   - Seamless glider track with attached frosted obsidian glass semi-menu
+   - Smooth synchronized gliding motion transitions
+   - Desktop pinned GSAP ScrollTrigger with scrub
+   - Tab pills with smooth fluid glider highlight
+   - Prev/Next arrows & keyboard arrow navigation
+   - Mobile touch swipe support
+   - Links to Specs Modal and Reserve Stay Modal
+   ========================================================================== */
+function initRoomsGliderShowcase() {
   const section = document.getElementById('rooms-track');
   const viewport = document.getElementById('rooms-pinned-viewport');
-  const track = document.getElementById('rooms-horizontal-track');
-  const stage = document.getElementById('rooms-horizontal-stage');
+  const stage = document.getElementById('rooms-glider-stage');
+  const scenicViewport = document.getElementById('glider-scenic-viewport');
+  const track = document.getElementById('glider-scenic-track');
+  const slides = document.querySelectorAll('.glider-scenic-slide');
+  const tabs = document.querySelectorAll('.glider-tab');
+  const tabPill = document.getElementById('glider-tab-pill');
   const progressBar = document.getElementById('rooms-progress-bar');
-  const currentIdxEl = document.getElementById('rooms-current-idx');
-  const cards = document.querySelectorAll('.room-horizontal-card');
+  const prevBtn = document.getElementById('rooms-glider-prev');
+  const nextBtn = document.getElementById('rooms-glider-next');
 
-  if (!section || !viewport || !track || !stage) return;
+  // Attached Semi-Menu Elements
+  const semiCard = document.getElementById('semi-menu-content-card');
+  const axisFill = document.getElementById('semi-axis-fill');
+  const axisCounter = document.getElementById('semi-menu-counter');
+  const roomBadge = document.getElementById('semi-room-badge');
+  const roomCategory = document.getElementById('semi-room-category');
+  const roomPrice = document.getElementById('semi-room-price');
+  const roomName = document.getElementById('semi-room-name');
+  const roomTagline = document.getElementById('semi-room-tagline');
+  const roomDesc = document.getElementById('semi-room-desc');
+  const specSize = document.getElementById('semi-spec-size');
+  const specBed = document.getElementById('semi-spec-bed');
+  const specGuests = document.getElementById('semi-spec-guests');
+  const specView = document.getElementById('semi-spec-view');
+  const amenitiesBox = document.getElementById('semi-room-amenities');
+  const specsBtn = document.getElementById('btn-semi-specs');
+  const reserveBtn = document.getElementById('btn-semi-reserve');
 
-  const totalCards = cards.length || 5;
+  if (!section || !viewport || !track || !semiCard) return;
+
+  const ROOMS = [
+    {
+      id: "deluxe-executive",
+      badge: "SANCTUARY 01",
+      category: "DELUXE SUITE",
+      price: "₹2,499",
+      name: "Deluxe Executive Room",
+      tagline: "Contemporary Comfort with City Views",
+      desc: "Thoughtfully crafted for business professionals and visiting parents, featuring premium bedding, an ergonomic workstation, and serene city views.",
+      specs: {
+        size: "300 sq. ft",
+        bed: "1 King Bed",
+        guests: "2 Guests",
+        view: "Kota City View"
+      },
+      amenities: ["King Size Bed", "Workstation", "Rain Shower", "Free Breakfast"]
+    },
+    {
+      id: "superior-twin",
+      badge: "SANCTUARY 02",
+      category: "TWIN SUITE",
+      price: "₹2,299",
+      name: "Superior Twin Room",
+      tagline: "Ideal for Students, Parents & Colleagues",
+      desc: "Tailored specifically for student-parent duos or visiting colleagues, with dual dedicated study/work desks and tranquil acoustic comfort.",
+      specs: {
+        size: "320 sq. ft",
+        bed: "2 Twin Beds",
+        guests: "2 Guests",
+        view: "Courtyard View"
+      },
+      amenities: ["2 Single Beds", "Study Workstation", "Sound Insulated", "Free WiFi"]
+    },
+    {
+      id: "super-deluxe-balcony",
+      badge: "SANCTUARY 03",
+      category: "BALCONY SUITE",
+      price: "₹3,299",
+      name: "Super Deluxe Room with Balcony",
+      tagline: "Boutique Elegance with Private Sit-Out",
+      desc: "Spacious boutique room featuring a private balcony overlooking Kota's cityscape, cozy lounge seating, and complimentary evening tea.",
+      specs: {
+        size: "380 sq. ft",
+        bed: "King + Daybed",
+        guests: "2–3 Guests",
+        view: "Private Balcony"
+      },
+      amenities: ["Private Balcony", "King + Daybed", "Mini Fridge", "Buffet Breakfast"]
+    },
+    {
+      id: "premium-royal-suite",
+      badge: "SANCTUARY 04",
+      category: "ROYAL SUITE",
+      price: "₹4,499",
+      name: "Premium Royal Suite",
+      tagline: "Opulent Living with Private Salon",
+      desc: "An exquisite suite featuring a private living room with velvet Chesterfields, dining table, opulent bedroom, and VIP amenities.",
+      specs: {
+        size: "490 sq. ft",
+        bed: "1 King Bed",
+        guests: "3 Guests",
+        view: "Separate Lounge"
+      },
+      amenities: ["Separate Living Area", "2x 55\" Smart TVs", "Bathtub & Rain Shower", "VIP Welcome"]
+    },
+    {
+      id: "presidential-wallflower-suite",
+      badge: "SANCTUARY 05",
+      category: "FLAGSHIP RESIDENCE",
+      price: "₹6,999",
+      name: "Presidential Wallflower Suite",
+      tagline: "The Pinnacle of Boutique Splendor",
+      desc: "The pinnacle of hospitality in Kota featuring an expansive private salon, marble jacuzzi bath, and dedicated butler service.",
+      specs: {
+        size: "750 sq. ft",
+        bed: "King Residence",
+        guests: "2–4 Guests",
+        view: "Jacuzzi & Butler"
+      },
+      amenities: ["750 Sq.Ft Penthouse", "Jacuzzi Whirlpool", "Dedicated Butler", "Terrace Vista"]
+    }
+  ];
+
+  let currentIdx = 0;
+  let isGliding = false;
   let scrollTriggerInstance = null;
 
   const isReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isDesktop = () => window.innerWidth > 1024 && !isReducedMotion();
 
-  // Dynamic travel distance calculation: track.scrollWidth - window.innerWidth
-  const getTravelDistance = () => {
-    const trackWidth = track.scrollWidth;
-    const viewportWidth = window.innerWidth;
-    // Add 48px padding buffer so the final card clears comfortably
-    return Math.max(0, trackWidth - viewportWidth + 48);
+  // Position the Glider Tab highlight pill over active tab
+  const updateTabPill = (idx) => {
+    if (!tabPill || !tabs[idx]) return;
+    const targetTab = tabs[idx];
+    tabPill.style.transform = `translateX(${targetTab.offsetLeft}px)`;
+    tabPill.style.width = `${targetTab.offsetWidth}px`;
+    
+    tabs.forEach((tab, i) => {
+      const active = i === idx;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
   };
 
-  const updateProgressBar = (progress) => {
-    const clamped = Math.min(1, Math.max(0, progress));
-    if (progressBar) {
-      progressBar.style.transform = `scaleX(${clamped.toFixed(4)})`;
-      const trackParent = progressBar.parentElement;
-      if (trackParent) {
-        trackParent.setAttribute('aria-valuenow', Math.round(clamped * 100));
+  // Update Attached Semi-Menu Content with Gliding Animation
+  const updateAttachedSemiMenu = (idx) => {
+    const room = ROOMS[idx];
+    if (!room) return;
+
+    // Trigger attached gliding motion shift
+    semiCard.classList.add('gliding');
+
+    setTimeout(() => {
+      if (roomBadge) roomBadge.textContent = room.badge;
+      if (roomCategory) roomCategory.textContent = room.category;
+      if (roomPrice) roomPrice.textContent = room.price;
+      if (roomName) roomName.textContent = room.name;
+      if (roomTagline) roomTagline.textContent = room.tagline;
+      if (roomDesc) roomDesc.textContent = room.desc;
+
+      if (specSize) specSize.textContent = room.specs.size;
+      if (specBed) specBed.textContent = room.specs.bed;
+      if (specGuests) specGuests.textContent = room.specs.guests;
+      if (specView) specView.textContent = room.specs.view;
+
+      if (amenitiesBox) {
+        amenitiesBox.innerHTML = room.amenities
+          .map(a => `<span class="semi-amenity-pill">${a}</span>`)
+          .join('');
       }
-    }
-    if (currentIdxEl) {
-      const idx = Math.min(totalCards - 1, Math.floor(clamped * totalCards));
-      currentIdxEl.textContent = String(idx + 1).padStart(2, '0');
-    }
+
+      // Wire Action Buttons
+      if (specsBtn) {
+        specsBtn.onclick = (e) => {
+          e.preventDefault();
+          if (typeof window.openRoomDetailsModal === 'function') {
+            window.openRoomDetailsModal(room.id);
+          }
+        };
+      }
+
+      if (reserveBtn) {
+        reserveBtn.onclick = (e) => {
+          e.preventDefault();
+          if (typeof window.openBookingModal === 'function') {
+            window.openBookingModal({ roomType: room.id });
+          }
+        };
+      }
+
+      // Settle glide motion
+      semiCard.classList.remove('gliding');
+    }, 150);
   };
 
-  // Setup GSAP Desktop Pinned Scroll
+  // Main Glide Controller
+  const glideTo = (idx, syncScroll = false) => {
+    if (idx < 0) idx = 0;
+    if (idx >= ROOMS.length) idx = ROOMS.length - 1;
+    if (idx === currentIdx && isGliding) return;
+
+    currentIdx = idx;
+    isGliding = true;
+
+    // 1. Slide Scenic Glider Track (5 slides = 20% each)
+    track.style.transform = `translateX(-${idx * 20}%)`;
+
+    // 2. Active slide styling
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === idx);
+    });
+
+    // 3. Tab Pill & Progress
+    updateTabPill(idx);
+    const progressFrac = (idx + 1) / ROOMS.length;
+    if (progressBar) {
+      progressBar.style.transform = `scaleX(${progressFrac})`;
+      const progParent = progressBar.parentElement;
+      if (progParent) progParent.setAttribute('aria-valuenow', Math.round(progressFrac * 100));
+    }
+
+    // 4. Axis Indicator
+    if (axisFill) axisFill.style.width = `${progressFrac * 100}%`;
+    if (axisCounter) axisCounter.textContent = `0${idx + 1} / 05`;
+
+    // 5. Attached Semi-Menu Gliding Effect
+    updateAttachedSemiMenu(idx);
+
+    // 6. Sync ScrollTrigger if requested (e.g. from tab click or arrow)
+    if (syncScroll && scrollTriggerInstance && isDesktop()) {
+      const scrollDist = scrollTriggerInstance.end - scrollTriggerInstance.start;
+      const targetScroll = scrollTriggerInstance.start + (idx / (ROOMS.length - 1)) * scrollDist;
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    }
+
+    setTimeout(() => {
+      isGliding = false;
+    }, 450);
+  };
+
+  // Tab Click Events
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const idx = parseInt(tab.getAttribute('data-room-idx'), 10);
+      if (!isNaN(idx)) {
+        glideTo(idx, true);
+      }
+    });
+  });
+
+  // Prev / Next Arrows
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const prevIdx = currentIdx > 0 ? currentIdx - 1 : ROOMS.length - 1;
+      glideTo(prevIdx, true);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const nextIdx = currentIdx < ROOMS.length - 1 ? currentIdx + 1 : 0;
+      glideTo(nextIdx, true);
+    });
+  }
+
+  // Keyboard Navigation
+  stage.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') {
+      const nextIdx = Math.min(ROOMS.length - 1, currentIdx + 1);
+      glideTo(nextIdx, true);
+      e.preventDefault();
+    } else if (e.key === 'ArrowLeft') {
+      const prevIdx = Math.max(0, currentIdx - 1);
+      glideTo(prevIdx, true);
+      e.preventDefault();
+    }
+  });
+
+  // Mobile / Touch Swipe Navigation
+  let touchStartX = 0;
+  let touchEndX = 0;
+  if (scenicViewport) {
+    scenicViewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    scenicViewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 45) {
+        if (diff > 0 && currentIdx < ROOMS.length - 1) {
+          glideTo(currentIdx + 1, false);
+        } else if (diff < 0 && currentIdx > 0) {
+          glideTo(currentIdx - 1, false);
+        }
+      }
+    }, { passive: true });
+  }
+
+  // Setup GSAP Desktop Pinned ScrollTrigger
   const setupDesktopPinnedScroll = () => {
-    // Kill existing trigger if any
     if (scrollTriggerInstance) {
       scrollTriggerInstance.kill();
       scrollTriggerInstance = null;
     }
 
     if (!isDesktop()) {
-      // Mobile / Tablet Portrait / Reduced Motion cleanup
       if (typeof gsap !== 'undefined') {
-        gsap.set(track, { clearProps: 'transform' });
         gsap.set(viewport, { clearProps: 'all' });
         gsap.set(section, { clearProps: 'all' });
-      } else {
-        track.style.transform = 'none';
       }
-      updateProgressBar(0);
       return;
     }
 
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
 
+      // Pin the section for 2.2 screens of scroll distance
+      const scrollDistance = window.innerHeight * 2.2;
+
       scrollTriggerInstance = ScrollTrigger.create({
-        id: 'rooms-horizontal-pin',
+        id: 'rooms-glider-pin',
         trigger: section,
         pin: viewport,
         start: 'top top',
-        end: () => `+=${getTravelDistance()}`,
-        scrub: 0.3,
+        end: () => `+=${scrollDistance}`,
+        scrub: 0.35,
         pinSpacing: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
-          const travel = getTravelDistance();
-          gsap.set(track, { x: -travel * progress });
-          updateProgressBar(progress);
+          const targetIdx = Math.min(ROOMS.length - 1, Math.floor(progress * ROOMS.length));
+          if (targetIdx !== currentIdx) {
+            glideTo(targetIdx, false);
+          }
         }
       });
     }
   };
 
-  // Setup Mobile / Tablet Native Swipe Listener
-  const onMobileStageScroll = () => {
-    if (isDesktop()) return;
-    const maxScroll = stage.scrollWidth - stage.clientWidth;
-    if (maxScroll > 0) {
-      const progress = stage.scrollLeft / maxScroll;
-      updateProgressBar(progress);
-    }
-  };
-
-  stage.addEventListener('scroll', onMobileStageScroll, { passive: true });
-
-  // Keyboard Arrow Navigation
-  stage.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-      const direction = e.key === 'ArrowRight' ? 1 : -1;
-      if (isDesktop() && scrollTriggerInstance) {
-        // Smoothly scroll window vertically to advance the pinned scrub
-        const scrollStep = window.innerHeight * 0.45 * direction;
-        window.scrollBy({ top: scrollStep, behavior: 'smooth' });
-        e.preventDefault();
-      } else {
-        // Mobile / Tablet / Reduced motion native scroll
-        const scrollStep = 320 * direction;
-        stage.scrollBy({ left: scrollStep, behavior: 'smooth' });
-        e.preventDefault();
-      }
-    }
-  });
-
-  // Initialize
+  // Initialize Showcase State
+  glideTo(0, false);
   setupDesktopPinnedScroll();
 
-  // Resize Listener: Recalculates travel distance dynamically
+  // Resize Listener with debounce
   let resizeTimer = null;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
+      updateTabPill(currentIdx);
       setupDesktopPinnedScroll();
       if (typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.refresh();
       }
-    }, 120);
+    }, 150);
   });
 }
 

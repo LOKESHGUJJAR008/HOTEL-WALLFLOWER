@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hotel Wallflower | Boutique Luxury Hotel in Kota, Rajasthan</title>
   <meta name="description" content="Experience refined boutique hospitality at Hotel Wallflower, Kota. Luxury rooms, The Wallflower Bistro, Velvet Lounge, pool table, fitness center, near City Mall on Jhalawar Road.">
-  <link rel="stylesheet" href="css/style.css?v=flight11">
+  <link rel="stylesheet" href="css/style.css?v=glider1">
 </head>
 <body>
 
@@ -435,14 +435,12 @@
         <!-- Ambient Radial Stage Vignette -->
         <div class="perspective-stage-ambient"></div>
 
-        <!-- Background Kinetic Marquee Watermark -->
+        <!-- Centered Background Watermark directly behind cards -->
         <div class="perspective-watermark-strip" aria-hidden="true">
-          <span class="perspective-watermark-text" id="perspective-watermark-text">
-            WALLFLOWER · ARCHITECTURAL LOOKBOOK · 18 PERSPECTIVES · KOTA LUXURY · MINDFUL SILENCE · 
-          </span>
+          <span class="perspective-watermark-text" id="perspective-watermark-text">WALLFLOWER</span>
         </div>
 
-        <!-- Top Header: Minimalist Editorial Indicator & Live Motion Phase -->
+        <!-- Top Header: Minimalist Editorial Indicator & Speed Flip (Simplified) -->
         <div class="container perspective-header-container">
           <div class="perspective-header-bar">
             <div class="perspective-kicker-group">
@@ -450,7 +448,7 @@
               <span class="perspective-stage-telemetry" id="motion-telemetry-badge">FOLIO 01 / 18 · PREMIUM ROOMS</span>
             </div>
 
-            <!-- Rapid Flip & Directional Action Controls -->
+            <!-- Rapid Flip Action Control -->
             <div class="flipbook-header-actions">
               <button type="button" class="flipbook-speed-btn" id="flipbook-speed-btn" aria-label="Speed Flip Through 18 Pages">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
@@ -459,16 +457,6 @@
                 </svg>
                 <span id="flipbook-speed-label">SPEED FLIP</span>
               </button>
-              <div class="flipbook-arrow-pair">
-                <button type="button" class="flip-arrow-nav prev" id="flip-nav-prev" aria-label="Previous Folio Page">←</button>
-                <button type="button" class="flip-arrow-nav next" id="flip-nav-next" aria-label="Next Folio Page">→</button>
-              </div>
-            </div>
-
-            <div class="perspective-header-meta">
-              <span class="perspective-meta-coord">25.18° N, 75.83° E</span>
-              <span class="perspective-meta-dot">✦</span>
-              <span class="perspective-meta-loc">JHALAWAR ROAD, KOTA</span>
             </div>
           </div>
           <div class="perspective-divider-line" aria-hidden="true"></div>
@@ -476,6 +464,20 @@
 
         <!-- Central Floating Track & Canvas -->
         <div class="floating-motion-canvas" id="floating-motion-canvas">
+
+          <!-- FLOATING NAVIGATION ARROWS DIRECTLY BESIDE CARDS -->
+          <button type="button" class="flip-deck-arrow prev" id="flip-nav-prev" aria-label="Previous Folio Page" title="Previous Perspective">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+          <button type="button" class="flip-deck-arrow next" id="flip-nav-next" aria-label="Next Folio Page" title="Next Perspective">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
           
           <!-- LEFT TOP CORNER NAME & NUMBER DISPLAY (REDUCED OPACITY EDITORIAL BADGE) -->
           <div class="flipbook-corner-display" id="flipbook-corner-display" aria-live="polite">
@@ -768,45 +770,49 @@
             </article>
 
           </div>
+        </div>
 
-          <!-- Bottom Editorial Caption Strip & 18-Tick Interactive Scrubber -->
-          <div class="motion-bottom-caption flipbook-bottom-caption" id="motion-bottom-caption">
-            <!-- 18-Tick Interactive Progress Scrubber -->
-            <div class="flipbook-scrub-bar" id="flipbook-scrub-bar" role="slider" aria-label="18 Perspectives Lookbook Timeline" aria-valuemin="1" aria-valuemax="18" aria-valuenow="1">
-              <div class="scrub-ticks-track" id="scrub-ticks-track">
-                <!-- 18 interactive ticks generated / styled -->
-                <button type="button" class="scrub-tick active" data-tick="0" aria-label="Folio 01: Premium Rooms"></button>
-                <button type="button" class="scrub-tick" data-tick="1" aria-label="Folio 02: Luxury Suites"></button>
-                <button type="button" class="scrub-tick" data-tick="2" aria-label="Folio 03: Fine Dining"></button>
-                <button type="button" class="scrub-tick" data-tick="3" aria-label="Folio 04: Cafe Lounge"></button>
-                <button type="button" class="scrub-tick" data-tick="4" aria-label="Folio 05: Rooftop Dining"></button>
-                <button type="button" class="scrub-tick" data-tick="5" aria-label="Folio 06: Swimming Pool"></button>
-                <button type="button" class="scrub-tick" data-tick="6" aria-label="Folio 07: Fitness Center"></button>
-                <button type="button" class="scrub-tick" data-tick="7" aria-label="Folio 08: Spa Wellness"></button>
-                <button type="button" class="scrub-tick" data-tick="8" aria-label="Folio 09: Banquet Hall"></button>
-                <button type="button" class="scrub-tick" data-tick="9" aria-label="Folio 10: Conference Room"></button>
-                <button type="button" class="scrub-tick" data-tick="10" aria-label="Folio 11: Front Desk"></button>
-                <button type="button" class="scrub-tick" data-tick="11" aria-label="Folio 12: Valet Parking"></button>
-                <button type="button" class="scrub-tick" data-tick="12" aria-label="Folio 13: Wi-Fi"></button>
-                <button type="button" class="scrub-tick" data-tick="13" aria-label="Folio 14: In-Room Dining"></button>
-                <button type="button" class="scrub-tick" data-tick="14" aria-label="Folio 15: Airport Shuttle"></button>
-                <button type="button" class="scrub-tick" data-tick="15" aria-label="Folio 16: Laundry"></button>
-                <button type="button" class="scrub-tick" data-tick="16" aria-label="Folio 17: Concierge"></button>
-                <button type="button" class="scrub-tick" data-tick="17" aria-label="Folio 18: Pet-Friendly"></button>
-              </div>
-              <div class="scrub-progress-fill" id="scrub-progress-fill"></div>
+        <!-- Bottom Editorial Caption Strip & 18-Tick Interactive Scrubber (Stage Bottom Child) -->
+        <div class="motion-bottom-caption flipbook-bottom-caption" id="motion-bottom-caption">
+          <!-- 18-Tick Interactive Progress Scrubber -->
+          <div class="flipbook-scrub-bar" id="flipbook-scrub-bar" role="slider" aria-label="18 Perspectives Lookbook Timeline" aria-valuemin="1" aria-valuemax="18" aria-valuenow="1">
+            <div class="scrub-ticks-track" id="scrub-ticks-track">
+              <!-- 18 interactive ticks generated / styled -->
+              <button type="button" class="scrub-tick active" data-tick="0" aria-label="Folio 01: Premium Rooms"></button>
+              <button type="button" class="scrub-tick" data-tick="1" aria-label="Folio 02: Luxury Suites"></button>
+              <button type="button" class="scrub-tick" data-tick="2" aria-label="Folio 03: Fine Dining"></button>
+              <button type="button" class="scrub-tick" data-tick="3" aria-label="Folio 04: Cafe Lounge"></button>
+              <button type="button" class="scrub-tick" data-tick="4" aria-label="Folio 05: Rooftop Dining"></button>
+              <button type="button" class="scrub-tick" data-tick="5" aria-label="Folio 06: Swimming Pool"></button>
+              <button type="button" class="scrub-tick" data-tick="6" aria-label="Folio 07: Fitness Center"></button>
+              <button type="button" class="scrub-tick" data-tick="7" aria-label="Folio 08: Spa Wellness"></button>
+              <button type="button" class="scrub-tick" data-tick="8" aria-label="Folio 09: Banquet Hall"></button>
+              <button type="button" class="scrub-tick" data-tick="9" aria-label="Folio 10: Conference Room"></button>
+              <button type="button" class="scrub-tick" data-tick="10" aria-label="Folio 11: Front Desk"></button>
+              <button type="button" class="scrub-tick" data-tick="11" aria-label="Folio 12: Valet Parking"></button>
+              <button type="button" class="scrub-tick" data-tick="12" aria-label="Folio 13: Wi-Fi"></button>
+              <button type="button" class="scrub-tick" data-tick="13" aria-label="Folio 14: In-Room Dining"></button>
+              <button type="button" class="scrub-tick" data-tick="14" aria-label="Folio 15: Airport Shuttle"></button>
+              <button type="button" class="scrub-tick" data-tick="15" aria-label="Folio 16: Laundry"></button>
+              <button type="button" class="scrub-tick" data-tick="16" aria-label="Folio 17: Concierge"></button>
+              <button type="button" class="scrub-tick" data-tick="17" aria-label="Folio 18: Pet-Friendly"></button>
             </div>
-
-            <div class="flipbook-caption-text-block">
-              <h3 class="motion-caption-headline" id="motion-caption-headline">
-                Where architectural silence <em>glides through mindful space.</em>
-              </h3>
-              <p class="motion-caption-sub" id="motion-caption-sub">
-                Scroll or speed-flip through 18 perspectives · From upper right across to left in dynamic 3D page turn sequence.
-              </p>
-            </div>
+            <div class="scrub-progress-fill" id="scrub-progress-fill"></div>
           </div>
 
+          <div class="flipbook-caption-text-block">
+            <h3 class="motion-caption-headline" id="motion-caption-headline">
+              Where architectural silence <em>glides through mindful space.</em>
+            </h3>
+            <p class="motion-caption-sub" id="motion-caption-sub">
+              Scroll or speed-flip through 18 perspectives · From upper right across to left in dynamic 3D page turn sequence.
+            </p>
+            <div class="flipbook-bottom-meta" aria-hidden="true">
+              <span class="perspective-meta-coord">25.18° N, 75.83° E</span>
+              <span class="perspective-meta-dot">✦</span>
+              <span class="perspective-meta-loc">JHALAWAR ROAD, KOTA</span>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -814,13 +820,15 @@
 
     <!-- ==========================================================================
          03 — ROOMS & SUITES (STAY YOUR WAY)
-         EDITORIAL PINNED HORIZONTAL TRACK & NATIVE SWIPE
+         CINEMATIC GLIDER SHOWCASE WITH ATTACHED GLIDING SEMI-MENU
+         Theme: Obsidian Glass · Gold Accent (#C6A15B) · Pinned Stage
          ========================================================================== -->
-    <section class="chapter-section rooms-showcase-section" id="rooms-track" aria-label="Rooms and Suites">
-      <!-- Pinned Viewport Container -->
-      <div class="rooms-pinned-viewport" id="rooms-pinned-viewport">
-        <!-- Section Header Bar: Editorial Kicker, STAY YOUR WAY Heading, Telemetry Counter -->
-        <div class="rooms-showcase-header">
+    <section class="chapter-section rooms-showcase-section rooms-glider-section" id="rooms-track" aria-label="Rooms and Suites Glider Showcase">
+      <!-- Pinned Viewport Container (Desktop: Pinned 100vh Stage) -->
+      <div class="rooms-pinned-viewport rooms-glider-viewport" id="rooms-pinned-viewport">
+        
+        <!-- Header Bar: Kicker, Heading & Glider Tab Selector -->
+        <div class="rooms-showcase-header rooms-glider-header">
           <div class="rooms-header-title-wrap">
             <div class="chapter-kicker">
               <span class="chapter-num">03</span>
@@ -833,251 +841,193 @@
             </h2>
           </div>
 
-          <div class="rooms-telemetry-cluster" aria-hidden="true">
-            <div class="rooms-telemetry-item">
-              <span class="rooms-telemetry-label">SANCTUARIES</span>
-              <span class="rooms-telemetry-counter">
-                <span id="rooms-current-idx">01</span> / 05
-              </span>
-            </div>
-            <div class="rooms-scroll-hint">
-              <span class="hint-text">SCROLL TO EXPLORE</span>
-              <span class="hint-arrow">→</span>
-            </div>
+          <!-- Glider Room Tabs with Moving Glider Pill -->
+          <div class="rooms-glider-nav" role="tablist" aria-label="Sanctuary Selection">
+            <button type="button" class="glider-tab active" data-room-idx="0" role="tab" aria-selected="true" aria-controls="rooms-attached-semi-menu">
+              <span class="tab-num">01</span>
+              <span class="tab-name">Executive</span>
+            </button>
+            <button type="button" class="glider-tab" data-room-idx="1" role="tab" aria-selected="false" aria-controls="rooms-attached-semi-menu">
+              <span class="tab-num">02</span>
+              <span class="tab-name">Superior Twin</span>
+            </button>
+            <button type="button" class="glider-tab" data-room-idx="2" role="tab" aria-selected="false" aria-controls="rooms-attached-semi-menu">
+              <span class="tab-num">03</span>
+              <span class="tab-name">Balcony</span>
+            </button>
+            <button type="button" class="glider-tab" data-room-idx="3" role="tab" aria-selected="false" aria-controls="rooms-attached-semi-menu">
+              <span class="tab-num">04</span>
+              <span class="tab-name">Royal Suite</span>
+            </button>
+            <button type="button" class="glider-tab" data-room-idx="4" role="tab" aria-selected="false" aria-controls="rooms-attached-semi-menu">
+              <span class="tab-num">05</span>
+              <span class="tab-name">Presidential</span>
+            </button>
+            <div class="glider-tab-pill" id="glider-tab-pill"></div>
           </div>
         </div>
 
         <!-- Thin Progress Indicator Strip -->
-        <div class="rooms-progress-strip" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Rooms and Suites Gallery Progress">
+        <div class="rooms-progress-strip" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Sanctuary Showcase Progress">
           <div class="rooms-progress-bar" id="rooms-progress-bar"></div>
         </div>
 
-        <!-- Horizontal Scroll Stage (Accessible with Keyboard Focus) -->
-        <div class="rooms-horizontal-stage" id="rooms-horizontal-stage" tabindex="0" role="region" aria-label="Horizontal Room Gallery. Use Left and Right arrow keys to navigate.">
-          <div class="rooms-horizontal-track" id="rooms-horizontal-track">
+        <!-- Main Glider Stage: Scenic Slider on Left + Attached Gliding Semi-Menu on Right -->
+        <div class="rooms-glider-stage" id="rooms-glider-stage">
 
-            <!-- ROOM 01: Deluxe Executive Room -->
-            <article class="room-horizontal-card" data-room-id="deluxe-executive" data-room-index="0" tabindex="0" aria-label="Deluxe Executive Room, ₹2,499 per night">
-              <div class="room-card-photo-wrap">
+          <!-- 1. The Large Scenic Glider (Cinema Viewport) -->
+          <div class="glider-scenic-viewport" id="glider-scenic-viewport">
+            <div class="glider-scenic-track" id="glider-scenic-track">
+              
+              <!-- Slide 01: Deluxe Executive -->
+              <div class="glider-scenic-slide active" data-slide-idx="0">
                 <picture>
                   <source srcset="assets/images/room-executive-suite.webp" type="image/webp">
-                  <img src="assets/images/room-executive-suite.jpg" 
-                       alt="Deluxe Executive Room featuring plush king bed and ergonomic study workstation at Hotel Wallflower Kota" 
-                       class="room-card-img" 
-                       loading="lazy"
-                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                  <img src="assets/images/room-executive-suite.jpg" alt="Deluxe Executive Room" class="glider-slide-photo" loading="eager">
                 </picture>
-                <div class="room-photo-placeholder" style="display: none;">
-                  <span class="placeholder-kicker">SANCTUARY 01</span>
-                  <span class="placeholder-name">DELUXE EXECUTIVE</span>
-                  <span class="placeholder-note">Boutique City Sanctuary</span>
-                </div>
-                <div class="room-photo-scrim"></div>
-                <div class="room-badge-corner">SANCTUARY 01</div>
-                <div class="room-card-price-tag">₹2,499<span class="price-unit"> / night</span></div>
+                <div class="glider-slide-vignette"></div>
+                <div class="glider-slide-badge">SANCTUARY 01 · DELUXE</div>
               </div>
-              <div class="room-card-body">
-                <div class="room-meta-strip">2 GUESTS · 1 KING BED · 300 SQ.FT · KOTA CITY VIEW</div>
-                <h3 class="room-card-name">Deluxe Executive Room</h3>
-                <p class="room-card-description">
-                  Thoughtfully crafted for business professionals and visiting parents, featuring premium bedding, an ergonomic workstation, and serene city views.
-                </p>
-                <div class="room-card-amenities" aria-label="Key amenities">
-                  <span class="room-amenity-tag">King Size Bed</span>
-                  <span class="room-amenity-tag">Workstation</span>
-                  <span class="room-amenity-tag">Rain Shower</span>
-                  <span class="room-amenity-tag">Free Breakfast</span>
-                </div>
-                <div class="room-card-cta-row">
-                  <a href="rooms.html#deluxe-executive" class="btn-room-details" onclick="openRoomDetailsModal('deluxe-executive'); return false;" aria-label="View details and specifications for Deluxe Executive Room">
-                    Specs &amp; Details ↗
-                  </a>
-                  <a href="#book-your-stay" class="btn-room-booking" onclick="openBookingModal({ roomType: 'deluxe-executive' }); return false;" aria-label="Book Deluxe Executive Room">
-                    <span>Reserve Room</span>
-                    <span aria-hidden="true">→</span>
-                  </a>
-                </div>
-              </div>
-            </article>
 
-            <!-- ROOM 02: Superior Twin Room -->
-            <article class="room-horizontal-card" data-room-id="superior-twin" data-room-index="1" tabindex="0" aria-label="Superior Twin Room, ₹2,299 per night">
-              <div class="room-card-photo-wrap">
+              <!-- Slide 02: Superior Twin -->
+              <div class="glider-scenic-slide" data-slide-idx="1">
                 <picture>
                   <source srcset="assets/images/room-twin.webp" type="image/webp">
-                  <img src="assets/images/room-twin.jpg" 
-                       alt="Superior Twin Room with dual study desks and acoustic soundproof insulation at Hotel Wallflower Kota" 
-                       class="room-card-img" 
-                       loading="lazy"
-                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                  <img src="assets/images/room-twin.jpg" alt="Superior Twin Room" class="glider-slide-photo" loading="lazy">
                 </picture>
-                <div class="room-photo-placeholder" style="display: none;">
-                  <span class="placeholder-kicker">SANCTUARY 02</span>
-                  <span class="placeholder-name">SUPERIOR TWIN</span>
-                  <span class="placeholder-note">Dual Study Sanctuary</span>
-                </div>
-                <div class="room-photo-scrim"></div>
-                <div class="room-badge-corner">SANCTUARY 02</div>
-                <div class="room-card-price-tag">₹2,299<span class="price-unit"> / night</span></div>
+                <div class="glider-slide-vignette"></div>
+                <div class="glider-slide-badge">SANCTUARY 02 · TWIN</div>
               </div>
-              <div class="room-card-body">
-                <div class="room-meta-strip">2 GUESTS · 2 TWIN BEDS · 320 SQ.FT · COURTYARD VIEW</div>
-                <h3 class="room-card-name">Superior Twin Room</h3>
-                <p class="room-card-description">
-                  Tailored specifically for student-parent duos or visiting colleagues, with dual dedicated study/work desks and tranquil acoustic comfort.
-                </p>
-                <div class="room-card-amenities" aria-label="Key amenities">
-                  <span class="room-amenity-tag">2 Single Beds</span>
-                  <span class="room-amenity-tag">Study Workstation</span>
-                  <span class="room-amenity-tag">Sound Insulated</span>
-                  <span class="room-amenity-tag">Free WiFi</span>
-                </div>
-                <div class="room-card-cta-row">
-                  <a href="rooms.html#superior-twin" class="btn-room-details" onclick="openRoomDetailsModal('superior-twin'); return false;" aria-label="View details and specifications for Superior Twin Room">
-                    Specs &amp; Details ↗
-                  </a>
-                  <a href="#book-your-stay" class="btn-room-booking" onclick="openBookingModal({ roomType: 'superior-twin' }); return false;" aria-label="Book Superior Twin Room">
-                    <span>Reserve Room</span>
-                    <span aria-hidden="true">→</span>
-                  </a>
-                </div>
-              </div>
-            </article>
 
-            <!-- ROOM 03: Super Deluxe Room with Balcony -->
-            <article class="room-horizontal-card" data-room-id="super-deluxe-balcony" data-room-index="2" tabindex="0" aria-label="Super Deluxe Room with Balcony, ₹3,299 per night">
-              <div class="room-card-photo-wrap">
+              <!-- Slide 03: Super Deluxe Balcony -->
+              <div class="glider-scenic-slide" data-slide-idx="2">
                 <picture>
                   <source srcset="assets/images/room-executive-suite.webp" type="image/webp">
-                  <img src="assets/images/room-executive-suite.jpg" 
-                       alt="Super Deluxe Room with Balcony and private sit-out overlooking Kota cityscape at Hotel Wallflower" 
-                       class="room-card-img" 
-                       loading="lazy"
-                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                  <img src="assets/images/room-executive-suite.jpg" alt="Super Deluxe Room with Balcony" class="glider-slide-photo" loading="lazy">
                 </picture>
-                <div class="room-photo-placeholder" style="display: none;">
-                  <span class="placeholder-kicker">SANCTUARY 03</span>
-                  <span class="placeholder-name">SUPER DELUXE BALCONY</span>
-                  <span class="placeholder-note">Skyline Balcony View</span>
-                </div>
-                <div class="room-photo-scrim"></div>
-                <div class="room-badge-corner">SANCTUARY 03</div>
-                <div class="room-card-price-tag">₹3,299<span class="price-unit"> / night</span></div>
+                <div class="glider-slide-vignette"></div>
+                <div class="glider-slide-badge">SANCTUARY 03 · BALCONY</div>
               </div>
-              <div class="room-card-body">
-                <div class="room-meta-strip">2–3 GUESTS · KING + DAYBED · 380 SQ.FT · PRIVATE BALCONY</div>
-                <h3 class="room-card-name">Super Deluxe Room with Balcony</h3>
-                <p class="room-card-description">
-                  Spacious boutique room featuring a private balcony overlooking Kota's cityscape, cozy lounge seating, and complimentary evening tea.
-                </p>
-                <div class="room-card-amenities" aria-label="Key amenities">
-                  <span class="room-amenity-tag">Private Balcony</span>
-                  <span class="room-amenity-tag">King + Daybed</span>
-                  <span class="room-amenity-tag">Mini Fridge</span>
-                  <span class="room-amenity-tag">Buffet Breakfast</span>
-                </div>
-                <div class="room-card-cta-row">
-                  <a href="rooms.html#super-deluxe-balcony" class="btn-room-details" onclick="openRoomDetailsModal('super-deluxe-balcony'); return false;" aria-label="View details and specifications for Super Deluxe Room with Balcony">
-                    Specs &amp; Details ↗
-                  </a>
-                  <a href="#book-your-stay" class="btn-room-booking" onclick="openBookingModal({ roomType: 'super-deluxe-balcony' }); return false;" aria-label="Book Super Deluxe Room with Balcony">
-                    <span>Reserve Room</span>
-                    <span aria-hidden="true">→</span>
-                  </a>
-                </div>
-              </div>
-            </article>
 
-            <!-- ROOM 04: Premium Royal Suite -->
-            <article class="room-horizontal-card" data-room-id="premium-royal-suite" data-room-index="3" tabindex="0" aria-label="Premium Royal Suite, ₹4,499 per night">
-              <div class="room-card-photo-wrap">
+              <!-- Slide 04: Premium Royal Suite -->
+              <div class="glider-scenic-slide" data-slide-idx="3">
                 <picture>
                   <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
-                  <img src="assets/images/room-royal-suite.jpg" 
-                       alt="Premium Royal Suite featuring separate parlor living room and marble bathtub at Hotel Wallflower Kota" 
-                       class="room-card-img" 
-                       loading="lazy"
-                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                  <img src="assets/images/room-royal-suite.jpg" alt="Premium Royal Suite" class="glider-slide-photo" loading="lazy">
                 </picture>
-                <div class="room-photo-placeholder" style="display: none;">
-                  <span class="placeholder-kicker">SANCTUARY 04</span>
-                  <span class="placeholder-name">PREMIUM ROYAL SUITE</span>
-                  <span class="placeholder-note">Independent Living Lounge</span>
-                </div>
-                <div class="room-photo-scrim"></div>
-                <div class="room-badge-corner">SANCTUARY 04</div>
-                <div class="room-card-price-tag">₹4,499<span class="price-unit"> / night</span></div>
+                <div class="glider-slide-vignette"></div>
+                <div class="glider-slide-badge">SANCTUARY 04 · ROYAL SUITE</div>
               </div>
-              <div class="room-card-body">
-                <div class="room-meta-strip">3 GUESTS · 1 KING BED · 490 SQ.FT · SEPARATE LOUNGE</div>
-                <h3 class="room-card-name">Premium Royal Suite</h3>
-                <p class="room-card-description">
-                  An exquisite suite featuring a private living room with velvet Chesterfields, dining table, opulent bedroom, and VIP amenities.
-                </p>
-                <div class="room-card-amenities" aria-label="Key amenities">
-                  <span class="room-amenity-tag">Separate Living Area</span>
-                  <span class="room-amenity-tag">2x 55" Smart TVs</span>
-                  <span class="room-amenity-tag">Bathtub &amp; Rain Shower</span>
-                  <span class="room-amenity-tag">VIP Welcome</span>
-                </div>
-                <div class="room-card-cta-row">
-                  <a href="rooms.html#premium-royal-suite" class="btn-room-details" onclick="openRoomDetailsModal('premium-royal-suite'); return false;" aria-label="View details and specifications for Premium Royal Suite">
-                    Specs &amp; Details ↗
-                  </a>
-                  <a href="#book-your-stay" class="btn-room-booking" onclick="openBookingModal({ roomType: 'premium-royal-suite' }); return false;" aria-label="Book Premium Royal Suite">
-                    <span>Reserve Room</span>
-                    <span aria-hidden="true">→</span>
-                  </a>
-                </div>
-              </div>
-            </article>
 
-            <!-- ROOM 05: Presidential Wallflower Suite -->
-            <article class="room-horizontal-card" data-room-id="presidential-wallflower-suite" data-room-index="4" tabindex="0" aria-label="Presidential Wallflower Suite, ₹6,999 per night">
-              <div class="room-card-photo-wrap">
+              <!-- Slide 05: Presidential Suite -->
+              <div class="glider-scenic-slide" data-slide-idx="4">
                 <picture>
                   <source srcset="assets/images/room-royal-suite.webp" type="image/webp">
-                  <img src="assets/images/room-royal-suite.jpg" 
-                       alt="Presidential Wallflower Suite luxury flagship residence with heated jacuzzi and butler service at Hotel Wallflower" 
-                       class="room-card-img" 
-                       loading="lazy"
-                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                  <img src="assets/images/room-royal-suite.jpg" alt="Presidential Wallflower Suite" class="glider-slide-photo" loading="lazy">
                 </picture>
-                <div class="room-photo-placeholder" style="display: none;">
-                  <span class="placeholder-kicker">SANCTUARY 05</span>
-                  <span class="placeholder-name">PRESIDENTIAL SUITE</span>
-                  <span class="placeholder-note">Kota's Pinnacle Residence</span>
-                </div>
-                <div class="room-photo-scrim"></div>
-                <div class="room-badge-corner">SANCTUARY 05</div>
-                <div class="room-card-price-tag">₹6,999<span class="price-unit"> / night</span></div>
+                <div class="glider-slide-vignette"></div>
+                <div class="glider-slide-badge">SANCTUARY 05 · FLAGSHIP</div>
               </div>
-              <div class="room-card-body">
-                <div class="room-meta-strip">2–4 GUESTS · KING RESIDENCE · 750 SQ.FT · JACUZZI &amp; BUTLER</div>
-                <h3 class="room-card-name">Presidential Wallflower Suite</h3>
-                <p class="room-card-description">
-                  The pinnacle of hospitality in Kota featuring an expansive private salon, marble jacuzzi bath, and dedicated butler service.
-                </p>
-                <div class="room-card-amenities" aria-label="Key amenities">
-                  <span class="room-amenity-tag">750 Sq.Ft Penthouse</span>
-                  <span class="room-amenity-tag">Jacuzzi Whirlpool</span>
-                  <span class="room-amenity-tag">Dedicated Butler</span>
-                  <span class="room-amenity-tag">Terrace Vista</span>
-                </div>
-                <div class="room-card-cta-row">
-                  <a href="rooms.html#presidential-wallflower-suite" class="btn-room-details" onclick="openRoomDetailsModal('presidential-wallflower-suite'); return false;" aria-label="View details and specifications for Presidential Wallflower Suite">
-                    Specs &amp; Details ↗
-                  </a>
-                  <a href="#book-your-stay" class="btn-room-booking" onclick="openBookingModal({ roomType: 'presidential-wallflower-suite' }); return false;" aria-label="Book Presidential Wallflower Suite">
-                    <span>Reserve Room</span>
-                    <span aria-hidden="true">→</span>
-                  </a>
-                </div>
-              </div>
-            </article>
 
-          </div><!-- /.rooms-horizontal-track -->
-        </div><!-- /.rooms-horizontal-stage -->
+            </div>
+
+            <!-- Scenic Glider Navigation Arrows -->
+            <button type="button" class="glider-arrow prev" id="rooms-glider-prev" aria-label="Previous Sanctuary">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </button>
+            <button type="button" class="glider-arrow next" id="rooms-glider-next" aria-label="Next Sanctuary">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- 2. THE ATTACHED "SEMI MENU" (Glides attached with the Glider) -->
+          <aside class="rooms-attached-semi-menu" id="rooms-attached-semi-menu" aria-label="Sanctuary Details Panel">
+            
+            <!-- Glider Track Axis with moving gold beacon -->
+            <div class="semi-menu-axis-indicator" aria-hidden="true">
+              <span class="axis-pill-dot" id="semi-axis-dot">✦</span>
+              <div class="axis-track-line">
+                <div class="axis-track-fill" id="semi-axis-fill"></div>
+              </div>
+              <span class="axis-counter" id="semi-menu-counter">01 / 05</span>
+            </div>
+
+            <div class="semi-menu-content-card" id="semi-menu-content-card">
+              <!-- Top Row: Kicker & Price Tag -->
+              <div class="semi-menu-header">
+                <div class="semi-menu-kicker-group">
+                  <span class="semi-menu-badge" id="semi-room-badge">SANCTUARY 01</span>
+                  <span class="semi-menu-category" id="semi-room-category">DELUXE SUITE</span>
+                </div>
+                <div class="semi-menu-price-box">
+                  <span class="semi-menu-price-from">FROM</span>
+                  <span class="semi-menu-price-num" id="semi-room-price">₹2,499</span>
+                  <span class="semi-menu-price-unit">/ night</span>
+                </div>
+              </div>
+
+              <!-- Room Title & Tagline -->
+              <div class="semi-menu-title-block">
+                <h3 class="semi-menu-room-name" id="semi-room-name">Deluxe Executive Room</h3>
+                <p class="semi-menu-room-tagline" id="semi-room-tagline">Contemporary Comfort with City Views</p>
+              </div>
+
+              <p class="semi-menu-desc" id="semi-room-desc">
+                Thoughtfully crafted for business professionals and visiting parents, featuring premium bedding, an ergonomic workstation, and serene city views.
+              </p>
+
+              <!-- 4-Pillar Luxury Room Specs Grid -->
+              <div class="semi-menu-specs-grid" id="semi-room-specs">
+                <div class="semi-spec-item">
+                  <span class="spec-label">DIMENSIONS</span>
+                  <span class="spec-val" id="semi-spec-size">300 sq. ft</span>
+                </div>
+                <div class="semi-spec-item">
+                  <span class="spec-label">BEDDING</span>
+                  <span class="spec-val" id="semi-spec-bed">1 King Bed</span>
+                </div>
+                <div class="semi-spec-item">
+                  <span class="spec-label">OCCUPANCY</span>
+                  <span class="spec-val" id="semi-spec-guests">2 Guests</span>
+                </div>
+                <div class="semi-spec-item">
+                  <span class="spec-label">PERSPECTIVE</span>
+                  <span class="spec-val" id="semi-spec-view">Kota City View</span>
+                </div>
+              </div>
+
+              <!-- Amenity Pills -->
+              <div class="semi-menu-amenities-row" id="semi-room-amenities">
+                <span class="semi-amenity-pill">King Size Bed</span>
+                <span class="semi-amenity-pill">Workstation</span>
+                <span class="semi-amenity-pill">Rain Shower</span>
+                <span class="semi-amenity-pill">Free Breakfast</span>
+              </div>
+
+              <!-- Action CTAs -->
+              <div class="semi-menu-cta-row">
+                <button type="button" class="btn-semi-specs" id="btn-semi-specs" aria-label="View room specifications">
+                  <span>Specs &amp; Details</span>
+                  <span class="btn-diag-arrow">↗</span>
+                </button>
+                <button type="button" class="btn-semi-reserve" id="btn-semi-reserve" data-open-booking aria-label="Reserve this sanctuary">
+                  <span>Reserve Sanctuary</span>
+                  <span class="btn-arrow" aria-hidden="true">→</span>
+                </button>
+              </div>
+
+            </div><!-- /.semi-menu-content-card -->
+
+          </aside><!-- /.rooms-attached-semi-menu -->
+
+        </div><!-- /.rooms-glider-stage -->
+
       </div><!-- /.rooms-pinned-viewport -->
     </section>
 
@@ -1579,6 +1529,6 @@
   <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/rooms-data.js"></script>
   <script src="js/gallery-data.js"></script>
-  <script src="js/main.js?v=flight8"></script>
+  <script src="js/main.js?v=glider1"></script>
 </body>
 </html>
